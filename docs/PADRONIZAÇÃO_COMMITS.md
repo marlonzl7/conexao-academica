@@ -4,7 +4,7 @@ Este projeto utiliza um padrão baseado no Conventional Commits para manter o hi
 
 ## Formato do commit
 
-<tipo>:<descrição breve>
+tipo: descrição
 
 Exemplo:
 ```
