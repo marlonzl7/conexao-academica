@@ -1,0 +1,25 @@
+body{
+    background-color: #F5F5F5;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+}
+.caixa{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    width: 500px;
+}
+
+/* Header*/
+header{
+    display: flex;
+    justify-content: flex-start;
+}
+ul{
+    display: flex;
+    justify-content:flex-end;
+}
