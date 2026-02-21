@@ -1,4 +1,4 @@
-:root{
+:root {
     --main-color: #1E3A8A;
     --secondary-color: #97b7eb;
     --text-color: #FFF;
@@ -6,15 +6,15 @@
     --button-color: #455881;
 }
 
-*{
-    box-sizing: border-box; 
+* {
+    box-sizing: border-box;
 }
 
-body{
+body {
     margin: 0;
 }
 
-header{
+header {
     display: flex;
     position: relative;
     justify-content: space-between;
@@ -26,28 +26,28 @@ header{
     box-shadow: 0.2px 0.2px 20px var(--text-color);
 }
 
-header img{
+header img {
     width: 40px;
     height: auto;
 }
 
-nav button{
+nav button {
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 
-nav img{
+nav img {
     width: 45px;
     height: auto;
 }
 
-ul{
+ul {
     margin: 0;
     padding: 0;
 }
 
-#menu{
+#menu {
     display: none;
     position: absolute;
     top: 100%;
@@ -60,24 +60,26 @@ ul{
     list-style: none;
 }
 
-#menu a{
+#menu a {
     font-family: 'Public Sans', sans-serif;
     text-decoration: none;
     color: var(--main-color);
     transition: color 0.3s ease;
 }
 
-#menu a:hover{
+#menu a:hover {
     color: var(--text-color);
 }
 
-#section-home{
+#section-home {
     display: flex;
+    width: 100%;
+    height: auto;
     background-color: var(--secondary-color);
     padding: 1rem;
 }
 
-#section-home h1{
+#section-home h1 {
     display: flex;
     text-align: start;
     color: var(--text-color);
@@ -86,19 +88,19 @@ ul{
     padding: 0;
 }
 
-#section-home img{
+#section-home img {
     width: 260px;
     height: auto;
     padding: 20px;
 }
 
-#section-home p{
+#section-home p {
     color: var(--text-color);
     font-family: 'MontSerrat', sans-serif;
     text-align: left;
 }
 
-#section-home a{
+#section-home a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,23 +116,24 @@ ul{
     height: 30px;
 }
 
-#section-home a:hover{
-    background-color: var(--main-color);    
+#section-home a:hover {
+    background-color: var(--main-color);
 }
 
 @media screen and (min-width: 768px) {
-    nav{
+    nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex: 1;
+        padding: 1rem;
     }
 
-    nav img{
+    nav img {
         display: none;
     }
 
-    #menu{
+    #menu {
         display: flex;
         top: 0;
         position: static;
@@ -139,5 +142,40 @@ ul{
         flex-direction: row;
         justify-content: center;
         align-items: center;
+    }
+
+    #section-home {
+        padding: 2rem;
+    }
+
+    #section-home h1 {
+        font-size: 60px;
+    }
+
+    #container-home{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    #container-home img {
+        width: 400px;
+        height: auto;
+        padding: 10px;
+    }
+
+    #section-home p {
+        font-size: 25px;
+    }
+
+    #section-home a {
+        border-radius: 20px;
+        width: 40%;
+        height: 45px;
+        font-size: large;
+    }
+
+    #section-home a:hover {
+        background-color: var(--main-color);
     }
 }
