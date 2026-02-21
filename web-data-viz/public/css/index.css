@@ -111,7 +111,7 @@ ul {
     border-radius: 3px;
     text-decoration: none;
     color: var(--text-color);
-    transition: var(--background-color) 0.3s ease;
+    transition: background-color 0.3s ease;
     width: 50%;
     height: 30px;
 }
@@ -152,7 +152,7 @@ ul {
         font-size: 60px;
     }
 
-    #container-home{
+    #container-home {
         display: flex;
         justify-content: flex-end;
         align-items: center;
@@ -174,8 +174,60 @@ ul {
         height: 45px;
         font-size: large;
     }
+}
 
-    #section-home a:hover {
-        background-color: var(--main-color);
+@media screen and (min-width: 1024px) {
+    header img {
+        width: 40px;
     }
+
+    nav ul {
+        font-size: large;
+    }
+
+
+    #section-home h1 {
+        font-size: 80px;
+    }
+
+    #container-home img {
+        width: 550px;
+    }
+
+    #section-home p {
+        font-size: 30px;
+    }
+
+    #section-home a {
+        border-radius: 40px;
+        width: 50%;
+        height: 60px;
+        font-size: 30px;
+    }
+}
+
+@media screen and (min-width: 1440px){
+    nav ul {
+        font-size: 20px;
+    }
+
+    #section-home h1 {
+        padding: 0 5rem;
+        font-size: 85px;
+    }
+
+    #container-home img {
+        width: 750px;
+    }
+
+    #section-home p {
+        font-size: 45px;
+    }
+
+    #section-home a {
+        border-radius: 40px;
+        width: 40%;
+        height: 70px;
+        font-size: 40px;
+    }   
 }
