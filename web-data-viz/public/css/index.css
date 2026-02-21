@@ -1,0 +1,15 @@
+:root{
+    --main-color: #1E3A8A;
+    --secondary-color: #97b7eb;
+    --text-color: #FFF;
+    --background-color: #E5E7EB;
+    --button-color: #455881;
+}
+
+*{
+    box-sizing: border-box; 
+}
+
+body{
+    margin: 0;
+}
