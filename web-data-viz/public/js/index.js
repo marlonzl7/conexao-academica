@@ -1,4 +1,4 @@
-const menu_header = document.getElementsByClassName("menu-header");
+const menu_header = document.getElementsByClassName("menu");
 
 function menu(){
     for (let i = 0; i < menu_header.length; i++) {

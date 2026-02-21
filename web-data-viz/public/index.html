@@ -20,13 +20,15 @@
   <header>
     <img src="./assets/icon/logo.png" alt="Logo Conexão Acadêmica">
     <nav> 
-      <li>
-        <ul><button onclick="menu()"><img src="./assets/icon/menu.png" alt="Menu Hamburguer"></button></ul>
-        <ul class="menu-header" style="display:none;"><a href="">Sobre Nós</a></ul>
-        <ul class="menu-header" style="display:none;"><a href="">Contate-nos</a></ul>
-        <ul class="menu-header" style="display:none;"><a href="">Login</a></ul>
-        <ul class="menu-header" style="display:none;"><a href="">Cadastro</a></ul>
-      </li>
+      <button onclick="menu()">
+        <img src="./assets/icon/menu.png" alt="Menu Hamburguer">
+      </button>
+      <ul class="menu">
+        <li><a href="">Sobre Nós</a></li>
+        <li><a href="">Contate-nos</a></li>
+        <li class="btn-menu"><a href="">Login</a></li>
+        <li class="btn-menu"><a href="">Cadastro</a></li>
+      </ul>
     </nav>
   </header>
   <script src="./js/index.js"></script>
