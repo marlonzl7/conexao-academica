@@ -70,6 +70,44 @@ ul{
     color: var(--text-color);
 }
 
+#section-home{
+    display: flex;
+    background-color: var(--secondary-color);
+}
+
+#section-home h1{
+    display: flex;
+    text-align: start;
+    color: var(--text-color);
+    font-family: 'MontSerrat', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#section-home img{
+    width: 230px;
+    height: auto;
+}
+
+#section-home p{
+    color: var(--text-color);
+    font-family: 'MontSerrat', sans-serif;
+}
+
+#section-home a{
+    display: flex;
+    justify-content: center;
+    background-color: var(--button-color);
+    border-radius: 3px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+#section-home a:hover{
+    background-color: var(--main-color);    
+}
+
 @media screen and (min-width: 768px) {
     nav{
         display: flex;
