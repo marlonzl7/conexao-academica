@@ -60,14 +60,14 @@ ul{
 }
 
 .menu a{
-    font-family: public sans;
+    font-family: 'Public Sans', sans-serif;
     text-decoration: none;
     color: var(--main-color);
+    transition: color 0.3s ease;
 }
 
 .menu a:hover{
     color: var(--text-color);
-    transition: 0.3s;
 }
 
 @media screen and (min-width: 768px) {
