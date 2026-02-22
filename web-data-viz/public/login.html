@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/login.css">
+
     <title>Login</title>
 </head>
 <body>
     <header>
-        <div class="img">
-            <img src="" alt="img">
+        <div>
+            <img class="logo" src="./img/logo_escuro.png" alt="logo">
         </div>
         <ul>
             <a href="">Sobre nós</a>
@@ -21,7 +22,14 @@
         <div class="caixa">
             <p class="titulo"> Faça login para acessar seus dados </p>
             <input type="text" placeholder="email">
-            <input type="password" placeholder="senha">
+           <div class="senha-box">
+    <input type="password" placeholder="senha" id="ipt_senha">
+
+    <img src="./img/olho_fechado.png"
+         alt="Mostrar senha"
+         class="olho-senha"
+         onclick="mostrarSenha('ipt_senha', this)">
+</div>
             <button onclick="entrar()"> Entrar</button>
             <p class="sub">
                 Ainda não é parceiro?
@@ -30,4 +38,5 @@
         </div>
     </main>
 </body>
+ <script src="./javascript/login.js"></script>
 </html>
