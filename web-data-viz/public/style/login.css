@@ -1,25 +1,133 @@
-body{
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
     background-color: #F5F5F5;
 }
 
-main{
+/* ================= HEADER ================= */
+
+header {
     display: flex;
-    justify-content: center;
-}
-.caixa{
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    text-align: center;
-    width: 500px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
 }
 
-/* Header*/
-header{
-    display: flex;
-    justify-content: flex-start;
+.logo {
+    width: 40px;
 }
-ul{
+
+header ul {
     display: flex;
-    justify-content:flex-end;
+    gap: 40px;
+}
+
+header ul a {
+    text-decoration: none;
+    color: #2f3e63;
+    font-weight: 500;
+}
+
+/* ================= MAIN ================= */
+
+main {
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caixa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 420px;
+    gap: 18px;
+}
+
+.titulo {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* ================= INPUTS ================= */
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+/* ================= BOTÃO ================= */
+
+button {
+    width: 60%;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    background-color: #2f3e63;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #253352;
+}
+
+/* ================= TEXTO INFERIOR ================= */
+
+.sub {
+    font-size: 13px;
+    color: #333;
+}
+
+.link {
+    font-size: 13px;
+    color: #2f3e63;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.senha-box {
+    position: relative;
+    width: 100%;
+}
+
+.senha-box input {
+    width: 100%;
+    padding: 12px 45px 12px 15px; /* espaço para o olho */
+    border-radius: 30px;
+    border: none;
+    background-color: #EDEDED;
+    font-size: 14px;
+    outline: none;
+}
+
+.olho-senha {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
 }
