@@ -108,6 +108,10 @@ button:hover {
     font-weight: 100;
 }
 
+.tex.b.s{
+    text-align: center;
+}
+
 .sub {
     font-size: 13px;
     color: #333;
