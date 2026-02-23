@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
 
     <title>Login</title>
 </head>
+
 <body>
     <header>
         <div>
@@ -20,16 +22,17 @@
     </header>
     <main>
         <div class="caixa">
-            <p class="titulo"> Faça login para acessar seus dados </p>
-            <input type="text" placeholder="email">
-           <div class="senha-box">
-    <input type="password" placeholder="senha" id="ipt_senha">
+            <p class="titulo"> Faça login para acessar seus dados: </p>
+            <p class="tex"> Email: </p>
+            <input type="text" id="ipt_email" onkeyup="onkey_email()">
+            <div id="div_msg_email" class="tex b"></div>
+            <p class="tex"> Senha: </p>
+            <div class="senha-box">
+                <input type="password" id="ipt_senha">
 
-    <img src="./img/olho_fechado.png"
-         alt="Mostrar senha"
-         class="olho-senha"
-         onclick="mostrarSenha('ipt_senha', this)">
-</div>
+                <img src="./img/olho_fechado.png" alt="Mostrar senha" class="olho-senha"
+                    onclick="mostrarSenha('ipt_senha', this)">
+            </div>
             <button onclick="entrar()"> Entrar</button>
             <p class="sub">
                 Ainda não é parceiro?
@@ -38,5 +41,6 @@
         </div>
     </main>
 </body>
- <script src="./javascript/login.js"></script>
+<script src="./javascript/login.js"></script>
+
 </html>

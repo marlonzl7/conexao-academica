@@ -34,6 +34,10 @@ header ul a {
     font-weight: 500;
 }
 
+a:hover{
+    color: #1956f0;
+}
+
 /* ================= MAIN ================= */
 
 main {
@@ -49,7 +53,6 @@ main {
     align-items: center;
     text-align: center;
     width: 420px;
-    gap: 18px;
 }
 
 .titulo {
@@ -64,7 +67,7 @@ input {
     width: 100%;
     padding: 12px 15px;
     border-radius: 20px;
-    border: none;
+    border: 1px solid #ADB1BB;
     background-color: white;
     font-size: 14px;
     outline: none;
@@ -82,7 +85,8 @@ button {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 button:hover {
@@ -90,6 +94,19 @@ button:hover {
 }
 
 /* ================= TEXTO INFERIOR ================= */
+.tex{
+    font-size: 13px;
+    color: #333;
+    text-align: left;
+    width: 100%;
+    padding: 12px 15px;
+    font-weight: bold;
+}
+
+.tex.b{
+    color: rgb(114, 6, 6);
+    font-weight: 100;
+}
 
 .sub {
     font-size: 13px;
@@ -116,8 +133,8 @@ button:hover {
     width: 100%;
     padding: 12px 45px 12px 15px; /* espaço para o olho */
     border-radius: 30px;
-    border: none;
-    background-color: #EDEDED;
+    border: 1px solid #ADB1BB;
+    background-color: white;
     font-size: 14px;
     outline: none;
 }
