@@ -37,7 +37,7 @@ nav button {
     cursor: pointer;
 }
 
-nav img {
+nav img{
     width: 45px;
     height: auto;
 }
@@ -60,15 +60,27 @@ ul {
     list-style: none;
 }
 
+#menu li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 #menu a {
     font-family: 'Public Sans', sans-serif;
     text-decoration: none;
     color: var(--main-color);
     transition: color 0.3s ease;
+    padding: 0.5rem;
 }
 
 #menu a:hover {
     color: var(--text-color);
+}
+
+#sobre-imagem, #login-imagem, #contato-imagem{
+    width: 20px;
+    height: auto;
 }
 
 #section-home {
@@ -85,6 +97,7 @@ ul {
     color: var(--text-color);
     font-family: 'MontSerrat', sans-serif;
     margin: 0;
+    font-size: 28px;
     padding: 0;
 }
 
@@ -98,6 +111,7 @@ ul {
     color: var(--text-color);
     font-family: 'MontSerrat', sans-serif;
     text-align: left;
+    font-size: 16px;
 }
 
 #section-home a {
@@ -112,8 +126,9 @@ ul {
     text-decoration: none;
     color: var(--text-color);
     transition: background-color 0.3s ease;
-    width: 50%;
-    height: 30px;
+    width: 70%;
+    height: 36px;
+    font-size: 14px;
 }
 
 #section-home a:hover {
@@ -149,7 +164,7 @@ ul {
     }
 
     #section-home h1 {
-        font-size: 60px;
+        font-size: 48px;
     }
 
     #container-home {
@@ -165,13 +180,14 @@ ul {
     }
 
     #section-home p {
-        font-size: 25px;
+        font-size: 20px;
     }
 
     #section-home a {
         border-radius: 20px;
-        width: 40%;
-        height: 45px;
+        width: 35%;
+        height: 42px;
+        font-size: 16px;
         font-size: large;
     }
 }
@@ -185,9 +201,8 @@ ul {
         font-size: large;
     }
 
-
     #section-home h1 {
-        font-size: 80px;
+        font-size: 64px;
     }
 
     #container-home img {
@@ -195,14 +210,14 @@ ul {
     }
 
     #section-home p {
-        font-size: 30px;
+        font-size: 22px;
     }
 
     #section-home a {
         border-radius: 40px;
-        width: 50%;
-        height: 60px;
-        font-size: 30px;
+        width: 40%;
+        height: 50px;
+        font-size: 18px;
     }
 }
 
@@ -213,7 +228,7 @@ ul {
 
     #section-home h1 {
         padding: 0 5rem;
-        font-size: 85px;
+        font-size: 72px;
     }
 
     #container-home img {
@@ -221,13 +236,13 @@ ul {
     }
 
     #section-home p {
-        font-size: 45px;
+        font-size: 24px;
     }
 
     #section-home a {
         border-radius: 40px;
-        width: 40%;
-        height: 70px;
-        font-size: 40px;
+        width: 30%;
+        height: 60px;
+        font-size: 20px;
     }   
 }
