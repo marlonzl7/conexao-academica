@@ -1,0 +1,154 @@
+:root {
+    --main-color: #455881;
+    --background-color: #E5E7EB;
+    --input-color: #FFFFFF;
+    --border-input: #ADB1BB;
+    --border-selected: #6A8BE8;
+    --border-shadow: #C5D2F8;
+    --bold-text-color: #1E3A8A;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+}
+
+.header {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    flex: 1;
+}
+
+.menu {
+    flex: 1;
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.links a {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--main-color);
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.principal-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.header-container {
+    margin-bottom: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.title {
+    padding: 0rem 1.25rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.sub {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+#link-login {
+    color: var(--bold-text-color);
+    text-decoration: underline;
+}
+
+#link-login:hover {
+    cursor: pointer;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.input-box label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.3125rem;
+}
+
+.input-box input {
+    width: 80vw;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+}
+
+.input-box input:focus-visible {
+    border: 1px solid var(--border-selected);
+    outline: var(--border-shadow);
+}
+
+.btn-cadastro {
+    cursor: pointer;
+    width: 80vw;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: var(--main-color);
+    color: #FFF;
+    border: none;
+    border-radius: 8px;
+}
+
+@media (min-width: 438px) {
+    .input-box input,
+    .btn-cadastro {
+        width: 40vw;
+        min-width: 350px;
+    }
+}
+
+@media (min-width: 768px) {
+    .input-box input,
+    .btn-cadastro {
+        width: 40vw;
+        max-width: 420px;
+    }
+}
