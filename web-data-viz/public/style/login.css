@@ -64,7 +64,7 @@ main {
 /* ================= INPUTS ================= */
 
 input {
-    width: 100%;
+    width: 420px;
     padding: 12px 15px;
     border-radius: 20px;
     border: 1px solid #ADB1BB;
@@ -73,10 +73,34 @@ input {
     outline: none;
 }
 
+.senha-box {
+    position: relative;
+    width: 100%;
+}
+
+.senha-box input {
+    width: 420px;
+    padding: 12px 45px 12px 15px; /* espaço para o olho */
+    border-radius: 30px;
+    border: 1px solid #ADB1BB;
+    background-color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.olho-senha {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
 /* ================= BOTÃO ================= */
 
 button {
-    width: 60%;
+    width: 30px;
     padding: 12px;
     border-radius: 25px;
     border: none;
@@ -128,27 +152,42 @@ button:hover {
     text-decoration: underline;
 }
 
-.senha-box {
-    position: relative;
-    width: 100%;
+/* ================= PARTE RESPONSIVA ================= */
+@media (min-width: 200px) {
+    input, 
+    .senha-box input  {
+        width: 250px;
+    }
+    button{
+        width: 150px;
+    }
+    .caixa{
+        width: 260px;
+    }
 }
 
-.senha-box input {
-    width: 100%;
-    padding: 12px 45px 12px 15px; /* espaço para o olho */
-    border-radius: 30px;
-    border: 1px solid #ADB1BB;
-    background-color: white;
-    font-size: 14px;
-    outline: none;
+@media (min-width: 438px) {
+    input, 
+    .senha-box input  {
+        width: 300px;
+    }
+    button{
+        width: 200px;
+    }
+    .caixa{
+        width: 310px;
+    }
 }
 
-.olho-senha {
-    position: absolute;
-    right: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
-    cursor: pointer;
-}
+@media (min-width: 768px) {
+    input, 
+    .senha-box input  {
+        width: 420px;
+    }
+    button{
+        width: 280px;
+    }
+     .caixa{
+        width: 420px;
+    }
+}   
