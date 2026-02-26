@@ -7,15 +7,15 @@
 }
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
+html, body {
+  width: 100%;
+  max-width: 100%;  
+  overflow-x: hidden;
 }
 
 header {
@@ -166,7 +166,6 @@ ul {
 }
 
 #section-sobrenos{
-    display: flex;
     width: 100%;
     height: auto;
     background-color: var(--secondary-color);
@@ -176,6 +175,9 @@ ul {
 .container-sobre{
     display: flex;
     flex-direction: column;
+    background-color: var(--text-color);
+    border-radius: 10px;
+    padding: 1rem;
 }
 
 .sobre-content{
@@ -185,7 +187,7 @@ ul {
 
 .sobre-content h1{
     display: flex;
-    color: var(--text-color);
+    color: var(--main-color);
     padding: 0;
     font-size: 19px;
     font-family: "Montserrat", sans-serif;
@@ -193,13 +195,47 @@ ul {
 }
 
 .sobre-content p{
+    display: flex;
     color: var(--main-color);
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     line-height: 1.3;
     max-width: 100%;
-    text-align: left;
-    margin-bottom: 10px;
+    text-align:justify;
+    margin-top: 10px;
+}
+
+.card-sobrenos{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.card-valor{
+    background-color: var(--button-color);
+    margin-top: 10px;
+    padding: 1rem;
+    border-radius: 15px;
+}
+
+.card-valor h1{
+    color: var(--text-color);
+}
+
+.card-valor p{
+    color: var(--background-color);
+}
+
+.card-valor img{
+    width: 30px;
+}
+
+.image-sobrenos{
+    border-radius: 5px 10px;
+    max-width: 100%;
+    align-self: center;
+    margin-top: 10px;
 }
 
 @media screen and (min-width: 768px) {
