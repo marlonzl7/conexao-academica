@@ -78,10 +78,9 @@
       <p>Tecnologia estratégica para transformar gestão acadêmica.</p>
     </div>
     <div class="carrosel-container">
-      <button class="btn-prev">
-        &#10094;</button>
+      <button onclick="proximo()" class="btn-prev">&#10094;</button>
           <div class="carrosel-track">
-            <div class="carrosel-card">
+            <div class="carrosel-card-visao">
               <h3>Visão Inteligente da Instituição</h3>
               <p>Transforme dados acadêmicos em clareza estratégica.</p>
               <img src="./assets/imgs/VisionBoard.png" alt="Imagem Visão Inteligente">
@@ -91,7 +90,7 @@
               </p>
               <a href="">Saiba Mais</a>
             </div>
-            <div class="carrosel-card">
+            <div class="carrosel-card-analise">
               <h3>Análise Acadêmica Avançada</h3>
               <p>Insights que revelam oportunidades invisíveis.</p>
               <img src="./assets/imgs/Analysis.png" alt="Imagem Análise">
@@ -102,7 +101,7 @@
               </p>
               <a href="">Saiba Mais</a>
             </div>
-            <div class="carrosel-card">
+            <div class="carrosel-card-previsao">
               <h3>Previsão e Performance</h3>
               <p>Antecipe cenários. Planeje com confiança.</p>
               <img src="./assets/imgs/Performanceoverview.png" alt="Imagem Performance">
@@ -113,7 +112,7 @@
               </p>
               <a href="">Saiba Mais</a>
             </div>
-            <div class="carrosel-card">
+            <div class="carrosel-card-gestao" style="display: none;">
               <h3>Gestão Estratégica Orientada por Dados</h3>
               <p>Decisões baseadas em evidência, não em suposições.</p>
               <img src="./assets/imgs/Strategicconsulting.png" alt="Imagem Estratégica">
@@ -124,7 +123,7 @@
               <a href="">Saiba Mais</a>
             </div>
           </div>
-          <button class="btn-next">&#10095;</button>
+          <button onclick="anterior()" class="btn-next">&#10095;</button>
     </div>
   </section>
   <script src="./js/index.js"></script>
