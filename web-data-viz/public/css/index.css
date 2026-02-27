@@ -165,77 +165,75 @@ ul {
     transform: scale(1.02);
 }
 
-#section-sobrenos{
-    width: 100%;
-    height: auto;
-    background-color: var(--secondary-color);
-    padding: 2rem 5%;;
+#section-sobrenos {
+    background-color: #f9fafb;
+    padding: 4rem 5%;
 }
 
-.container-sobre{
-    display: flex;
-    flex-direction: column;
-    background-color: var(--text-color);
-    border-radius: 10px;
-    padding: 1rem;
-}
-
-.sobre-content{
-    display: flex;
-    flex-direction: column;
-}
-
-.sobre-content h1{
-    display: flex;
-    color: var(--main-color);
-    padding: 0;
-    font-size: 19px;
-    font-family: "Montserrat", sans-serif;
-    margin: 0;
-}
-
-.sobre-content p{
-    display: flex;
-    color: var(--main-color);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    line-height: 1.3;
-    max-width: 100%;
-    text-align:justify;
-    margin-top: 10px;
-}
-
-.card-sobrenos{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.container-sobre {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
     align-items: center;
 }
 
-.card-valor{
-    background-color: var(--button-color);
-    margin-top: 10px;
-    padding: 1rem;
-    border-radius: 15px;
+.sobre-content h2 {
+    color: var(--main-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.card-valor h1{
-    color: var(--text-color);
+.sobre-content p {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #374151;
 }
 
-.card-valor p{
-    color: var(--background-color);
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
 }
 
-.card-valor img{
+.card-valor {
+    background: white;
+    padding: 1.8rem;
+    border-left: 5px solid var(--main-color);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-valor:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.card-valor img {
     width: 30px;
+    margin-bottom: 1rem;
 }
 
-.image-sobrenos{
-    border-radius: 5px 10px;
-    max-width: 100%;
-    align-self: center;
-    margin-top: 10px;
+.card-valor h3 {
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 0.5rem;
+    color: var(--main-color);
+}
+
+.card-valor p {
+    font-family: 'Public Sans', sans-serif;
+    color: #4b5563;
+    font-size: 0.95rem;
+}
+
+.image-sobrenos {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
 @media screen and (min-width: 768px) {
