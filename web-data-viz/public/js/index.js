@@ -3,13 +3,15 @@ var imagem_menu = document.getElementById("imagem-menu");
 var imagem_sobreNos = document.getElementById("sobre-imagem");
 var imagem_contactUs = document.getElementById("contato-imagem");
 var imagem_login = document.getElementById("login-imagem");
+var imagem_home = document.getElementById("home-imagem")
 
 const imagens = [
     './assets/icon/menu.png',
     './assets/icon/botao-fechar.png',
     './assets/icon/sobre-nos.png',
     './assets/icon/contact-us.png',
-    './assets/icon/login.png'
+    './assets/icon/login.png',
+    './assets/icon/home.png'
 ];
 
 function resTablet() {
@@ -28,6 +30,7 @@ function menu() {
         imagem_sobreNos.src = imagens[2];
         imagem_contactUs.src = imagens[3];
         imagem_login.src = imagens[4];
+        imagem_home.src = imagens[5];
     }
 }
 
