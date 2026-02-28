@@ -3,32 +3,56 @@ const emailInput = document.getElementById("email");
 const senhaInput = document.getElementById("senha");
 const confirmarSenhaInput = document.getElementById("confirmarSenha");
 
-nomeInput.addEventListener("input", function() {
-    if (!validarNome()) {
-        logarErro("Nome inválido");
-    }
-})
+nomeInput.addEventListener("input", () => {
+    validarCampo(
+        "nomeInvalido",
+        "Nome inválido: deve ter no mínimo 3 caracteres e só conter letras",
+        validarNome,
+        nomeInput
+    );
+});
 
-emailInput.addEventListener("input", function() {
-    if (!validarEmail()) {
-        logarErro("Email inválido");
-    }
-})
+emailInput.addEventListener("input", () => {
+    validarCampo(
+        "emailInvalido",
+        "Email inválido: deve seguir o formato 'exemplo@email.com'",
+        validarEmail,
+        emailInput
+    );
+});
 
-senhaInput.addEventListener("input", function() {
-    if (!validarSenha()) {
-        logarErro("Senha inválida");
-    }
-})
+senhaInput.addEventListener("input", () => {
+    validarCampo(
+        "senhaInvalida",
+        "Senha inválida: Deve ter no mínimo 8 caracteres, maiúsculas, minúsculas, números e caracteres especiais",
+        validarSenha,
+        senhaInput
+    );
 
-confirmarSenhaInput.addEventListener("input", function() {
-    if (!validarConfirmarSenha()) {
-        logarErro("Senhas não coincidem");
-    }
-})
+    confirmarSenhaInput.dispatchEvent(new Event("input"));
+});
 
-function logarErro(mensagem) {
-    console.log(mensagem);
+confirmarSenhaInput.addEventListener("input", () => {
+    validarCampo(
+        "confirmarSenhaInvalida",
+        "Senha inválida: Senhas não coincidem",
+        validarConfirmacaoSenha,
+        senhaInput,
+        confirmarSenhaInput
+    );
+});
+
+function validarCampo(spanId, mensagemErro, funcValidacao, ...parametros) {
+    const erroSpan = document.getElementById(spanId);
+    const divErro = erroSpan.parentElement;
+
+    if (!funcValidacao(...parametros)) {
+        erroSpan.textContent = mensagemErro;
+        divErro.classList.add("ativo");
+    } else {
+        erroSpan.textContent = "";
+        divErro.classList.remove("ativo");
+    }
 }
 
 function cadastrar() {
