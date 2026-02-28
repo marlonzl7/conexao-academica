@@ -284,8 +284,6 @@ ul {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    width: 40px;
-    height:auto;
     transition: background-color 0.3s ease;
 }
 
@@ -296,7 +294,7 @@ ul {
     margin-top: 1rem;
 }
 
-.carrosel-card-visao, .carrosel-card-analise, .carrosel-card-previsao, .carrosel-card-gestao{
+.carrosel-card{
     background: var(--text-color);
     padding: 1.8rem;
     border: 1px solid var(--main-color);
@@ -305,23 +303,23 @@ ul {
     min-width: 250px;
 }
 
-.carrosel-card-visao h3, .carrosel-card-analise h3, .carrosel-card-previsao h3, .carrosel-card-gestao h3{
+.carrosel-card h3{
     color: var(--main-color);
     font-family: 'Montserrat', sans-serif;
 }
 
-.carrosel-card-visao p, .carrosel-card-analise p, .carrosel-card-previsao p, .carrosel-card-gestao p{
+.carrosel-card p{
     font-family: 'Public Sans', sans-serif;
     color: #4b5563;
     font-size: 0.95rem;
 }
 
-.carrosel-card-visao img, .carrosel-card-analise img, .carrosel-card-previsao img, .carrosel-card-gestao img{
+.carrosel-card img{
     width: 200px;
     margin-bottom: 1rem;
 }
 
-.carrosel-card-visao a, .carrosel-card-analise a, .carrosel-card-previsao a, .carrosel-card-gestao a{
+.carrosel-card a{
     display: flex;
     margin-top: 1rem;
     background-color: var(--main-color);
