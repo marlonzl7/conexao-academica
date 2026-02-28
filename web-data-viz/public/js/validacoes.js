@@ -1,6 +1,10 @@
 function validarNome(input) {    
-    for (let i = 0; i < input.length; i++) {
-        const codigoAscii = input.charCodeAt(i);
+    const valor = input.value.trim();
+
+    if (valor.length < 3) return false;
+
+    for (let i = 0; i < valor.length; i++) {
+        const codigoAscii = valor.charCodeAt(i);
 
         if (!(
                 (codigoAscii === 32) ||
@@ -15,19 +19,21 @@ function validarNome(input) {
 }
 
 function validarEmail(input) {
+    const valor = input.value.trim();
+
     let indiceArroba = -1;
 
-    for (let i = 0; i < input.length; i++) {
-        if (input.charCodeAt(i) === "@".charCodeAt(0)) {
+    for (let i = 0; i < valor.length; i++) {
+        if (valor.charCodeAt(i) === "@".charCodeAt(0)) {
             indiceArroba = i;
             break;
         }
     }
 
-    if (indiceArroba === -1) return false;
+    if (indiceArroba <= 0) return false;
 
-    for (let i = indiceArroba + 1; i < input.length; i++) {
-        if (input.charCodeAt(i) === ".".charCodeAt(0)) {
+    for (let i = indiceArroba + 1; i < valor.length; i++) {
+        if (valor.charCodeAt(i) === ".".charCodeAt(0)) {
             return true;
         }
     }
@@ -36,17 +42,17 @@ function validarEmail(input) {
 }
 
 function validarSenha(input) {
-    if (input.length < 8) {
-        return false;
-    }
+    const valor = input.value;
+
+    if (valor.length < 8) return false;
 
     let temMinuscula = false;
     let temMaiuscula = false;
     let temNumero = false;
     let temCaractereEspecial = false;
 
-    for (let i = 0; i < input.length; i++) {
-        let codigoAscii = input.charCodeAt(i);
+    for (let i = 0; i < valor.length; i++) {
+        let codigoAscii = valor.charCodeAt(i);
 
         if (validarLetraMinuscula(codigoAscii)) temMinuscula = true;
         if (validarLetraMaiuscula(codigoAscii)) temMaiuscula = true;
@@ -81,5 +87,5 @@ function validarCaractereEspecial(codigoAscii) {
 }
 
 function validarConfirmacaoSenha(senha, confirmacao) {
-    return senha === confirmacao;
+    return senha.value === confirmacao.value;
 }
