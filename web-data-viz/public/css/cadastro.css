@@ -6,6 +6,7 @@
     --border-selected: #6A8BE8;
     --border-shadow: #C5D2F8;
     --bold-text-color: #1E3A8A;
+    --error-color: #ED1C24;
 }
 
 * {
@@ -108,19 +109,23 @@ body {
 }
 
 .input-box label {
+    margin-left: 5px;
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 0.3125rem;
 }
 
-.input-box input {
+.input-box input, 
+.input-box select {
     width: 80vw;
     padding: 0.8rem 1.2rem;
     border: 1px solid var(--border-input);
-    border-radius: 8px;
+    border-radius: 30px;
 }
 
-.input-box input:focus-visible {
+.input-box input:focus-visible,
+.input-box select:focus-visible,
+.btn-cadastro {
     border: 1px solid var(--border-selected);
     outline: var(--border-shadow);
 }
@@ -134,21 +139,59 @@ body {
     background-color: var(--main-color);
     color: #FFF;
     border: none;
-    border-radius: 8px;
+    border-radius: 30px;
+}
+
+.erro {
+    display: none;
+}
+
+.erro.ativo {
+    display: block;
+}
+
+.erro.ativo span {
+    margin-left: 15px;
+    font-size: 0.75rem;
+    color: var(--error-color);
 }
 
 @media (min-width: 438px) {
     .input-box input,
+    .input-box select,
     .btn-cadastro {
         width: 40vw;
         min-width: 350px;
+    }
+
+    .input-box label {
+        font-size: 0.9375rem;
     }
 }
 
 @media (min-width: 768px) {
     .input-box input,
+    .input-box select,
     .btn-cadastro {
         width: 40vw;
         max-width: 420px;
+    }
+
+    .input-box label {
+        font-size: 1rem;
+    }
+}
+
+@media (min-height: 800px) {
+    .principal-container {
+        justify-content: center;
+        padding-top: 2rem;  
+    }
+}
+
+@media (min-height: 799px) {
+    .principal-container {
+        justify-content: flex-start;
+        padding-top: 1rem;       
     }
 }
