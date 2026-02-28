@@ -32,23 +32,38 @@
 
         <div class="input-group">
             <div class="input-box">
+                <label for="nome">Instituição:</label>
+                <input list="instituicoes" name="instituicao" id="instituicao">
+
+                <datalist id="instituicoes">
+                    <option value="São Paulo Tech School">
+                    <option value="Universidade de São Paulo">
+                    <option value="Universidade Virtual do Estado de São Paulo">
+                </datalist>
+            </div>
+
+            <div class="input-box">
                 <label for="nome">Nome completo:</label>
                 <input type="text" name="nome" id="nome">
+                <div class="erro"><span id="nomeInvalido"></span></div>
             </div>
             
             <div class="input-box">
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email">
+                <div class="erro"><span id="emailInvalido"></span></div>
             </div>
 
             <div class="input-box">
                 <label for="senha">Senha:</label>
                 <input type="password" name="senha" id="senha">
+                <div class="erro"><span id="senhaInvalida"></span></div>
             </div>
 
             <div class="input-box">
                 <label for="confirmarSenha">Confirmar senha:</label>
                 <input type="password" name="confirmarSenha" id="confirmarSenha">
+                <div class="erro"><span id="confirmarSenhaInvalida"></span></div>
             </div>
         </div>
 
@@ -56,5 +71,8 @@
             <button class="btn-cadastro">Cadastrar</button>
         </div>
     </main>
+
+    <script src="./js/cadastro.js"></script>
+    <script src="./js/validacoes.js"></script>
 </body>
 </html>
