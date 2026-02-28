@@ -1,10 +1,5 @@
 var menu_header = document.getElementById("menu");
 
-var carrosel_card_visao = document.getElementById("carrosel-card-visao");
-var carrosel_card_analise = document.getElementById("carrosel-card-analise");
-var carrosel_card_previsao = document.getElementById("carrosel-card-previsao");
-var carrosel_card_gestao = document.getElementById("carrosel-card-gestao");
-
 const imagens = [
   "./assets/icon/menu.png",
   "./assets/icon/botao-fechar.png",
@@ -40,12 +35,32 @@ function menu() {
   }
 }
 
+var contador = 0;
+var carrosel = document.querySelectorAll(".carrosel-card");
+
+function atualizarCarrosel() {
+  for (let index = 0; index < carrosel.length; index++) {
+    carrosel[index].style.display = "none"; 
+  }
+  carrosel[contador].style.display = "block";
+}
+
 function proximo() {
-    
+  contador++;
+  if (contador > carrosel.length - 1) {
+    contador = 0;
+  }
+  atualizarCarrosel();
 }
 
 function anterior() {
-    
+  contador--;
+  if (contador < 0) {
+    contador = carrosel.length - 1;
+  }
+  atualizarCarrosel();
 }
 
 window.addEventListener("resize", resTablet);
+
+atualizarCarrosel();
