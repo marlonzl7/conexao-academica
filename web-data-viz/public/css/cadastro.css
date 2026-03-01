@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
     --main-color: #455881;
     --background-color: #E5E7EB;
@@ -20,39 +22,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
-}
-
-.header {
-    padding: 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    flex: 1;
-}
-
-.menu {
-    flex: 1;
-}
-
-.links {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.links a {
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--main-color);
-}
-
-.links a:hover {
-    text-decoration: underline;
+    font-family: "Montserrat", "sans-serif";
 }
 
 .principal-container {
@@ -61,20 +31,17 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
+    gap: 1rem;
 }
 
 .header-container {
-    margin-bottom: 1rem;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
 }
 
 .title {
-    padding: 0rem 1.25rem;
     font-size: 1.25rem;
     font-weight: 500;
 }
@@ -98,7 +65,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .input-box {
@@ -111,7 +78,7 @@ body {
 .input-box label {
     margin-left: 5px;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 0.3125rem;
 }
 
@@ -128,6 +95,17 @@ body {
 .btn-cadastro {
     border: 1px solid var(--border-selected);
     outline: var(--border-shadow);
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub {
+    margin-top: 1rem;
 }
 
 .btn-cadastro {
@@ -184,14 +162,32 @@ body {
 
 @media (min-height: 800px) {
     .principal-container {
-        justify-content: center;
-        padding-top: 2rem;  
+        gap: 2rem;
+    }
+
+    .input-group {
+        gap: 2rem;
+    }
+
+    .title {
+        padding: 0 1.25rem;
+        font-size: 1.5rem;
+        margin-bottom: 5%;
     }
 }
 
-@media (min-height: 799px) {
+@media (max-height: 799px) {
     .principal-container {
-        justify-content: flex-start;
-        padding-top: 1rem;       
+        gap: 1.25rem;
+    }
+
+    .input-group {
+        gap: 1rem;
+    }
+
+    .title {
+        font-size: 1rem;
+        padding: 0 1rem;
+        font-size: 1.25rem;
     }
 }
