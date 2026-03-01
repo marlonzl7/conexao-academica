@@ -1,12 +1,12 @@
 var menu_header = document.getElementById("menu");
 
 const imagens = [
-    "../assets/icon/menu.png",
-    "../assets/icon/botao-fechar.png",
-    "../assets/icon/sobre-nos.png",
-    "../assets/icon/contact-us.png",
-    "../assets/icon/login.png",
-    "../assets/icon/home.png",
+    "./assets/icons/menu.png",
+    "./assets/icons/botao-fechar.png",
+    "./assets/icons/sobre-nos.png",
+    "./assets/icons/contact-us.png",
+    "./assets/icons/login.png",
+    "./assets/icons/home.png",
 ];
 
 function resTablet() {
