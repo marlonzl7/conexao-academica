@@ -45,6 +45,12 @@
             </div>
 
             <div class="input-box">
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" id="cpf" maxlength="11">
+                <div class="erro"><span id="cpfInvalido"></span></div>
+            </div>
+            
+            <div class="input-box">
                 <label for="nome">Nome completo:</label>
                 <input type="text" name="nome" id="nome">
                 <div class="erro"><span id="nomeInvalido"></span></div>
@@ -70,7 +76,7 @@
         </div>
 
         <div class="footer">
-            <button class="btn-cadastro">Cadastrar</button>
+            <button class="btn-cadastro" id="btn-cadastro">Cadastrar</button>
             <p class="sub">
                 Já possuí uma conta? <span id="link-login">Entrar</span>
             </p>

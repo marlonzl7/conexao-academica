@@ -1,3 +1,21 @@
+function validarCPF(input) {
+    const valor = input.value.trim();
+
+    if (!(valor.length === 11)) {
+        return false;
+    }
+
+    for (let i = 0; i < valor.length; i++) {
+        const codigoAscii = valor.charCodeAt(i);
+
+        if (!(codigoAscii >= 48 && codigoAscii <= 57)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 function validarNome(input) {    
     const valor = input.value.trim();
 
@@ -33,7 +51,7 @@ function validarEmail(input) {
     if (indiceArroba <= 0) return false;
 
     for (let i = indiceArroba + 1; i < valor.length; i++) {
-        if (valor.charCodeAt(i) === ".".charCodeAt(0)) {
+        if (valor.charCodeAt(i) === ".".charCodeAt(0) && i != valor.length - 1) {
             return true;
         }
     }
