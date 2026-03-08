@@ -170,7 +170,7 @@ ul {
 #section-home a img {
     justify-content: center;
     align-items: center;
-    width: 65px;
+    width: 60px;
 }
 
 #section-sobrenos {
@@ -293,7 +293,9 @@ ul {
     display: flex;
     gap: 1.5rem;
     overflow-x: auto;
-    margin-top: 1rem;
+    margin-top: 2rem;
+    padding: 1rem 0.5rem;
+    scroll-behavior: smooth;
 }
 
 .carrosel-card {
@@ -681,6 +683,56 @@ footer {
     .sobre-content p {
         font-size: 1.1rem;
     }
+
+    .carrosel-container{
+        position: relative;
+        display: flex;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .carrosel-track{
+        gap: 2rem;
+        justify-content: flex-start;
+        padding: 2rem 1rem;
+        display: flex;
+        overflow-x: hidden;
+    }
+
+    .carrosel-card{
+        min-width: 280px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 500px;
+        padding: 2.5rem;
+    }
+
+    .carrosel-card img{
+        width: 100%;
+        max-width: 220px;
+        margin: 1.5rem auto;
+    }
+
+    .btn-prev, .btn-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        background-color: var(--main-color);
+        color: white;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .btn-prev { left: -60px; }
+    .btn-next { right: -60px; }
 }
 
 @media screen and (min-width: 1440px) {
@@ -711,6 +763,11 @@ footer {
         padding: 4rem 10%;
     }
 
+    .carrosel-container{
+        max-width: 1350px;
+        margin: 0 auto;
+    }
+
     .carrosel-header h2 {
         font-size: 2.5rem;
     }
@@ -720,15 +777,18 @@ footer {
     }
 
     .carrosel-card {
-        min-width: 300px;
+        padding: 3rem;
+        min-height: 550px;
     }
 
     .carrosel-card h3 {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
     }
 
     .carrosel-card p {
         font-size: 1.1rem;
+        line-height: 1.6;
     }
 
     .carrosel-card a {
