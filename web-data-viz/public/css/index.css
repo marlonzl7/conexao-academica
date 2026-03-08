@@ -629,6 +629,7 @@ footer {
     #container-footer {
         grid-template-columns: 2fr 1fr 1fr;
         align-items: start;
+        text-align: left;
     }
 
     .footer-sobre {
