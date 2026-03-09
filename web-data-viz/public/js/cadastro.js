@@ -4,6 +4,11 @@ const emailInput = document.getElementById("email");
 const senhaInput = document.getElementById("senha");
 const confirmarSenhaInput = document.getElementById("confirmarSenha");
 const btnCadastro = document.getElementById("btn-cadastro");
+const btnLogin = document.getElementById("link-login");
+
+btnLogin.addEventListener("click", () => {
+    window.location.href = "login.html"
+});
 
 cpfInput.addEventListener("input", () => {
     validarCampo(
