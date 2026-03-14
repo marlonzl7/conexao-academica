@@ -4,11 +4,11 @@ function mostrarSenha(idInput, icone) {
 
     if (input.type === "password") {
         input.type = "text";
-    icone.src = "../assets/imgs/olho_aberto.png";
+    icone.src = "/assets/imgs/olho_aberto.png";
         icone.alt = "Ocultar senha";
     } else {
         input.type = "password";
-       icone.src = "../assets/imgs/olho_fechado.png";
+       icone.src = "/assets/imgs/olho_fechado.png";
         icone.alt = "Mostrar senha";
     }
 }
@@ -70,12 +70,12 @@ function entrar() {
 var menu_header = document.getElementById("menu");
 
 const imagens = [
-    "../assets/icons/menu.png",
-    "../assets/icons/botao-fechar.png",
-    "../assets/icons/sobre-nos.png",
-    "../assets/icons/contact-us.png",
-    "../assets/icons/login.png",
-    "../assets/icons/home.png",
+    "/assets/icons/menu.png",
+    "/assets/icons/botao-fechar.png",
+    "/assets/icons/sobre-nos.png",
+    "/assets/icons/contact-us.png",
+    "/assets/icons/login.png",
+    "/assets/icons/home.png",
 ];
 
 function resTablet() {
