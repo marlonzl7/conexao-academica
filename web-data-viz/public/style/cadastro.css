@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
 :root {
     --main-color: #1E3A8A;
-    --background-color: #E5E7EB;
+    --background-color: #F5F5F5;
     --input-color: #FFFFFF;
     --border-input: #ADB1BB;
     --border-selected: #6A8BE8;
@@ -22,7 +20,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
-    font-family: "Montserrat", "sans-serif";
+    font-family: 'Public Sans', sans-serif;
 }
 
 .principal-container {
@@ -49,7 +47,7 @@ body {
 .sub {
     margin-top: 1rem;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 #link-login {
@@ -78,9 +76,10 @@ body {
 
 .input-box label {
     margin-left: 5px;
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.8125rem;
+    font-weight: 600;
     margin-bottom: 0.3125rem;
+    color: #333;
 }
 
 .input-box input, 
@@ -92,8 +91,7 @@ body {
 }
 
 .input-box input:focus-visible,
-.input-box select:focus-visible,
-.btn-cadastro {
+.input-box select:focus-visible {
     border: 1px solid var(--border-selected);
     outline: var(--border-shadow);
 }
@@ -161,7 +159,7 @@ body {
     }
 
     .input-box label {
-        font-size: 1rem;
+        font-size: 0.875rem;
     }
 
     .erro.ativo span {
