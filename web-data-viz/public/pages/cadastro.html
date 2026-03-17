@@ -4,24 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/cadastro.css">
+    <link rel="stylesheet" href="/style/header.css">
+    <link rel="stylesheet" href="/style/cadastro.css">
     <title>Cadastro</title>
 </head>
 
 <body>
     <header class="header-index">
-        <img src="./assets/icons/logo.png" alt="Logo Conexão Acadêmica">
+        <img src="/assets/imgs/logo.png" alt="Logo Conexão Acadêmica">
         <h3>Conexão Acadêmica</h3>
         <nav>
             <button onclick="menu()">
-                <img id="imagem-menu" src="./assets/icons/menu.png" alt="Menu Hamburguer">
+                <img id="imagem-menu" src="/assets/icons/menu.png" alt="Menu Hamburguer">
             </button>
             <ul id="menu">
-                <li><img id="home-imagem" src="./assets/icons/home.png" alt=""><a href="index.html">Home</a></li>
-                <li><img id="sobre-imagem" src="./assets/icons/sobre-nos.png" alt=""><a href="index.html#section-sobrenos">Sobre Nós</a></li>
-                <li><img id="contato-imagem" src="./assets/icons/contact-us.png" alt=""><a href="index.html#section-contactus">Contate-nos</a></li>
-                <li><img id="login-imagem" src="./assets/icons/login.png" alt=""><a href="login.html">Login</a></li>
+                <li><img id="home-imagem" src="/assets/icons/home.png" alt=""><a href="/index.html">Home</a></li>
+                <li><img id="sobre-imagem" src="/assets/icons/sobre-nos.png" alt=""><a href="/index.html#section-sobrenos">Sobre Nós</a></li>
+                <li><img id="contato-imagem" src="/assets/icons/contact-us.png" alt=""><a href="/index.html#section-contactus">Contate-nos</a></li>
+                <li><img id="login-imagem" src="/assets/icons/login.png" alt=""><a href="login.html">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -35,7 +35,7 @@
         <div class="input-group">
             <div class="input-box">
                 <label for="instituicao">Instituição:</label>
-                <input list="instituicoes" name="instituicao" id="instituicao">
+                <input list="instituicoes" name="instituicao" id="instituicao" required>
 
                 <datalist id="instituicoes">
                     <option value="São Paulo Tech School">
@@ -46,31 +46,31 @@
 
             <div class="input-box">
                 <label for="cpf">CPF:</label>
-                <input type="text" name="cpf" id="cpf" maxlength="11">
+                <input type="text" name="cpf" id="cpf" maxlength="11" required>
                 <div class="erro"><span id="cpfInvalido"></span></div>
             </div>
             
             <div class="input-box">
                 <label for="nome">Nome completo:</label>
-                <input type="text" name="nome" id="nome">
+                <input type="text" name="nome" id="nome" required>
                 <div class="erro"><span id="nomeInvalido"></span></div>
             </div>
 
             <div class="input-box">
                 <label for="email">Email:</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required>
                 <div class="erro"><span id="emailInvalido"></span></div>
             </div>
 
             <div class="input-box">
                 <label for="senha">Senha:</label>
-                <input type="password" name="senha" id="senha">
+                <input type="password" name="senha" id="senha" required>
                 <div class="erro"><span id="senhaInvalida"></span></div>
             </div>
 
             <div class="input-box">
                 <label for="confirmarSenha">Confirmar senha:</label>
-                <input type="password" name="confirmarSenha" id="confirmarSenha">
+                <input type="password" name="confirmarSenha" id="confirmarSenha" required>
                 <div class="erro"><span id="confirmarSenhaInvalida"></span></div>
             </div>
         </div>
@@ -83,9 +83,9 @@
         </div>
     </main>
 
-    <script src="./js/cadastro.js"></script>
-    <script src="./js/validacoes.js"></script>
-    <script src="./js/header.js"></script>
+    <script src="/js/cadastro.js"></script>
+    <script src="/js/validacoes.js"></script>
+    <script src="/js/header.js"></script>
 </body>
 
 </html>
