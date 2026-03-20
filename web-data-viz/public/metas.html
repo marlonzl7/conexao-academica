@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/components/header.css">
+    <link rel="stylesheet" href="./style/components/sidebar.css">
+    <link rel="stylesheet" href="./style/metas.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-left">
+        </div>
+
+        <div class="header-right">
+            <a href="#" class="link-item">
+                <img src="./assets/icons/notification-icon-fill.svg" alt="Ícone Notificação" id="notification-icon">
+            </a>
+
+            <a href="#" class="link-item">
+                <span>Username</span>
+                <img src="./assets/icons/account-icon-fill.svg" alt="Ícone Usuário">
+            </a>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <header class="sidebar-header">
+            <img src="./assets/icons/logo.png" alt="Logo">
+            <span>Conexão Acadêmica</span>
+        </header>
+
+        <nav class="sidebar-main">
+
+            <a href="/pages/dashboard.html" class="link-box">
+                <img src="./assets/icons/dash-icon.svg" alt="Ícone Dashboard">
+                <span>Dashboard</span>
+            </a>
+
+            <a href="./pages/metas.html" class="link-box">
+                <img src="./assets/icons/flag-icon.svg" alt="Ícone Metas">
+                <span>Metas</span>
+            </a>
+
+            <a href="/pages/regras.html" class="link-box">
+                <img src="./assets/icons/regra-icon.svg" alt="Ícone Regras">
+                <span>Regras</span>
+            </a>
+
+            <a href="/pages/conta.html" class="link-box">
+                <img src="./assets/icons/person-icon.svg" alt="Ícone Conta">
+                <span>Conta</span>
+            </a>
+
+        </nav>
+
+        <footer class="sidebar-footer">
+            <img src="./assets/icons/logout-icon.svg" alt="Logout">
+            <span>Sair</span>
+        </footer>
+    </aside>
+
+    <main>
+        <div class="container">
+            <div class="container-title">
+                <h1>Visualizar Metas</h1>
+                <div class="container-title-info">
+                    Configure suas próprias metas para receber <strong>notificações</strong> quando atingidas
+                </div>
+            </div>
+
+            <div class="topo-tabela">
+                <button class="botao-cadastro">Cadastrar</button>
+            </div>
+
+            <table class="tabela">
+                <!-- thead: tag recomendada para cabeçalhos da tabela, utilizando <th> dentro de <tr> -->
+                <thead>
+                    <tr>
+                        <th>Indicador</th>
+                        <th>Meta</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <!-- tbody: tag recomendada para o corpo principal da tabela, utilizando <td> dentro de <tr> -->
+                <tbody>
+                    <tr>
+                        <td>Taxa de evasão</td>
+                        <td>10%</td>
+                        <td class="acoes-tabela">
+                            <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
+                                    class="acoes-tabela-img"></button>
+                            <button><img src="./assets/icons/hide-icon.png" alt="Ícone de visualização"
+                                    class="acoes-tabela-img"></button>
+                            <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
+                                    class="acoes-tabela-img"></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Alunos matriculados</td>
+                        <td>600+</td>
+                        <td class="acoes-tabela">
+                            <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
+                                    class="acoes-tabela-img"></button>
+                            <button><img src="./assets/icons/hide-icon.png" alt="Ícone de visualização"
+                                    class="acoes-tabela-img"></button>
+                            <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
+                                    class="acoes-tabela-img"></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Risco de evasão</td>
+                        <td>Baixo</td>
+                        <td class="acoes-tabela">
+                            <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
+                                    class="acoes-tabela-img"></button>
+                            <button><img src="./assets/icons/hide-icon.png" alt="Ícone de visualização"
+                                    class="acoes-tabela-img"></button>
+                            <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
+                                    class="acoes-tabela-img"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Public Sans', sans-serif;
+}
+
+main {
+    margin-left: 250px;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container-title {
+    text-align: center;
+}
+
+.container-title-info {
+    margin-top: 10px;
+}
+
+.botao-cadastro {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 3;
+    border: none;
+    color: white;
+    background-color: #455881;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.tabela {
+    width: 700px;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.tabela thead {
+    background-color: #455881;
+    color: white;
+}
+
+.tabela th,
+.tabela td {
+    padding: 12px;
+    text-align: center;
+}
+
+.tabela td {
+    border: 1px solid #ddd;
+}
+
+.tabela td {
+    color: black;
+    text-align: center;
+}
+
+.tabela tbody tr {
+    background-color: #f5f5f5;
+}
+
+.topo-tabela {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.acoes-tabela button {
+    border: none;
+    background: none;
+    background-color: transparent;
+}
+
+.acoes-tabela-img {
+    width: 25px;
+    cursor: pointer;
+}
