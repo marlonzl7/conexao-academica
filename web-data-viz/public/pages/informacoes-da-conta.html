@@ -6,20 +6,54 @@
     <link rel="stylesheet" href="/style/components/sidebar.css">
     <link rel="stylesheet" href="/style/components/header.css">
     <link rel="stylesheet" href="/style/dashboard-exemplo.css">
+    <link rel="stylesheet" href="/style/informacoes.css">
     <title>Conta</title>
 </head>
 <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
     <main class="main-content">
-  
+        
+        <div class="container">
+        <section class="card">
+            <div class="card-header">
+                <h2>Dados cadastrados: </h2>
+            </div>
+            <div class="card-content">
+                <div class="info-row">
+                    <p><strong>Instituição:</strong> 12345 - Escola X</p>
+                </div>
+                <div class="info-row">
+                    <p><strong>CPF:</strong> XXX.XXX.XXX-XX</p>
+                </div>
+                <div class="info-row">
+                    <p><strong>Nome:</strong> João da Silva</p>
+                </div>
+                <div class="info-row">
+                    <p><strong>E-mail:</strong> joaosilva@email.com</p>
+                </div>
+                <button class="btn-primary">Editar informações</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <h2>Segurança</h2>
+            </div>
+            <div class="card-content">
+                <p><strong>Senha:</strong> **********</p>
+            
+                <button class="btn-primary">Mudar senha</button>
+            </div>
+        </section>
+    </div>
             
 
     </main>
 
 
     <script src="/js/include.js"></script>
-
+    <script src="/js/informacoes.js"></script>
     <script>
         initPage("Informações da Conta");
     </script>
