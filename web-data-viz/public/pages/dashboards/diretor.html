@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Diretor</title>
-    <link rel="stylesheet" href="/style/dashboards/diretor.css">
-    <link rel="stylesheet" href="/style/components/sidebar.css">
-    <link rel="stylesheet" href="/style/components/header.css">
-    <link rel="icon" type="image/png" href="/assets/imgs/logo.png">
+    <link rel="stylesheet" href="../../style/dashboards/diretor.css">
+    <link rel="stylesheet" href="../../style/components/sidebar.css">
+    <link rel="stylesheet" href="../../style/components/header.css">
+    <link rel="icon" type="image/png" href="../../assets/imgs/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Public+Sans:wght@400;700&display=swap"
         rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -44,43 +45,65 @@
         </section>
 
         <section class="kpi-grid">
-
             <div class="kpi-card">
-                <h3>Taxa de Evasão em 2025</h3>
+                <h3>Taxa de evasão em 2025</h3>
                 <p class="kpi-value">20%</p>
                 <hr>
-                <h3>Mudança Anual</h3>
-                <p class="kpi-value">3%</p>
-                <img src="/assets/imgs/trend-up.png" alt="Trend Up">
+                <div class="kpi-footer">
+                    <span>Mudança anual <b>3%</b></span>
+                    <span class="trend-indicator">▼</span>
+                </div>
             </div>
 
             <div class="kpi-card">
-                <h3>Tendência de Evasão</h3>
+                <h3>Tendência de evasão</h3>
                 <p class="kpi-value">Diminuir (2%)</p>
                 <hr>
-                <h3>Mudança Anual</h3>
-                <p class="kpi-value">1%</p>
-                <img src="/assets/imgs/trend-down.png" alt="Trend Down">
+                <div class="kpi-footer">
+                    <span>Mudança anual <b>1%</b></span>
+                    <span class="trend-indicator">▼</span>
+                </div>
             </div>
 
             <div class="kpi-card">
-                <h3>Taxa de Evasão por Modalidade</h3>
-                <h2>EaD</h2>
-                <p class="kpi-value">63%</p>
-                <h2>Presencial</h2>
-                <p class="kpi-value">37%</p>
+                <h3>Taxa de evasão por modalidade</h3>
+                <div class="modalidade-flex">
+                    <div>
+                        <h2>EaD</h2>
+                        <p class="kpi-value">63%</p>
+                    </div>
+                    <div>
+                        <h2>Presencial</h2>
+                        <p class="kpi-value">37%</p>
+                    </div>
+                </div>
                 <hr>
-                <h3>Resultado Esperado</h3>
-                <p class="kpi-value">50%/50%</p>
+                <div class="kpi-footer">
+                    <span>Resultado passado <b>68%/32%</b></span>
+                </div>
             </div>
-
         </section>
 
+        <section class="graphic-section">
+            <div class="graphic-block">
+                <h2>Ranking de Evasão por Curso</h2>
+                <div class="chart-card">
+                    <canvas id="chartRanking"></canvas>
+                </div>
+            </div>
+
+            <div class="graphic-block">
+                <h2>Evolução Mensal</h2>
+                <div class="chart-card">
+                    <canvas id="chartTrend"></canvas>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <script src="/js/include.js"></script>
+    <script src="../../js/include.js"></script>
     <script>
-        initPage("Visão Geral da Evasão");
+        initPage("Visão Geral da Evasão na Instituição");
     </script>
 </body>
 
