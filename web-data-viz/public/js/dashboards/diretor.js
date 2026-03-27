@@ -9,7 +9,7 @@ new Chart(document.getElementById('chartRanking'), {
             }]
         },
         options: {
-            indexAxis: 'y', // Barra deitada
+            indexAxis: 'y', // Eixo da barra
             responsive: true,
             maintainAspectRatio: false
         }
