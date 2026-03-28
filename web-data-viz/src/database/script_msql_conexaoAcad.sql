@@ -59,6 +59,6 @@ CREATE TABLE regra (
     limite_superior DECIMAL(5,2) NOT NULL,
     CONSTRAINT fk_regra_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
     CONSTRAINT fk_regra_kpi FOREIGN KEY (id_kpi) REFERENCES kpi(id_kpi),
-    CONSTRAINT uq_usuario_kpi UNIQUE (id_usuario, id_kpi),
+    CONSTRAINT uq_usuario_kpi_classificacao UNIQUE (id_usuario, id_kpi, classificacao),
     CONSTRAINT chk_limite CHECK (limite_inferior < limite_superior)
 );
