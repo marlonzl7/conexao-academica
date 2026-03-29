@@ -39,7 +39,7 @@ CREATE TABLE usuario (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(70) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    ativo TINYINT(1) NOT NULL,
+    ativo TINYINT(1) NOT NULL DEFAULT 0,
     CONSTRAINT fk_usuario_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo),
     CONSTRAINT fk_usuario_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
