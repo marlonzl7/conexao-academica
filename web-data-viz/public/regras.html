@@ -74,7 +74,8 @@
             </div>
 
             <div class="topo-tabela">
-                <button class="botao-cadastro"><img src="./assets/icons/plus-icon.png" alt="Ícone de mais" class="img-botao-cadastro">Cadastrar</button>
+                <button class="botao-cadastro" onclick="abrirModal()"><img src="./assets/icons/plus-icon.png"
+                        alt="Ícone de mais" class="img-botao-cadastro">Cadastrar</button>
             </div>
 
             <table class="tabela">
@@ -90,7 +91,7 @@
                 </thead>
 
                 <!-- tbody: tag recomendada para o corpo principal da tabela, utilizando <td> dentro de <tr> -->
-                <tbody> 
+                <tbody>
                     <tr>
                         <td>Baixo</td>
                         <td>Risco de evasão</td>
@@ -134,6 +135,54 @@
         </div>
     </main>
 
+    <!-- modal de cadastro -->
+    <!-- modal-overlay: div que estou usando para as sombras do background -->
+    <div id="modal-overlay" class="overlay hidden">
+        <div class="modal">
+
+            <div class="modal-header">
+                <h2>Registrar Regras</h2>
+                <span class="fechar-modal" onclick="fecharModal()">X</span>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Classificação</label>
+                    <select>
+                        <option value="0">Baixo</option>
+                        <option value="1">Médio</option>
+                        <option value="2">Crítico</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>KPI</label>
+                    <!-- adicionar referências ao banco aqui depois -->
+                    <select>
+                        <option>Risco de evasão</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Limite inferior</label>
+                    <input type="text" placeholder="Ex: 50%">
+                </div>
+
+                <div class="form-group">
+                    <label>Limite superior</label>
+                    <input type="text" placeholder="Ex: 80%">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-botao-cancelar" onclick="fecharModal()">Cancelar</button>
+                <button class="modal-botao-confirmar">Registrar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="./js/regras.js"></script>
 </body>
 
 </html>
