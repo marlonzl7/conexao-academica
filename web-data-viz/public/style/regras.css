@@ -82,7 +82,7 @@ main {
 
 .acoes-tabela {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -93,6 +93,6 @@ main {
 }
 
 .acoes-tabela-img {
-    width: 25px;
+    width: 22px;
     cursor: pointer;
 }
