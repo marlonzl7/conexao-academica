@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Diretor</title>
-    <link rel="stylesheet" href="/style/dashboards/diretor.css">
-    <link rel="stylesheet" href="/style/components/sidebar.css">
-    <link rel="stylesheet" href="/style/components/header.css">
-    <link rel="icon" type="image/png" href="/assets/imgs/logo.png">
+    <link rel="stylesheet" href="../../style/dashboards/diretor.css">
+    <link rel="stylesheet" href="../../style/components/sidebar.css">
+    <link rel="stylesheet" href="../../style/components/header.css">
+    <link rel="icon" type="image/png" href="../../assets/imgs/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -50,8 +50,15 @@
                 <p class="kpi-value">20%</p>
                 <hr>
                 <div class="kpi-footer">
-                    <span>Mudança anual <b>3%</b></span>
+                    <span>Classificação: <b>baixo</b></span>
                     <span class="trend-indicator">▼</span>
+                    <a href="">Alterar Regra</a>
+                    <div class="tooltip-container">
+                        <img src="../../assets/icons/attention.svg" alt="Imagem attention">
+                        <span class="tooltip-text">
+                            Criação de regras que permite alterar métricas e limites das KPIs conforme a necessidade.
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -62,6 +69,13 @@
                 <div class="kpi-footer">
                     <span>Mudança anual <b>1%</b></span>
                     <span class="trend-indicator">▼</span>
+                    <a href="">Alterar Regra</a>
+                    <div class="tooltip-container">
+                        <img src="../../assets/icons/attention.svg" alt="Imagem attention">
+                        <span class="tooltip-text">
+                            Criação de regras que permite alterar métricas e limites das KPIs conforme a necessidade.
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -86,14 +100,12 @@
 
         <section class="graphic-section">
             <div class="graphic-block">
-                <h2>Ranking de Evasão por Curso</h2>
                 <div class="chart-card">
                     <canvas id="chartRanking"></canvas>
                 </div>
             </div>
 
             <div class="graphic-block">
-                <h2>Evolução Mensal</h2>
                 <div class="chart-card">
                     <canvas id="chartTrend"></canvas>
                 </div>
@@ -102,12 +114,12 @@
 
     </main>
 
-    <script src="/js/include.js"></script>
-    <script src="/js/dashboards/diretor.js"></script>
+    <script src="../../js/include.js"></script>
+    <script src="../../js/dashboards/diretor.js"></script>
     <script>
         initPage("Visão Geral da Evasão na Instituição");
     </script>
-    
+
 </body>
 
 </html>
