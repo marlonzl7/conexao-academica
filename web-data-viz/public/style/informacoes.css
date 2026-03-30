@@ -75,3 +75,59 @@ body {
 .row-between .btn-primary {
     margin-top: 0; 
 }
+
+/* editar e mudar senha */
+.info-row-edit {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.info-row-edit label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #455881;
+    margin-bottom: 5px;
+}
+
+.info-row-edit input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.info-row-edit input:focus {
+    outline: none;
+    border-color: #1E3A8A;
+    box-shadow: 0 0 5px rgba(30, 58, 138, 0.2);
+}
+
+.info-row-edit input:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+.info-row-edit small {
+    color: #777;
+    margin-top: 4px;
+    font-size: 0.8rem;
+}
+
+/* Alinhamento dos botões */
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.btn-secondary {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.btn-secondary:hover {
+    text-decoration: underline;
+}
