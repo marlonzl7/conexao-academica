@@ -33,8 +33,7 @@ body {
 .filtros {
     display: flex;
     gap: 15px;
-    margin-bottom: 30px;
-    margin-top: 10px; 
+    margin-bottom: 10px; 
 }
 
 .filtro {
@@ -60,29 +59,28 @@ body {
     grid-template-columns: repeat(3, 1fr); 
     gap: 25px;
     width: 100%;
-    margin-bottom: 10px;
 }
 
 .kpi-card {
     background: var(--card-bg);
-    padding: 25px;
+    padding: 15px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    min-height: 220px;
+    min-height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .kpi-card h3 {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 12px;
+    font-weight: 350;
     color: var(--text-secondary);
 }
 
 .kpi-card .kpi-value {
-    font-size: 42px;
-    font-weight: 700;
+    font-size: 30px;
+    font-weight: 650;
     color: var(--text-primary);
     text-align: center;
 }
@@ -97,7 +95,7 @@ body {
 .modalidade-flex h2 {
     font-size: 12px;
     color: var(--text-secondary);
-    font-weight: 400;
+    font-weight: 350;
 }
 
 .modalidade-flex .kpi-value {
@@ -107,7 +105,7 @@ body {
 .kpi-card hr {
     border: 0;
     border-top: 1px solid #f0f0f0;
-    margin: 15px 0;
+    margin: 5px 0;
 }
 
 .kpi-footer {
@@ -123,11 +121,47 @@ body {
     font-size: 20px;
 }
 
+.kpi-footer a{
+    text-decoration: none;
+    color: var(--text-secondary);
+}
+
+.kpi-footer a:hover{
+    color: #C42929;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block; 
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 130px;
+  background-color: var(--text-secondary);
+  color: #ffffff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1; 
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+}
+
+.kpi-footer img{
+    width: 15px;
+    height: auto;
+}
+
 .graphic-section {
     display: grid;
     grid-template-columns: 1fr 1fr; 
     gap: 25px;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
 }
 
@@ -149,6 +183,6 @@ body {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    min-height: 350px; 
+    min-height: 270px; 
     width: 100%;
 }
