@@ -7,7 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./style/components/header.css">
     <link rel="stylesheet" href="./style/components/sidebar.css">
-    <link rel="stylesheet" href="./style/metas.css">
+    <link rel="stylesheet" href="./style/regras.css">
 </head>
 
 <body>
@@ -67,9 +67,9 @@
     <main>
         <div class="container">
             <div class="container-title">
-                <h1>Visualizar Metas</h1>
+                <h1>Visualizar Regras de Classificação</h1>
                 <div class="container-title-info">
-                    Configure suas próprias metas para receber <strong>notificações</strong> quando atingidas
+                    Configure suas próprias <strong>regras</strong> para classificar KPIs
                 </div>
             </div>
 
@@ -81,47 +81,49 @@
                 <!-- thead: tag recomendada para cabeçalhos da tabela, utilizando <th> dentro de <tr> -->
                 <thead>
                     <tr>
-                        <th>Indicador</th>
-                        <th>Meta</th>
+                        <th>Classificação</th>
+                        <th>KPI</th>
+                        <th>Limite inferior</th>
+                        <th>Limite superior</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
 
                 <!-- tbody: tag recomendada para o corpo principal da tabela, utilizando <td> dentro de <tr> -->
-                <tbody>
+                <tbody> 
                     <tr>
-                        <td>Taxa de evasão</td>
-                        <td>10%</td>
-                        <td class="acoes-tabela">
-                            <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
-                                    class="acoes-tabela-img"></button>
-                            <button><img src="./assets/icons/hide-icon.png" alt="Ícone de visualização"
-                                    class="acoes-tabela-img"></button>
-                            <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
-                                    class="acoes-tabela-img"></button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Alunos matriculados</td>
-                        <td>600+</td>
-                        <td class="acoes-tabela">
-                            <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
-                                    class="acoes-tabela-img"></button>
-                            <button><img src="./assets/icons/hide-icon.png" alt="Ícone de visualização"
-                                    class="acoes-tabela-img"></button>
-                            <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
-                                    class="acoes-tabela-img"></button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Risco de evasão</td>
                         <td>Baixo</td>
+                        <td>Risco de evasão</td>
+                        <td>0</td>
+                        <td>30%</td>
                         <td class="acoes-tabela">
                             <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
                                     class="acoes-tabela-img"></button>
-                            <button><img src="./assets/icons/hide-icon.png" alt="Ícone de visualização"
+                            <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
+                                    class="acoes-tabela-img"></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Médio</td>
+                        <td>Risco de evasão</td>
+                        <td>30%</td>
+                        <td>50%</td>
+                        <td class="acoes-tabela">
+                            <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
+                                    class="acoes-tabela-img"></button>
+                            <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
+                                    class="acoes-tabela-img"></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Crítico</td>
+                        <td>Risco de evasão</td>
+                        <td>50%</td>
+                        <td>100%</td>
+                        <td class="acoes-tabela">
+                            <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
                                     class="acoes-tabela-img"></button>
                             <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
                                     class="acoes-tabela-img"></button>
