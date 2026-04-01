@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/components/sidebar.css">
+    <link rel="stylesheet" href="/style/components/header.css">
+    <link rel="stylesheet" href="/style/dashboards/coordenador.css">
+    <script src="/js/include.js"></script>
+    <script src="/js/dashboards/coordenador.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Dashboard</title>
+</head>
+<body onload="carregarDashboard()">
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="content">
+        <header class="head-content">
+            <h2>Análise e Desenvolvimento de Sistemas</h2>
+
+            <div class="filter-conteiner">
+                <select name="filtro" id="filtro">
+                
+                </select>
+            </div>
+        </header>
+
+        <section class="kpi-group">
+            <div class="kpi">
+                <p class="kpi-title">Taxa de evasão em 2025</p>
+                <p class="kpi-value"></p>
+            </div>
+
+            <div class="kpi">
+                <p class="kpi-title">Risco de evasão</p>
+                <p class="kpi-value"></p>
+            </div>
+
+            <div class="kpi">
+                <p class="kpi-title">Tendência de evasão</p>
+                <p class="kpi-value"></p>
+            </div>
+
+            <div class="kpi">
+                <p class="kpi-title">Total de alunos matriculados</p>
+                <p class="kpi-value"></p>
+            </div>
+        </section>
+        
+        <section class="graph-group">
+            <h3>Taxa de evasão durante os anos</h3>
+            
+            <canvas id="graph-taxa-evasao">
+
+            </canvas>
+        </section>
+    </main>
+</html>
