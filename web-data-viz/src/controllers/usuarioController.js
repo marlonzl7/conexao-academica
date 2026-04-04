@@ -13,7 +13,7 @@ async function login(req, res) {
         console.error("Erro de autenticação: " + erro);
 
         if (erro === "CREDENCIAIS_INVALIDAS" || erro === "USUARIO_INATIVO") {
-            return res.status(403).json(respostaErro("Credencias Inválidas"));
+            return res.status(401).json(respostaErro("Credencias Inválidas"));
         }
 
         return res.status(500).json(respostaErro("Erro interno no servidor"));
