@@ -1,10 +1,7 @@
 USE conexao_academica;
 
 INSERT INTO cargo (nome) VALUES
-    ('administrador'),
-    ('diretor'),
-    ('coordenador'),
-    ('administrador_instituicao');
+    ('administrador');
 
 INSERT INTO kpi () VALUES
     ('taxa_evasao_instituicao'),
