@@ -46,6 +46,23 @@ async function existeDiretorNaInstituicao(id_instituicao) {
     return resultado.length > 0;
 }
 
+// info da conta
+async function buscarDadosConta(idUsuario) {
+    const instrucao = `
+        SELECT 
+            u.nome,
+            u.email,
+            u.cpf,
+            i.nome AS instituicao
+        FROM usuario u
+        JOIN instituicao i ON u.id_instituicao = i.id_instituicao
+        WHERE u.id_usuario = ?;
+    `;
+
+    return database.executar(instrucao, [idUsuario]);
+}
+
 module.exports = {
-    cadastrarUsuarioDiretor
+    cadastrarUsuarioDiretor,
+    buscarDadosConta
 };
