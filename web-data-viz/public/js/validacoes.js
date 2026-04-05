@@ -107,3 +107,11 @@ function validarCaractereEspecial(codigoAscii) {
 function validarConfirmacaoSenha(senha, confirmacao) {
     return senha.value === confirmacao.value;
 }
+
+function validarMensagem(input){
+    const valor = input.value.trim();
+
+    if (valor.length < 10) return false;
+
+    return true;
+}

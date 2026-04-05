@@ -62,3 +62,10 @@ CREATE TABLE regra (
     CONSTRAINT uq_usuario_kpi_classificacao UNIQUE (id_usuario, id_kpi, classificacao),
     CONSTRAINT chk_limite CHECK (limite_inferior < limite_superior)
 );
+
+CREATE TABLE mensagem (
+	id_mensagem INT PRIMARY KEY AUTO_INCREMENT,
+    mensagem VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    nome VARCHAR(80) NOT NULL
+);
