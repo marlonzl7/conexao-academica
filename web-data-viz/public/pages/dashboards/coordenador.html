@@ -1,59 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style/components/sidebar.css">
-    <link rel="stylesheet" href="/style/components/header.css">
-    <link rel="stylesheet" href="/style/dashboards/coordenador.css">
-    <script src="/js/include.js"></script>
-    <script src="/js/dashboards/coordenador.js"></script>
+    <title>Dashboard | Coordenador</title>
+    <link rel="stylesheet" href="../../style/dashboards/coordenador.css">
+    <link rel="stylesheet" href="../../style/components/sidebar.css">
+    <link rel="stylesheet" href="../../style/components/header.css">
+    <link rel="icon" type="image/png" href="../../assets/imgs/logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Dashboard</title>
 </head>
+
 <body onload="carregarDashboard()">
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
 
-    <main class="content">
-        <header class="head-content">
-            <h2>Análise e Desenvolvimento de Sistemas</h2>
-
-            <div class="filter-conteiner">
-                <select name="filtro" id="filtro">
-                
+    <main class="dashboard-content">
+        <section class="filtros">
+            <div class="filtro">
+                <h2>Análise e Desenvolvimento de Sistemas</h2>
+            </div>
+            <div class="filtro">
+                <label for="ano">Ano:</label>
+                <select id="ano" name="ano">
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
                 </select>
             </div>
-        </header>
+        </section>
 
-        <section class="kpi-group">
-            <div class="kpi">
-                <p class="kpi-title">Taxa de evasão em 2025</p>
-                <p class="kpi-value"></p>
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <h3>Taxa de evasão em 2025</h3>
+                <p class="kpi-value" id="evasao-valor">12%</p>
+                <hr>
+                <div class="kpi-footer">
+                    <span>Classificação: <b>Baixa</b></span>
+                    <span class="trend-indicator">▼</span>
+                </div>
             </div>
 
-            <div class="kpi">
-                <p class="kpi-title">Risco de evasão</p>
-                <p class="kpi-value"></p>
+            <div class="kpi-card">
+                <h3>Risco de evasão</h3>
+                <p class="kpi-value" id="risco-valor">Crítico</p>
+                <hr>
+                <div class="kpi-footer">
+                    <span>Alunos em alerta: <b>15</b></span>
+                </div>
             </div>
 
-            <div class="kpi">
-                <p class="kpi-title">Tendência de evasão</p>
-                <p class="kpi-value"></p>
-            </div>
-
-            <div class="kpi">
-                <p class="kpi-title">Total de alunos matriculados</p>
-                <p class="kpi-value"></p>
+            <div class="kpi-card">
+                <h3>Tendência de evasão</h3>
+                <p class="kpi-value" id="tendencia-valor">- 2%</p>
+                <hr>
+                <div class="kpi-footer">
+                    <span>Em relação a 2024</span>
+                    <span class="trend-indicator">▼</span>
+                </div>
             </div>
         </section>
-        
-        <section class="graph-group">
-            <h3>Taxa de evasão durante os anos</h3>
-            
-            <canvas id="graph-taxa-evasao">
 
-            </canvas>
+        <section class="graphic-section">
+            <div class="graphic-block">
+                <div class="chart-card">
+                    <h3>Evasão Durante os Anos</h3>
+                    <canvas id="graph-taxa-evasao"></canvas>
+                </div>
+            </div>
         </section>
     </main>
+
+    <script src="../../js/include.js"></script>
+    <script src="../../js/dashboards/coordenador.js"></script>
+    <script>
+        initPage("Dashboard do Coordenador de Curso");
+    </script>
+</body>
+
 </html>
