@@ -40,7 +40,7 @@ var carrosel = document.querySelectorAll(".carrosel-card");
 
 function atualizarCarrosel() {
   for (let index = 0; index < carrosel.length; index++) {
-    carrosel[index].style.display = "none"; 
+    carrosel[index].style.display = "none";
   }
   carrosel[contador].style.display = "block";
 }
@@ -64,3 +64,38 @@ function anterior() {
 window.addEventListener("resize", resTablet);
 
 atualizarCarrosel();
+
+function enviarMensagem() {
+  const nome = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const mensagem = document.getElementById("message").value;
+
+  validarNome(nome);
+  validarEmail(email);
+  validarMensagem(mensagem);
+
+  fetch("/enviar-mensagem", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nomeServer: nome,
+      emailServer: email,
+      mensagemServer: mensagem,
+    }),
+  })
+  .then(function(response) {
+      alert("Mensagem enviada com sucesso!", response);
+  })
+  .catch(function(erro) {
+      console.error("Erro ao enviar mensagem:", erro);
+      alert("Erro ao enviar mensagem. Por favor, tente novamente.");
+  });
+
+  nome.value = "";
+  email.value = "";
+  mensagem.value = "";
+
+  return false;
+}
