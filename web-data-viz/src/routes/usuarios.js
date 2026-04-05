@@ -11,5 +11,9 @@ router.post("/diretor", validarCadastroUsuario, function (req, res) {
 router.post("/login", function(req, res) {
     usuarioController.login(req, res);
 })
+//info da conta
+router.get("/:id", function (req, res) {
+    usuarioController.buscarDadosConta(req, res);
+});
 
 module.exports = router;
