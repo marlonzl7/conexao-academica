@@ -74,7 +74,7 @@ function enviarMensagem() {
   validarEmail(email);
   validarMensagem(mensagem);
 
-  fetch("/enviar-mensagem", {
+  fetch("/contact", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -85,11 +85,11 @@ function enviarMensagem() {
       mensagemServer: mensagem,
     }),
   })
-  .then(function(response) {
-      alert("Mensagem enviada com sucesso!", response);
+  .then(function(respostaSucesso) {
+      alert("Mensagem enviada com sucesso!", respostaSucesso);
   })
-  .catch(function(erro) {
-      console.error("Erro ao enviar mensagem:", erro);
+  .catch(function(RespostaErro) {
+      console.error("Erro ao enviar mensagem:", RespostaErro);
       alert("Erro ao enviar mensagem. Por favor, tente novamente.");
   });
 
