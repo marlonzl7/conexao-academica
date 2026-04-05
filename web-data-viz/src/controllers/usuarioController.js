@@ -42,7 +42,28 @@ async function cadastrarUsuarioDiretor(req, res) {
     }
 }
 
+//add parte de informações da conta 
+async function buscarDadosConta(req, res) {
+    try {
+        const { id } = req.params;
+
+        const resultado = await usuarioModel.buscarDadosConta(id);
+
+        if (!resultado || resultado.length === 0) {
+            return res.status(404).json(respostaErro("Usuário não encontrado"));
+        }
+
+        return res
+            .status(200)
+            .json(respostaSucesso(true, resultado[0], "Dados da conta obtidos com sucesso"));
+    } catch (erro) {
+        console.log("Erro ao buscar dados da conta: " + erro);
+        return res.status(500).json(respostaErro("Erro interno no servidor"));
+    }
+}
+
 module.exports = {
     cadastrarUsuarioDiretor,
-    login
+    login,
+    buscarDadosConta
 };
