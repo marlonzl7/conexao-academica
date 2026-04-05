@@ -1,5 +1,5 @@
-CREATE DATABASE conexao_academica;
-USE conexao_academica;
+CREATE DATABASE conexaoacademica;
+USE conexaoacademica;
 
 CREATE TABLE instituicao (
     id_instituicao INT PRIMARY KEY,
