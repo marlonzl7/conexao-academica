@@ -1,7 +1,45 @@
 var database = require("../database/config");
 var { gerarHash, compararSenhas } = require("../utils/senhaUtils");
-const { obterIdPorNome } = require("./cargoModel");
 var cargoModel = require("./cargoModel");
+
+async function login(email, senha) {
+    const instrucao = `
+        SELECT
+            u.id_usuario,
+            c.nome as cargo,
+            u.nome,
+            u.email,
+            u.senha,
+            u.ativo
+        FROM usuario u
+        JOIN cargo c ON u.id_cargo = c.id_cargo
+        WHERE email = ?`
+    ;
+
+    const parametros = [email];
+    const resultado = await database.executar(instrucao, parametros);
+
+    const usuario = resultado[0];
+
+    const hashFake = "abc:abc";
+
+    const hashParaComparar = usuario ? usuario.senha : hashFake;
+
+    const senhaValida = compararSenhas(senha, hashParaComparar);
+    
+    if (!usuario || !senhaValida) {
+        throw "CREDENCIAIS_INVALIDAS";
+    }
+    
+    if (!usuario.ativo) {
+        throw "USUARIO_INATIVO";
+    }
+    
+    delete usuario.senha;
+    delete usuario.ativo;
+
+    return resultado;
+}
 
 async function cadastrarUsuarioDiretor(id_instituicao, cpf, nome, email, senha) {
     if (await existeUsuarioPorEmail(email)) {
@@ -12,7 +50,7 @@ async function cadastrarUsuarioDiretor(id_instituicao, cpf, nome, email, senha) 
         throw "DIRETOR_EXISTENTE";
     }
 
-    const hashSenha = gerarHash(senha);
+    const hashSenha = await gerarHash(senha);
     const resultado = await cargoModel.obterIdPorNome('diretor');
     const id_cargo = resultado[0].id_cargo
 
@@ -64,5 +102,6 @@ async function buscarDadosConta(idUsuario) {
 
 module.exports = {
     cadastrarUsuarioDiretor,
+    login,
     buscarDadosConta
 };
