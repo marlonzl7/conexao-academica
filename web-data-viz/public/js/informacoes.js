@@ -32,11 +32,38 @@ function buscarDados() {
 }
 
 function alterarSenha() {
-    const idUsuario = 11; // depois vamos melhorar isso
+    const idUsuario = 11;
 
     const senhaAtual = document.getElementById("senhaAtual").value;
     const novaSenha = document.getElementById("novaSenha").value;
+    const confirmarSenha = document.getElementById("confirmarSenha").value;
 
+    const mensagem = document.getElementById("mensagem");
+
+    mensagem.innerText = ""; 
+
+    // validações
+    if (!senhaAtual || !novaSenha || !confirmarSenha) {
+        mensagem.innerText = "Preencha todos os campos!";
+        return;
+    }
+
+    if (novaSenha.length < 8) {
+        mensagem.innerText = "A nova senha deve ter pelo menos 8 caracteres.";
+        return;
+    }
+
+    if (novaSenha === senhaAtual) {
+        mensagem.innerText = "A nova senha deve ser diferente da atual.";
+        return;
+    }
+
+    if (novaSenha !== confirmarSenha) {
+        mensagem.innerText = "As senhas não coincidem.";
+        return;
+    }
+
+    // envio para o backend
     fetch(`/usuarios/${idUsuario}/senha`, {
         method: "PUT",
         headers: {
@@ -50,12 +77,19 @@ function alterarSenha() {
     .then(res => res.json())
     .then(resposta => {
         if (resposta.sucesso) {
-            alert("Senha atualizada com sucesso!");
+            mensagem.style.color = "green";
+            mensagem.innerText = "Senha atualizada com sucesso!";
+
+            document.getElementById("senhaAtual").value = "";
+            document.getElementById("novaSenha").value = "";
+            document.getElementById("confirmarSenha").value = "";
         } else {
-            alert(resposta.mensagem);
+            mensagem.style.color = "red";
+            mensagem.innerText = resposta.mensagem;
         }
     })
     .catch(erro => {
         console.error("Erro:", erro);
+        mensagem.innerText = "Erro ao atualizar senha.";
     });
 }
