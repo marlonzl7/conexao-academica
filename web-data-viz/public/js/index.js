@@ -66,9 +66,9 @@ window.addEventListener("resize", resTablet);
 atualizarCarrosel();
 
 function enviarMensagem() {
-  const nome = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const mensagem = document.getElementById("message").value;
+  const nome = document.getElementById("name");
+  const email = document.getElementById("email");
+  const mensagem = document.getElementById("message");
 
   validarNome(nome);
   validarEmail(email);
@@ -80,22 +80,21 @@ function enviarMensagem() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      nomeServer: nome,
-      emailServer: email,
-      mensagemServer: mensagem,
+      nomeServer: nome.value,
+      emailServer: email.value,
+      mensagemServer: mensagem.value,
     }),
   })
-  .then(function(respostaSucesso) {
+    .then(function (respostaSucesso) {
       alert("Mensagem enviada com sucesso!", respostaSucesso);
-  })
-  .catch(function(RespostaErro) {
+      nome.value = "";
+      email.value = "";
+      mensagem.value = "";
+    })
+    .catch(function (RespostaErro) {
       console.error("Erro ao enviar mensagem:", RespostaErro);
       alert("Erro ao enviar mensagem. Por favor, tente novamente.");
-  });
-
-  nome.value = "";
-  email.value = "";
-  mensagem.value = "";
+    });
 
   return false;
 }

@@ -1,4 +1,4 @@
-var database = require("../database");
+var database = require("../database/config");
 
 function enviarMensagem(nome, email, mensagem) {
     const instrucao = `
