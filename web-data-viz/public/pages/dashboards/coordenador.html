@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body onload="carregarDashboard()">
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
 
@@ -70,15 +70,8 @@
         <section class="graphic-section">
             <div class="graphic-block">
                 <div class="chart-card">
-                    <h3>Evasão por Semestre</h3>
+                    <h3>Evasão Durante os Anos</h3>
                     <canvas id="graph-taxa-evasao"></canvas>
-                </div>
-            </div>
-
-            <div class="graphic-block">
-                <div class="chart-card">
-                    <h3>Motivos de Desistência</h3>
-                    <canvas id="chartMotivos"></canvas>
                 </div>
             </div>
         </section>
