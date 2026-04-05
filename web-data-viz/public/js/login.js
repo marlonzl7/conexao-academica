@@ -56,14 +56,59 @@ function onkey_senha() {
 
 //Validação login 
 
-function entrar() {
+function validarCampos() {
     email = ipt_email.value;
     senha = ipt_senha.value;
 
     if (email == '' || senha == '') {
         div_msg_login.innerHTML = "Por favor, preencha todos os campos."
+        return;
     }
- 
+
+}
+
+// Realizar login
+async function login() {
+    const url = "/usuarios/login";
+    const dados = {
+        email: ipt_email.value,
+        senha: ipt_senha.value
+    }
+
+    const resposta = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dados)
+    });
+
+    const json = await resposta.json();
+
+    if (!resposta.ok) {
+        div_msg_login.innerHTML = "Falha na autenticação: " + json.mensagem;
+        return;
+    }
+    
+    iniciarSessao(
+        json.dados.id_usuario, 
+        json.dados.nome, 
+        json.dados.email
+    );
+
+    if (json.dados.cargo === 'diretor') {
+        window.location.href = '/pages/dashboards/diretor.html';
+        return;
+    } else if (json.dados.cargo === 'coordenador') {
+        window.location.href = '/pages/dashboards/coordenador.html';
+        return;
+    }
+}
+
+function iniciarSessao(id_usuario, nome, email) {
+    sessionStorage.ID_USUARIO = id_usuario;
+    sessionStorage.NOME = nome;
+    sessionStorage.EMAIL = email;
 }
 
 // Header responsivo
