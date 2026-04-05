@@ -23,12 +23,12 @@
                 <form class="card-content">
                     <div class="info-row-edit">
                         <label for="senha-atual">Senha Atual</label>
-                        <input type="password" id="senha-atual" placeholder="Digite sua senha atual" required>
+                        <input type="password" id="senhaAtual" placeholder="Senha atual" placeholder="Digite sua senha atual" required>
                     </div>
 
                     <div class="info-row-edit">
                         <label for="nova-senha">Nova Senha</label>
-                        <input type="password" id="nova-senha" placeholder="Mínimo 8 caracteres" required>
+                        <input type="password" id="novaSenha" placeholder="Mínimo 8 caracteres" required>
                     </div>
 
                     <div class="info-row-edit">
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="actions">
-                        <button type="submit" class="btn-primary">Atualizar Senha</button>
+                        <button type="submit" class="btn-primary" onclick="alterarSenha()">Atualizar Senha</button>
                         <a href="conta.html" class="btn-secondary">Cancelar</a>
                     </div>
                 </form>

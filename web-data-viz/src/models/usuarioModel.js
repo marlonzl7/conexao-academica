@@ -62,7 +62,27 @@ async function buscarDadosConta(idUsuario) {
     return database.executar(instrucao, [idUsuario]);
 }
 
+// info da conta - parte da senha 
+async function atualizarSenha(idUsuario, senhaAtual, novaSenha) {
+    const instrucao = `SELECT senha FROM usuario WHERE id_usuario = ?`;
+    const resultado = await database.executar(instrucao, [idUsuario]);
+
+    if (resultado.length === 0) {
+        throw "USUARIO_NAO_ENCONTRADO";
+    }
+
+    const senhaBanco = resultado[0].senha;
+
+    if (senhaAtual !== senhaBanco) {
+        throw "SENHA_INVALIDA";
+    }
+
+    const update = `UPDATE usuario SET senha = ? WHERE id_usuario = ?`;
+    return database.executar(update, [novaSenha, idUsuario]);
+}
+
 module.exports = {
     cadastrarUsuarioDiretor,
-    buscarDadosConta
+    buscarDadosConta,
+    atualizarSenha
 };

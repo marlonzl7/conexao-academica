@@ -43,7 +43,34 @@ async function buscarDadosConta(req, res) {
     }
 }
 
+async function atualizarSenha(req, res) {
+    try {
+        const { id } = req.params;
+        const { senhaAtual, novaSenha } = req.body;
+
+        await usuarioModel.atualizarSenha(id, senhaAtual, novaSenha);
+
+        return res.status(200).json(
+            respostaSucesso(true, null, "Senha atualizada com sucesso")
+        );
+
+    } catch (erro) {
+        console.log("Erro ao atualizar senha:", erro);
+
+        if (erro === "SENHA_INVALIDA") {
+            return res.status(401).json(respostaErro("Senha atual incorreta"));
+        }
+
+        if (erro === "USUARIO_NAO_ENCONTRADO") {
+            return res.status(404).json(respostaErro("Usuário não encontrado"));
+        }
+
+        return res.status(500).json(respostaErro("Erro interno no servidor"));
+    }
+}
+
 module.exports = {
     cadastrarUsuarioDiretor,
-    buscarDadosConta
+    buscarDadosConta,
+    atualizarSenha
 };
