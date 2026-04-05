@@ -14,4 +14,4 @@ async function enviarMensagem(req, res) {
 
 module.exports = {
     enviarMensagem
-}
+};
