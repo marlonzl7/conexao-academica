@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style/components/sidebar.css">
-    <link rel="stylesheet" href="/style/components/header.css">
     <link rel="stylesheet" href="/style/dashboards/coordenador.css">
-    <script src="/js/include.js"></script>
-    <script src="/js/dashboards/coordenador.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Dashboard</title>
+    <title>Dashboard Coordenador</title>
 </head>
 <body onload="carregarDashboard()">
     <div id="sidebar-container"></div>
@@ -18,42 +15,43 @@
     <main class="content">
         <header class="head-content">
             <h2>Análise e Desenvolvimento de Sistemas</h2>
-
-            <div class="filter-conteiner">
+            <div class="filter-container">
                 <select name="filtro" id="filtro">
-                
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
                 </select>
             </div>
         </header>
 
         <section class="kpi-group">
             <div class="kpi">
-                <p class="kpi-title">Taxa de evasão em 2025</p>
-                <p class="kpi-value"></p>
+                <p class="kpi-title">Taxa de evasão (2025)</p>
+                <p class="kpi-value" id="evasao-valor">12%</p>
             </div>
 
             <div class="kpi">
                 <p class="kpi-title">Risco de evasão</p>
-                <p class="kpi-value"></p>
+                <p class="kpi-value" id="risco-valor">Baixo</p>
             </div>
 
             <div class="kpi">
-                <p class="kpi-title">Tendência de evasão</p>
-                <p class="kpi-value"></p>
+                <p class="kpi-title">Tendência</p>
+                <p class="kpi-value" id="tendencia-valor">− 2%</p>
             </div>
 
             <div class="kpi">
-                <p class="kpi-title">Total de alunos matriculados</p>
-                <p class="kpi-value"></p>
+                <p class="kpi-title">Alunos Matriculados</p>
+                <p class="kpi-value" id="matriculados-valor">450</p>
             </div>
         </section>
         
         <section class="graph-group">
-            <h3>Taxa de evasão durante os anos</h3>
-            
-            <canvas id="graph-taxa-evasao">
-
-            </canvas>
+            <h3>Taxa de evasão histórica</h3>
+            <canvas id="graph-taxa-evasao"></canvas>
         </section>
     </main>
+
+    <script src="/js/include.js"></script>
+    <script src="/js/dashboards/coordenador.js"></script>
+</body>
 </html>
