@@ -35,8 +35,7 @@ header {
     width: 100%;
     height: 70px;
     padding: 0 5%;
-    box-shadow: 0px 2px 10px var(--text-color);
-    overflow: visible;
+    box-shadow: 0px 2px 10px var(--main-color);
 }
 
 header img {
@@ -47,8 +46,6 @@ header img {
 header h3 {
     display: none;
 }
-
-/* ================= NAV ================= */
 
 nav button {
     background-color: transparent;
@@ -69,15 +66,14 @@ ul {
 #menu {
     display: none;
     position: absolute;
-    top: 70px;
+    top: 100%;
+    right: 0;
     left: 0;
-    width: 100%;
     background-color: var(--main-color);
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
     list-style: none;
-    z-index: 999;
 }
 
 #menu li {
@@ -94,6 +90,10 @@ ul {
     padding: 0.5rem;
 }
 
+#menu a:hover {
+    color: var(--secondary-color);
+}
+
 #home-imagem,
 #sobre-imagem,
 #login-imagem,
@@ -106,7 +106,7 @@ ul {
 
 @media screen and (min-width: 768px) {
 
-    header h3 {
+        header h3 {
         display: block;
         color: var(--text-color);
         font-family: 'Public Sans', sans-serif;
@@ -127,12 +127,26 @@ ul {
 
     #menu {
         display: flex;
+        top: 0;
         position: static;
-        flex-direction: row;
-        background: none;
         gap: 40px;
-        width: auto;
         padding: 0;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #menu li:last-child a {
+        border: 2px solid var(--text-color);
+        color: var(--text-color);
+        padding: 0.5rem 1.2rem;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    #menu li:last-child a:hover {
+        background-color: var(--text-color);
+        color: var(--main-color);
     }
 }
 /* ================= FIM HEADER ================= */
@@ -254,6 +268,7 @@ input:focus-visible,
 }
 
 .link:hover {
+    cursor: pointer;
     text-decoration: underline;
 }
 
