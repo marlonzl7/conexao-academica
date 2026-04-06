@@ -1,5 +1,5 @@
-CREATE DATABASE conexao_academica;
-USE conexao_academica;
+CREATE DATABASE conexaoacademica;
+USE conexaoacademica;
 
 CREATE TABLE instituicao (
     id_instituicao INT PRIMARY KEY,
@@ -61,4 +61,11 @@ CREATE TABLE regra (
     CONSTRAINT fk_regra_kpi FOREIGN KEY (id_kpi) REFERENCES kpi(id_kpi),
     CONSTRAINT uq_usuario_kpi_classificacao UNIQUE (id_usuario, id_kpi, classificacao),
     CONSTRAINT chk_limite CHECK (limite_inferior < limite_superior)
+);
+
+CREATE TABLE mensagem (
+	id_mensagem INT PRIMARY KEY AUTO_INCREMENT,
+    mensagem VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    nome VARCHAR(80) NOT NULL
 );
