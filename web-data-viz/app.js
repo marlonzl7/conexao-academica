@@ -16,6 +16,7 @@ var HOST_APP = process.env.APP_HOST;
 var app = express();
 
 var indexRouter = require("./src/routes/index");
+var regraRouter = require("./src/routes/regra");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
