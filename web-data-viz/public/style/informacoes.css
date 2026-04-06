@@ -131,3 +131,8 @@ body {
 .btn-secondary:hover {
     text-decoration: underline;
 }
+
+.mensagem {
+    margin-top: 10px;
+    font-weight: bold;
+}

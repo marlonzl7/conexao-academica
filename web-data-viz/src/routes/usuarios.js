@@ -16,4 +16,12 @@ router.get("/:id", function (req, res) {
     usuarioController.buscarDadosConta(req, res);
 });
 
+router.put("/:id/senha", function (req, res) {
+    usuarioController.atualizarSenha(req, res);
+});
+
+router.put("/:id", function (req, res) {
+    usuarioController.atualizarDados(req, res);
+});
+
 module.exports = router;
