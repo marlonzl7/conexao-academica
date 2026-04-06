@@ -1,7 +1,19 @@
-function abrirModal() {
-    document.getElementById("modal-overlay").classList.remove("hidden");
+function abrirModal(id) {
+    document.getElementById(id).classList.remove("hidden");
 }
 
-function fecharModal() {
-    document.getElementById("modal-overlay").classList.add("hidden");
+function fecharModal(id) {
+    document.getElementById(id).classList.add("hidden");
+}
+
+function cadastrarRegra() {
+
+}
+
+function editarRegra() {
+    
+}
+
+function apagarRegra() {
+
 }

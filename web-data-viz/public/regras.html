@@ -74,8 +74,9 @@
             </div>
 
             <div class="topo-tabela">
-                <button class="botao-cadastro" onclick="abrirModal()"><img src="./assets/icons/plus-icon.png"
-                        alt="Ícone de mais" class="img-botao-cadastro">Cadastrar</button>
+                <button class="botao-cadastro" onclick="abrirModal('modal-overlay-cadastro')"><img
+                        src="./assets/icons/plus-icon.png" alt="Ícone de mais"
+                        class="img-botao-cadastro">Cadastrar</button>
             </div>
 
             <table class="tabela">
@@ -99,9 +100,9 @@
                         <td>30%</td>
                         <td class="acoes-tabela">
                             <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
-                                    class="acoes-tabela-img"></button>
+                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-edicao')"></button>
                             <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
-                                    class="acoes-tabela-img"></button>
+                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-delecao')"></button>
                         </td>
                     </tr>
 
@@ -112,9 +113,9 @@
                         <td>50%</td>
                         <td class="acoes-tabela">
                             <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
-                                    class="acoes-tabela-img"></button>
+                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-edicao')"></button>
                             <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
-                                    class="acoes-tabela-img"></button>
+                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-delecao')"></button>
                         </td>
                     </tr>
 
@@ -125,9 +126,9 @@
                         <td>100%</td>
                         <td class="acoes-tabela">
                             <button><img src="./assets/icons/write-icon.png" alt="Ícone de escrita"
-                                    class="acoes-tabela-img"></button>
+                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-edicao')"></button>
                             <button><img src="./assets/icons/delete-icon.png" alt="Ícone de deleção"
-                                    class="acoes-tabela-img"></button>
+                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-delecao')"></button>
                         </td>
                     </tr>
                 </tbody>
@@ -135,14 +136,14 @@
         </div>
     </main>
 
-    <!-- modal de cadastro -->
     <!-- modal-overlay: div que estou usando para as sombras do background -->
-    <div id="modal-overlay" class="overlay hidden">
+    <div id="modal-overlay-cadastro" class="overlay hidden">
+        <!-- modal de cadastro -->
         <div class="modal">
 
             <div class="modal-header">
                 <h2>Registrar Regras</h2>
-                <span class="fechar-modal" onclick="fecharModal()">X</span>
+                <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro')">X</span>
             </div>
 
             <div class="modal-body">
@@ -175,14 +176,89 @@
             </div>
 
             <div class="modal-footer">
-                <button class="modal-botao-cancelar" onclick="fecharModal()">Cancelar</button>
+                <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-cadastro')">Cancelar</button>
                 <button class="modal-botao-confirmar">Registrar</button>
             </div>
 
         </div>
+
+    </div>
+
+    <div id="modal-overlay-edicao" class="overlay hidden">
+        <!-- modal de cadastro -->
+        <div class="modal">
+
+            <div class="modal-header">
+                <h2>Editar Regras</h2>
+                <span class="fechar-modal" onclick="fecharModal('modal-overlay-edicao')">X</span>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Classificação</label>
+                    <select>
+                        <option value="0">Baixo</option>
+                        <option value="1">Médio</option>
+                        <option value="2">Crítico</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>KPI</label>
+                    <!-- adicionar referências ao banco aqui depois -->
+                    <select>
+                        <option>Risco de evasão</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Limite inferior</label>
+                    <input type="text" placeholder="Ex: 50%">
+                </div>
+
+                <div class="form-group">
+                    <label>Limite superior</label>
+                    <input type="text" placeholder="Ex: 80%">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-edicao')">Cancelar</button>
+                <button class="modal-botao-confirmar">Salvar</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="modal-overlay-delecao" class="overlay hidden">
+        <!-- modal de cadastro -->
+        <div class="modal">
+
+            <div class="modal-header">
+                <h2>Exclusão</h2>
+                <span class="fechar-modal" onclick="fecharModal('modal-overlay-delecao')">X</span>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group center">
+                    <span>Tem certeza que deseja excluir esse registro?</span>
+                </div>
+
+            </div>
+
+            <div class="modal-footer center">
+                <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-delecao')">Cancelar</button>
+                <button class="modal-botao-deletar">Deletar</button>
+            </div>
+
+        </div>
+
     </div>
 
     <script src="./js/regras.js"></script>
 </body>
+
+</html>
 
 </html>
