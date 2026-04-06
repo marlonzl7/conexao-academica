@@ -149,4 +149,16 @@ function menu() {
   }
 }
 
+//parte para armazenar id de usuario logado
+
+/*then(resposta => {
+    if (resposta.sucesso) {
+        const usuario = resposta.dados;
+
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+
+        window.location.href = "/dashboard.html";
+    }
+});*/
+
 window.addEventListener("resize", resTablet);
