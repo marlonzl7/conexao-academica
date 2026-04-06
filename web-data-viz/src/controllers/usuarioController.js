@@ -107,5 +107,6 @@ module.exports = {
     cadastrarUsuarioDiretor,
     buscarDadosConta,
     atualizarSenha,
-    atualizarDados
-};
+    atualizarDados,
+    login
+}
