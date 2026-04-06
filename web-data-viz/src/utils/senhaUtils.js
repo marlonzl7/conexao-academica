@@ -1,13 +1,13 @@
 const crypto = require("crypto");
 
-function gerarHash(senha) {
+async function gerarHash(senha) {
     const salt = crypto.randomBytes(16).toString("hex");
     const hash = crypto.scryptSync(senha, salt, 64).toString("hex");
     
     return `${salt}:${hash}`;
 }
 
-function compararSenhas(senhaDigitada, hashArmazenado) {
+async function compararSenhas(senhaDigitada, hashArmazenado) {
     const [salt, hashOriginal] = hashArmazenado.split(":");
     const hashSenhaDigitada = crypto.scryptSync(senhaDigitada, salt, 64).toString("hex");
 
