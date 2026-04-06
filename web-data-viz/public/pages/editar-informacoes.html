@@ -20,26 +20,26 @@
                 <div class="card-header">
                     <h2>Editar Informações Pessoais</h2>
                 </div>
-                <form class="card-content">
+                <form class="card-content" onsubmit="salvar(event)">
                     <div class="info-row-edit">
                         <label for="instituicao">Instituição</label>
-                        <input type="text" id="instituicao" value="12345 - Escola X" disabled>
+                        <input type="text" id="instituicao" disabled>
                         <small>O código da instituição não pode ser alterado.</small>
                     </div>
 
                     <div class="info-row-edit">
                         <label for="nome">Nome Completo</label>
-                        <input type="text" id="nome" value="João da Silva" required>
+                        <input type="text" id="nome"  required>
                     </div>
 
                     <div class="info-row-edit">
                         <label for="email">E-mail</label>
-                        <input type="email" id="email" value="joaosilva@email.com" required>
+                        <input type="email" id="email" required>
                     </div>
 
                     <div class="actions">
                         <button type="submit" class="btn-primary">Salvar Alterações</button>
-                        <a href="conta.html" class="btn-secondary">Cancelar</a>
+                        <a href="informacoes-da-conta.html" class="btn-secondary">Cancelar</a>
                     </div>
                 </form>
             </section>

@@ -81,8 +81,22 @@ async function atualizarSenha(idUsuario, senhaAtual, novaSenha) {
     return database.executar(update, [novaSenha, idUsuario]);
 }
 
+//info da conta - atualizar email e senha
+async function atualizarDados(idUsuario, nome, email) {
+    const instrucao = `
+        UPDATE usuario 
+        SET nome = ?, email = ?
+        WHERE id_usuario = ?
+    `;
+
+    const parametros = [nome, email, idUsuario];
+
+    return database.executar(instrucao, parametros);
+}
+
 module.exports = {
     cadastrarUsuarioDiretor,
     buscarDadosConta,
-    atualizarSenha
+    atualizarSenha,
+    atualizarDados
 };

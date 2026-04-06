@@ -1,5 +1,6 @@
 window.onload = function () {
     buscarDados();
+    carregarDados();
 };
 
 function formatarCPF(cpf) {
@@ -7,6 +8,14 @@ function formatarCPF(cpf) {
 }
 
 function buscarDados() {
+    /*const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    if (!usuario) {
+        console.error("Usuário não está logado");
+        return;
+    }*/
+
+    //const idUsuario = usuario.id_usuario;
     const idUsuario = 11;
 
     fetch(`/usuarios/${idUsuario}`)
@@ -23,15 +32,22 @@ function buscarDados() {
             document.getElementById("cpf").innerText = formatarCPF(dados.cpf);
             document.getElementById("nome").innerText = dados.nome;
             document.getElementById("email").innerText = dados.email;
-           
-
         })
         .catch(erro => {
             console.error("Erro ao buscar dados:", erro);
         });
 }
 
+
 function alterarSenha() {
+    /*const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    if (!usuario) {
+        alert("Usuário não está logado");
+        return;
+    }*/
+
+    //const idUsuario = usuario.id_usuario;
     const idUsuario = 11;
 
     const senhaAtual = document.getElementById("senhaAtual").value;
@@ -40,7 +56,7 @@ function alterarSenha() {
 
     const mensagem = document.getElementById("mensagem");
 
-    mensagem.innerText = ""; 
+    mensagem.innerText = "";
 
     // validações
     if (!senhaAtual || !novaSenha || !confirmarSenha) {
@@ -62,34 +78,64 @@ function alterarSenha() {
         mensagem.innerText = "As senhas não coincidem.";
         return;
     }
+}
 
-    // envio para o backend
-    fetch(`/usuarios/${idUsuario}/senha`, {
+function carregarDados() {
+    //const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const idUsuario = 11;
+
+    fetch(`/usuarios/${idUsuario}`)
+        .then(res => res.json())
+        .then(resposta => {
+            if (!resposta.sucesso) return;
+
+            const dados = resposta.dados;
+
+            document.getElementById("instituicao").value = dados.instituicao;
+            document.getElementById("nome").value = dados.nome;
+            document.getElementById("email").value = dados.email;
+        });
+}
+
+function salvar(event) {
+    event.preventDefault(); 
+
+    //const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const idUsuario = 11;
+
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("email").value;
+
+    // validações
+    if (!nome || !email) {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    fetch(`/usuarios/${idUsuario}`, { 
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            senhaAtual,
-            novaSenha
+            nome,
+            email
         })
     })
     .then(res => res.json())
     .then(resposta => {
         if (resposta.sucesso) {
-            mensagem.style.color = "green";
-            mensagem.innerText = "Senha atualizada com sucesso!";
+            alert("Dados atualizados com sucesso!");
 
-            document.getElementById("senhaAtual").value = "";
-            document.getElementById("novaSenha").value = "";
-            document.getElementById("confirmarSenha").value = "";
+            window.location.href = "informacoes-da-conta.html";
         } else {
-            mensagem.style.color = "red";
-            mensagem.innerText = resposta.mensagem;
+            alert(resposta.mensagem);
         }
     })
     .catch(erro => {
-        console.error("Erro:", erro);
-        mensagem.innerText = "Erro ao atualizar senha.";
+        console.error(erro);
+        alert("Erro ao atualizar");
     });
 }
+
+
