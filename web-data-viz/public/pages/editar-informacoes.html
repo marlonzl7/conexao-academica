@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/components/sidebar.css">
+    <link rel="stylesheet" href="/style/components/header.css">
+    <link rel="stylesheet" href="/style/dashboard-exemplo.css">
+    <link rel="stylesheet" href="/style/informacoes.css">
+    <title>Conta</title>
+</head>
+
+<body>
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+    <main class="main-content">
+        <div class="container">
+            <section class="card">
+                <div class="card-header">
+                    <h2>Editar Informações Pessoais</h2>
+                </div>
+                <form class="card-content" onsubmit="salvar(event)">
+                    <div class="info-row-edit">
+                        <label for="instituicao">Instituição</label>
+                        <input type="text" id="instituicao" disabled>
+                        <small>O código da instituição não pode ser alterado.</small>
+                    </div>
+
+                    <div class="info-row-edit">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome"  required>
+                    </div>
+
+                    <div class="info-row-edit">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" required>
+                    </div>
+
+                    <div class="actions">
+                        <button type="submit" class="btn-primary">Salvar Alterações</button>
+                        <a href="informacoes-da-conta.html" class="btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+
+    </main>
+
+
+    <script src="/js/include.js"></script>
+    <script src="/js/informacoes.js"></script>
+    <script>
+        initPage("Informações da Conta");
+    </script>
+</body>
+
+</html>
