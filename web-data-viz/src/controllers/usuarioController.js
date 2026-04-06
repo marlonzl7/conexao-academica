@@ -68,9 +68,25 @@ async function atualizarSenha(req, res) {
         return res.status(500).json(respostaErro("Erro interno no servidor"));
     }
 }
+async function atualizarDados(req, res) {
+    try {
+        const { id } = req.params;
+        const { nome, email } = req.body;
+
+        await usuarioModel.atualizarDados(id, nome, email);
+
+        return res
+            .status(200)
+            .json(respostaSucesso(true, null, "Dados atualizados com sucesso"));
+    } catch (erro) {
+        console.log("Erro ao atualizar dados:", erro);
+        return res.status(500).json(respostaErro("Erro interno no servidor"));
+    }
+}
 
 module.exports = {
     cadastrarUsuarioDiretor,
     buscarDadosConta,
-    atualizarSenha
+    atualizarSenha,
+    atualizarDados
 };
