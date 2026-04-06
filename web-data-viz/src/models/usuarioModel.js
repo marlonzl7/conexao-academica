@@ -134,12 +134,8 @@ async function atualizarDados(idUsuario, nome, email) {
 
 module.exports = {
     cadastrarUsuarioDiretor,
-<<<<<<< HEAD
     buscarDadosConta,
     atualizarSenha,
-    atualizarDados
-=======
-    login,
-    buscarDadosConta
->>>>>>> 88570ab0c545d55274918c43112bdd13a7e8bed2
-};
+    atualizarDados,
+    login
+}
