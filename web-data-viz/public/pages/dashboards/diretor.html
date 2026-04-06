@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Diretor</title>
+    <link rel="stylesheet" href="../../style/dashboards/diretor.css">
+    <link rel="stylesheet" href="../../style/components/sidebar.css">
+    <link rel="stylesheet" href="../../style/components/header.css">
+    <link rel="icon" type="image/png" href="../../assets/imgs/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Public+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <main class="dashboard-content">
+
+        <section class="filtros">
+            <div class="filtro">
+                <label for="ano">Ano:</label>
+                <select id="ano" name="ano">
+                    <option value="">Todos</option>
+                    <option value="2021">2023</option>
+                    <option value="2022">2024</option>
+                    <option value="2023">2025</option>
+                </select>
+            </div>
+
+            <div class="filtro">
+                <label for="modalidade">Modalidade:</label>
+                <select id="modalidade" name="modalidade">
+                    <option value="">Ambos</option>
+                    <option value="modalidade1">EaD</option>
+                    <option value="modalidade2">Presencial</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <h3>Taxa de evasão em 2025</h3>
+                <p class="kpi-value">20%</p>
+                <hr>
+                <div class="kpi-footer">
+                    <span>Classificação: <b>baixo</b></span>
+                    <span class="trend-indicator">▼</span>
+                    <a href="">Alterar Regra</a>
+                    <div class="tooltip-container">
+                        <img src="../../assets/icons/attention.svg" alt="Imagem attention">
+                        <span class="tooltip-text">
+                            Criação de regras que permite alterar métricas e limites das KPIs conforme a necessidade.
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <h3>Tendência de evasão</h3>
+                <p class="kpi-value">Diminuir em (2%)</p>
+                <hr>
+                <div class="kpi-footer">
+                    <span>Mudança anual <b>1%</b></span>
+                    <span class="trend-indicator">▼</span>
+                    <a href="">Alterar Regra</a>
+                    <div class="tooltip-container">
+                        <img src="../../assets/icons/attention.svg" alt="Imagem attention">
+                        <span class="tooltip-text">
+                            Criação de regras que permite alterar métricas e limites das KPIs conforme a necessidade.
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <h3>Taxa de evasão por modalidade</h3>
+                <div class="modalidade-flex">
+                    <div>
+                        <h2>EaD</h2>
+                        <p class="kpi-value">63%</p>
+                    </div>
+                    <div>
+                        <h2>Presencial</h2>
+                        <p class="kpi-value">37%</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="kpi-footer">
+                    <span>Resultado passado <b>68%/32%</b></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="graphic-section">
+            <div class="graphic-block">
+                <div class="chart-card">
+                    <canvas id="chartRanking"></canvas>
+                </div>
+            </div>
+
+            <div class="graphic-block">
+                <div class="chart-card">
+                    <canvas id="chartTrend"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="../../js/include.js"></script>
+    <script src="../../js/dashboards/diretor.js"></script>
+    <script>
+        initPage("Visão Geral da Evasão na Instituição");
+    </script>
+
+</body>
+
+</html>
