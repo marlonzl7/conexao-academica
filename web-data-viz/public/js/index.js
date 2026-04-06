@@ -70,9 +70,21 @@ function enviarMensagem() {
   const email = document.getElementById("email");
   const mensagem = document.getElementById("message");
 
-  validarNome(nome);
-  validarEmail(email);
-  validarMensagem(mensagem);
+  if(!validarNome(nome)){
+    console.error('Erro no envio da mensagem devido ao nome!');
+    alert('Erro ao enviar mensagem, verifique seu nome!');
+    return;
+  }
+  if(!validarEmail(email)){
+    console.error('Erro no envio da mensagem devido ao email!');
+    alert('Erro ao enviar mensagem, verifique seu email!');
+    return;
+  }
+  if(!validarMensagem(mensagem)){
+    console.error('Erro no envio da mensagem devido a mensagem digiada!');
+    console.log('Erro ao enviar mensagem, verifique sua mensagem digitada!');
+    return;
+  }
 
   fetch("/contact", {
     method: "POST",
