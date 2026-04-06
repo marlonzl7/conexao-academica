@@ -1,23 +1,24 @@
 const dadosKPIs = {
-    2020: { evasao: 32, risco: "Médio", tendencia: "Diminuir (3%)", totalAlunos: 210 },
-    2021: { evasao: 36, risco: "Médio", tendencia: "Aumentar (2%)", totalAlunos: 205 },
-    2022: { evasao: 38, risco: "Alto", tendencia: "Aumentar (6%)", totalAlunos: 198 },
-    2023: { evasao: 30, risco: "Médio", tendencia: "Diminuir (3%)", totalAlunos: 210 },
-    2024: { evasao: 33, risco: "Médio", tendencia: "Aumentar (2%)", totalAlunos: 205 },
-    2025: { evasao: 31, risco: "Alto", tendencia: "Aumentar (6%)", totalAlunos: 198 }
+    
 };
 
 async function carregarDashboard() {
     plotarAnos();
-    initPage("Visão Geral da Evasão no Curso");
+
+    if (typeof initPage === "function") initPage("Visão Geral da Evasão no Curso");
+    
     carregarKPIs();
     carregarGraficos();
 }
 
 function plotarAnos() {
-    const select = document.getElementById("filtro");
+    const select = document.getElementById("ano");
+    if (!select) return;
 
     const anos = Object.keys(dadosKPIs);
+    anos.sort((a, b) => b - a);
+
+    select.innerHTML = "";
 
     anos.forEach(ano => {
         const option = document.createElement("option");
@@ -34,61 +35,63 @@ function plotarAnos() {
 }
 
 async function carregarKPIs(ano) {
-    const anoAtual = ano ?? document.getElementById("filtro").value;
-
+    const selectAno = document.getElementById("ano");
+    const anoAtual = ano ?? selectAno.value;
     const dados = dadosKPIs[anoAtual];
 
-    if (!dados) {
-        console.warn("Sem dados para o ano:", anoAtual);
-        return;
+    if (!dados) return;
+
+    const elEvasao = document.getElementById("evasao-valor");
+    const elRisco = document.getElementById("risco-valor");
+    const elTendencia = document.getElementById("tendencia-valor");
+
+    if (elEvasao) {
+        elEvasao.innerText = dados.evasao + "%";
+        elEvasao.parentElement.querySelector('h3').innerText = `Taxa de evasão em ${anoAtual}`;
     }
 
-    const kpis = document.querySelectorAll(".kpi");
+    if (elRisco) {
+        elRisco.innerText = dados.risco;
+        const footerRisco = elRisco.parentElement.querySelector('.kpi-footer b');
+        if (footerRisco) footerRisco.innerText = dados.alerta || "0";
+    }
 
-    kpis[0].children[0].innerText = `Taxa de evasão em ${anoAtual}`;
-
-    kpis[0].children[1].innerText = dados.evasao + "%";
-    kpis[1].children[1].innerText = dados.risco;
-    kpis[2].children[1].innerText = dados.tendencia;
-    kpis[3].children[1].innerText = dados.totalAlunos;
+    if (elTendencia) {
+        elTendencia.innerText = dados.tendencia;
+    }
 }
 
-let chart;
+let chartEvasao;
+let chartMotivos;
 
 async function carregarGraficos() {
-    const ctx = document.getElementById('graph-taxa-evasao').getContext('2d');
+    const canvasEvasao = document.getElementById('graph-taxa-evasao');
 
-    const anos = Object.keys(dadosKPIs);
-    const valores = anos.map(ano => dadosKPIs[ano].evasao);
-    const minValor = Math.min(...valores);
-    const maxValor = Math.max(...valores);
-    const minY = minValor - 4;
-    const maxY = maxValor + 4;
+    if (canvasEvasao) {
+        const ctxEvasao = canvasEvasao.getContext('2d');
+        const anos = Object.keys(dadosKPIs);
+        const valores = anos.map(ano => dadosKPIs[ano].evasao);
 
-    if (chart) {
-        chart.destroy();
-    }
-
-    chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: anos,
-            datasets: [{
-                label: 'Taxa de evasão',
-                data: valores,
-                borderWidth: 2,
-                borderColor: '#5B8FFF'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    min: minY,
-                    max: maxY
-                }
+        if (chartEvasao) chartEvasao.destroy();
+        chartEvasao = new Chart(ctxEvasao, {
+            type: 'line',
+            data: {
+                labels: anos,
+                datasets: [{
+                    label: 'Taxa de evasão %',
+                    data: valores,
+                    borderWidth: 3,
+                    borderColor: '#5B8FFF',
+                    backgroundColor: 'rgba(91, 143, 255, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
             }
-        }
-    });
+        });
+    }
 }
