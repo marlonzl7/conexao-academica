@@ -79,6 +79,18 @@ INSERT INTO cargo (nome) VALUES
 	('coordenador'),
 	('administrador_instituicao');
     
+-- INSERT DAS KPIs
+INSERT INTO kpi (nome) VALUES
+    ('taxa_evasao_instituicao'),
+    ('tendencia_evasao_instituicao'),
+    ('taxa_evasao_curso'),
+    ('risco_evasao_curso'),
+    ('tendencia_evasao_curso'),
+    ('total_alunos_matriculados');
+    
 -- QUERIES DASH COORDENADOR
 SELECT * FROM indicadores_curso;
 desc indicadores_curso;
+
+-- UTILITÁRIOS
+SHOW PROCESSLIST;

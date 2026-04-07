@@ -70,9 +70,27 @@ function enviarMensagem() {
   const email = document.getElementById("email");
   const mensagem = document.getElementById("message");
 
-  validarNome(nome);
-  validarEmail(email);
-  validarMensagem(mensagem);
+  const btn = document.querySelector("#contact-form button")
+  const textoOriginal = btn.innerText;
+
+  if(!validarNome(nome)){
+    console.error('Erro no envio da mensagem devido ao nome!');
+    alert('Erro ao enviar mensagem, verifique seu nome!');
+    return;
+  }
+  if(!validarEmail(email)){
+    console.error('Erro no envio da mensagem devido ao email!');
+    alert('Erro ao enviar mensagem, verifique seu email!');
+    return;
+  }
+  if(!validarMensagem(mensagem)){
+    console.error('Erro no envio da mensagem devido a mensagem digiada!');
+    console.log('Erro ao enviar mensagem, verifique sua mensagem digitada!');
+    return;
+  }
+
+  btn.innerText = "Enviando..."
+  btn.disabled = true;
 
   fetch("/contact", {
     method: "POST",
@@ -94,6 +112,10 @@ function enviarMensagem() {
     .catch(function (RespostaErro) {
       console.error("Erro ao enviar mensagem:", RespostaErro);
       alert("Erro ao enviar mensagem. Por favor, tente novamente.");
+    })
+    .finally(() =>{
+      btn.innerText = textoOriginal;
+      btn.disabled = false;
     });
 
   return false;
