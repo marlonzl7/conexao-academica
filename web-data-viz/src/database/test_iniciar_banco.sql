@@ -73,11 +73,11 @@ VALUES
 	(2, 1, 'MEDIO', 10.00, 19.99);
     
 -- INSERT CARGOS DO SISTEMA    
-INSERT INTO cargo (id_cargo, nome) VALUES
-	(1, 'administrador'),
-	(2, 'diretor'),
-	(3, 'coordenador'),
-	(4, 'administrador_instituicao');
+INSERT INTO cargo (nome) VALUES
+	('administrador'),
+	('diretor'),
+	('coordenador'),
+	('administrador_instituicao');
     
 -- QUERIES DASH COORDENADOR
 SELECT * FROM indicadores_curso;
