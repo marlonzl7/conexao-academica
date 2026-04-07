@@ -74,11 +74,11 @@ VALUES
     
 -- INSERT CARGOS DO SISTEMA    
 INSERT INTO cargo (nome) VALUES
-	(1, 'administrador');
-	(2, 'diretor'),
-	(3, 'coordenador'),
-	(4, 'administrador_instituicao');
-
+	('administrador'),
+	('diretor'),
+	('coordenador'),
+	('administrador_instituicao');
+    
 -- INSERT DAS KPIs
 INSERT INTO kpi (nome) VALUES
     ('taxa_evasao_instituicao'),
