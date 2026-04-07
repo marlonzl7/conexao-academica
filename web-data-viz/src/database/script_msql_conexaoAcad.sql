@@ -34,15 +34,21 @@ CREATE TABLE usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     id_instituicao INT,
     id_cargo INT NOT NULL,
-    id_curso INT,
     cpf CHAR(11) NOT NULL UNIQUE,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(70) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
     ativo TINYINT(1) NOT NULL DEFAULT 0,
     CONSTRAINT fk_usuario_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
-    CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo),
-    CONSTRAINT fk_usuario_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
+    CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo)
+);
+
+CREATE TABLE coordenador_curso (
+	id_usuario INT PRIMARY KEY,
+    id_curso INT UNIQUE NOT NULL,
+    
+    CONSTRAINT fk_coordenador_curso_usuario FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario),
+    CONSTRAINT fk_coordenador_curso_curso FOREIGN KEY (id_curso) REFERENCES curso (id_curso)
 );
 
 CREATE TABLE kpi (
