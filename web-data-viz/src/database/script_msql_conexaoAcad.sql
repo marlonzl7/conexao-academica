@@ -7,6 +7,22 @@ CREATE TABLE instituicao (
     uf CHAR(2) NOT NULL
 );
 
+CREATE TABLE cargo (
+    id_cargo INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE usuario (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    id_cargo INT NOT NULL,
+    cpf CHAR(11) NOT NULL UNIQUE,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(70) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    ativo TINYINT(1) NOT NULL DEFAULT 0,
+    CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo)
+);
+
 CREATE TABLE curso (
     id_curso INT PRIMARY KEY,
     id_instituicao INT NOT NULL,
@@ -28,22 +44,6 @@ CREATE TABLE indicadores_curso (
     quantidade_alunos_situacao_trancada INT NOT NULL,
     CONSTRAINT pk_indicadores_curso PRIMARY KEY (id_curso, ano),
     CONSTRAINT fk_indicadores_curso_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
-);
-
-CREATE TABLE cargo (
-    id_cargo INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50) NOT NULL UNIQUE
-);
-
-CREATE TABLE usuario (
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    id_cargo INT NOT NULL,
-    cpf CHAR(11) NOT NULL UNIQUE,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(70) NOT NULL UNIQUE,
-    senha VARCHAR(255) NOT NULL,
-    ativo TINYINT(1) NOT NULL DEFAULT 0,
-    CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo)
 );
 
 CREATE TABLE kpi (
