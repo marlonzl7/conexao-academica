@@ -1,5 +1,5 @@
 window.onload = function () {
-    // Verifica qual página está carregada para chamar a função correta
+
     const path = window.location.pathname;
     if (path.includes("informacoes-da-conta.html")) {
         buscarDados();
@@ -26,7 +26,6 @@ function buscarDados() {
             if (!resposta.sucesso) return console.error(resposta.mensagem);
 
             const dados = resposta.dados;
-            // Preenche os spans da página de visualização
             if(document.getElementById("instituicao")) document.getElementById("instituicao").innerText = dados.instituicao || "Não informada";
             if(document.getElementById("cpf")) document.getElementById("cpf").innerText = formatarCPF(dados.cpf);
             if(document.getElementById("nome")) document.getElementById("nome").innerText = dados.nome;
@@ -48,7 +47,7 @@ function carregarDados() {
             if (!resposta.sucesso) return;
 
             const dados = resposta.dados;
-            // Preenche os inputs da página de edição
+         
             if(document.getElementById("instituicao")) document.getElementById("instituicao").value = dados.instituicao || "";
             if(document.getElementById("nome")) document.getElementById("nome").value = dados.nome;
             if(document.getElementById("email")) document.getElementById("email").value = dados.email;
@@ -78,7 +77,7 @@ function salvar(event) {
     .then(resposta => {
         if (resposta.sucesso) {
             alert("Dados atualizados com sucesso!");
-            // Atualiza o nome no localStorage para refletir no header/outras telas
+    
             usuario.nome = nome;
             usuario.email = email;
             localStorage.setItem("usuario", JSON.stringify(usuario));
@@ -110,7 +109,6 @@ function alterarSenha() {
         return;
     }
 
-    // Chamada para a sua rota de senha definida em usuarios.js
     fetch(`/usuarios/${idUsuario}/senha`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

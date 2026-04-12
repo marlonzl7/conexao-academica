@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,44 +10,51 @@
     <link rel="stylesheet" href="/style/informacoes.css">
     <title>Conta</title>
 </head>
+
 <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
     <main class="main-content">
-        
-        <div class="container">
-        <section class="card">
-            <div class="card-header">
-                <h2>Dados cadastrados: </h2>
-            </div>
-            <div class="card-content">
-                <div class="info-row">
-                    <p><strong>Instituição:</strong> <span id="instituicao"></span></p>
-                </div>
-                <div class="info-row">
-                    <p><strong>CPF:</strong> <span id="cpf"></span></p>
-                </div>
-                <div class="info-row">
-                    <p><strong>Nome:</strong> <span id="nome"></span></p>
-                </div>
-                <div class="info-row">
-                    <p><strong>E-mail:</strong> <span id="email"></span></p>
-                </div>
-                <a href="editar-informacoes.html"><button class="btn-primary">Editar informações</button></a></div>
-        </section>
 
-        <section class="card">
-            <div class="card-header">
-                <h2>Segurança</h2>
-            </div>
-            <div class="card-content">
-                <p><strong>Senha:</strong> ********</p>
-            
-                <a href="mudar-senha-informacoes.html"><button class="btn-primary">Mudar senha</button></a>
-            </div>
-        </section>
-    </div>
-            
+        <div class="container">
+            <section class="card">
+                <div class="card-header">
+                    <h2>Dados cadastrados: </h2>
+                </div>
+                <div class="card-content">
+                    <div class="info-row">
+                        <p><strong>Instituição:</strong> <span id="instituicao"></span></p>
+                    </div>
+                    <div class="info-row">
+                        <p><strong>CPF:</strong> <span id="cpf"></span></p>
+                    </div>
+                    <div class="info-row">
+                        <p><strong>Nome:</strong> <span id="nome"></span></p>
+                    </div>
+                    <div class="info-row">
+                        <p><strong>E-mail:</strong> <span id="email"></span></p>
+                    </div>
+                    <a href="editar-informacoes.html"><button class="btn-primary">Editar informações</button></a>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <h2>Segurança</h2>
+                </div>
+                <div class="card-content">
+                    <p><strong>Senha:</strong> ********</p>
+
+                    <a href="mudar-senha-informacoes.html"><button class="btn-primary">Mudar senha</button></a>
+                </div>
+
+            </section>
+               <div class="card-content">
+                    <button class="btn-apagar" onclick="confirmarExclusao()">Excluir Minha Conta</button>
+                </div>
+            </section>
+        </div>
+
 
     </main>
 
@@ -57,4 +65,5 @@
         initPage("Informações da Conta");
     </script>
 </body>
+
 </html>

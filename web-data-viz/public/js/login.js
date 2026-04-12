@@ -90,10 +90,10 @@ async function login() {
         return;
     }
     
-    // 🔥 salva no localStorage (ESSENCIAL)
+
     localStorage.setItem("usuario", JSON.stringify(json.dados));
 
-    // (opcional manter sessionStorage)
+   
     iniciarSessao(
     json.dados.id_usuario, 
     json.dados.nome, 
