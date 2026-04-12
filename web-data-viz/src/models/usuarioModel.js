@@ -106,17 +106,17 @@ async function existeDiretorNaInstituicao(id_instituicao) {
 async function buscarDadosConta(idUsuario) {
     const instrucao = `
         SELECT 
-            u.nome,
-            u.email,
-            u.cpf,
-            i.nome AS instituicao
+            u.nome, 
+            u.email, 
+            u.cpf, 
+            i.nome as instituicao
         FROM usuario u
-        LEFT JOIN curso c ON c.id_diretor = u.id_usuario OR c.id_coordenador = u.id_usuario
-        LEFT JOIN instituicao i ON c.id_instituicao = i.id_instituicao
+        JOIN instituicao i ON u.id_instituicao = i.id_instituicao
         WHERE u.id_usuario = ?
-        LIMIT 1
+        LIMIT 1;
     `;
 
+    console.log("Executando a instrução: \n" + instrucao);
     return database.executar(instrucao, [idUsuario]);
 }
 
@@ -146,15 +146,11 @@ async function atualizarSenha(idUsuario, senhaAtual, novaSenha) {
 async function atualizarDados(idUsuario, nome, email) {
     const instrucao = `
         UPDATE usuario 
-        SET nome = ?, email = ?
+        SET nome = ?, email = ? 
         WHERE id_usuario = ?
     `;
-
-    const parametros = [nome, email, idUsuario];
-
-    return database.executar(instrucao, parametros);
+    return database.executar(instrucao, [nome, email, idUsuario]);
 }
-
 module.exports = {
     cadastrarUsuarioDiretor,
     buscarDadosConta,
