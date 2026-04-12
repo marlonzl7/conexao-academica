@@ -6,9 +6,8 @@ async function login(req, res) {
         const {email, senha} = req.body;
 
         const resultado = await usuarioModel.login(email, senha);
-        const dados = resultado[0];
 
-        return res.status(200).json(respostaSucesso(true, dados, "Usuário autenticado com sucesso"));
+        return res.status(200).json(respostaSucesso(true, resultado, "Usuário autenticado com sucesso"));
     } catch (erro) {
         console.error("Erro de autenticação: " + erro);
 
