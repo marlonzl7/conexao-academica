@@ -151,10 +151,22 @@ async function atualizarDados(idUsuario, nome, email) {
     `;
     return database.executar(instrucao, [nome, email, idUsuario]);
 }
+
+async function deletarUsuario(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL PARA DELETAR ID: ", idUsuario);
+        
+    const instrucao = `
+        DELETE FROM usuario WHERE id_usuario = ?;
+    `;
+
+    return database.executar(instrucao, [idUsuario]);
+}
+
 module.exports = {
     cadastrarUsuarioDiretor,
     buscarDadosConta,
     atualizarSenha,
     atualizarDados,
-    login
+    login,
+    deletarUsuario 
 }

@@ -125,3 +125,36 @@ function alterarSenha() {
     })
     .catch(() => { mensagem.innerText = "Erro ao conectar com o servidor."; });
 }
+
+function confirmarExclusao() {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const idUsuario = usuario.id_usuario;
+
+    
+    if (confirm("Tem certeza que deseja excluir sua conta? Esta ação é permanente e você perderá acesso ao sistema.")) {
+        
+        fetch(`/usuarios/${idUsuario}`, {
+            method: "DELETE", 
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(resposta => {
+            if (resposta.sucesso) {
+                alert("Sua conta foi excluída com sucesso.");
+                
+                localStorage.clear();
+                sessionStorage.clear();
+                
+                window.location.href = "login.html";
+            } else {
+                alert("Erro ao excluir conta: " + resposta.mensagem);
+            }
+        })
+        .catch(erro => {
+            console.error("Erro na requisição:", erro);
+            alert("Erro ao conectar com o servidor.");
+        });
+    }
+}

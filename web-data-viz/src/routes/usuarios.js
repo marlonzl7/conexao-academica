@@ -24,4 +24,8 @@ router.put("/:id", function (req, res) {
     usuarioController.atualizarDados(req, res);
 });
 
+router.delete("/:id", function (req, res) {
+    usuarioController.deletarUsuario(req, res);
+});
+
 module.exports = router;
