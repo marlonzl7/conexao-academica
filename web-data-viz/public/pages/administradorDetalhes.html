@@ -1,11 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Administrador | Detalhes</title>
+    <link rel="stylesheet" href="../style/administradorDetalhes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Public+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    
+    <main class="container">
+        <header class="header-nav">
+            <a href="javascript:history.back()" class="btn-voltar">
+                <span>&larr;</span> Voltar
+            </a>
+        </header>
+
+        <section class="titulo-sessao">
+            <div class="info-texto">
+                <h1>Nome Instituição</h1>
+                <p>Descrição Instituição</p>
+            </div>
+            <button class="btn-adicionar">
+                <span class="plus-icon">+</span> Adicionar Pessoa
+            </button>
+        </section>
+
+        <hr class="divider">
+
+        <section class="categoria">
+            <div class="categoria-titulo">
+                <img src="../assets/icons/shield-icon.svg" alt="" class="icon-cat">
+                <h2>Diretores</h2>
+            </div>
+
+            <div class="pessoa-card">
+                <div class="pessoa-info">
+                    <div class="avatar-box blue">
+                        <img src="../assets/icons/shield-fill.svg" alt="">
+                    </div>
+                    <div class="pessoa-detalhes">
+                        <h3>Maria Silva</h3>
+                        <p class="email">Maria@gmail.com</p>
+                        <div class="badges">
+                            <span class="badge blue">Diretor</span>
+                            <span class="permissao">Permissões Totais</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-toggle">
+                    <span>Ativo</span>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section class="categoria">
+            <div class="categoria-titulo">
+                <img src="../assets/icons/user-icon.svg" alt="" class="icon-cat">
+                <h2>Coordenador</h2>
+            </div>
+
+            <div class="pessoa-card">
+                <div class="pessoa-info">
+                    <div class="avatar-box purple">
+                        <img src="../assets/icons/user-fill.svg" alt="">
+                    </div>
+                    <div class="pessoa-detalhes">
+                        <h3>Maria Silva</h3>
+                        <p class="email">Maria@gmail.com</p>
+                        <div class="badges">
+                            <span class="badge purple">Coordenador</span>
+                            <span class="permissao">Permissões Limitadas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-toggle">
+                    <span>Inativo</span>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
+
 </html>
