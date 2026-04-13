@@ -16,7 +16,8 @@ var HOST_APP = process.env.APP_HOST;
 var app = express();
 
 var indexRouter = require("./src/routes/index");
-var regraRouter = require("./src/routes/regra");
+var regraRouter = require("./src/routes/regras");
+var kpiRouter = require("./src/routes/kpis")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -25,6 +26,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/", indexRouter);
+app.use("/regras", regraRouter);
+app.use("/kpis", kpiRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`

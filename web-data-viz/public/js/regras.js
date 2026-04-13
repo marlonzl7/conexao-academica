@@ -1,3 +1,8 @@
+
+document.addEventListener("DOMContentLoaded", () => {
+    iniciar();
+});
+
 function abrirModal(id) {
     document.getElementById(id).classList.remove("hidden");
 }
@@ -6,19 +11,24 @@ function fecharModal(id) {
     document.getElementById(id).classList.add("hidden");
 }
 
-function cadastrarRegra() {
-    const tr = document.createElement("tr");
+document.querySelectorAll(".overlay").forEach(overlay => {
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) fecharModal(overlay.id);
+    });
+});
 
-    tr.innerHTML = `
-    <td>${regra.classificacao}</td>
-    <td>${regra.kpi}</td>
-    <td>${regra.limiteInferior}</td>
-    <td>${regra.limiteSuperior}</td>
-    <td class="acoes-tabela">
-        <button><img src="./assets/icons/write-icon.png" class="acoes-tabela-img"></button>
-        <button><img src="./assets/icons/delete-icon.png" class="acoes-tabela-img"></button>
-    </td>
-    `
+function iniciar() {
+    const classificacaoInput = document.getElementById("classificacao");
+    const limiteInferiorInput = document.getElementById("limite-inferior");
+    const limiteSuperiorInput = document.getElementById("limite-superior");
+
+    classificacaoInput.addEventListener("input", () => {
+        validarCampo
+    })
+}
+
+function cadastrarRegra() {
+
 }
 
 function editarRegra() {
