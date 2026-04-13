@@ -45,6 +45,13 @@ body {
     margin-top: 5px;
 }
 
+.pesquisa-instituicao{
+    display: flex;
+    align-items:flex-end;
+    justify-content: end;
+    padding-bottom: 1em;
+}
+
 .lista-section {
     width: 100%;
 }
