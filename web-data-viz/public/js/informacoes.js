@@ -1,88 +1,45 @@
 window.onload = function () {
-    buscarDados();
-    carregarDados();
+
+    const path = window.location.pathname;
+    if (path.includes("informacoes-da-conta.html")) {
+        buscarDados();
+    } else if (path.includes("editar-informacoes.html")) {
+        carregarDados();
+    }
 };
 
 function formatarCPF(cpf) {
+    if (!cpf) return "N/A";
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
 
 function buscarDados() {
-    /*const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuarioStr = localStorage.getItem("usuario");
+    if (!usuarioStr) return console.error("Usuário não logado");
 
-    if (!usuario) {
-        console.error("Usuário não está logado");
-        return;
-    }*/
-
-    //const idUsuario = usuario.id_usuario;
-    const idUsuario = 11;
+    const usuario = JSON.parse(usuarioStr);
+    const idUsuario = usuario.id_usuario;
 
     fetch(`/usuarios/${idUsuario}`)
         .then(res => res.json())
         .then(resposta => {
-            if (!resposta.sucesso) {
-                console.error(resposta.mensagem);
-                return;
-            }
+            if (!resposta.sucesso) return console.error(resposta.mensagem);
 
             const dados = resposta.dados;
-
-            document.getElementById("instituicao").innerText = dados.instituicao;
-            document.getElementById("cpf").innerText = formatarCPF(dados.cpf);
-            document.getElementById("nome").innerText = dados.nome;
-            document.getElementById("email").innerText = dados.email;
+            if(document.getElementById("instituicao")) document.getElementById("instituicao").innerText = dados.instituicao || "Não informada";
+            if(document.getElementById("cpf")) document.getElementById("cpf").innerText = formatarCPF(dados.cpf);
+            if(document.getElementById("nome")) document.getElementById("nome").innerText = dados.nome;
+            if(document.getElementById("email")) document.getElementById("email").innerText = dados.email;
         })
-        .catch(erro => {
-            console.error("Erro ao buscar dados:", erro);
-        });
-}
-
-
-function alterarSenha() {
-    /*const usuario = JSON.parse(localStorage.getItem("usuario"));
-
-    if (!usuario) {
-        alert("Usuário não está logado");
-        return;
-    }*/
-
-    //const idUsuario = usuario.id_usuario;
-    const idUsuario = 11;
-
-    const senhaAtual = document.getElementById("senhaAtual").value;
-    const novaSenha = document.getElementById("novaSenha").value;
-    const confirmarSenha = document.getElementById("confirmarSenha").value;
-
-    const mensagem = document.getElementById("mensagem");
-
-    mensagem.innerText = "";
-
-    // validações
-    if (!senhaAtual || !novaSenha || !confirmarSenha) {
-        mensagem.innerText = "Preencha todos os campos!";
-        return;
-    }
-
-    if (novaSenha.length < 8) {
-        mensagem.innerText = "A nova senha deve ter pelo menos 8 caracteres.";
-        return;
-    }
-
-    if (novaSenha === senhaAtual) {
-        mensagem.innerText = "A nova senha deve ser diferente da atual.";
-        return;
-    }
-
-    if (novaSenha !== confirmarSenha) {
-        mensagem.innerText = "As senhas não coincidem.";
-        return;
-    }
+        .catch(erro => console.error("Erro ao buscar dados:", erro));
 }
 
 function carregarDados() {
-    //const usuario = JSON.parse(localStorage.getItem("usuario"));
-    const idUsuario = 11;
+    const usuarioStr = localStorage.getItem("usuario");
+    if (!usuarioStr) return;
+
+    const usuario = JSON.parse(usuarioStr);
+    const idUsuario = usuario.id_usuario;
 
     fetch(`/usuarios/${idUsuario}`)
         .then(res => res.json())
@@ -90,23 +47,22 @@ function carregarDados() {
             if (!resposta.sucesso) return;
 
             const dados = resposta.dados;
-
-            document.getElementById("instituicao").value = dados.instituicao;
-            document.getElementById("nome").value = dados.nome;
-            document.getElementById("email").value = dados.email;
+         
+            if(document.getElementById("instituicao")) document.getElementById("instituicao").value = dados.instituicao || "";
+            if(document.getElementById("nome")) document.getElementById("nome").value = dados.nome;
+            if(document.getElementById("email")) document.getElementById("email").value = dados.email;
         });
 }
 
 function salvar(event) {
     event.preventDefault(); 
 
-    //const usuario = JSON.parse(localStorage.getItem("usuario"));
-    const idUsuario = 11;
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const idUsuario = usuario.id_usuario;
 
     const nome = document.getElementById("nome").value;
     const email = document.getElementById("email").value;
 
-    // validações
     if (!nome || !email) {
         alert("Preencha todos os campos!");
         return;
@@ -114,28 +70,91 @@ function salvar(event) {
 
     fetch(`/usuarios/${idUsuario}`, { 
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            nome,
-            email
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email })
     })
     .then(res => res.json())
     .then(resposta => {
         if (resposta.sucesso) {
             alert("Dados atualizados com sucesso!");
-
+    
+            usuario.nome = nome;
+            usuario.email = email;
+            localStorage.setItem("usuario", JSON.stringify(usuario));
+            
             window.location.href = "informacoes-da-conta.html";
         } else {
             alert(resposta.mensagem);
         }
     })
-    .catch(erro => {
-        console.error(erro);
-        alert("Erro ao atualizar");
-    });
+    .catch(erro => alert("Erro ao atualizar"));
 }
 
+function alterarSenha() {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const idUsuario = usuario.id_usuario;
 
+    const senhaAtual = document.getElementById("senhaAtual").value;
+    const novaSenha = document.getElementById("novaSenha").value;
+    const confirmarSenha = document.getElementById("confirmarSenha").value;
+    const mensagem = document.getElementById("mensagem");
+
+    if (!senhaAtual || !novaSenha || !confirmarSenha) {
+        mensagem.innerText = "Preencha todos os campos!";
+        return;
+    }
+
+    if (novaSenha !== confirmarSenha) {
+        mensagem.innerText = "As senhas não coincidem.";
+        return;
+    }
+
+    fetch(`/usuarios/${idUsuario}/senha`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ senhaAtual, novaSenha })
+    })
+    .then(res => res.json())
+    .then(resposta => {
+        if (resposta.sucesso) {
+            alert("Senha alterada com sucesso!");
+            window.location.href = "informacoes-da-conta.html";
+        } else {
+            mensagem.innerText = resposta.mensagem;
+        }
+    })
+    .catch(() => { mensagem.innerText = "Erro ao conectar com o servidor."; });
+}
+
+function confirmarExclusao() {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const idUsuario = usuario.id_usuario;
+
+    
+    if (confirm("Tem certeza que deseja excluir sua conta? Esta ação é permanente e você perderá acesso ao sistema.")) {
+        
+        fetch(`/usuarios/${idUsuario}`, {
+            method: "DELETE", 
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(resposta => {
+            if (resposta.sucesso) {
+                alert("Sua conta foi excluída com sucesso.");
+                
+                localStorage.clear();
+                sessionStorage.clear();
+                
+                window.location.href = "login.html";
+            } else {
+                alert("Erro ao excluir conta: " + resposta.mensagem);
+            }
+        })
+        .catch(erro => {
+            console.error("Erro na requisição:", erro);
+            alert("Erro ao conectar com o servidor.");
+        });
+    }
+}

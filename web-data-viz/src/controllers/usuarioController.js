@@ -102,10 +102,31 @@ async function atualizarDados(req, res) {
     }
 }
 
+async function deletarUsuario(req, res) {
+    try {
+        const { id } = req.params; // Pega o ID da URL
+
+        if (!id) {
+            return res.status(400).json(respostaErro("ID do usuário não fornecido"));
+        }
+
+        await usuarioModel.deletarUsuario(id);
+
+        return res.status(200).json(
+            respostaSucesso(true, null, "Usuário deletado com sucesso!")
+        );
+
+    } catch (erro) {
+        console.error("Erro ao deletar usuário:", erro);
+        return res.status(500).json(respostaErro("Erro interno ao deletar usuário"));
+    }
+}
+
 module.exports = {
     cadastrarUsuarioDiretor,
     buscarDadosConta,
     atualizarSenha,
     atualizarDados,
-    login
+    login,
+    deletarUsuario
 }
