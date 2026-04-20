@@ -52,6 +52,34 @@ body {
     padding-bottom: 1em;
 }
 
+.pesquisa-instituicao > img {
+    justify-content: center;
+    align-self: center;
+    width: 25px;
+    height: 25px;
+    margin-right: 12px;
+    opacity: 0.6;
+}
+
+#pesquisa_instituicao {
+    width: 300px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+#pesquisa_instituicao:focus {
+    border-color: #1E3A8A;
+    outline: none;
+}
+
+#pesquisa_instituicao::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
 .lista-section {
     width: 100%;
 }
