@@ -4,55 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="../style/cargos.css">
+    <link rel="stylesheet" href="../style/cargos.css">
     <title>Cargos - Conexão Acadêmica</title>
-
-
 </head>
 
 <body>
 
-   
     <aside class="sidebar">
         <div class="sidebar-logo">
             <img src="./assets/icons/logo.png" alt="Logo">
             <span>Conexão Acadêmica</span>
         </div>
         <nav class="sidebar-nav">
-            <div class="nav-item active">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="7" height="7" rx="1" />
-                    <rect x="14" y="3" width="7" height="7" rx="1" />
-                    <rect x="3" y="14" width="7" height="7" rx="1" />
-                    <rect x="14" y="14" width="7" height="7" rx="1" />
-                </svg>
-                Feed
-            </div>
-            <div class="nav-item">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="8" r="4" />
-                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-                </svg>
-                Conta
-            </div>
+            <div class="nav-item active">Feed</div>
+            <div class="nav-item">Conta</div>
         </nav>
         <div class="sidebar-footer">
-            <div class="nav-item">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                </svg>
-                Sair
-            </div>
+            <div class="nav-item">Sair</div>
         </div>
     </aside>
 
     <div class="main">
-
 
         <header class="topbar">
             🔔 👤
@@ -73,46 +45,18 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Administrador</td>
-                        <td>
-                            <div class="actions">
-                                <button class="btn-icon" onclick="abrirModalEditar()"> ✏️ </button>
-
-                                <button class="btn-icon" onclick="abrirModalExcluir()">
-                                    🗑️
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Coordenador</td>
-                        <td>
-                            <button class="btn-icon" onclick="abrirModalEditar()">✏️</button>
-                            <button class="btn-icon" onclick="abrirModalExcluir()">🗑️</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Diretor</td>
-                        <td>
-                            <button class="btn-icon" onclick="abrirModalEditar()">✏️</button>
-                            <button class="btn-icon" onclick="abrirModalExcluir()">🗑️</button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="tabelaCargos"></tbody>
             </table>
 
         </section>
 
     </div>
 
-    </div>
-
     <div id="modalNovo" class="modal">
         <div class="modal-content">
             <h2>Novo Cargo</h2>
-            <input type="text" placeholder="Nome do cargo">
+            <input type="text" id="inputNovo" placeholder="Nome do cargo">
+            <button onclick="criarCargo()">Salvar</button>
             <button onclick="fecharModal('modalNovo')">Fechar</button>
         </div>
     </div>
@@ -120,7 +64,8 @@
     <div id="modalEditar" class="modal">
         <div class="modal-content">
             <h2>Editar Cargo</h2>
-            <input type="text" value="Administrador">
+            <input type="text" id="inputEditar">
+            <button onclick="atualizarCargo()">Salvar</button>
             <button onclick="fecharModal('modalEditar')">Fechar</button>
         </div>
     </div>
@@ -128,30 +73,123 @@
     <div id="modalExcluir" class="modal">
         <div class="modal-content">
             <h2>Tem certeza que deseja excluir?</h2>
-            <button>Confirmar</button>
+            <button onclick="deletarCargo()">Confirmar</button>
             <button onclick="fecharModal('modalExcluir')">Cancelar</button>
         </div>
     </div>
 
 </body>
+
 <script>
+const API = "http://localhost:3000/cargo";
+let cargoSelecionadoId = null;
 
-    function abrirModalNovo() {
-        document.getElementById("modalNovo").style.display = "flex";
+async function carregarCargos() {
+    let data = [];
+
+    try {
+        const response = await fetch(API);
+
+        if (!response.ok) {
+            throw new Error("Erro na API");
+        }
+
+        data = await response.json();
+
+    } catch (erro) {
+        data = [
+            { id_cargo: 1, nome: "Administrador" },
+            { id_cargo: 2, nome: "Coordenador" },
+            { id_cargo: 3, nome: "Diretor" }
+        ];
     }
 
-    function abrirModalEditar() {
-        document.getElementById("modalEditar").style.display = "flex";
-    }
+    const tabela = document.getElementById("tabelaCargos");
+    tabela.innerHTML = "";
 
-    function abrirModalExcluir() {
-        document.getElementById("modalExcluir").style.display = "flex";
-    }
+    data.forEach(cargo => {
+        tabela.innerHTML += `
+            <tr>
+                <td>${cargo.nome}</td>
+                <td>
+                    <button onclick="abrirModalEditar(${cargo.id_cargo}, '${cargo.nome}')">✏️</button>
+                    <button onclick="abrirModalExcluir(${cargo.id_cargo})">🗑️</button>
+                </td>
+            </tr>
+        `;
+    });
+}
 
-    function fecharModal(id) {
-        document.getElementById(id).style.display = "none";
-    }
+async function criarCargo() {
+    const nome = document.getElementById("inputNovo").value;
 
+    if (!nome) return;
+
+    try {
+        await fetch(API, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ nome })
+        });
+    } catch {}
+
+    document.getElementById("inputNovo").value = "";
+    fecharModal("modalNovo");
+    carregarCargos();
+}
+
+async function atualizarCargo() {
+    const nome = document.getElementById("inputEditar").value;
+
+    if (!nome) return;
+
+    try {
+        await fetch(`${API}/${cargoSelecionadoId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ nome })
+        });
+    } catch {}
+
+    fecharModal("modalEditar");
+    carregarCargos();
+}
+
+async function deletarCargo() {
+    try {
+        await fetch(`${API}/${cargoSelecionadoId}`, {
+            method: "DELETE"
+        });
+    } catch {}
+
+    fecharModal("modalExcluir");
+    carregarCargos();
+}
+
+function abrirModalNovo() {
+    document.getElementById("modalNovo").style.display = "flex";
+}
+
+function abrirModalEditar(id, nome) {
+    cargoSelecionadoId = id;
+    document.getElementById("inputEditar").value = nome;
+    document.getElementById("modalEditar").style.display = "flex";
+}
+
+function abrirModalExcluir(id) {
+    cargoSelecionadoId = id;
+    document.getElementById("modalExcluir").style.display = "flex";
+}
+
+function fecharModal(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+window.onload = carregarCargos;
 </script>
 
 </html>
