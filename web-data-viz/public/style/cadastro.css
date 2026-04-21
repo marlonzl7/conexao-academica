@@ -321,3 +321,55 @@ ul {
         font-size: 20px;
     }
 }
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.popup-overlay.ativo {
+    display: flex;
+}
+
+.popup-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 85vw;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.popup-box h3 {
+    color: var(--bold-text-color);
+    font-size: 1.2rem;
+}
+
+.popup-box p {
+    color: #333;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.btn-popup-ok {
+    cursor: pointer;
+    padding: 0.7rem;
+    background-color: #2f3e63;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.btn-popup-ok:hover {
+    background-color: #253352;
+}
