@@ -122,11 +122,38 @@ async function deletarUsuario(req, res) {
     }
 }
 
+const emailService = require("../services/emailService");
+
+async function cadastrarUsuarioDiretor(req, res) {
+    try {
+        const { id_instituicao, cpf, nome, email, senha } = req.body;
+
+        await usuarioModel.cadastrarUsuarioDiretor(id_instituicao, cpf, nome, email, senha);
+
+        await emailService.enviarEmailCadastroConcluido(email, nome);
+
+        return res.status(200).json(respostaSucesso(true, null, "Usuário registrado com sucesso!"));
+    } catch (erro) {
+        console.error("Erro ao cadastrar usuário: " + erro);
+
+        if (erro === "EMAIL_EXISTENTE") {
+            return res.status(409).json(respostaErro("Não foi possível realizar o cadastro com este email"));
+        }
+
+        if (erro === "DIRETOR_EXISTENTE") {
+            return res.status(409).json(respostaErro("Já existe um usuário com cargo diretor nessa instituição"));
+        }
+
+        return res.status(500).json(respostaErro("Erro interno no servidor"));
+    }
+}
+
 module.exports = {
     cadastrarUsuarioDiretor,
     buscarDadosConta,
     atualizarSenha,
     atualizarDados,
     login,
-    deletarUsuario
+    deletarUsuario,
+    cadastrarUsuarioDiretor
 }
