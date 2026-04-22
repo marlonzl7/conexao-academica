@@ -16,13 +16,31 @@ async function listar(req, res) {
 
     } catch (erro) {
         console.error("Erro no controller:", erro);
-        res.status(500).json({
-            erro: "Erro ao buscar instituições"
-        });
+        res.status(500).json(respostaErro("Erro ao buscar instituições"));
     }
     
 }
 
+async function buscarPorId(req, res) {
+    const id = req.query.id;
+
+    if (!id) {
+        return res.status(400).json(respostaErro("ID da instituição é obrigatório"));
+    }
+
+    try {
+        const resultado = await administradorModel.buscarPorId(id);
+        res.status(200).json({
+            sucesso: true,
+            dados: resultado
+        });
+    } catch (erro) {
+        console.error("Erro no controller:", erro);
+        res.status(500).json(respostaErro("Erro ao buscar detalhes da instituição"));
+    }
+}
+
 module.exports = {
-    listar
+    listar,
+    buscarPorId
 };

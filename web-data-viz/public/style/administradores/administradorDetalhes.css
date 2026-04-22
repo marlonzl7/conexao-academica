@@ -95,12 +95,19 @@ body {
     margin-bottom: 20px;
 }
 
+.categoria-titulo img {
+    width: 23px;
+    height: 23px;
+}
+
 .pessoa-card {
     background: #fff;
     border: 1px solid #eef0f2;
     border-radius: 15px;
     padding: 30px;
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     justify-content: space-between;
     align-items: center;
     box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.03);
@@ -108,8 +115,13 @@ body {
 
 .pessoa-info {
     display: flex;
-    align-items: flex-start;
-    gap: 25px;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+
 }
 
 .avatar-box {
@@ -124,6 +136,12 @@ body {
 
 .avatar-box.blue { background-color: #e0e7ff; border-color: #243b8a; }
 .avatar-box.purple { background-color: #f3e8ff; border-color: #9333ea; }
+.avatar-box.green { background-color: #d1fae5; border-color: #10b981; }
+
+.avatar-box img {
+    width: 22px;
+    height: 22px;
+}
 
 .badges {
     display: flex;
@@ -141,5 +159,6 @@ body {
 
 .badge.blue { background-color: #dbeafe; color: #243b8a; border: 1px solid #243b8a; }
 .badge.purple { background-color: #f3e8ff; color: #9333ea; border: 1px solid #9333ea; }
+.badge.green { background-color: #d1fae5; color: #10b981; border: 1px solid #10b981; }
 
 .permissao { color: #bbb; font-size: 13px; }

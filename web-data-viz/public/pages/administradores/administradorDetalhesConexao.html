@@ -67,8 +67,7 @@
 
         <section class="titulo-sessao">
             <div class="info-texto">
-                <h1>Nome Instituição</h1>
-                <p>Descrição Instituição</p>
+                <h1 id="nome_instituicao"></h1>
             </div>
         </section>
 
@@ -80,46 +79,33 @@
                 <h2>Diretores</h2>
             </div>
 
-            <div class="pessoa-card">
-                <div class="pessoa-info">
-                    <div class="avatar-box blue">
-                        <img src="../../assets/icons/icon-shield.svg" alt="Icone Diretor">
-                    </div>
-                    <div class="pessoa-detalhes">
-                        <h3>Maria Silva</h3>
-                        <p class="email">Maria@gmail.com</p>
-                        <div class="badges">
-                            <span class="badge blue">Diretor</span>
-                            <span class="permissao">Permissões Totais</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="pessoa-card" id="card_diretor">
+                <!-- Exemplo de card de pessoa -->
+            </div>
+        </section>
+
+        <section class="categoria">
+            <div class="categoria-titulo">
+                <img src="../../assets/icons/icon-administrador.svg" alt="Icone Usuário" class="icon-cat">
+                <h2>Administradores</h2>
+            </div>
+
+            <div class="pessoa-card" id="card_administrador">
+                <!-- Exemplo de card de pessoa -->
             </div>
         </section>
 
         <section class="categoria">
             <div class="categoria-titulo">
                 <img src="../../assets/icons/icon-user.svg" alt="Icone Usuário" class="icon-cat">
-                <h2>Coordenador</h2>
+                <h2>Coordenadores</h2>
             </div>
 
-            <div class="pessoa-card">
-                <div class="pessoa-info">
-                    <div class="avatar-box purple">
-                        <img src="../../assets/icons/icon-user.svg" alt="Icone Usuário">
-                    </div>
-                    <div class="pessoa-detalhes">
-                        <h3>Maria Silva</h3>
-                        <p class="email">Maria@gmail.com</p>
-                        <div class="badges">
-                            <span class="badge purple">Coordenador</span>
-                            <span class="permissao">Permissões Limitadas</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="pessoa-card" id="card_coordenador">
+                <!-- Exemplo de card de pessoa -->
             </div>
         </section>
     </main>
+    <script src="../../js/administradores/administradorDetalhesConexao.js"></script>
 </body>
-
 </html>

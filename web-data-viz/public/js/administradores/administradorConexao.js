@@ -22,7 +22,7 @@ function criarCard(inst) {
         <span>${qtd} Pessoas</span>
         <span>${ativos} Ativos</span>
 
-        <a href="./administradorDetalhes.html?id=${id}" class="btn-acessar">
+        <a href="./administradorDetalhesConexao.html?id=${id}" class="btn-acessar">
             Acessar →
         </a>
     `;
@@ -42,22 +42,22 @@ function buscarInstituicoes() {
 
     try {
     fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-
-            lista.innerHTML = "";
-
-            data.dados.forEach(inst => {
-                const card = criarCard(inst);
-                lista.appendChild(card);
-            });
-        })
+    .then(res => res.json())
+    .then(data => {
+        lista.innerHTML = "";
+        data.dados.forEach(inst => {
+            const card = criarCard(inst);
+            lista.appendChild(card);
+        });
+    })
+    .catch(error => {
+        console.error("Erro ao buscar instituições: ", error);
+        alert("Erro ao buscar instituições.");
+    });
+    } catch (error) {
+        console.error("Erro inesperado: ", error);
+        alert("Erro inesperado ao buscar instituições.");
     }
-    catch(error){
-            console.error("Erro ao buscar instituições: ", error);
-            alert("Erro ao buscar instituições.")
-    };
 }
 
 window.onload = buscarInstituicoes;

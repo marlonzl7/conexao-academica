@@ -6,4 +6,8 @@ router.get("/getInstituicoes", function (req, res) {
     administradorController.listar(req, res);
 });
 
+router.get("/getInstituicaoPorId", function (req, res) {
+    administradorController.buscarPorId(req, res);
+});
+
 module.exports = router;
