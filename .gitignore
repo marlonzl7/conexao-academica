@@ -4,3 +4,6 @@ package-lock.json
 .github
 .env
 .env.dev
+*.env
+target/
+.idea
