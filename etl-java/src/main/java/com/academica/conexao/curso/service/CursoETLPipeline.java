@@ -40,7 +40,7 @@ public class CursoETLPipeline extends ETLPipeline {
             IndicadorCursoDAO indicadorCursoDAO,
             int batchSize
     ) {
-        super(leitor, connection, logsManager, batchSize);
+        super(s3Service, leitor, connection, logsManager, batchSize);
         this.bases = bases;
         this.cursoMapper = new CursoRowMapper(new LeitorUtils());
         this.indicadorMapper = new IndicadorCursoRowMapper(new LeitorUtils());
