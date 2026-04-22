@@ -30,43 +30,47 @@ function criarCard(inst) {
     return card;
 }
 
-function buscarInstituicoes() {
+function renderInstituicoes(listaDados) {
     const lista = document.getElementById("lista_instituicoes");
 
-    if (!lista) {
-        console.error("Instituições não encontradas")
+    if (!lista) return;
+
+    lista.innerHTML = "";
+
+    if (!listaDados || listaDados.length === 0) {
+        lista.innerHTML = "<p>Nenhuma instituição encontrada</p>";
         return;
     }
 
-    const url = '/administrador/getInstituicoes';
-
-    try {
-    fetch(url)
-    .then(res => res.json())
-    .then(data => {
-        lista.innerHTML = "";
-        data.dados.forEach(inst => {
-            const card = criarCard(inst);
-            lista.appendChild(card);
-        });
-    })
-    .catch(error => {
-        console.error("Erro ao buscar instituições: ", error);
-        alert("Erro ao buscar instituições.");
+    listaDados.forEach(inst => {
+        const card = criarCard(inst);
+        lista.appendChild(card);
     });
-    } catch (error) {
-        console.error("Erro inesperado: ", error);
-        alert("Erro inesperado ao buscar instituições.");
-    }
+}
+
+function buscarInstituicoes() {
+    fetch('/administrador/getInstituicoes')
+        .then(res => res.json())
+        .then(data => {
+            renderInstituicoes(data.dados);
+        })
+        .catch(error => {
+            console.error("Erro ao buscar instituições: ", error);
+        });
 }
 
 let timerBusca;
 
 function configurarBuscaDinamica() {
-    const inputPesquisa = document.getElementById("pesquisa_instituicao");
+    const input = document.getElementById("pesquisa_instituicao");
 
-    inputPesquisa.addEventListener("input", () => {
-        const termo = inputPesquisa.value.trim();
+    if (!input) {
+        console.error("Input não encontrado");
+        return;
+    }
+
+    input.addEventListener("input", () => {
+        const termo = input.value.trim();
 
         clearTimeout(timerBusca);
 
@@ -82,21 +86,31 @@ function configurarBuscaDinamica() {
 }
 
 async function executarPesquisa(termo) {
-    const url = `/administrador/pesquisar?termo=${encodeURIComponent(termo)}`;
+    const lista = document.getElementById("lista_instituicoes");
+
+    if (!lista) {
+        console.error("Lista de instituições não encontrada");
+        return;
+    }
+    
+    lista.innerHTML = "<p>Buscando...</p>";
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(`/administrador/pesquisarInstituicoes?termo=${encodeURIComponent(termo)}`);
         const data = await response.json();
 
         if (data.sucesso) {
-            renderResponsaveis(data.dados); 
+            renderInstituicoes(data.dados);
+        } else {
+            lista.innerHTML = "<p>Erro na busca</p>";
         }
     } catch (error) {
         console.error("Erro na pesquisa dinâmica:", error);
+        lista.innerHTML = "<p>Erro ao buscar</p>";
     }
 }
 
 window.onload = () => {
-    buscarInstituicoes(); 
+    buscarInstituicoes();
     configurarBuscaDinamica();
 };
