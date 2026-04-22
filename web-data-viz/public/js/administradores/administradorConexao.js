@@ -60,4 +60,43 @@ function buscarInstituicoes() {
     }
 }
 
-window.onload = buscarInstituicoes;
+let timerBusca;
+
+function configurarBuscaDinamica() {
+    const inputPesquisa = document.getElementById("pesquisa_instituicao");
+
+    inputPesquisa.addEventListener("input", () => {
+        const termo = inputPesquisa.value.trim();
+
+        clearTimeout(timerBusca);
+
+        if (termo.length === 0) {
+            buscarInstituicoes();
+            return;
+        }
+
+        timerBusca = setTimeout(() => {
+            executarPesquisa(termo);
+        }, 300);
+    });
+}
+
+async function executarPesquisa(termo) {
+    const url = `/administrador/pesquisar?termo=${encodeURIComponent(termo)}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.sucesso) {
+            renderResponsaveis(data.dados); 
+        }
+    } catch (error) {
+        console.error("Erro na pesquisa dinâmica:", error);
+    }
+}
+
+window.onload = () => {
+    buscarInstituicoes(); 
+    configurarBuscaDinamica();
+};

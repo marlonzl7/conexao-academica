@@ -43,7 +43,28 @@
         return await database.executar(instrucao, [id]);
     }
 
+    async function pesquisarInstituicoes(termo) {
+        const instrucao = `
+        SELECT 
+        i.id_instituicao AS id,
+        i.nome,
+        COUNT(DISTINCT u.id_usuario) AS qtdPessoas,
+        COUNT(DISTINCT IF(u.ativo = 1, u.id_usuario, NULL)) AS ativos
+        FROM instituicao i
+        LEFT JOIN curso c ON c.id_instituicao = i.id_instituicao
+        LEFT JOIN usuario u 
+            ON u.id_usuario = c.id_diretor
+            OR u.id_usuario = c.id_coordenador
+            OR u.id_usuario = c.id_administrador
+        WHERE i.nome LIKE CONCAT('%', ?, '%')
+        GROUP BY i.id_instituicao, i.nome
+        ORDER BY i.nome;
+        `;
+        return await database.executar(instrucao, [termo]);
+    }
+
     module.exports = {
         buscarInstituicoes,
-        buscarPorId
+        buscarPorId,
+        pesquisarInstituicoes
     };

@@ -40,7 +40,24 @@ async function buscarPorId(req, res) {
     }
 }
 
+async function pesquisarInstituicoes(req, res) {
+    const termo = (req.query.termo || "").trim();
+
+    try {
+        const resultado = await administradorModel.pesquisarInstituicoes(termo);
+        res.status(200).json({
+            sucesso: true,
+            dados: resultado
+        });
+    }
+    catch (erro) {
+        console.error("Erro no controller:", erro);
+        res.status(500).json(respostaErro("Erro ao pesquisar instituições"));
+    }
+}
+
 module.exports = {
     listar,
-    buscarPorId
+    buscarPorId,
+    pesquisarInstituicoes
 };

@@ -10,4 +10,8 @@ router.get("/getInstituicaoPorId", function (req, res) {
     administradorController.buscarPorId(req, res);
 });
 
+router.get("/pesquisarInstituicoes", function (req, res) {
+    administradorController.pesquisarInstituicoes(req, res);
+});
+
 module.exports = router;
