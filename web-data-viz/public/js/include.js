@@ -15,3 +15,9 @@ async function initPage(title) {
         pageTitle.textContent = title;
     }
 }
+
+function sair() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = "/pages/login.html";
+}
