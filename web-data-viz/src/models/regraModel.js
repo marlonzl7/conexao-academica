@@ -20,12 +20,24 @@ async function atualizarRegra(id_regra, classificacao, limite_inferior, limite_s
     return database.executar(instrucao, parametros);
 }
 
+async function deletarRegra(id_regra) {
+
+    const instrucao = `DELETE FROM regra
+                       WHERE id_regra = ?`;
+    
+    const parametros = [id_regra]
+
+    return database.executar(instrucao, parametros);
+}
+
 async function listarRegras() {
     const instrucao = `SELECT id_kpi, classificacao, limite_inferior, limite_superior FROM regra`;
+    
     return await database.executar(instrucao);
 }
 
 module.exports = {
     cadastrarRegra,
+    atualizarRegra,
     listarRegras
 }
