@@ -3,4 +3,7 @@ package-lock.json
 .vscode
 .github
 .env
-.env.dev
+*.env
+target/
+.idea
+user.sql
