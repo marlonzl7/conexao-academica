@@ -1,6 +1,7 @@
 function criarCard(inst) {
     const card = document.createElement("div");
 
+    const id = inst.id || inst.id_instituicao;
     const nome = inst.nome ?? "Sem nome";
     const qtd = inst.qtdPessoas ?? 0;
     const ativos = inst.ativos ?? 0;
@@ -21,7 +22,7 @@ function criarCard(inst) {
         <span>${qtd} Pessoas</span>
         <span>${ativos} Ativos</span>
 
-        <a href="./administradorDetalhes.html?id=${inst.id}" class="btn-acessar">
+        <a href="./administradorDetalhes.html?id=${id}" class="btn-acessar">
             Acessar →
         </a>
     `;
@@ -37,7 +38,10 @@ function buscarInstituicoes() {
         return;
     }
 
-    fetch("/instituicoes")
+    const url = '/administrador/getInstituicoes';
+
+    try {
+    fetch(url)
         .then(res => res.json())
         .then(data => {
             console.log(data);
@@ -49,10 +53,11 @@ function buscarInstituicoes() {
                 lista.appendChild(card);
             });
         })
-        .catch(error => {
+    }
+    catch(error){
             console.error("Erro ao buscar instituições: ", error);
             alert("Erro ao buscar instituições.")
-        });
+    };
 }
 
 window.onload = buscarInstituicoes;

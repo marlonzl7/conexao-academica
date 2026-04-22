@@ -6,7 +6,7 @@ async function listar(req, res) {
         const resultado = await administradorModel.buscarInstituicoes();
 
         if (!resultado || resultado.length === 0) {
-            return res.status(204).send([]);
+            return res.status(200).send({sucesso: true, dados: []});
         }
 
         res.status(200).json({
@@ -20,8 +20,7 @@ async function listar(req, res) {
             erro: "Erro ao buscar instituições"
         });
     }
-
-    console.log("RESULTADO BRUTO:", resultado);
+    
 }
 
 module.exports = {
