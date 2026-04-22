@@ -37,19 +37,23 @@ function renderInstituicoes(listaDados) {
 
     lista.innerHTML = "";
 
-    if (!listaDados || listaDados.length === 0) {
+    const dados = Array.isArray(listaDados)
+        ? listaDados
+        : (listaDados?.dados ?? []);
+
+    if (dados.length === 0) {
         lista.innerHTML = "<p>Nenhuma instituição encontrada</p>";
         return;
     }
 
-    listaDados.forEach(inst => {
+    dados.forEach(inst => {
         const card = criarCard(inst);
         lista.appendChild(card);
     });
 }
 
 function buscarInstituicoes() {
-    fetch('/administrador/getInstituicoes')
+    fetch(`/administrador`)
         .then(res => res.json())
         .then(data => {
             renderInstituicoes(data.dados);
@@ -96,7 +100,7 @@ async function executarPesquisa(termo) {
     lista.innerHTML = "<p>Buscando...</p>";
 
     try {
-        const response = await fetch(`/administrador/pesquisarInstituicoes?termo=${encodeURIComponent(termo)}`);
+        const response = await fetch(`/administrador/search?termo=${encodeURIComponent(termo)}`);
         const data = await response.json();
 
         if (data.sucesso) {

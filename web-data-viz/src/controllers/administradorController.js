@@ -22,7 +22,7 @@ async function listar(req, res) {
 }
 
 async function buscarPorId(req, res) {
-    const id = req.query.id;
+    const id = req.params.id;
 
     if (!id) {
         return res.status(400).json(respostaErro("ID da instituição é obrigatório"));

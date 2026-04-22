@@ -4,16 +4,16 @@ async function renderResponsaveis(dados) {
     const cardCoordenador = document.getElementById("card_coordenador");
     const cardAdministrador = document.getElementById("card_administrador");
 
-    cardDiretor.innerHTML = "";
-    cardCoordenador.innerHTML = "";
-    cardAdministrador.innerHTML = "";
+    if(cardDiretor) cardDiretor.innerHTML = "";
+    if(cardCoordenador) cardCoordenador.innerHTML = "";
+    if(cardAdministrador) cardAdministrador.innerHTML = "";
 
     const listaPessoas = Array.isArray(dados) ? dados : [dados];
 
     listaPessoas.forEach(pessoa => {
         const nome = pessoa.nomePessoa || "Não atribuído";
         const email = pessoa.emailPessoa || "N/A";
-        const cargo = pessoa.cargoNome ? pessoa.cargoNome.toLowerCase() : "";
+        const cargo = (pessoa.cargoNome || "").toLowerCase().trim();
 
         const htmlPessoa = `
             <div class="pessoa-info" style="margin-bottom: 20px;">
@@ -62,7 +62,7 @@ function getPermissaoPorCargo(cargo) {
 function buscarInstituicao() {
     const urlParams = new URLSearchParams(window.location.search);
     const idInstituicao = urlParams.get('id');
-    const url = `/administrador/getInstituicaoPorId?id=${idInstituicao}`;
+    const url = `/administrador/${idInstituicao}`;
 
     if (!idInstituicao) {
         console.error("ID da instituição não encontrado na URL");
@@ -73,14 +73,18 @@ function buscarInstituicao() {
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            const nomeInstituicao = data.dados[0]?.instituicaoNome || "Sem nome";
+            const nomeInstituicao =
+                data.instituicao?.instituicaoNome ||
+                data.dados?.[0]?.instituicaoNome ||
+                "Sem nome";
+
             document.getElementById("nome_instituicao").textContent = nomeInstituicao;
             renderResponsaveis(data.dados);
         })
         .catch(error => {
             console.error("Erro ao buscar instituição: ", error);
             alert("Erro ao buscar instituição.")
-        }); 
+        });
 }
 
 window.onload = buscarInstituicao;
