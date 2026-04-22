@@ -111,12 +111,12 @@ async function buscarDadosConta(idUsuario) {
             u.cpf, 
             i.nome as instituicao
         FROM usuario u
-        JOIN instituicao i ON u.id_instituicao = i.id_instituicao
+        LEFT JOIN curso c ON c.id_diretor = u.id_usuario
+        LEFT JOIN instituicao i ON i.id_instituicao = c.id_instituicao
         WHERE u.id_usuario = ?
         LIMIT 1;
     `;
 
-    console.log("Executando a instrução: \n" + instrucao);
     return database.executar(instrucao, [idUsuario]);
 }
 
