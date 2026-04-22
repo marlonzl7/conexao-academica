@@ -56,8 +56,26 @@ async function pesquisarInstituicoes(req, res) {
     }
 }
 
+async function alterarStatusUsuario(req, res) {
+    const { idUsuario } = req.params;
+    const { ativo } = req.body;
+
+    if (idUsuario === undefined || ativo === undefined) {
+        return res.status(400).json(respostaErro("Parâmetros inválidos"));
+    }
+
+    try {
+        await administradorModel.alterarStatusUsuario(idUsuario, ativo ? 1 : 0);
+        res.status(200).json({ sucesso: true, mensagem: "Status atualizado" });
+    } catch (erro) {
+        console.error("Erro no controller:", erro);
+        res.status(500).json(respostaErro("Erro ao atualizar status"));
+    }
+}
+
 module.exports = {
     listar,
     buscarPorId,
-    pesquisarInstituicoes
+    pesquisarInstituicoes,
+    alterarStatusUsuario
 };

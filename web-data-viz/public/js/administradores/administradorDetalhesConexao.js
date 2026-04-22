@@ -4,9 +4,9 @@ async function renderResponsaveis(dados) {
     const cardCoordenador = document.getElementById("card_coordenador");
     const cardAdministrador = document.getElementById("card_administrador");
 
-    if(cardDiretor) cardDiretor.innerHTML = "";
-    if(cardCoordenador) cardCoordenador.innerHTML = "";
-    if(cardAdministrador) cardAdministrador.innerHTML = "";
+    if (cardDiretor) cardDiretor.innerHTML = "";
+    if (cardCoordenador) cardCoordenador.innerHTML = "";
+    if (cardAdministrador) cardAdministrador.innerHTML = "";
 
     const listaPessoas = Array.isArray(dados) ? dados : [dados];
 
@@ -15,20 +15,31 @@ async function renderResponsaveis(dados) {
         const email = pessoa.emailPessoa || "N/A";
         const cargo = (pessoa.cargoNome || "").toLowerCase().trim();
 
+        const estaAtivo = pessoa.usuarioAtivo === 1;
+
         const htmlPessoa = `
-            <div class="pessoa-info" style="margin-bottom: 20px;">
-                <div class="avatar-box ${getCorPorCargo(cargo)}">
-                    <img src="${getIconePorCargo(cargo)}" alt="Icone">
-                </div>
-                <div class="pessoa-detalhes">
-                    <h3>${nome}</h3>
-                    <p class="email">${email}</p>
-                    <div class="badges">
-                        <span class="badge ${getCorPorCargo(cargo)}">${cargo.replace('_', ' ')}</span>
-                        <span class="permissao">${getPermissaoPorCargo(cargo)}</span>
-                    </div>
-                </div>
+        <div class="pessoa-info" style="margin-bottom: 20px;">
+        <div class="avatar-box ${getCorPorCargo(cargo)}">
+            <img src="${getIconePorCargo(cargo)}" alt="Icone">
+        </div>
+        <div class="pessoa-detalhes">
+            <h3>${nome}</h3>
+            <p class="email">${email}</p>
+            <div class="badges">
+                <span class="badge ${getCorPorCargo(cargo)}">${cargo.replaceAll('_', ' ')}</span>
+                <span class="permissao">${getPermissaoPorCargo(cargo)}</span>
             </div>
+        </div>
+        <label class="toggle-switch">
+            <input 
+                type="checkbox" 
+                ${estaAtivo ? 'checked' : ''} 
+                onchange="alterarStatus(${pessoa.id_usuario}, this.checked)"
+            >
+            <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label">${estaAtivo ? 'Ativo' : 'Inativo'}</span>
+    </div>
         `;
 
         if (cargo === 'diretor') {
@@ -59,6 +70,28 @@ function getPermissaoPorCargo(cargo) {
     return 'Permissões Administrativas';
 }
 
+async function alterarStatus(idUsuario, ativo) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idInstituicao = urlParams.get('id');
+
+    try {
+        const response = await fetch(`/administrador/${idInstituicao}/usuarios/${idUsuario}/status`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ativo })
+        });
+
+        const data = await response.json();
+
+        if (!data.sucesso) {
+            alert("Erro ao atualizar status");
+        }
+    } catch (error) {
+        console.error("Erro ao alterar status:", error);
+        alert("Erro ao alterar status do usuário");
+    }
+}
+
 function buscarInstituicao() {
     const urlParams = new URLSearchParams(window.location.search);
     const idInstituicao = urlParams.get('id');
@@ -86,5 +119,6 @@ function buscarInstituicao() {
             alert("Erro ao buscar instituição.")
         });
 }
+
 
 window.onload = buscarInstituicao;

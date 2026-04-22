@@ -29,6 +29,7 @@ async function buscarPorId(id) {
             u.id_usuario,
             u.nome AS nomePessoa,
             u.email AS emailPessoa,
+            u.ativo AS usuarioAtivo,
             c.nome AS cargoNome
         FROM instituicao i
         LEFT JOIN curso cu 
@@ -66,8 +67,19 @@ async function pesquisarInstituicoes(termo) {
     return await database.executar(instrucao, [termo]);
 }
 
+async function alterarStatusUsuario(idUsuario, ativo) {
+    const instrucao = `
+        UPDATE usuario
+        SET ativo = ?
+        WHERE id_usuario = ?;
+    `;
+
+    return await database.executar(instrucao, [ativo, idUsuario]);
+}
+
 module.exports = {
     buscarInstituicoes,
     buscarPorId,
-    pesquisarInstituicoes
+    pesquisarInstituicoes,
+    alterarStatusUsuario
 };
