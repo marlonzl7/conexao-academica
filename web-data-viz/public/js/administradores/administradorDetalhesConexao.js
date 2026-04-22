@@ -1,4 +1,3 @@
-// administradorDetalhesConexao.js
 async function renderResponsaveis(dados) {
     const cardDiretor = document.getElementById("card_diretor");
     const cardCoordenador = document.getElementById("card_coordenador");
@@ -18,29 +17,29 @@ async function renderResponsaveis(dados) {
         const estaAtivo = pessoa.usuarioAtivo === 1;
 
         const htmlPessoa = `
-        <div class="pessoa-info" style="margin-bottom: 20px;">
-        <div class="avatar-box ${getCorPorCargo(cargo)}">
-            <img src="${getIconePorCargo(cargo)}" alt="Icone">
-        </div>
-        <div class="pessoa-detalhes">
-            <h3>${nome}</h3>
-            <p class="email">${email}</p>
-            <div class="badges">
-                <span class="badge ${getCorPorCargo(cargo)}">${cargo.replaceAll('_', ' ')}</span>
-                <span class="permissao">${getPermissaoPorCargo(cargo)}</span>
+            <div class="pessoa-info" style="margin-bottom: 20px;">
+            <div class="avatar-box ${getCorPorCargo(cargo)}">
+                <img src="${getIconePorCargo(cargo)}" alt="Icone">
             </div>
+            <div class="pessoa-detalhes">
+                <h3>${nome}</h3>
+                <p class="email">${email}</p>
+                <div class="badges">
+                    <span class="badge ${getCorPorCargo(cargo)}">${cargo.replaceAll('_', ' ')}</span>
+                    <span class="permissao">${getPermissaoPorCargo(cargo)}</span>
+                </div>
+            </div>
+            <label class="toggle-switch">
+                <input 
+                    type="checkbox" 
+                    ${estaAtivo ? 'checked' : ''} 
+                    onchange="alterarStatus(${pessoa.id_usuario}, this.checked, this)"
+                >
+                <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">${estaAtivo ? 'Ativo' : 'Inativo'}</span>
         </div>
-        <label class="toggle-switch">
-            <input 
-                type="checkbox" 
-                ${estaAtivo ? 'checked' : ''} 
-                onchange="alterarStatus(${pessoa.id_usuario}, this.checked)"
-            >
-            <span class="toggle-slider"></span>
-        </label>
-        <span class="toggle-label">${estaAtivo ? 'Ativo' : 'Inativo'}</span>
-    </div>
-        `;
+            `;
 
         if (cargo === 'diretor') {
             cardDiretor.innerHTML += htmlPessoa;
@@ -70,7 +69,7 @@ function getPermissaoPorCargo(cargo) {
     return 'Permissões Administrativas';
 }
 
-async function alterarStatus(idUsuario, ativo) {
+async function alterarStatus(idUsuario, ativo, inputEl) {
     const urlParams = new URLSearchParams(window.location.search);
     const idInstituicao = urlParams.get('id');
 
@@ -83,12 +82,14 @@ async function alterarStatus(idUsuario, ativo) {
 
         const data = await response.json();
 
-        if (!data.sucesso) {
-            alert("Erro ao atualizar status");
+        if (data.sucesso) {
+            const label = inputEl.closest('.pessoa-info').querySelector('.toggle-label');
+            if (label) label.textContent = ativo ? 'Ativo' : 'Inativo';
         }
     } catch (error) {
         console.error("Erro ao alterar status:", error);
         alert("Erro ao alterar status do usuário");
+        inputEl.checked = !ativo;
     }
 }
 
