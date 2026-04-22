@@ -23,8 +23,24 @@ function iniciar() {
     const limiteSuperiorInput = document.getElementById("limite-superior");
 
     classificacaoInput.addEventListener("input", () => {
-        validarCampo
+        validarCampo(
+            "classificacaoInvalida",
+            
+        )
     })
+}
+
+function validarCampo(spanId, mensagemErro, funcValidacao, ...parametros) {
+    const erroSpan = document.getElementById(spanId);
+    const divErro = erroSpan.parentElement;
+
+    if (!funcValidacao(...parametros)) {
+        erroSpan.textContent = mensagemErro;
+        divErro.classList.add("ativo");
+    } else {
+        erroSpan.textContent = "";
+        divErro.classList.remove("ativo");
+    }
 }
 
 function cadastrarRegra() {
