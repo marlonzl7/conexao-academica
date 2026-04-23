@@ -1,3 +1,5 @@
+// Cadastro e Login
+
 function validarCPF(input) {
     const valor = input.value.trim();
 
@@ -106,4 +108,25 @@ function validarCaractereEspecial(codigoAscii) {
 
 function validarConfirmacaoSenha(senha, confirmacao) {
     return senha.value === confirmacao.value;
+}
+
+// Regras de Classificação
+
+function validarClassificacao(input) {
+    return input.value.trim() !== "";
+
+}
+
+function validarLimiteInferior(input, valorSuperior) {
+    const valor = input.value;
+    const superior = parseFloat(valorSuperior);
+
+    return valor != null && valor >= 0 && (superior == null || valor < superior);
+}
+
+function validarLimiteSuperior(input, valorInferior) {
+    const valor = input.value;
+    const inferior = parseFloat(valorInferior);
+
+    return valor != null && valor <= 100 && (inferior == null || valor > inferior);
 }

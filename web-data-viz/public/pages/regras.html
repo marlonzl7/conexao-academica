@@ -141,10 +141,12 @@
                 <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro')">X</span>
             </div>
 
+            <input type="hidden" id="cadastro-regra-id" value="">
+
             <div class="modal-body">
                 <div class="form-group">
                     <label>Classificação</label>
-                    <select>
+                    <select id="cadastro-classificacao">
                         <option value="0">Baixo</option>
                         <option value="1">Médio</option>
                         <option value="2">Crítico</option>
@@ -161,18 +163,18 @@
 
                 <div class="form-group">
                     <label>Limite inferior</label>
-                    <input type="text" id="limite_inferior" placeholder="Ex: 50%">
+                    <input type="text" id="cadastro-limite_inferior" placeholder="Ex: 50%">
                 </div>
 
                 <div class="form-group">
                     <label>Limite superior</label>
-                    <input type="text" id="limite_superior" placeholder="Ex: 80%">
+                    <input type="text" id="cadastro-limite_superior" placeholder="Ex: 80%">
                 </div>
             </div>
 
             <div class="modal-footer">
                 <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-cadastro')">Cancelar</button>
-                <button class="modal-botao-confirmar">Registrar</button>
+                <button class="modal-botao-confirmar" onclick="cadastrarRegra()">Registrar</button>
             </div>
 
         </div>
@@ -188,10 +190,12 @@
                 <span class="fechar-modal" onclick="fecharModal('modal-overlay-edicao')">X</span>
             </div>
 
+            <input type="hidden" id="edicao-regra-id" value="">
+
             <div class="modal-body">
                 <div class="form-group">
                     <label>Classificação</label>
-                    <select>
+                    <select id="edicao-classificacao">
                         <option value="0">Baixo</option>
                         <option value="1">Médio</option>
                         <option value="2">Crítico</option>
@@ -201,25 +205,25 @@
                 <div class="form-group">
                     <label>KPI</label>
                     <!-- adicionar referências ao banco aqui depois -->
-                    <select>
+                    <select id="edicao-kpi">
                         <option>Risco de evasão</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>Limite inferior</label>
-                    <input type="text" id="limite_inferior" placeholder="Ex: 50%">
+                    <input type="text" id="edicao-limite_inferior" placeholder="Ex: 50%">
                 </div>
 
                 <div class="form-group">
                     <label>Limite superior</label>
-                    <input type="text" id="limite_superior" placeholder="Ex: 80%">
+                    <input type="text" id="edicao-limite_superior" placeholder="Ex: 80%">
                 </div>
             </div>
 
             <div class="modal-footer">
                 <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-edicao')">Cancelar</button>
-                <button class="modal-botao-confirmar">Salvar</button>
+                <button class="modal-botao-confirmar" onclick="editarModal()">Salvar</button>
             </div>
 
         </div>
@@ -235,6 +239,8 @@
                 <span class="fechar-modal" onclick="fecharModal('modal-overlay-delecao')">X</span>
             </div>
 
+            <input type="hidden" id="delecao-regra-id" value="">
+
             <div class="modal-body">
                 <div class="form-group center">
                     <span>Tem certeza que deseja excluir esse registro?</span>
@@ -244,7 +250,7 @@
 
             <div class="modal-footer center">
                 <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-delecao')">Cancelar</button>
-                <button class="modal-botao-deletar">Deletar</button>
+                <button class="modal-botao-deletar" onclick="deletarRegra()">Deletar</button>
             </div>
 
         </div>

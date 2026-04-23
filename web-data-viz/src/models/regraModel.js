@@ -39,5 +39,6 @@ async function listarRegras() {
 module.exports = {
     cadastrarRegra,
     atualizarRegra,
+    deletarRegra,
     listarRegras
 }
