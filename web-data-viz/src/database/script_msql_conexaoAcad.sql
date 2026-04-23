@@ -28,7 +28,7 @@ CREATE TABLE curso (
     id_instituicao INT NOT NULL,
     id_diretor INT,
     id_coordenador INT,
-    nome VARCHAR(150) NOT NULL,
+    nome VARCHAR(200) NOT NULL,
     modalidade VARCHAR(20) NOT NULL,
     CONSTRAINT fk_curso_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_curso_diretor FOREIGN KEY (id_diretor) REFERENCES usuario (id_usuario),
@@ -74,7 +74,7 @@ CREATE TABLE mensagem (
 
 CREATE TABLE log (
 	id_log INT PRIMARY KEY AUTO_INCREMENT,
-    mensagem VARCHAR(45) NOT NULL,
+    mensagem VARCHAR(255) NOT NULL,
     tipo VARCHAR(10) NOT NULL,
     modulo VARCHAR(45) NOT NULL,
     data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
