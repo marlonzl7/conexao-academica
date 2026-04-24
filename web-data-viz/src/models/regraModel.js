@@ -1,9 +1,9 @@
 var database = require("../database/config")
 
-async function cadastrarRegra(id_regra, id_kpi, classificacao, limite_inferior, limite_superior) {
+async function cadastrarRegra(id_kpi, classificacao, limite_inferior, limite_superior) {
 
     const instrucao = `INSERT INTO regra (id_kpi, classificacao, limite_inferior, limite_superior) VALUES (?, ?, ?, ?)`;
-    const parametros = [id_regra, id_kpi, classificacao, limite_inferior, limite_superior]
+    const parametros = [id_kpi, classificacao, limite_inferior, limite_superior]
 
     return database.executar(instrucao, parametros);
 }
