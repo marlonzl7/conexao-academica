@@ -130,3 +130,11 @@ function validarLimiteSuperior(input, valorInferior) {
 
     return valor != null && valor <= 100 && (inferior == null || valor > inferior);
 }
+
+function validarMensagem(input){
+    const valor = input.value.trim();
+
+    if (valor.length < 10) return false;
+
+    return true;
+}
