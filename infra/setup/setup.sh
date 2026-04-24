@@ -7,7 +7,7 @@ REPO_URL="https://github.com/marlonzl7/conexao-academica.git"
 
 echo "Criando estrutura"
 sudo mkdir -p $BASE_DIR
-sudo chown admin:admin $BASE_DIR
+sudo chown sys-admin:sys-admin $BASE_DIR
 
 mkdir -p $BASE_DIR/repo
 mkdir -p $BASE_DIR/env
