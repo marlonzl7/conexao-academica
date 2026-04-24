@@ -2,14 +2,35 @@
 
 set -e
 
-echo "Iniciando setup..."
+BASE_DIR="/opt/conexao-academica"
+REPO_URL="https://github.com/marlonzl7/conexao-academica.git"
 
-if [ "$EUID" -ne 0 ]; then
-	echo "Execute como root"
-	exit 1
+echo "Criando estrutura"
+sudo mkdir -p $BASE_DIR
+sudo chown admin:admin $BASE_DIR
+
+mkdir -p $BASE_DIR/repo
+mkdir -p $BASE_DIR/env
+
+echo "Clonando repositório"
+if [ ! -d "$BASE_DIR/repo/.git" ]; then
+	git clone $REPO_URL $BASE_DIR/repo
+else
+	echo "Repositório já existe, pulando clone"
 fi
 
-bash "./00-update.sh"
-bash "./01-base.sh"
+echo "Copiando credenciais de exemplo"
+if [ ! -f "$BASE_DIR/env/prod.env" ]; then
+	cp $BASE_DIR/repo/infra/env/prod.env.exemplo \
+		$BASE_DIR/env/prod.env
+else
+	echo "Arquivo prod.env já existe, pulando"
+fi
 
-echo "Setup finalizado com sucesso"
+echo "Ajustando permissões"
+chmod 750 $BASE_DIR
+chmod 600 $BASE_DIR/env/prod.env
+
+echo "Insira as credenciais corretas no arquivo .prod.env"
+
+echo "Setup concluído"
