@@ -1,4 +1,4 @@
-package academica.conexao.logs;
+package com.academica.conexao.infra.log;
 
 import java.time.LocalDateTime;
 
@@ -17,5 +17,21 @@ public class LogEntry {
 
     public String format() {
         return timestamp + " | " + level + " | " + module + " | " + message;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public LogLevel getLevel() {
+        return level;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

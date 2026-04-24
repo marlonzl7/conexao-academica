@@ -1,4 +1,4 @@
-package academica.conexao.logs;
+package com.academica.conexao.infra.log;
 
 public enum LogLevel {
     DEBUG,
