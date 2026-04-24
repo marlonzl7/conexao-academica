@@ -24,13 +24,13 @@ echo "Criando rede docker..."
 sudo docker network create conexao-network 2>/dev/null || true
 
 echo "Subindo banco de dados..."
-sudo docker run -d --name db --network $NETWORK --env-file $ENV_FILE -v mysql_data:/var/lib/mysql mysql
+sudo docker run -d --name db -p 3306:3306 --network $NETWORK --env-file $ENV_FILE -v mysql_data:/var/lib/mysql mysql
 
 echo "Esprando banco subir..."
 sleep 10
 
 echo "Subindo Aplicação de ETL..."
-sudo docker run -d --name etl --network $NETWORK --env-file $ENV_FILE etl-java
+sudo docker run -d --name etl -p 5000:5000 --network $NETWORK --env-file $ENV_FILE etl-java
 
 echo "Subindo Aplicação WEB..."
 sudo docker run -d --name web --network $NETWORK --env-file $ENV_FILE -p 80:80 web-data-viz
