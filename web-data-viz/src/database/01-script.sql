@@ -67,7 +67,7 @@ CREATE TABLE regra (
 
 CREATE TABLE mensagem (
 	id_mensagem INT PRIMARY KEY AUTO_INCREMENT,
-    mensagem VARCHAR(255) NOT NULL,
+    mensagem TEXT NOT NULL,
     email VARCHAR(100) NOT NULL,
     nome VARCHAR(100) NOT NULL
 );
