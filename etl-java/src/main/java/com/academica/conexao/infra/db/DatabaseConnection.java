@@ -19,7 +19,28 @@ public class DatabaseConnection {
     private final String PASSWORD = System.getenv("ETL_DB_PASSWORD");
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        int retries = 10;
+        int delay = 1000;
+
+        while (retries > 0) {
+            try {
+                return DriverManager.getConnection(URL, USER, PASSWORD);
+            } catch (SQLException e) {
+                System.out.println("Erro ao conectar: " + e.getMessage());
+
+		try {
+			Thread.sleep(delay);
+		} catch (InterruptedException ie) {
+			Thread.currentThread().interrupt();
+			throw new RuntimeException("Thread interrompida", ie);
+		}
+
+		delay *= 2;
+	        retries--;
+	    }
+        }
+
+        throw new RuntimeException("Não foi possível conectar ao banco após várias tentativas");
     }
 
 }
