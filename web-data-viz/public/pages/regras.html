@@ -88,44 +88,7 @@
 
                 <!-- tbody: tag recomendada para o corpo principal da tabela, utilizando <td> dentro de <tr> -->
                 <tbody>
-                    <tr>
-                        <td>Baixo</td>
-                        <td>Risco de evasão</td>
-                        <td>0</td>
-                        <td>30%</td>
-                        <td class="acoes-tabela">
-                            <button><img src="../assets/icons/write-icon.png" alt="Ícone de escrita"
-                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-edicao')"></button>
-                            <button><img src="../assets/icons/delete-icon.png" alt="Ícone de deleção"
-                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-delecao')"></button>
-                        </td>
-                    </tr>
 
-                    <tr>
-                        <td>Médio</td>
-                        <td>Risco de evasão</td>
-                        <td>30%</td>
-                        <td>50%</td>
-                        <td class="acoes-tabela">
-                            <button><img src="../assets/icons/write-icon.png" alt="Ícone de escrita"
-                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-edicao')"></button>
-                            <button><img src="../assets/icons/delete-icon.png" alt="Ícone de deleção"
-                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-delecao')"></button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Crítico</td>
-                        <td>Risco de evasão</td>
-                        <td>50%</td>
-                        <td>100%</td>
-                        <td class="acoes-tabela">
-                            <button><img src="../assets/icons/write-icon.png" alt="Ícone de escrita"
-                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-edicao')"></button>
-                            <button><img src="../assets/icons/delete-icon.png" alt="Ícone de deleção"
-                                    class="acoes-tabela-img" onclick="abrirModal('modal-overlay-delecao')"></button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -156,7 +119,7 @@
                 <div class="form-group">
                     <label>KPI</label>
                     <!-- adicionar referências ao banco aqui depois -->
-                    <select>
+                    <select id="cadastro-kpi">
                         <option>Risco de evasão</option>
                     </select>
                 </div>
@@ -223,7 +186,7 @@
 
             <div class="modal-footer">
                 <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-edicao')">Cancelar</button>
-                <button class="modal-botao-confirmar" onclick="editarRegra()">Salvar</button>
+                <button class="modal-botao-confirmar" onclick="atualizarRegra()">Salvar</button>
             </div>
 
         </div>
@@ -258,6 +221,7 @@
     </div>
 
     <script src="../js/regras.js"></script>
+    <script src="../js/validacoes.js"></script>
 </body>
 
 </html>

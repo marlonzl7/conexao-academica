@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    iniciar();
+    carregarTabela();
+    carregarKpis();
 });
 
 function abrirModal(id) {
@@ -30,67 +31,105 @@ document.querySelectorAll(".overlay").forEach(overlay => {
     });
 });
 
-function iniciar() {
-    const classificacaoInput = document.getElementById("classificacao");
-    const limiteInferiorInput = document.getElementById("limite-inferior");
-    const limiteSuperiorInput = document.getElementById("limite-superior");
+async function carregarTabela() {
+    try {
+        const id_usuario = sessionStorage.getItem("ID_USUARIO");
+        const res = await fetch(`/regras?id_usuario=${id_usuario}`);
+        const resposta = await res.json(); // estava faltando essa linha
 
-    classificacaoInput.addEventListener("input", () => {
-        validarCampo(
-            "classificacaoInvalida",
-            "Classificação inválida: deve ser conciso com a KPI.",
-            validarClassificacao,
-            classificacaoInput.value
-        )
-    })
+        if (!res.ok) {
+            alert(resposta.mensagem || "Erro ao carregar as regras.");
+            return;
+        }
 
-    limiteInferiorInput.addEventListener("input", () => {
-        validarCampo(
-            "limiteInferiorInvalido",
-            "Limite inferior inválido: deve ser maior que 0 e menor que o limite superior.",
-            validarLimiteInferior,
-            limiteInferiorInput.value,
-            limiteSuperiorInput.value
-        )
-    })
-
-    limiteSuperiorInput.addEventListener("input", () => {
-        validarCampo(
-            "limiteSuperiorInvalido",
-            "Limite superior inválido: deve ser menor que 100 e maior que o limite inferior.",
-            validarLimiteSuperior,
-            limiteSuperiorInput.value,
-            limiteInferiorInput.value
-        )
-    })
-}
-
-function validarCampo(spanId, mensagemErro, funcValidacao, ...parametros) {
-    const erroSpan = document.getElementById(spanId);
-    const divErro = erroSpan.parentElement;
-
-    if (!funcValidacao(...parametros)) {
-        erroSpan.textContent = mensagemErro;
-        divErro.classList.add("ativo");
-    } else {
-        erroSpan.textContent = "";
-        divErro.classList.remove("ativo");
+        renderizarTabela(resposta.dados);
+    } catch (erro) {
+        console.error(erro);
+        alert("Erro ao se conectar com o servidor.");
     }
 }
 
+function renderizarTabela(dados) {
+    const tbody = document.querySelector(".tabela tbody");
+    tbody.innerHTML = "";
+
+    if (dados.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5">Nenhuma regra cadastrada.</td>
+            </tr>`;
+        return;
+    }
+
+    dados.forEach(regra => {
+        const tr = document.createElement("tr");
+
+        console.log(regra);
+
+        tr.innerHTML = `
+            <td>${regra.classificacao}</td>
+            <td>${regra.id_kpi}</td>
+            <td>${regra.limite_inferior}%</td>
+            <td>${regra.limite_superior}%</td>
+            <td class="acoes-tabela">
+                <button>
+                    <img src="../assets/icons/write-icon.png" alt="Ícone de escrita"
+                        class="acoes-tabela-img"
+                        onclick="abrirEdicao(${regra.id_regra}, '${regra.classificacao}', ${regra.id_kpi}, ${regra.limite_inferior}, ${regra.limite_superior})">
+                </button>
+                <button>
+                    <img src="../assets/icons/delete-icon.png" alt="Ícone de deleção"
+                        class="acoes-tabela-img"
+                        onclick="abrirDelecao(${regra.id_regra})">
+                </button>
+            </td>`;
+        tbody.appendChild(tr);
+    });
+}
+
+async function carregarKpis() {
+    try {
+        const res = await fetch("/kpis");
+        const resposta = await res.json();
+
+        if (!res.ok) {
+            console.error("Erro ao carregar KPIs.");
+            return;
+        }
+
+        const selects = document.querySelectorAll("select[id$='-kpi']");
+
+        selects.forEach(select => {
+            select.innerHTML = "";
+            resposta.dados.forEach(kpi => {
+                const option = document.createElement("option");
+                option.value = kpi.id_kpi;
+                option.textContent = kpi.nome; // ajuste para o nome da coluna no seu banco
+                select.appendChild(option);
+            });
+        });
+
+    } catch (erro) {
+        console.error(erro);
+    }
+}
 
 async function cadastrarRegra() {
+    const id_usuario = sessionStorage.getItem("ID_USUARIO");
+    const kpiInput = document.getElementById("cadastro-kpi")
     const classificacaoInput = document.getElementById("cadastro-classificacao");
     const limiteInferiorInput = document.getElementById("cadastro-limite_inferior");
     const limiteSuperiorInput = document.getElementById("cadastro-limite_superior");
 
     if (
         validarClassificacao(classificacaoInput) &&
-        validarLimiteInferior(limiteInferiorInput) &&
-        validarLimiteSuperior(limiteSuperiorInput)
+        validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
+        validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput)
     ) {
-        const url = `/cadastrar/regra`;
+        const url = `/regras/cadastrar`;
         const dados = {
+            idUsuario: id_usuario,
+            kpi: kpiInput.value,
             classificacao: classificacaoInput.value,
             limiteInferior: limiteInferiorInput.value,
             limiteSuperior: limiteSuperiorInput.value,
@@ -121,7 +160,7 @@ async function cadastrarRegra() {
     }
 }
 
-async function editarRegra() {
+async function atualizarRegra() {
     const idRegra = document.getElementById("edicao-regra-id").value;
     const classificacaoInput = document.getElementById("edicao-classificacao");
     const kpiInput = document.getElementById("edicao-kpi");
@@ -130,10 +169,10 @@ async function editarRegra() {
 
     if (
         validarClassificacao(classificacaoInput) &&
-        validarLimiteInferior(limiteInferiorInput) &&
-        validarLimiteSuperior(limiteSuperiorInput)
+        validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
+        validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput)
     ) {
-        const url = `/editar/regra/${idRegra}`
+        const url = `/regras/editar/${idRegra}`
         const dados = {
             classificacao: classificacaoInput.value,
             kpi: kpiInput.value,
@@ -170,12 +209,12 @@ async function editarRegra() {
 async function deletarRegra() {
     const idRegra = document.getElementById("delecao-regra-id").value;
     
-    if(!id) {
+    if(!idRegra) {
         alert("Nenhum registro encontrado para exclusão.");
         return;
     }
 
-    const url = `/deletar/regra/${idRegra}`;
+    const url = `/regras/deletar/${idRegra}`;
 
     try {
         const res = await fetch(url, {

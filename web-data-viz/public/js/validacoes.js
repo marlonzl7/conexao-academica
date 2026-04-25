@@ -117,18 +117,16 @@ function validarClassificacao(input) {
 
 }
 
-function validarLimiteInferior(input, valorSuperior) {
-    const valor = input.value;
-    const superior = parseFloat(valorSuperior);
-
-    return valor != null && valor >= 0 && (superior == null || valor < superior);
+function validarLimiteInferior(inputInferior, inputSuperior) {
+    const valor = parseFloat(inputInferior.value);
+    const sup = parseFloat(inputSuperior.value);
+    return !isNaN(valor) && valor >= 0 && (isNaN(sup) || valor < sup);
 }
 
-function validarLimiteSuperior(input, valorInferior) {
-    const valor = input.value;
-    const inferior = parseFloat(valorInferior);
-
-    return valor != null && valor <= 100 && (inferior == null || valor > inferior);
+function validarLimiteSuperior(inputSuperior, inputInferior) {
+    const valor = parseFloat(inputSuperior.value);
+    const inf = parseFloat(inputInferior.value);
+    return !isNaN(valor) && valor <= 100 && (isNaN(inf) || valor > inf);
 }
 
 function validarMensagem(input){

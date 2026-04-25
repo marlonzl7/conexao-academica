@@ -1,5 +1,18 @@
-var kpiModel = require("../models/kpiModel");
-var { respostaSucesso, respostaErro } = require("../database/dtos/resposta");
+const kpiModel = require("../models/kpiModel");
+const { respostaSucesso, respostaErro } = require("../database/dtos/resposta");
+
+async function listarKpis(req, res) {
+    try {
+        const resultado = await kpiModel.listarKpis();
+
+        return res.status(200).json(respostaSucesso(true, resultado, "KPIs listadas com sucesso."));
+    } catch(erro) {
+        console.log("Erro ao listar KPIs: " + erro);
+        
+        return res.status(500).json(respostaErro("Erro interno no servidor"));
+    }
+}
+
 
 async function buscarKpi(req, res) {
     try {
@@ -20,5 +33,6 @@ async function buscarKpi(req, res) {
 }
 
 module.exports = {
+    listarKpis,
     buscarKpi
 }
