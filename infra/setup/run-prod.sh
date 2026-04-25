@@ -4,7 +4,7 @@ set -e
 
 BASE_DIR="/opt/conexao-academica"
 REPO_DIR="$BASE_DIR/repo/"
-ENV_FILE="$BASE_DIR/env/prod.env"
+ENV_FILE="$BASE_DIR/env/.env"
 NETWORK='conexao-network'
 
 echo "Atualizando repositório"
