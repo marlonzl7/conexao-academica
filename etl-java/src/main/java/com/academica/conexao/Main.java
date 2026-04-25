@@ -32,10 +32,10 @@ public class Main {
                 "instituicao/2018/MICRODADOS_CADASTRO_IES_2018.xlsx",
                 "instituicao/2019/MICRODADOS_CADASTRO_IES_2019.xlsx",
                 "instituicao/2020/MICRODADOS_CADASTRO_IES_2020.xlsx",
-                "instituicao/2021/MICRODADOS_CADASTRO_IES_2021.xlsx",
-                "instituicao/2022/MICRODADOS_CADASTRO_IES_2022.xlsx",
-                "instituicao/2023/MICRODADOS_CADASTRO_IES_2023.xlsx",
-                "instituicao/2024/MICRODADOS_CADASTRO_IES_2024.xlsx"
+                "instituicao/2021/MICRODADOS_ED_SUP_IES_2021.xlsx",
+                "instituicao/2022/MICRODADOS_ED_SUP_IES_2022.xlsx",
+                "instituicao/2023/MICRODADOS_ED_SUP_IES_2023.xlsx",
+                "instituicao/2024/MICRODADOS_ED_SUP_IES_2024.xlsx"
         );
 
         List<String> keysCurso = List.of(
