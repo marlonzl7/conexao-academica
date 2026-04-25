@@ -24,9 +24,33 @@ public class Main {
 
         S3Service s3Service = new S3Service(new S3Provider().getS3Client(), System.getenv("BUCKET_NAME"));
 
-        List<String> todasKeys = s3Service.listarKeys();
-        List<String> keysInstituicao = s3Service.filtrarKeys(todasKeys, "CADASTRO_IES");
-        List<String> keysCurso = s3Service.filtrarKeys(todasKeys, "CADASTRO_CURSO");
+        List<String> keysInstituicao = List.of(
+                "instituicao/2014/MICRODADOS_CADASTRO_IES_2014.xlsx",
+                "instituicao/2015/MICRODADOS_CADASTRO_IES_2015.xlsx",
+                "instituicao/2016/MICRODADOS_CADASTRO_IES_2016.xlsx",
+                "instituicao/2017/MICRODADOS_CADASTRO_IES_2017.xlsx",
+                "instituicao/2018/MICRODADOS_CADASTRO_IES_2018.xlsx",
+                "instituicao/2019/MICRODADOS_CADASTRO_IES_2019.xlsx",
+                "instituicao/2020/MICRODADOS_CADASTRO_IES_2020.xlsx",
+                "instituicao/2021/MICRODADOS_CADASTRO_IES_2021.xlsx",
+                "instituicao/2022/MICRODADOS_CADASTRO_IES_2022.xlsx",
+                "instituicao/2023/MICRODADOS_CADASTRO_IES_2023.xlsx",
+                "instituicao/2024/MICRODADOS_CADASTRO_IES_2024.xlsx"
+        );
+
+        List<String> keysCurso = List.of(
+                "curso/2014/MICRODADOS_CADASTRO_CURSOS_2014.xlsx",
+                "curso/2015/MICRODADOS_CADASTRO_CURSOS_2015.xlsx",
+                "curso/2016/MICRODADOS_CADASTRO_CURSOS_2016.xlsx",
+                "curso/2017/MICRODADOS_CADASTRO_CURSOS_2017.xlsx",
+                "curso/2018/MICRODADOS_CADASTRO_CURSOS_2018.xlsx",
+                "curso/2019/MICRODADOS_CADASTRO_CURSOS_2019.xlsx",
+                "curso/2020/MICRODADOS_CADASTRO_CURSOS_2020.xlsx",
+                "curso/2021/MICRODADOS_CADASTRO_CURSOS_2021.xlsx",
+                "curso/2022/MICRODADOS_CADASTRO_CURSOS_2022.xlsx",
+                "curso/2023/MICRODADOS_CADASTRO_CURSOS_2023.xlsx",
+                "curso/2024/MICRODADOS_CADASTRO_CURSOS_2024.xlsx"
+        );
 
         Connection connection = new DatabaseConnection().getConnection();
         LogsManager logsManager = new LogsManager(connection, new LogEntryDAO(connection));
