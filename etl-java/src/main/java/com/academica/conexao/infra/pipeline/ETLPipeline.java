@@ -42,52 +42,55 @@ public abstract class ETLPipeline {
     protected abstract void executeBatch() throws SQLException;
 
     public final void executar() {
-        for (String base : getBases()) {
-            logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Iniciando processo de ETL para base: " + base);
-            contador = 0;
-            contadorErros = 0;
+        try {
+            for (String base : getBases()) {
+                logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Iniciando processo de ETL para base: " + base);
+                contador = 0;
+                contadorErros = 0;
 
-            try {
-                connection.setAutoCommit(false);
+                try {
+                    connection.setAutoCommit(false);
 
-                InputStream is = s3Service.abrirStream(base);
-                leitor.abrir(is);
+                    InputStream is = s3Service.abrirStream(base);
+                    leitor.abrir(is);
 
-                Row row;
+                    Row row;
 
-                while ((row = leitor.lerLinha()) != null) {
-                    try {
-                        processarLinha(row);
-                        contador++;
+                    while ((row = leitor.lerLinha()) != null) {
+                        try {
+                            processarLinha(row);
+                            contador++;
 
-                        if (contador % batchSize == 0) {
-                            executeBatch();
-                            connection.commit();
-                            logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Lote " + contador / batchSize + " inserido no banco");
+                            if (contador % batchSize == 0) {
+                                executeBatch();
+                                connection.commit();
+                                logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Lote " + contador / batchSize + " inserido no banco");
+                            }
+                        } catch (Exception e) {
+                            connection.rollback();
+                            int loteAtual = (contador / batchSize) + 1;
+                            logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Erro na linha " + contador + ", lote " + loteAtual + " revertido (rollback): " + e.getMessage());
                         }
-                    } catch (Exception e) {
-                        connection.rollback();
-                        int loteAtual = (contador / batchSize) + 1;
-                        logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Erro na linha " + contador + ", lote " + loteAtual + " revertido (rollback): " + e.getMessage());
                     }
+
+                    executeBatch();
+                    connection.commit();
+
+                    if (contadorErros > 0) {
+                        logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Total de linhas inválidas: " + contadorErros);
+                    }
+
+                    logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Processo de ETL finalizado. Total de " + contador + " linhas processadas.");
+
+                } catch (Exception e) {
+                    logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Falha crítica no ETL: " + e.getMessage());
+                    e.printStackTrace();
+                } finally {
+                    try { leitor.fechar(); } catch (Exception ignored) {}
                 }
-
-                executeBatch();
-                connection.commit();
-
-                if (contadorErros > 0) {
-                    logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Total de linhas inválidas: " + contadorErros);
-                }
-
-                logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Processo de ETL finalizado. Total de " + contador + " linhas processadas.");
-
-            } catch (Exception e) {
-                logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Falha crítica no ETL: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
-                try { leitor.fechar(); } catch (Exception ignored) {}
-                try { closeDAOs(); } catch (Exception ignored) {}
             }
+        } finally {
+            try { closeDAOs(); } catch (Exception ignored) {}
         }
     }
 
