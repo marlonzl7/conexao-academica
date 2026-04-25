@@ -19,6 +19,7 @@ public abstract class ETLPipeline {
     protected final LogsManager logsManager;
     private int batchSize;
     private int contador;
+    private int contadorErros;
 
     protected ETLPipeline(
             S3Service s3Service,
@@ -44,6 +45,7 @@ public abstract class ETLPipeline {
         for (String base : getBases()) {
             logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Iniciando processo de ETL para base: " + base);
             contador = 0;
+            contadorErros = 0;
 
             try {
                 connection.setAutoCommit(false);
@@ -71,15 +73,29 @@ public abstract class ETLPipeline {
 
                 executeBatch();
                 connection.commit();
-                leitor.fechar();
+
+                if (contadorErros > 0) {
+                    logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Total de linhas inválidas: " + contadorErros);
+                }
+
                 logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Processo de ETL finalizado. Total de " + contador + " linhas processadas.");
 
             } catch (Exception e) {
                 logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Falha crítica no ETL: " + e.getMessage());
                 e.printStackTrace();
+            } finally {
+                try { leitor.fechar(); } catch (Exception ignored) {}
+                try { closeDAOs(); } catch (Exception ignored) {}
             }
         }
     }
 
+    protected void registrarErroLinha() {
+        contadorErros++;
+    }
+
+    protected abstract void closeDAOs() throws SQLException;
+
     public long getTotalLinhasProcessadas() { return this.contador; }
+
 }

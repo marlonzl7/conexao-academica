@@ -15,14 +15,16 @@ public class LogEntryDAO {
 
     public void insert(LogEntry logEntry) throws SQLException {
         String sql = "INSERT INTO log (mensagem, tipo, modulo, data_hora) VALUES (?, ?, ?, ?)";
-        PreparedStatement ps = connection.prepareStatement(sql);
 
-        ps.setString(1, logEntry.getMessage());
-        ps.setString(2, logEntry.getLevel().toString());
-        ps.setString(3, logEntry.getModule());
-        ps.setTimestamp(4, Timestamp.valueOf(logEntry.getTimestamp()));
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, logEntry.getMessage());
+            ps.setString(2, logEntry.getLevel().toString());
+            ps.setString(3, logEntry.getModule());
+            ps.setTimestamp(4, Timestamp.valueOf(logEntry.getTimestamp()));
 
-        ps.execute();
+            ps.execute();
+        }
+
     }
 
 }

@@ -63,14 +63,7 @@ public class CursoETLPipeline extends ETLPipeline {
         List<String> errosIndicadorCurso = indicadorValidator.validate(indicadorCurso);
 
         if (!errosCurso.isEmpty() || !errosIndicadorCurso.isEmpty()) {
-            if (!errosCurso.isEmpty()) {
-                logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Erro no processamento da linha. Entidade inválida: " + errosCurso);
-            }
-
-            if (!errosIndicadorCurso.isEmpty()) {
-                logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Erro no processamento da linha. Entidade inválida: " + errosIndicadorCurso);
-            }
-
+            registrarErroLinha();
             return;
         }
 
@@ -82,5 +75,11 @@ public class CursoETLPipeline extends ETLPipeline {
     protected void executeBatch() throws SQLException {
         cursoDAO.executeBatch();
         indicadorCursoDAO.executeBatch();
+    }
+
+    @Override
+    protected void closeDAOs() throws SQLException {
+        cursoDAO.close();
+        indicadorCursoDAO.close();
     }
 }
