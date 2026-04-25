@@ -11,4 +11,9 @@ router.post("/contact", function (req, res) {
     indexController.contact(req, res);
 });
 
+router.post("/contact", function (req, res) {
+    indexController.contact(req, res);
+});
+
+
 module.exports = router;
