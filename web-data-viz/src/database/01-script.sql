@@ -1,4 +1,4 @@
-CREATE DATABASE conexaoacademica;
+CREATE DATABASE IF NOT EXISTS conexaoacademica;
 USE conexaoacademica;
 
 CREATE TABLE instituicao (
