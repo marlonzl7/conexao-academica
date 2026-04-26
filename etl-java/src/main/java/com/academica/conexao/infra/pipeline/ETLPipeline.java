@@ -60,17 +60,21 @@ public abstract class ETLPipeline {
                         try {
                             processarLinha(row);
                             contador++;
+                        } catch (Exception e) {
+                            registrarErroLinha();
+                            String msg = e.getMessage() != null ? e.getMessage() : e.getClass().getName();
+                            logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Linha " + contador + " ignorada: " + msg);
+                        }
 
-                            if (contador % batchSize == 0) {
+                        if (contador > 0 && contador % batchSize == 0) {
+                            try {
                                 executeBatch();
                                 connection.commit();
                                 logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Lote " + contador / batchSize + " inserido no banco");
+                            } catch (Exception e) {
+                                connection.rollback();
+                                logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Lote " + contador / batchSize + " revertido (rollback): " + e.getMessage());
                             }
-                        } catch (Exception e) {
-                            connection.rollback();
-                            int loteAtual = (contador / batchSize) + 1;
-                            String msg = e.getMessage() != null ? e.getMessage() : e.getClass().getName();
-                            logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Erro na linha " + contador + ", lote " + loteAtual + " revertido (rollback): " + msg);
                         }
                     }
 
