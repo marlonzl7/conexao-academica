@@ -44,7 +44,7 @@ new Chart(document.getElementById('chartTrend'), {
         plugins: {
             title: {
                 display: true,
-                text: 'Evolução Anual',
+                text: 'Evolução Anual - Taxa de Evasão',
                 font: {
                     size: 20
                 },
