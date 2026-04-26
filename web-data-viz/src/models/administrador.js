@@ -96,10 +96,41 @@ async function cadastrarAdministrador(idInstituicao, cpf, nome, email, senha) {
     return await database.executar(instrucaoVinculo, [idInstituicao, novoIdUsuario]);
 }
 
+async function buscarKPIs(idInstituicao) {
+    const instrucao = `
+    SELECT
+    (SELECT COUNT(DISTINCT u.id_usuario)
+     FROM usuario u
+     JOIN curso c 
+       ON u.id_usuario = c.id_administrador 
+       OR u.id_usuario = c.id_coordenador 
+       OR u.id_usuario = c.id_diretor
+     WHERE c.id_instituicao = ?) AS totalPessoas,
+
+    (SELECT COUNT(DISTINCT u.id_usuario)
+     FROM usuario u
+     JOIN curso c 
+       ON u.id_usuario = c.id_administrador 
+       OR u.id_usuario = c.id_coordenador 
+       OR u.id_usuario = c.id_diretor
+     WHERE c.id_instituicao = ? AND u.ativo = 1) AS totalAtivo,
+
+    (SELECT COUNT(DISTINCT u.id_usuario)
+     FROM usuario u
+     JOIN curso c 
+       ON u.id_usuario = c.id_diretor
+     WHERE c.id_instituicao = ?) AS totalDiretor;  
+    `;
+
+    const resultado = await database.executar(instrucao, [idInstituicao]);
+    return resultado[0];
+}
+
 module.exports = {
     buscarInstituicoes,
     buscarPorId,
     pesquisarInstituicoes,
     alterarStatusUsuario, 
-    cadastrarAdministrador
+    cadastrarAdministrador,
+    buscarKPIs
 };

@@ -89,10 +89,26 @@ async function cadastrarAdministrador(req, res) {
     }
 }
 
+async function buscarKPIs(req, res) {
+    const { idInstituicao } = req.params;
+
+    try {
+        const resultado = await administradorModel.buscarKPIs(idInstituicao);
+        res.status(200).json({
+            sucesso: true,
+            dados: resultado
+        });
+    } catch (erro) {
+        console.error("Erro no controller:", erro);
+        res.status(500).json(respostaErro("Erro ao buscar KPIs"));
+    }
+}
+
 module.exports = {
     listar,
     buscarPorId,
     pesquisarInstituicoes,
     alterarStatusUsuario,
-    cadastrarAdministrador
+    cadastrarAdministrador,
+    buscarKPIs
 };

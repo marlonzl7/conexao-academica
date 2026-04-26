@@ -102,10 +102,16 @@ async function login() {
     } else if (json.dados.cargo === 'coordenador') {
         window.location.href = '/pages/dashboards/coordenador.html';
         return;
+    } else if(json.dados.cargo === 'administrador_conexao') {
+        window.location.href = '/pages/administradores/administradorConexao.html';
+        return;
+    } else if(json.dados.cargo === 'administrador_institucional') {
+        window.location.href = '/pages/administradores/administradorInstituicao.html';
+        return;
     }
 }
 
-function iniciarSessao(id_usuario, nome, email) {
+function iniciarSessao(id_usuario, nome, email, idInstituicao) {
     sessionStorage.ID_USUARIO = id_usuario;
     sessionStorage.NOME = nome;
     sessionStorage.EMAIL = email;
