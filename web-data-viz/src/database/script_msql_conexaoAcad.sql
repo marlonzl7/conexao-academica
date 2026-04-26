@@ -28,11 +28,13 @@ CREATE TABLE curso (
     id_instituicao INT NOT NULL,
     id_diretor INT,
     id_coordenador INT,
+    id_administrador INT,
     nome VARCHAR(150) NOT NULL,
     modalidade VARCHAR(20) NOT NULL,
     CONSTRAINT fk_curso_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_curso_diretor FOREIGN KEY (id_diretor) REFERENCES usuario (id_usuario),
     CONSTRAINT fk_curso_coordenador FOREIGN KEY (id_coordenador) REFERENCES usuario (id_usuario),
+    CONSTRAINT fk_curso_administrador FOREIGN KEY (id_administrador) REFERENCES usuario (id_usuario),
     CONSTRAINT chk_modalidade CHECK (modalidade IN ('PRESENCIAL', 'EAD'))
 );
 
