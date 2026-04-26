@@ -12,7 +12,9 @@ async function buscarInstituicoes() {
         LEFT JOIN curso c 
             ON c.id_instituicao = i.id_instituicao
         LEFT JOIN usuario u 
-            ON u.id_usuario = c.id_usuario
+            ON u.id_usuario = c.id_administrador
+            OR u.id_usuario = c.id_coordenador
+            OR u.id_usuario = c.id_diretor
         GROUP BY i.id_instituicao, i.nome
         ORDER BY i.nome;
     `;
@@ -34,7 +36,9 @@ async function buscarPorId(id) {
         LEFT JOIN curso cu 
             ON cu.id_instituicao = i.id_instituicao
         LEFT JOIN usuario u 
-            ON u.id_usuario = cu.id_usuario
+            ON u.id_usuario = cu.id_administrador
+            OR u.id_usuario = cu.id_coordenador
+            OR u.id_usuario = cu.id_diretor
         LEFT JOIN cargo c 
             ON c.id_cargo = u.id_cargo
         WHERE i.id_instituicao = ?
@@ -74,13 +78,22 @@ async function alterarStatusUsuario(idUsuario, ativo) {
     return await database.executar(instrucao, [ativo, idUsuario]);
 }
 
-async function cadastrarAdministrador(cpf, nome, email, senha) {
-    const instrucao = `
-        INSERT INTO usuario (id_cargo, cpf, nome, email, senha, ativo) VALUES
-            (1, ?, ?, ?, ?, 1);
+async function cadastrarAdministrador(idInstituicao, cpf, nome, email, senha) {
+    const instrucaoUsuario = `
+        INSERT INTO usuario (id_cargo, cpf, nome, email, senha, ativo) 
+        VALUES (1, ?, ?, ?, ?, 1);
     `;
 
-    return await database.executar(instrucao, [cpf, nome, email, senha]);
+    const resultado = await database.executar(instrucaoUsuario, [cpf, nome, email, senha]);
+
+    const novoIdUsuario = resultado.insertId;
+
+    const instrucaoVinculo = `
+        INSERT INTO curso (id_instituicao, id_administrador, nome, modalidade) 
+        VALUES (?, ?, "Administração Institucional", "PRESENCIAL");
+    `;
+
+    return await database.executar(instrucaoVinculo, [idInstituicao, novoIdUsuario]);
 }
 
 module.exports = {

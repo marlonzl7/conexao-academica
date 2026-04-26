@@ -74,18 +74,14 @@ async function alterarStatusUsuario(req, res) {
 }
 
 async function cadastrarAdministrador(req, res) {
-    const idUsuario = req.params;
-    const nome = req.body;
-    const email = req.body;
-    const cpf = req.body;
-    const senha = req.body;
+    const { idInstituicao, cpf, nome, email, senha } = req.body;
 
-    if (!idUsuario || !nome || !email || !cpf || !senha) {
+    if (!idInstituicao || !nome || !email || !cpf || !senha) {
         return res.status(400).json(respostaErro("Todos os campos são obrigatórios"));
     }
 
     try {
-        await administradorModel.cadastrarAdministrador(idUsuario, nome, email, cpf, senha);
+        await administradorModel.cadastrarAdministrador(idInstituicao, cpf, nome, email, senha);
         res.status(201).json({ sucesso: true, mensagem: "Administrador cadastrado" });
     } catch (erro) {
         console.error("Erro no controller:", erro);

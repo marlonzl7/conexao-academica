@@ -17,28 +17,44 @@ async function renderResponsaveis(dados) {
         const estaAtivo = pessoa.usuarioAtivo === 1;
 
         const htmlPessoa = `
-            <div class="pessoa-info" style="margin-bottom: 20px;">
-            <div class="avatar-box ${getCorPorCargo(cargo)}">
-                <img src="${getIconePorCargo(cargo)}" alt="Icone">
-            </div>
-            <div class="pessoa-detalhes">
-                <h3>${nome}</h3>
-                <p class="email">${email}</p>
-                <div class="badges">
-                    <span class="badge ${getCorPorCargo(cargo)}">${cargo.replaceAll('_', ' ')}</span>
-                    <span class="permissao">${getPermissaoPorCargo(cargo)}</span>
-                </div>
-            </div>
-            <label class="toggle-switch">
-                <input 
-                    type="checkbox" 
-                    ${estaAtivo ? 'checked' : ''} 
-                    onchange="alterarStatus(${pessoa.id_usuario}, this.checked, this)"
-                >
-                <span class="toggle-slider"></span>
-            </label>
-            <span class="toggle-label">${estaAtivo ? 'Ativo' : 'Inativo'}</span>
+<div class="pessoa-card">
+
+    <div class="pessoa-info">
+        <div class="avatar-box ${getCorPorCargo(cargo)}">
+            <img src="${getIconePorCargo(cargo)}" alt="Icone">
         </div>
+
+        <div class="pessoa-detalhes">
+            <h3>${nome}</h3>
+            <p class="email">${email}</p>
+
+            <div class="badges">
+                <span class="badge ${getCorPorCargo(cargo)}">
+                    ${cargo.replaceAll('_', ' ')}
+                </span>
+                <span class="permissao">
+                    ${getPermissaoPorCargo(cargo)}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="acoes">
+        <span class="toggle-label">
+            ${estaAtivo ? 'Ativo' : 'Inativo'}
+        </span>
+
+        <label class="toggle-switch">
+            <input 
+                type="checkbox" 
+                ${estaAtivo ? 'checked' : ''} 
+                onchange="alterarStatus(${pessoa.id_usuario}, this.checked, this)"
+            >
+            <span class="toggle-slider"></span>
+        </label>
+    </div>
+
+</div>
             `;
 
         if (cargo === 'diretor') {
@@ -83,7 +99,8 @@ async function alterarStatus(idUsuario, ativo, inputEl) {
         const data = await response.json();
 
         if (data.sucesso) {
-            const label = inputEl.closest('.pessoa-info').querySelector('.toggle-label');
+            const card = inputEl.closest('.pessoa-card'); 
+            const label = card.querySelector('.toggle-label');
             if (label) label.textContent = ativo ? 'Ativo' : 'Inativo';
         }
     } catch (error) {
@@ -121,53 +138,5 @@ function buscarInstituicao() {
         });
 }
 
-function fecharModal(id) {
-    document.getElementById(id).classList.add('hidden');
-}
-
-function abrirModal(id) {
-    document.getElementById(id).classList.remove('hidden');
-}
-
-function cadastrarAdministrador() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const idInstituicao = urlParams.get('id');
-
-    const nome = document.getElementById("admin_nome").value.trim();
-    const email = document.getElementById("admin_email").value.trim();
-    const senha = document.getElementById("admin_senha").value.trim();
-    const cpf = document.getElementById("admin_cpf").value.trim();
-
-    if (!nome || !email || !senha || !cpf) {
-        alert("Todos os campos são obrigatórios.");
-        return;
-    }
-
-    fetch(`/administrador/cadastrar`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            idInstituicao,
-            nome,
-            email,
-            senha,
-            cpf
-        })
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (data.sucesso) {
-                alert("Administrador cadastrado com sucesso!");
-                fecharModal("modal-overlay-cadastro");
-                buscarInstituicao();
-            } else {
-                alert("Erro ao cadastrar administrador: " + (data.mensagem || "Erro desconhecido"));
-            }
-        })
-        .catch(error => {
-            console.error("Erro ao cadastrar administrador:", error);
-            alert("Erro ao cadastrar administrador.");
-        });
-}
 
 window.onload = buscarInstituicao;
