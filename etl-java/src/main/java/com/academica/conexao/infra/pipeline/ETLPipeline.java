@@ -69,7 +69,8 @@ public abstract class ETLPipeline {
                         } catch (Exception e) {
                             connection.rollback();
                             int loteAtual = (contador / batchSize) + 1;
-                            logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Erro na linha " + contador + ", lote " + loteAtual + " revertido (rollback): " + e.getMessage());
+                            String msg = e.getMessage() != null ? e.getMessage() : e.getClass().getName();
+                            logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Erro na linha " + contador + ", lote " + loteAtual + " revertido (rollback): " + msg);
                         }
                     }
 
