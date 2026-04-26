@@ -45,7 +45,7 @@ public class InstituicaoETLPipeline extends ETLPipeline {
         List<String> erros = validator.validate(instituicao);
 
         if (!erros.isEmpty()) {
-            logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Erro no processamento da linha. Entidade inválida: " + erros);
+            registrarErroLinha();
             return;
         }
 
@@ -60,5 +60,10 @@ public class InstituicaoETLPipeline extends ETLPipeline {
     @Override
     protected List<String> getBases() {
         return bases;
+    }
+
+    @Override
+    protected void closeDAOs() throws SQLException {
+        dao.close();
     }
 }

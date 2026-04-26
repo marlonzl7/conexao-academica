@@ -20,6 +20,7 @@ var regraRouter = require("./src/routes/regras");
 var kpiRouter = require("./src/routes/kpis")
 var usuarioRouter = require("./src/routes/usuarios");
 var instituicoesRouter = require("./src/routes/instituicoes");
+var cargosRouter = require("./src/routes/cargos.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,6 +33,7 @@ app.use("/regras", regraRouter);
 app.use("/kpis", kpiRouter)
 app.use("/usuarios", usuarioRouter);
 app.use("/instituicoes", instituicoesRouter);
+app.use("/cargos", cargosRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

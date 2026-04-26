@@ -4,7 +4,7 @@ set -e
 
 BASE_DIR="/opt/conexao-academica"
 REPO_DIR="$BASE_DIR/repo/"
-ENV_FILE="$BASE_DIR/env/prod.env"
+ENV_FILE="$BASE_DIR/env/.env"
 NETWORK='conexao-network'
 
 echo "Atualizando repositório"
@@ -20,14 +20,21 @@ echo "Removendo containers antigos..."
 sudo docker stop web etl db 2>/dev/null || true
 sudo docker rm web etl db 2>/dev/null || true
 
-echo "Criando rede docker..."
-sudo docker network create conexao-network 2>/dev/null || true
+echo "Resetando rede docker..."
+sudo docker network rm $NETWORK 2>/dev/null || true
+sudo docker network create $NETWORK
 
 echo "Subindo banco de dados..."
 sudo docker run -d --name db -p 3306:3306 --network $NETWORK --env-file $ENV_FILE -v mysql_data:/var/lib/mysql mysql
 
-echo "Esprando banco subir..."
-sleep 10
+echo "Esperando MySQL ficar pronto..."
+
+until sudo docker exec db mysql -u root -e "SELECT 1" >/dev/null 2>&1; do
+  echo "MySQL ainda não está pronto para queries..."
+  sleep 2
+done
+
+echo "MySQL está pronto!"
 
 echo "Subindo Aplicação de ETL..."
 sudo docker run -d --name etl -p 5000:5000 --network $NETWORK --env-file $ENV_FILE etl-java

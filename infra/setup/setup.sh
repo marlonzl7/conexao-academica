@@ -22,7 +22,7 @@ fi
 echo "Copiando credenciais de exemplo"
 if [ ! -f "$BASE_DIR/env/prod.env" ]; then
 	cp $BASE_DIR/repo/infra/env/prod.env.exemplo \
-		$BASE_DIR/env/prod.env
+		$BASE_DIR/env/.env
 else
 	echo "Arquivo prod.env já existe, pulando"
 fi

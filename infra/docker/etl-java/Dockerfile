@@ -14,7 +14,7 @@ WORKDIR /app
 
 RUN useradd -m appuser
 
-COPY --from=build /build/target/*.jar app.jar
+COPY --from=build /build/target/etl-java-1.0-SNAPSHOT.jar app.jar
 
 USER appuser
 
