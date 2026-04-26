@@ -96,36 +96,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Baixo</td>
-                        <td>Risco de evasão</td>
-                        <td>0</td>
-                        <td>30%</td>
-                        <td class="acoes-tabela">
-                            <button><img src="/assets/icons/write-icon.png" alt="Ícone de escrita" class="acoes-tabela-img" onclick="abrirModal('modal-overlay-edicao')"></button>
-                            <button><img src="/assets/icons/delete-icon.png" alt="Ícone de deleção" class="acoes-tabela-img" onclick="abrirModal('modal-overlay-delecao')"></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Médio</td>
-                        <td>Risco de evasão</td>
-                        <td>30%</td>
-                        <td>50%</td>
-                        <td class="acoes-tabela">
-                            <button><img src="/assets/icons/write-icon.png" alt="Ícone de escrita" class="acoes-tabela-img" onclick="abrirModal('modal-overlay-edicao')"></button>
-                            <button><img src="/assets/icons/delete-icon.png" alt="Ícone de deleção" class="acoes-tabela-img" onclick="abrirModal('modal-overlay-delecao')"></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Crítico</td>
-                        <td>Risco de evasão</td>
-                        <td>50%</td>
-                        <td>100%</td>
-                        <td class="acoes-tabela">
-                            <button><img src="/assets/icons/write-icon.png" alt="Ícone de escrita" class="acoes-tabela-img" onclick="abrirModal('modal-overlay-edicao')"></button>
-                            <button><img src="/assets/icons/delete-icon.png" alt="Ícone de deleção" class="acoes-tabela-img" onclick="abrirModal('modal-overlay-delecao')"></button>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -137,10 +108,13 @@
                 <h2>Registrar Regras</h2>
                 <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro')">X</span>
             </div>
+
+            <input type="hidden" id="cadastro-regra-id" value="">
+
             <div class="modal-body">
                 <div class="form-group">
                     <label>Classificação</label>
-                    <select>
+                    <select id="cadastro-classificacao">
                         <option value="0">Baixo</option>
                         <option value="1">Médio</option>
                         <option value="2">Crítico</option>
@@ -148,22 +122,23 @@
                 </div>
                 <div class="form-group">
                     <label>KPI</label>
-                    <select>
+                    <!-- adicionar referências ao banco aqui depois -->
+                    <select id="cadastro-kpi">
                         <option>Risco de evasão</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Limite inferior</label>
-                    <input type="text" id="limite_inferior" placeholder="Ex: 50%">
+                    <input type="text" id="cadastro-limite_inferior" placeholder="Ex: 50%">
                 </div>
                 <div class="form-group">
                     <label>Limite superior</label>
-                    <input type="text" id="limite_superior" placeholder="Ex: 80%">
+                    <input type="text" id="cadastro-limite_superior" placeholder="Ex: 80%">
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-cadastro')">Cancelar</button>
-                <button class="modal-botao-confirmar">Registrar</button>
+                <button class="modal-botao-confirmar" onclick="cadastrarRegra()">Registrar</button>
             </div>
         </div>
     </div>
@@ -174,10 +149,13 @@
                 <h2>Editar Regras</h2>
                 <span class="fechar-modal" onclick="fecharModal('modal-overlay-edicao')">X</span>
             </div>
+
+            <input type="hidden" id="edicao-regra-id" value="">
+
             <div class="modal-body">
                 <div class="form-group">
                     <label>Classificação</label>
-                    <select>
+                    <select id="edicao-classificacao">
                         <option value="0">Baixo</option>
                         <option value="1">Médio</option>
                         <option value="2">Crítico</option>
@@ -185,22 +163,23 @@
                 </div>
                 <div class="form-group">
                     <label>KPI</label>
-                    <select>
+                    <!-- adicionar referências ao banco aqui depois -->
+                    <select id="edicao-kpi">
                         <option>Risco de evasão</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Limite inferior</label>
-                    <input type="text" id="limite_inferior_edicao" placeholder="Ex: 50%">
+                    <input type="text" id="edicao-limite_inferior" placeholder="Ex: 50%">
                 </div>
                 <div class="form-group">
                     <label>Limite superior</label>
-                    <input type="text" id="limite_superior_edicao" placeholder="Ex: 80%">
+                    <input type="text" id="edicao-limite_superior" placeholder="Ex: 80%">
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-edicao')">Cancelar</button>
-                <button class="modal-botao-confirmar">Salvar</button>
+                <button class="modal-botao-confirmar" onclick="atualizarRegra()">Salvar</button>
             </div>
         </div>
     </div>
@@ -211,6 +190,9 @@
                 <h2>Exclusão</h2>
                 <span class="fechar-modal" onclick="fecharModal('modal-overlay-delecao')">X</span>
             </div>
+
+            <input type="hidden" id="delecao-regra-id" value="">
+
             <div class="modal-body">
                 <div class="form-group center">
                     <span>Tem certeza que deseja excluir esse registro?</span>
@@ -218,16 +200,14 @@
             </div>
             <div class="modal-footer center">
                 <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-delecao')">Cancelar</button>
-                <button class="modal-botao-deletar">Deletar</button>
+                <button class="modal-botao-deletar" onclick="deletarRegra()">Deletar</button>
             </div>
         </div>
     </div>
 
-    <script src="/js/include.js"></script>
-    <script src="/js/regras.js"></script>
-    <script>
-        initPage("Regras");
-    </script>
+    <script src="../js/regras.js"></script>
+    <script src="../js/validacoes.js"></script>
+</body>
 
 </body>
 
