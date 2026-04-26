@@ -67,8 +67,8 @@ function renderizarTabela(dados) {
         console.log(regra);
 
         tr.innerHTML = `
-            <td>${regra.classificacao}</td>
-            <td>${regra.id_kpi}</td>
+            <td>${regra.nome_classificacao}</td>
+            <td>${regra.nome_kpi}</td>
             <td>${regra.limite_inferior}%</td>
             <td>${regra.limite_superior}%</td>
             <td class="acoes-tabela">
