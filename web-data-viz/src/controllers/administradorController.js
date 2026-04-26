@@ -6,7 +6,7 @@ async function listar(req, res) {
         const resultado = await administradorModel.buscarInstituicoes();
 
         if (!resultado || resultado.length === 0) {
-            return res.status(200).send({sucesso: true, dados: []});
+            return res.status(200).send({ sucesso: true, dados: [] });
         }
 
         res.status(200).json({
@@ -18,7 +18,7 @@ async function listar(req, res) {
         console.error("Erro no controller:", erro);
         res.status(500).json(respostaErro("Erro ao buscar instituições"));
     }
-    
+
 }
 
 async function buscarPorId(req, res) {
@@ -73,9 +73,30 @@ async function alterarStatusUsuario(req, res) {
     }
 }
 
+async function cadastrarAdministrador(req, res) {
+    const idUsuario = req.params;
+    const nome = req.body;
+    const email = req.body;
+    const cpf = req.body;
+    const senha = req.body;
+
+    if (!idUsuario || !nome || !email || !cpf || !senha) {
+        return res.status(400).json(respostaErro("Todos os campos são obrigatórios"));
+    }
+
+    try {
+        await administradorModel.cadastrarAdministrador(idUsuario, nome, email, cpf, senha);
+        res.status(201).json({ sucesso: true, mensagem: "Administrador cadastrado" });
+    } catch (erro) {
+        console.error("Erro no controller:", erro);
+        res.status(500).json(respostaErro("Erro ao cadastrar administrador"));
+    }
+}
+
 module.exports = {
     listar,
     buscarPorId,
     pesquisarInstituicoes,
-    alterarStatusUsuario
+    alterarStatusUsuario,
+    cadastrarAdministrador
 };

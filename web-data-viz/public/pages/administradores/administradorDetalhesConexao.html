@@ -69,8 +69,8 @@
             <div class="info-texto">
                 <h1 id="nome_instituicao"></h1>
             </div>
-            <button class="btn-adicionar">
-                <span class="plus-icon">+</span> Adicionar Administrador
+            <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro')">
+                <span class="plus-icon">+</span>Adicionar Administrador
             </button>
         </section>
 
@@ -108,6 +108,50 @@
                 <!-- Exemplo de card de pessoa -->
             </div>
         </section>
+
+        <!-- modal-overlay: div que estou usando para as sombras do background -->
+        <div id="modal-overlay-cadastro" class="overlay hidden">
+            <!-- modal de cadastro -->
+            <div class="modal">
+
+                <div class="modal-header">
+                    <h2>Cadastrar Administrador</h2>    
+                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro')">X</span>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" id="admin_nome" placeholder="Ex: Carlos">
+                    </div>
+
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" id="admin_cpf" placeholder="Ex: 19480967540">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="admin_email" placeholder="Ex: carlos@gmail.com">
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="admin_senha" placeholder="Ex: cT202#R">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="modal-botao-cancelar"
+                        onclick="fecharModal('modal-overlay-cadastro')">Cancelar</button>
+                    <button class="modal-botao-confirmar" onclick="cadastrarAdministrador()">Cadastrar</button>
+                </div>
+
+            </div>
+        </div>
+
     </main>
     <script src="../../js/administradores/administradorDetalhesConexao.js"></script>
 </body>

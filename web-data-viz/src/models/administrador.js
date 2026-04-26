@@ -12,8 +12,7 @@ async function buscarInstituicoes() {
         LEFT JOIN curso c 
             ON c.id_instituicao = i.id_instituicao
         LEFT JOIN usuario u 
-            ON u.id_usuario = c.id_diretor 
-            OR u.id_usuario = c.id_coordenador
+            ON u.id_usuario = c.id_usuario
         GROUP BY i.id_instituicao, i.nome
         ORDER BY i.nome;
     `;
@@ -35,8 +34,7 @@ async function buscarPorId(id) {
         LEFT JOIN curso cu 
             ON cu.id_instituicao = i.id_instituicao
         LEFT JOIN usuario u 
-            ON u.id_usuario = cu.id_diretor 
-            OR u.id_usuario = cu.id_coordenador
+            ON u.id_usuario = cu.id_usuario
         LEFT JOIN cargo c 
             ON c.id_cargo = u.id_cargo
         WHERE i.id_instituicao = ?
@@ -57,8 +55,7 @@ async function pesquisarInstituicoes(termo) {
         LEFT JOIN curso c 
             ON c.id_instituicao = i.id_instituicao
         LEFT JOIN usuario u 
-            ON u.id_usuario = c.id_diretor 
-            OR u.id_usuario = c.id_coordenador
+            ON u.id_usuario = c.id_usuario
         WHERE i.nome LIKE CONCAT('%', ?, '%')
         GROUP BY i.id_instituicao, i.nome
         ORDER BY i.nome;
@@ -77,9 +74,19 @@ async function alterarStatusUsuario(idUsuario, ativo) {
     return await database.executar(instrucao, [ativo, idUsuario]);
 }
 
+async function cadastrarAdministrador(cpf, nome, email, senha) {
+    const instrucao = `
+        INSERT INTO usuario (id_cargo, cpf, nome, email, senha, ativo) VALUES
+            (1, ?, ?, ?, ?, 1);
+    `;
+
+    return await database.executar(instrucao, [cpf, nome, email, senha]);
+}
+
 module.exports = {
     buscarInstituicoes,
     buscarPorId,
     pesquisarInstituicoes,
-    alterarStatusUsuario
+    alterarStatusUsuario, 
+    cadastrarAdministrador
 };

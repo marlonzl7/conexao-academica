@@ -121,5 +121,53 @@ function buscarInstituicao() {
         });
 }
 
+function fecharModal(id) {
+    document.getElementById(id).classList.add('hidden');
+}
+
+function abrirModal(id) {
+    document.getElementById(id).classList.remove('hidden');
+}
+
+function cadastrarAdministrador() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idInstituicao = urlParams.get('id');
+
+    const nome = document.getElementById("admin_nome").value.trim();
+    const email = document.getElementById("admin_email").value.trim();
+    const senha = document.getElementById("admin_senha").value.trim();
+    const cpf = document.getElementById("admin_cpf").value.trim();
+
+    if (!nome || !email || !senha || !cpf) {
+        alert("Todos os campos são obrigatórios.");
+        return;
+    }
+
+    fetch(`/administrador/cadastrar`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            idInstituicao,
+            nome,
+            email,
+            senha,
+            cpf
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.sucesso) {
+                alert("Administrador cadastrado com sucesso!");
+                fecharModal("modal-overlay-cadastro");
+                buscarInstituicao();
+            } else {
+                alert("Erro ao cadastrar administrador: " + (data.mensagem || "Erro desconhecido"));
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao cadastrar administrador:", error);
+            alert("Erro ao cadastrar administrador.");
+        });
+}
 
 window.onload = buscarInstituicao;
