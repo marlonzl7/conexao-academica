@@ -4,6 +4,8 @@ const { respostaSucesso, respostaErro } = require("../database/dtos/resposta");
 async function listarRegras(req, res) {
     try {
         const idUsuario = req.query.id_usuario;
+	
+	console.log("Listar regras. ID_USUARIO: " + idUsuario);
 
         const resultado = await regraModel.listarRegras(idUsuario);
         return res.status(200).json(respostaSucesso(true, resultado, "Regras listadas com sucesso."));
