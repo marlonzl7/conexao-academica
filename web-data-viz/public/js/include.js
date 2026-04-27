@@ -14,4 +14,21 @@ async function initPage(title) {
     if (pageTitle) {
         pageTitle.textContent = title;
     }
+
+    carregarNomeUsuario();
+}
+
+function sair() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = "/pages/login.html";
+}
+
+function carregarNomeUsuario() {
+    const usuarioStr = localStorage.getItem("usuario");
+    if (!usuarioStr) return;
+
+    const usuario = JSON.parse(usuarioStr);
+    const span = document.getElementById("header-username");
+    if (span) span.innerText = usuario.nome;
 }

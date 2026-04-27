@@ -115,7 +115,7 @@ function iniciar() {
             erroSpan.textContent = "";
             divErro.classList.remove("ativo");
         }
-    } 
+    }
 
     async function cadastrar() {
         if (
@@ -160,8 +160,13 @@ function iniciar() {
                     return;
                 }
 
-                alert(resposta.mensagem);
-                window.location.href = "login.html";
+                const popup = document.getElementById("popup-overlay");
+                const btnOk = document.getElementById("btn-popup-ok");
+
+                popup.classList.add("ativo");
+                btnOk.addEventListener("click", () => {
+                    window.location.href = "login.html";
+                });
             } catch (erro) {
                 console.error(erro);
                 alert("Erro ao conectar com o servidor");

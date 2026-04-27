@@ -90,6 +90,10 @@ async function login() {
         return;
     }
     
+
+    localStorage.setItem("usuario", JSON.stringify(json.dados));
+
+   
     iniciarSessao(
         json.dados.id_usuario, 
         json.dados.nome, 
@@ -112,10 +116,11 @@ async function login() {
     }
 }
 
-function iniciarSessao(id_usuario, nome, email, idInstituicao) {
+function iniciarSessao(id_usuario, nome, email, cargo, idInstituicao) {
     sessionStorage.ID_USUARIO = id_usuario;
     sessionStorage.NOME = nome;
     sessionStorage.EMAIL = email;
+    sessionStorage.CARGO = cargo
     sessionStorage.ID_INSTITUICAO = idInstituicao;
 }
 
@@ -159,7 +164,7 @@ function menu() {
 
 //parte para armazenar id de usuario logado
 
-/*then(resposta => {
+then(resposta => {
     if (resposta.sucesso) {
         const usuario = resposta.dados;
 
@@ -167,6 +172,6 @@ function menu() {
 
         window.location.href = "/dashboard.html";
     }
-});*/
+});
 
 window.addEventListener("resize", resTablet);
