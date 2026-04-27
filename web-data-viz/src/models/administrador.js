@@ -102,28 +102,18 @@ async function cadastrarAdministrador(idInstituicao, cpf, nome, email, senha) {
 
 async function buscarKPIs(idInstituicao) {
     const instrucao = `
-    SELECT
-    (SELECT COUNT(DISTINCT u.id_usuario)
-     FROM usuario u
-     JOIN curso c 
-       ON u.id_usuario = c.id_administrador 
-       OR u.id_usuario = c.id_coordenador 
-       OR u.id_usuario = c.id_diretor
-     WHERE c.id_instituicao = ?) AS totalPessoas,
-
-    (SELECT COUNT(DISTINCT u.id_usuario)
-     FROM usuario u
-     JOIN curso c 
-       ON u.id_usuario = c.id_administrador 
-       OR u.id_usuario = c.id_coordenador 
-       OR u.id_usuario = c.id_diretor
-     WHERE c.id_instituicao = ? AND u.ativo = 1) AS totalAtivo,
-
-    (SELECT COUNT(DISTINCT u.id_usuario)
-     FROM usuario u
-     JOIN curso c 
-       ON u.id_usuario = c.id_diretor
-     WHERE c.id_instituicao = ?) AS totalDiretor;  
+        SELECT
+            COUNT(u.id_usuario) AS totalPessoas,
+            SUM(u.ativo = 1) AS totalAtivo,
+            SUM(c.nome = 'diretor') AS totalDiretor
+        FROM usuario u
+        JOIN cargo c ON u.id_cargo = c.id_cargo
+        LEFT JOIN curso cu ON (
+            cu.id_administrador = u.id_usuario OR
+            cu.id_diretor = u.id_usuario OR
+            cu.id_coordenador = u.id_usuario
+        )
+        WHERE cu.id_instituicao = ?
     `;
 
     const resultado = await database.executar(instrucao, [idInstituicao]);

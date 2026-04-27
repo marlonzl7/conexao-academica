@@ -1,5 +1,5 @@
 async function kpi() {
-    const idInstituicao = sessionStorage.getItem("ID_INSTITUICAO");
+    const idInstituicao = sessionStorage.getItem('ID_INSTITUICAO');
 
     console.log("ID:", idInstituicao);
 
@@ -9,7 +9,7 @@ async function kpi() {
     }
 
     try {
-        const response = await fetch(`/api/instituicao/kpis/${idInstituicao}`);
+        const response = await fetch(`/administrador/instituicao/kpis/${idInstituicao}`);
         const res = await response.json();
 
         const data = res.dados;

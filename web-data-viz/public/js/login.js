@@ -93,7 +93,8 @@ async function login() {
     iniciarSessao(
         json.dados.id_usuario, 
         json.dados.nome, 
-        json.dados.email
+        json.dados.email,
+        json.dados.id_instituicao
     );
 
     if (json.dados.cargo === 'diretor') {
@@ -115,6 +116,7 @@ function iniciarSessao(id_usuario, nome, email, idInstituicao) {
     sessionStorage.ID_USUARIO = id_usuario;
     sessionStorage.NOME = nome;
     sessionStorage.EMAIL = email;
+    sessionStorage.ID_INSTITUICAO = idInstituicao;
 }
 
 // Header responsivo
