@@ -12,6 +12,12 @@ new Chart(document.getElementById('chartRanking'), {
         indexAxis: 'y', // Barra deitada
         responsive: true,
         maintainAspectRatio: false,
+	    scales: {
+  	        x: {
+		    min: 0,
+		    max: 100
+		}
+	    },
             plugins: {
             title: {
                 display: true,
@@ -44,7 +50,7 @@ new Chart(document.getElementById('chartTrend'), {
         plugins: {
             title: {
                 display: true,
-                text: 'Evolução Anual - Taxa de Evasão',
+                text: 'Taxa de evasão durante os anos',
                 font: {
                     size: 20
                 },
