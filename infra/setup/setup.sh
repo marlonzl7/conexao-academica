@@ -20,11 +20,11 @@ else
 fi
 
 echo "Copiando credenciais de exemplo"
-if [ ! -f "$BASE_DIR/env/prod.env" ]; then
-	cp $BASE_DIR/repo/infra/env/prod.env.exemplo \
+if [ ! -f "$BASE_DIR/env/.env" ]; then
+	cp $BASE_DIR/repo/infra/env/.env.exemplo \
 		$BASE_DIR/env/.env
 else
-	echo "Arquivo prod.env já existe, pulando"
+	echo "Arquivo .env já existe, pulando"
 fi
 
 echo "Ajustando permissões"
