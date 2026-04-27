@@ -67,10 +67,9 @@
 
         <section class="titulo-sessao">
             <div class="info-texto">
-                <h1>Nome Instituição</h1>
-                <p>Descrição Instituição</p>
+                <h1 id="nome_instituicao"></h1>
             </div>
-            <button class="btn-adicionar">
+            <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro')">
                 <span class="plus-icon">+</span> Adicionar Coordenador
             </button>
         </section>
@@ -83,20 +82,19 @@
                 <h2>Diretores</h2>
             </div>
 
-            <div class="pessoa-card">
-                <div class="pessoa-info">
-                    <div class="avatar-box blue">
-                        <img src="../../assets/icons/icon-shield.svg" alt="Icone Diretor">
-                    </div>
-                    <div class="pessoa-detalhes">
-                        <h3>Maria Silva</h3>
-                        <p class="email">Maria@gmail.com</p>
-                        <div class="badges">
-                            <span class="badge blue">Diretor</span>
-                            <span class="permissao">Permissões Totais</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="pessoa-card" id="card_diretor">
+                <!-- Exemplo de card de pessoa -->
+            </div>
+        </section>
+
+        <section class="categoria">
+            <div class="categoria-titulo">
+                <img src="../../assets/icons/icon-administrador.svg" alt="Icone Usuário" class="icon-cat">
+                <h2>Administradores</h2>
+            </div>
+
+            <div class="pessoa-card" id="card_administrador">
+                <!-- Exemplo de card de pessoa -->
             </div>
         </section>
 
@@ -106,23 +104,55 @@
                 <h2>Coordenador</h2>
             </div>
 
-            <div class="pessoa-card">
-                <div class="pessoa-info">
-                    <div class="avatar-box purple">
-                        <img src="../../assets/icons/icon-user.svg" alt="Icone Usuário">
-                    </div>
-                    <div class="pessoa-detalhes">
-                        <h3>Maria Silva</h3>
-                        <p class="email">Maria@gmail.com</p>
-                        <div class="badges">
-                            <span class="badge purple">Coordenador</span>
-                            <span class="permissao">Permissões Limitadas</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="pessoa-card" id="card_coordenador">
+                <!-- Exemplo de card de pessoa -->
             </div>
         </section>
+
+        <!-- modal-overlay: div que estou usando para as sombras do background -->
+        <div id="modal-overlay-cadastro" class="overlay hidden">
+            <!-- modal de cadastro -->
+            <div class="modal">
+
+                <div class="modal-header">
+                    <h2>Cadastrar Coordenador</h2>
+                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro')">X</span>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" id="coordenador_nome" placeholder="Ex: Carlos">
+                    </div>
+
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" id="coordenador_cpf" placeholder="Ex: 19480967540">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="coordenador_email" placeholder="Ex: carlos@gmail.com">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="coordenador_senha" placeholder="Ex: cT202#R">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="modal-botao-cancelar"
+                        onclick="fecharModal('modal-overlay-cadastro')">Cancelar</button>
+                    <button class="modal-botao-confirmar" onclick="cadastrarCoordenador()">Cadastrar</button>
+                </div>
+
+            </div>
+        </div>
     </main>
+    <script src="../../js/administradores/administradorDetalhes.js"></script>
 </body>
 
 </html>

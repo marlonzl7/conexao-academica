@@ -100,6 +100,27 @@ async function cadastrarAdministrador(idInstituicao, cpf, nome, email, senha) {
     return await database.executar(instrucaoVinculo, [proximoId, idInstituicao, novoIdUsuario]);
 }
 
+async function cadastrarCoordenador(idInstituicao, cpf, nome, email, senha) {
+    const hashSenha = await gerarHash(senha); 
+    
+    const instrucaoUsuario = `
+        INSERT INTO usuario (id_cargo, cpf, nome, email, senha, ativo) 
+        VALUES (3, ?, ?, ?, ?, 1);
+    `;
+    const resultado = await database.executar(instrucaoUsuario, [cpf, nome, email, hashSenha]);
+    const novoIdUsuario = resultado.insertId;
+
+    const [{ proximoId }] = await database.executar(
+        `SELECT COALESCE(MAX(id_curso), 0) + 1 AS proximoId FROM curso`
+    );
+
+    const instrucaoVinculo = `
+        INSERT INTO curso (id_curso, id_instituicao, id_coordenador, nome, modalidade) 
+        VALUES (?, ?, ?, "Coordenação", "PRESENCIAL");
+    `;
+    return await database.executar(instrucaoVinculo, [proximoId, idInstituicao, novoIdUsuario]);
+}
+
 async function buscarKPIs(idInstituicao) {
     const instrucao = `
         SELECT
@@ -126,5 +147,6 @@ module.exports = {
     pesquisarInstituicoes,
     alterarStatusUsuario, 
     cadastrarAdministrador,
+    cadastrarCoordenador,
     buscarKPIs
 };

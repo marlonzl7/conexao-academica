@@ -89,6 +89,22 @@ async function cadastrarAdministrador(req, res) {
     }
 }
 
+async function cadastrarCoordenador(req, res) {
+    const { idInstituicao, cpf, nome, email, senha } = req.body;
+
+    if (!idInstituicao || !nome || !email || !cpf || !senha) {
+        return res.status(400).json(respostaErro("Todos os campos são obrigatórios"));
+    }
+
+    try {
+        await administradorModel.cadastrarCoordenador(idInstituicao, cpf, nome, email, senha);
+        res.status(201).json({ sucesso: true, mensagem: "Coordenador cadastrado" });
+    } catch (erro) {
+        console.error("Erro no controller:", erro);
+        res.status(500).json(respostaErro("Erro ao cadastrar coordenador"));
+    }
+}
+
 async function buscarKPIs(req, res) {
     const { idInstituicao } = req.params;
 
@@ -110,5 +126,6 @@ module.exports = {
     pesquisarInstituicoes,
     alterarStatusUsuario,
     cadastrarAdministrador,
+    cadastrarCoordenador,
     buscarKPIs
 };
