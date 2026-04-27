@@ -28,6 +28,7 @@ CREATE TABLE curso (
     id_instituicao INT NOT NULL,
     id_diretor INT,
     id_coordenador INT,
+    id_administrador INT,
     nome VARCHAR(200) NOT NULL,
     modalidade VARCHAR(20) NOT NULL,
     CONSTRAINT fk_curso_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
