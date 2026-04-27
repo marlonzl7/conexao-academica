@@ -43,7 +43,7 @@ async function listarRegras(idUsuario) {
                         k.nome AS nome_kpi 
                         FROM regra r
                         INNER JOIN kpi k ON r.id_kpi = k.id_kpi
-                        WHERE id_usuario = 1 LIMIT 6;`;
+                        WHERE id_usuario = ? LIMIT 6;`;
     const parametros = [idUsuario]
 
     return await database.executar(instrucao, parametros);
