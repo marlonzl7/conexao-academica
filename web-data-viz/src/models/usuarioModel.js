@@ -4,16 +4,25 @@ var cargoModel = require("./cargoModel");
 
 async function login(email, senha) {
     const instrucao = `
-        SELECT
-            u.id_usuario,
-            c.nome as cargo,
-            u.nome,
-            u.email,
-            u.senha,
-            u.ativo
-        FROM usuario u
-        JOIN cargo c ON u.id_cargo = c.id_cargo
-        WHERE email = ?`
+    SELECT
+        u.id_usuario,
+        c.nome as cargo,
+        u.nome,
+        u.email,
+        u.senha,
+        u.ativo,
+        i.id_instituicao    
+    FROM usuario u
+    JOIN cargo c ON u.id_cargo = c.id_cargo
+    LEFT JOIN curso cu ON (
+        cu.id_administrador = u.id_usuario OR 
+        cu.id_diretor       = u.id_usuario OR 
+        cu.id_coordenador   = u.id_usuario      
+    )
+    LEFT JOIN instituicao i ON i.id_instituicao = cu.id_instituicao
+    WHERE u.email = ?
+    LIMIT 1
+    `
     ;
 
     const parametros = [email];

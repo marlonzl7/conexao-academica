@@ -95,10 +95,10 @@ async function login() {
 
    
     iniciarSessao(
-    json.dados.id_usuario, 
-    json.dados.nome, 
-    json.dados.email,
-    json.dados.cargo
+        json.dados.id_usuario, 
+        json.dados.nome, 
+        json.dados.email,
+        json.dados.id_instituicao
     );
 
     if (json.dados.cargo === 'diretor') {
@@ -107,14 +107,21 @@ async function login() {
     } else if (json.dados.cargo === 'coordenador') {
         window.location.href = '/pages/dashboards/coordenador.html';
         return;
+    } else if(json.dados.cargo === 'administrador') {
+        window.location.href = '/pages/administradores/administradorConexao.html';
+        return;
+    } else if(json.dados.cargo === 'administrador_instituicao') {
+        window.location.href = '/pages/administradores/administradorInstituicao.html';
+        return;
     }
 }
 
-function iniciarSessao(id_usuario, nome, email, cargo) {
+function iniciarSessao(id_usuario, nome, email, cargo, idInstituicao) {
     sessionStorage.ID_USUARIO = id_usuario;
     sessionStorage.NOME = nome;
     sessionStorage.EMAIL = email;
     sessionStorage.CARGO = cargo
+    sessionStorage.ID_INSTITUICAO = idInstituicao;
 }
 
 // Header responsivo

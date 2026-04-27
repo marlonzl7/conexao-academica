@@ -20,6 +20,7 @@ var regraRouter = require("./src/routes/regras");
 var kpiRouter = require("./src/routes/kpis")
 var usuarioRouter = require("./src/routes/usuarios");
 var instituicoesRouter = require("./src/routes/instituicoes");
+var administradorRouter = require("./src/routes/administrador");
 var cargosRouter = require("./src/routes/cargos.js");
 
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use("/regras", regraRouter);
 app.use("/kpis", kpiRouter)
 app.use("/usuarios", usuarioRouter);
 app.use("/instituicoes", instituicoesRouter);
+app.use("/administrador", administradorRouter);
 app.use("/cargos", cargosRouter);
 
 app.listen(PORTA_APP, function () {
