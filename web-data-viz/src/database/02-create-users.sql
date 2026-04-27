@@ -1,4 +1,3 @@
-CREATE DATABASE IF NOT EXISTS conexaoacademica;
 USE conexaoacademica;
 
 CREATE USER IF NOT EXISTS 'exemplo-web'@'%' IDENTIFIED BY '';
