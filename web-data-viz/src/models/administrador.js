@@ -1,4 +1,5 @@
 var database = require("../database/config");
+var { gerarHash } = require("../utils/senhaUtils.js");
 
 async function buscarInstituicoes() {
 
@@ -79,21 +80,24 @@ async function alterarStatusUsuario(idUsuario, ativo) {
 }
 
 async function cadastrarAdministrador(idInstituicao, cpf, nome, email, senha) {
+    const hashSenha = await gerarHash(senha); 
+    
     const instrucaoUsuario = `
         INSERT INTO usuario (id_cargo, cpf, nome, email, senha, ativo) 
-        VALUES (1, ?, ?, ?, ?, 1);
+        VALUES (4, ?, ?, ?, ?, 1);
     `;
-
-    const resultado = await database.executar(instrucaoUsuario, [cpf, nome, email, senha]);
-
+    const resultado = await database.executar(instrucaoUsuario, [cpf, nome, email, hashSenha]);
     const novoIdUsuario = resultado.insertId;
 
-    const instrucaoVinculo = `
-        INSERT INTO curso (id_instituicao, id_administrador, nome, modalidade) 
-        VALUES (?, ?, "Administração Institucional", "PRESENCIAL");
-    `;
+    const [{ proximoId }] = await database.executar(
+        `SELECT COALESCE(MAX(id_curso), 0) + 1 AS proximoId FROM curso`
+    );
 
-    return await database.executar(instrucaoVinculo, [idInstituicao, novoIdUsuario]);
+    const instrucaoVinculo = `
+        INSERT INTO curso (id_curso, id_instituicao, id_administrador, nome, modalidade) 
+        VALUES (?, ?, ?, "Administração Institucional", "PRESENCIAL");
+    `;
+    return await database.executar(instrucaoVinculo, [proximoId, idInstituicao, novoIdUsuario]);
 }
 
 async function buscarKPIs(idInstituicao) {

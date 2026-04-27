@@ -102,10 +102,10 @@ async function login() {
     } else if (json.dados.cargo === 'coordenador') {
         window.location.href = '/pages/dashboards/coordenador.html';
         return;
-    } else if(json.dados.cargo === 'administrador_conexao') {
+    } else if(json.dados.cargo === 'administrador') {
         window.location.href = '/pages/administradores/administradorConexao.html';
         return;
-    } else if(json.dados.cargo === 'administrador_institucional') {
+    } else if(json.dados.cargo === 'administrador_instituicao') {
         window.location.href = '/pages/administradores/administradorInstituicao.html';
         return;
     }
