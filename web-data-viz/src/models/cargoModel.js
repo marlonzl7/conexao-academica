@@ -12,7 +12,7 @@ async function getAllRoles() {
 
 
 async function deleteRole(id) {
-    const query = "DELETE FROM CARGO where id_cargo = ?"
+    const query = "DELETE FROM cargo where id_cargo = ?"
     return await database.executar(query, [id]);
 }
 
