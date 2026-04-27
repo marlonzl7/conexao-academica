@@ -34,6 +34,7 @@ CREATE TABLE curso (
     CONSTRAINT fk_curso_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_curso_diretor FOREIGN KEY (id_diretor) REFERENCES usuario (id_usuario),
     CONSTRAINT fk_curso_coordenador FOREIGN KEY (id_coordenador) REFERENCES usuario (id_usuario),
+    CONSTRAINT fk_curso_administrador FOREIGN KEY (id_administrador) REFERENCES usuario (id_usuario),
     CONSTRAINT chk_modalidade CHECK (modalidade IN ('PRESENCIAL', 'EAD'))
 );
 
