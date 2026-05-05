@@ -30,4 +30,8 @@ public class IndicadorCursoDAO {
         ps.clearBatch();
     }
 
+    public void close() throws SQLException {
+        if (this.ps != null) ps.close();
+    }
+
 }

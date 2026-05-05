@@ -1,6 +1,7 @@
 package com.academica.conexao.infra.excel;
 
 import com.github.pjfanning.xlsx.StreamingReader;
+import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.FileInputStream;
@@ -22,6 +23,7 @@ public class LeitorExcelService {
     }
 
     public void abrir(InputStream is) throws Exception {
+        ZipSecureFile.setMaxEntrySize(Long.MAX_VALUE);
         this.workbook = StreamingReader.builder()
                 .rowCacheSize(ROW_CACHE_SIZE)
                 .bufferSize(BUFFER_SIZE)
