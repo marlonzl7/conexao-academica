@@ -35,7 +35,7 @@ async function carregarTabela() {
     try {
         const id_usuario = sessionStorage.getItem("ID_USUARIO");
         const res = await fetch(`/regras?id_usuario=${id_usuario}`);
-        const resposta = await res.json(); // estava faltando essa linha
+        const resposta = await res.json();
 
         if (!res.ok) {
             alert(resposta.mensagem || "Erro ao carregar as regras.");
