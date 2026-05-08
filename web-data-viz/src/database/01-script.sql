@@ -18,7 +18,7 @@ CREATE TABLE curso (
     id_instituicao INT NOT NULL,
     nome VARCHAR(200) NOT NULL,
     modalidade VARCHAR(20) NOT NULL,
-    CONSTRAINT fk_curso_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao)
+    CONSTRAINT fk_curso_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT chk_modalidade CHECK (modalidade IN ('PRESENCIAL', 'EAD'))
 );
 
@@ -54,7 +54,7 @@ CREATE TABLE regra (
     limite_inferior DECIMAL(5,2) NOT NULL,
     limite_superior DECIMAL(5,2) NOT NULL,
     CONSTRAINT fk_regra_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
-    CONSTRAINT fk_regra_kpi FOREIGN KEY (id_kpi) REFERENCES kpi(id_kpi)
+    CONSTRAINT fk_regra_kpi FOREIGN KEY (id_kpi) REFERENCES kpi(id_kpi),
     CONSTRAINT chk_limite CHECK (limite_inferior < limite_superior)
 );
 
