@@ -19,6 +19,7 @@ CREATE TABLE curso (
     nome VARCHAR(200) NOT NULL,
     modalidade VARCHAR(20) NOT NULL,
     CONSTRAINT fk_curso_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao)
+    CONSTRAINT chk_modalidade CHECK (modalidade IN ('PRESENCIAL', 'EAD'))
 );
 
 CREATE TABLE usuario (
@@ -54,6 +55,7 @@ CREATE TABLE regra (
     limite_superior DECIMAL(5,2) NOT NULL,
     CONSTRAINT fk_regra_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_regra_kpi FOREIGN KEY (id_kpi) REFERENCES kpi(id_kpi)
+    CONSTRAINT chk_limite CHECK (limite_inferior < limite_superior)
 );
 
 CREATE TABLE indicadores_curso (
@@ -78,5 +80,6 @@ CREATE TABLE log (
     mensagem VARCHAR(45) NOT NULL,
     tipo VARCHAR(10) NOT NULL,
     modulo VARCHAR(100) NOT NULL,
-    data_hora DATETIME NOT NULL
+    data_hora DATETIME NOT NULL,
+    CONSTRAINT chk_tipo CHECK (tipo IN ('DEBUG', 'INFO', 'WARN', 'ERROR'))
 );
