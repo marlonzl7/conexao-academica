@@ -32,8 +32,8 @@ CREATE TABLE usuario (
     nome VARCHAR(150) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    ativo TINYINT(1) NOT NULL,
-    CONSTRAINT chk_usuario_autorizado CHECK ((id_instituicao != NULL AND id_curso = NULL) OR (id_curso != NULL AND id_instituicao = NULL)),
+    ativo TINYINT NOT NULL,
+    CONSTRAINT chk_usuario_autorizado CHECK ((id_instituicao IS NOT NULL AND id_curso IS NULL) OR (id_curso IS NOT NULL AND id_instituicao IS NULL)),
     CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo),
     CONSTRAINT fK_usuario_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_usuario_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso),
@@ -83,3 +83,6 @@ CREATE TABLE log (
     data_hora DATETIME NOT NULL,
     CONSTRAINT chk_tipo CHECK (tipo IN ('DEBUG', 'INFO', 'WARN', 'ERROR'))
 );
+
+
+
