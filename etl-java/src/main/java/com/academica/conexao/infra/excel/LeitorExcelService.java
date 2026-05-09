@@ -20,7 +20,7 @@ public class LeitorExcelService {
         this.ROW_CACHE_SIZE = rowCacheSize;
     }
 
-    public void abrir(InputStream is) throws RuntimeException {
+    public void abrir(InputStream is) throws IOException {
         ZipSecureFile.setMaxEntrySize(Long.MAX_VALUE);
         this.workbook = StreamingReader.builder()
                 .rowCacheSize(ROW_CACHE_SIZE)
