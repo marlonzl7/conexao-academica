@@ -3,10 +3,10 @@ package com.academica.conexao.infra.log;
 import java.time.LocalDateTime;
 
 public class LogEntry {
-    private LocalDateTime timestamp;
-    private LogLevel level;
-    private String module;
-    private String message;
+    private final LocalDateTime timestamp;
+    private final LogLevel level;
+    private final String module;
+    private final String message;
 
     public LogEntry(LogLevel level, String module, String message) {
         this.timestamp = LocalDateTime.now();

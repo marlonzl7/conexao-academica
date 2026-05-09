@@ -53,7 +53,7 @@ public class Main {
         );
 
         Connection connection = new DatabaseConnection().getConnection();
-        LogsManager logsManager = new LogsManager(connection, new LogEntryDAO(connection));
+        LogsManager logsManager = new LogsManager(new LogEntryDAO(connection));
         LeitorExcelService leitor = new LeitorExcelService(100);
 
         ETLOrchestrator orchestrator = new ETLOrchestrator(

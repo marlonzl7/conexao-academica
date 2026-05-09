@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class InstituicaoDAO {
 
-    private PreparedStatement ps;
+    private final PreparedStatement ps;
 
     public InstituicaoDAO(Connection connection) throws SQLException {
         String sql = "INSERT IGNORE INTO instituicao (id_instituicao, nome, uf) VALUES (?, ?, ?)";

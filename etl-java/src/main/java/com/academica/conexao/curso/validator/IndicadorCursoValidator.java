@@ -24,7 +24,7 @@ public class IndicadorCursoValidator {
             erros.add("Ano do curso nulo");
         }
 
-        if (indicadorCurso != null && (indicadorCurso.getAno() < 1900 || indicadorCurso.getAno() > 2100))
+        if (indicadorCurso.getAno() < 1900 || indicadorCurso.getAno() > 2100)
             erros.add("Ano não está dentro do limite esperado: 1900 - 2100");
 
         if (indicadorCurso.getQtdMatriculas() == null)

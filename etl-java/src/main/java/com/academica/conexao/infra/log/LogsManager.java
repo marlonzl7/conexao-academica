@@ -1,14 +1,10 @@
 package com.academica.conexao.infra.log;
 
-import java.sql.Connection;
-
 public class LogsManager {
 
-    private Connection connection;
-    private LogEntryDAO logEntryDAO;
+    private final LogEntryDAO logEntryDAO;
 
-    public LogsManager(Connection connection, LogEntryDAO logEntryDAO) {
-        this.connection = connection;
+    public LogsManager(LogEntryDAO logEntryDAO) {
         this.logEntryDAO = logEntryDAO;
     }
 
@@ -22,7 +18,7 @@ public class LogsManager {
         try {
             logEntryDAO.insert(entry);
         } catch (Exception e) {
-            LogEntry error = new LogEntry(LogLevel.ERROR, this.getClass().getSimpleName(), "Não foi possível inserir log no banco de dados");
+            System.out.println(new LogEntry(LogLevel.ERROR, this.getClass().getSimpleName(), "Não foi possível inserir log no banco de dados"));
             e.printStackTrace();
         }
     }

@@ -17,7 +17,7 @@ public abstract class ETLPipeline {
     protected final LeitorExcelService leitor;
     protected final Connection connection;
     protected final LogsManager logsManager;
-    private int batchSize;
+    private final int batchSize;
     private int contador;
     private int contadorErros;
 

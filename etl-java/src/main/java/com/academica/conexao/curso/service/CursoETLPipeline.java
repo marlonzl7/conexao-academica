@@ -10,7 +10,6 @@ import com.academica.conexao.curso.validator.CursoValidator;
 import com.academica.conexao.curso.validator.IndicadorCursoValidator;
 import com.academica.conexao.infra.excel.LeitorExcelService;
 import com.academica.conexao.infra.excel.LeitorUtils;
-import com.academica.conexao.infra.log.LogLevel;
 import com.academica.conexao.infra.log.LogsManager;
 import com.academica.conexao.infra.pipeline.ETLPipeline;
 import com.academica.conexao.infra.s3.S3Service;
