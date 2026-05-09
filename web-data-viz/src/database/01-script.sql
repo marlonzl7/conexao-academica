@@ -1,5 +1,11 @@
-CREATE DATABASE IF NOT EXISTS conexaoacademica;
+CREATE DATABASE conexaoacademica;
+
 USE conexaoacademica;
+
+CREATE TABLE cargo (
+    id_cargo INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(90) NOT NULL UNIQUE
+);
 
 CREATE TABLE instituicao (
     id_instituicao INT PRIMARY KEY,
@@ -7,45 +13,31 @@ CREATE TABLE instituicao (
     uf CHAR(2) NOT NULL
 );
 
-CREATE TABLE cargo (
-    id_cargo INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50) NOT NULL UNIQUE
+CREATE TABLE curso (
+    id_curso INT PRIMARY KEY,
+    id_instituicao INT NOT NULL,
+    nome VARCHAR(200) NOT NULL,
+    modalidade VARCHAR(20) NOT NULL,
+    CONSTRAINT fk_curso_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
+    CONSTRAINT chk_modalidade CHECK (modalidade IN ('PRESENCIAL', 'EAD'))
 );
 
 CREATE TABLE usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     id_cargo INT NOT NULL,
-    cpf CHAR(11) NOT NULL UNIQUE,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(70) NOT NULL UNIQUE,
+    id_instituicao INT,
+    id_curso INT UNIQUE,
+    id_usuario_criador INT,
+    cpf CHAR(11) UNIQUE NOT NULL,
+    nome VARCHAR(150) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    ativo TINYINT(1) NOT NULL DEFAULT 0,
-    CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo)
-);
-
-CREATE TABLE curso (
-    id_curso INT PRIMARY KEY,
-    id_instituicao INT NOT NULL,
-    id_diretor INT,
-    id_coordenador INT,
-    id_administrador INT,
-    nome VARCHAR(200) NOT NULL,
-    modalidade VARCHAR(20) NOT NULL,
-    CONSTRAINT fk_curso_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
-    CONSTRAINT fk_curso_diretor FOREIGN KEY (id_diretor) REFERENCES usuario (id_usuario),
-    CONSTRAINT fk_curso_coordenador FOREIGN KEY (id_coordenador) REFERENCES usuario (id_usuario),
-    CONSTRAINT fk_curso_administrador FOREIGN KEY (id_administrador) REFERENCES usuario (id_usuario),
-    CONSTRAINT chk_modalidade CHECK (modalidade IN ('PRESENCIAL', 'EAD'))
-);
-
-CREATE TABLE indicadores_curso (
-    id_curso INT NOT NULL,
-    ano INT NOT NULL,
-    quantidade_matriculas INT NOT NULL,
-    quantidade_alunos_situacao_desvinculada INT NOT NULL,
-    quantidade_alunos_situacao_trancada INT NOT NULL,
-    CONSTRAINT pk_indicadores_curso PRIMARY KEY (id_curso, ano),
-    CONSTRAINT fk_indicadores_curso_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
+    ativo TINYINT NOT NULL,
+    CONSTRAINT chk_usuario_autorizado CHECK ((id_instituicao IS NOT NULL AND id_curso IS NULL) OR (id_curso IS NOT NULL AND id_instituicao IS NULL)),
+    CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo),
+    CONSTRAINT fK_usuario_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
+    CONSTRAINT fk_usuario_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso),
+    CONSTRAINT fk_usuario_usuariocriador FOREIGN KEY (id_usuario_criador) REFERENCES usuario(id_usuario)
 );
 
 CREATE TABLE kpi (
@@ -55,30 +47,42 @@ CREATE TABLE kpi (
 
 CREATE TABLE regra (
     id_regra INT PRIMARY KEY AUTO_INCREMENT,
-    id_usuario INT NOT NULL,
+    id_instituicao INT NOT NULL,
     id_kpi INT NOT NULL,
     classificacao VARCHAR(20) NOT NULL,
     cor_hexadecimal CHAR(6),
     limite_inferior DECIMAL(5,2) NOT NULL,
     limite_superior DECIMAL(5,2) NOT NULL,
-    CONSTRAINT fk_regra_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    CONSTRAINT fk_regra_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_regra_kpi FOREIGN KEY (id_kpi) REFERENCES kpi(id_kpi),
-    CONSTRAINT uq_usuario_kpi_classificacao UNIQUE (id_usuario, id_kpi, classificacao),
     CONSTRAINT chk_limite CHECK (limite_inferior < limite_superior)
 );
 
+CREATE TABLE indicadores_curso (
+    id_curso INT,
+    ano INT,
+    quantidade_matriculas INT NOT NULL,
+    quantidade_alunos_situacao_desvinculada INT NOT NULL,
+    quantidade_alunos_situacao_trancada INT NOT NULL,
+    CONSTRAINT pk_indicadores_curso PRIMARY KEY (id_curso, ano),
+    CONSTRAINT fk_indicadorescurso_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
+);
+
 CREATE TABLE mensagem (
-	id_mensagem INT PRIMARY KEY AUTO_INCREMENT,
+    id_mensagem INT PRIMARY KEY AUTO_INCREMENT,
     mensagem TEXT NOT NULL,
     email VARCHAR(100) NOT NULL,
     nome VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE log (
-	id_log INT PRIMARY KEY AUTO_INCREMENT,
-    mensagem VARCHAR(255) NOT NULL,
+    id_log INT PRIMARY KEY AUTO_INCREMENT,
+    mensagem TEXT NOT NULL,
     tipo VARCHAR(10) NOT NULL,
-    modulo VARCHAR(45) NOT NULL,
-    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT chk_tipo CHECK(tipo IN ('DEBUG', 'INFO', 'WARN', 'ERROR'))
+    modulo VARCHAR(100) NOT NULL,
+    data_hora DATETIME NOT NULL,
+    CONSTRAINT chk_tipo CHECK (tipo IN ('DEBUG', 'INFO', 'WARN', 'ERROR'))
 );
+
+
+
