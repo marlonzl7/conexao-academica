@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 public class LogEntryDAO {
 
-    private Connection connection;
+    private final Connection connection;
 
     public LogEntryDAO(Connection connection) {
         this.connection = connection;

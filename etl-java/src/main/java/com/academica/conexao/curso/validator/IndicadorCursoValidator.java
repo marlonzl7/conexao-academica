@@ -2,6 +2,7 @@ package com.academica.conexao.curso.validator;
 
 import com.academica.conexao.curso.model.IndicadorCurso;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class IndicadorCursoValidator {
             erros.add("Ano do curso nulo");
         }
 
-        if (indicadorCurso != null && (indicadorCurso.getAno() < 1900 || indicadorCurso.getAno() > 2100))
-            erros.add("Ano não está dentro do limite esperado: 1900 - 2100");
+        if (indicadorCurso.getAno() < 1995 || indicadorCurso.getAno() > Year.now().getValue())
+            erros.add("Ano não está dentro do limite esperado: 1995 - " + Year.now().getValue());
 
         if (indicadorCurso.getQtdMatriculas() == null)
             erros.add("Quantidade de matriculas nula");

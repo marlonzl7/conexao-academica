@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class IndicadorCursoDAO {
 
-    private PreparedStatement ps;
+    private final PreparedStatement ps;
 
     public IndicadorCursoDAO(Connection connection) throws SQLException {
         String sql = "INSERT IGNORE INTO indicadores_curso (id_curso, ano, quantidade_matriculas, quantidade_alunos_situacao_desvinculada, quantidade_alunos_situacao_trancada) VALUES (?, ?, ?, ?, ?)";

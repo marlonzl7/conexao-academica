@@ -2,7 +2,6 @@ package com.academica.conexao.instituicao.service;
 
 import com.academica.conexao.infra.excel.LeitorExcelService;
 import com.academica.conexao.infra.excel.LeitorUtils;
-import com.academica.conexao.infra.log.LogLevel;
 import com.academica.conexao.infra.log.LogsManager;
 import com.academica.conexao.infra.s3.S3Service;
 import com.academica.conexao.instituicao.dao.InstituicaoDAO;

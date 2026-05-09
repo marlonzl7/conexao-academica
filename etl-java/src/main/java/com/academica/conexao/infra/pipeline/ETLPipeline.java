@@ -6,6 +6,7 @@ import com.academica.conexao.infra.log.LogsManager;
 import com.academica.conexao.infra.s3.S3Service;
 import org.apache.poi.ss.usermodel.Row;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ public abstract class ETLPipeline {
     protected final LeitorExcelService leitor;
     protected final Connection connection;
     protected final LogsManager logsManager;
-    private int batchSize;
+    private final int batchSize;
     private int contador;
     private int contadorErros;
 
@@ -51,8 +52,13 @@ public abstract class ETLPipeline {
                 try {
                     connection.setAutoCommit(false);
 
-                    InputStream is = s3Service.abrirStream(base);
-                    leitor.abrir(is);
+                    try {
+                        InputStream is = s3Service.abrirStream(base);
+                        leitor.abrir(is);
+                    } catch (IOException e) {
+                        logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Erro ao abrir Stream. Pulando para próxima base. Erro: " + e.getMessage());
+                        continue;
+                    }
 
                     Row row;
 
@@ -63,7 +69,7 @@ public abstract class ETLPipeline {
                         } catch (Exception e) {
                             registrarErroLinha();
                             String msg = e.getMessage() != null ? e.getMessage() : e.getClass().getName();
-                            logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Linha " + contador + " ignorada: " + msg);
+                            logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Linha " + (contador + 1) + " ignorada: " + msg);
                         }
 
                         if (contador > 0 && contador % batchSize == 0) {
@@ -78,8 +84,13 @@ public abstract class ETLPipeline {
                         }
                     }
 
-                    executeBatch();
-                    connection.commit();
+                    try {
+                        executeBatch();
+                        connection.commit();
+                    } catch (Exception e) {
+                        connection.rollback();
+                        logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Lote " + contador / batchSize + " (Último) revertido (rollback): " + e.getMessage());
+                    }
 
                     if (contadorErros > 0) {
                         logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Total de linhas inválidas: " + contadorErros);
@@ -91,11 +102,19 @@ public abstract class ETLPipeline {
                     logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Falha crítica no ETL: " + e.getMessage());
                     e.printStackTrace();
                 } finally {
-                    try { leitor.fechar(); } catch (Exception ignored) {}
+                    try {
+                        leitor.fechar();
+                    } catch (Exception e) {
+                        logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Erro ao fechar leitor excel: " + e.getMessage());
+                    }
                 }
             }
         } finally {
-            try { closeDAOs(); } catch (Exception ignored) {}
+            try {
+                closeDAOs();
+            } catch (Exception e) {
+                logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Erro ao fechar DAOs: " + e.getMessage());
+            }
         }
     }
 

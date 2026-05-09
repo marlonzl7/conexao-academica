@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Row;
 
 public class IndicadorCursoRowMapper {
 
-    private LeitorUtils leitorUtils;
+    private final LeitorUtils leitorUtils;
 
     public IndicadorCursoRowMapper(LeitorUtils leitorUtils) {
         this.leitorUtils = leitorUtils;

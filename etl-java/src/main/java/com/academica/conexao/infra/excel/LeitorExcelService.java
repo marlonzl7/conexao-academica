@@ -3,8 +3,6 @@ package com.academica.conexao.infra.excel;
 import com.github.pjfanning.xlsx.StreamingReader;
 import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.apache.poi.ss.usermodel.*;
-
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -22,7 +20,7 @@ public class LeitorExcelService {
         this.ROW_CACHE_SIZE = rowCacheSize;
     }
 
-    public void abrir(InputStream is) throws Exception {
+    public void abrir(InputStream is) throws IOException {
         ZipSecureFile.setMaxEntrySize(Long.MAX_VALUE);
         this.workbook = StreamingReader.builder()
                 .rowCacheSize(ROW_CACHE_SIZE)

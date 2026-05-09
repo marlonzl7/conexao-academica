@@ -18,7 +18,7 @@ public class DatabaseConnection {
     private final String USER = System.getenv("ETL_DB_USER");
     private final String PASSWORD = System.getenv("ETL_DB_PASSWORD");
 
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws RuntimeException {
         int retries = 10;
         int delay = 1000;
 
@@ -28,16 +28,16 @@ public class DatabaseConnection {
             } catch (SQLException e) {
                 System.out.println("Erro ao conectar: " + e.getMessage());
 
-		try {
-			Thread.sleep(delay);
-		} catch (InterruptedException ie) {
-			Thread.currentThread().interrupt();
-			throw new RuntimeException("Thread interrompida", ie);
-		}
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException("Thread interrompida", ie);
+                }
 
-		delay *= 2;
-	        retries--;
-	    }
+                delay *= 2;
+                retries--;
+            }
         }
 
         throw new RuntimeException("Não foi possível conectar ao banco após várias tentativas");
