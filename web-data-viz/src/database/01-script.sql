@@ -4,17 +4,17 @@ USE conexaoacademica;
 
 CREATE TABLE cargo (
     id_cargo INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(90) NOT NULL
+    nome VARCHAR(90) NOT NULL UNIQUE
 );
 
 CREATE TABLE instituicao (
-    id_instituicao INT PRIMARY KEY AUTO_INCREMENT,
+    id_instituicao INT PRIMARY KEY,
     nome VARCHAR(200) NOT NULL,
     uf CHAR(2) NOT NULL
 );
 
 CREATE TABLE curso (
-    id_curso INT PRIMARY KEY AUTO_INCREMENT,
+    id_curso INT PRIMARY KEY,
     id_instituicao INT NOT NULL,
     nome VARCHAR(200) NOT NULL,
     modalidade VARCHAR(20) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE usuario (
     id_usuario_criador INT,
     cpf CHAR(11) UNIQUE NOT NULL,
     nome VARCHAR(150) NOT NULL,
-    email VARCHAR(70) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     ativo TINYINT(1) NOT NULL,
     CONSTRAINT chk_usuario_autorizado CHECK ((id_instituicao != NULL AND id_curso = NULL) OR (id_curso != NULL AND id_instituicao = NULL)),
@@ -42,7 +42,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE kpi (
     id_kpi INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45) NOT NULL
+    nome VARCHAR(45) NOT NULL UNIQUE
 );
 
 CREATE TABLE regra (
@@ -64,20 +64,20 @@ CREATE TABLE indicadores_curso (
     quantidade_matriculas INT NOT NULL,
     quantidade_alunos_situacao_desvinculada INT NOT NULL,
     quantidade_alunos_situacao_trancada INT NOT NULL,
-    PRIMARY KEY (id_curso, ano),
+    CONSTRAINT pk_indicadores_curso PRIMARY KEY (id_curso, ano),
     CONSTRAINT fk_indicadorescurso_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
 );
 
 CREATE TABLE mensagem (
     id_mensagem INT PRIMARY KEY AUTO_INCREMENT,
-    mensagem VARCHAR(255) NOT NULL,
+    mensagem TEXT NOT NULL,
     email VARCHAR(100) NOT NULL,
     nome VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE log (
     id_log INT PRIMARY KEY AUTO_INCREMENT,
-    mensagem VARCHAR(45) NOT NULL,
+    mensagem TEXT NOT NULL,
     tipo VARCHAR(10) NOT NULL,
     modulo VARCHAR(100) NOT NULL,
     data_hora DATETIME NOT NULL,
