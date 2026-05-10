@@ -49,7 +49,7 @@ public class NotificacaoETLService {
     }
 
     private String montarMensagemAdmin(ResultadoETL etlResultado) {
-        String bases = "Bases processadas:\n";
+        String bases = "";
 
         for (String base : etlResultado.getBasesProcessadas()) {
             bases += "   - " + base + "\n";
@@ -59,7 +59,6 @@ public class NotificacaoETLService {
             O processo de ETL foi finalizado.
         
             Duração: %.2fs
-            Total de linhas processadas: %d
         
             Bases processadas:
             %s
