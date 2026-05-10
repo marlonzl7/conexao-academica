@@ -84,6 +84,8 @@ public class Main {
                 logsManager
         );
 
+        notificacaoService.notificar(resultado);
+
         logsManager.log(LogLevel.INFO, "Main", String.format("ETL finalizado em %.2fs", duracaoSeg));
     }
 
