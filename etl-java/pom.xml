@@ -38,6 +38,20 @@
             <artifactId>s3</artifactId>
             <version>2.42.35</version>
         </dependency>
+
+        <dependency>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+            <version>2.1.5</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-mail</artifactId>
+            <version>2.0.5</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

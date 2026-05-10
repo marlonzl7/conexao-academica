@@ -4,6 +4,10 @@ import com.academica.conexao.curso.dao.CursoDAO;
 import com.academica.conexao.curso.dao.IndicadorCursoDAO;
 import com.academica.conexao.curso.service.CursoETLPipeline;
 import com.academica.conexao.infra.db.DatabaseConnection;
+import com.academica.conexao.infra.dto.ResultadoETL;
+import com.academica.conexao.infra.email.dao.UsuarioNotificacaoDAO;
+import com.academica.conexao.infra.email.service.EmailService;
+import com.academica.conexao.infra.email.service.NotificacaoETLService;
 import com.academica.conexao.infra.excel.LeitorExcelService;
 import com.academica.conexao.infra.log.LogEntryDAO;
 import com.academica.conexao.infra.log.LogLevel;
@@ -15,6 +19,7 @@ import com.academica.conexao.instituicao.service.InstituicaoETLPipeline;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -65,7 +70,20 @@ public class Main {
 
         orchestrator.executar();
 
-        double duracaoSeg = (System.nanoTime() - inicio) / 1_000_000_000.0;
+        Double duracaoSeg = (System.nanoTime() - inicio) / 1_000_000_000.0;
+
+        List<String> todasAsBases = new ArrayList<>();
+        todasAsBases.addAll(keysInstituicao);
+        todasAsBases.addAll(keysCurso);
+
+        ResultadoETL resultado = new ResultadoETL(todasAsBases, duracaoSeg);
+
+        NotificacaoETLService notificacaoService = new NotificacaoETLService(
+                new EmailService(logsManager),
+                new UsuarioNotificacaoDAO(connection, logsManager),
+                logsManager
+        );
+
         logsManager.log(LogLevel.INFO, "Main", String.format("ETL finalizado em %.2fs", duracaoSeg));
     }
 
