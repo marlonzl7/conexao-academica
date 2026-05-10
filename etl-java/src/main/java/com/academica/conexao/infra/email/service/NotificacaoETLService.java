@@ -51,22 +51,19 @@ public class NotificacaoETLService {
     private String montarMensagemAdmin(ResultadoETL etlResultado) {
         String bases = "Bases processadas:\n";
 
-        for (String base : etlResultado.getBasesProcessadas()) {
-            bases += "   - " + base + "\n";
+        for (int i = 0; i < etlResultado.getBasesProcessadas().size() - 1; i++) {
+            bases += "   - " +  etlResultado.getBasesProcessadas().get(i) + "\n";
         }
 
         return """
             O processo de ETL foi finalizado.
-        
+
             Duração: %.2fs
             Total de linhas processadas: %d
-        
+
             Bases processadas:
             %s
-            """.formatted(
-                        etlResultado.getDuracaoSegundos(),
-                        bases
-        );
+            """.formatted(etlResultado.getDuracaoSegundos(), bases);
     }
 
     private String montarMensagemDiretor(ResultadoETL resultadoETL) {
