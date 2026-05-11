@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -93,6 +94,7 @@ body {
     min-height: 140px;
     border: 1px solid rgba(0, 0, 0, 0.04);
     transition: box-shadow 0.2s, transform 0.2s;
+    overflow: visible;
 }
 
 .kpi-card:hover {
@@ -113,6 +115,7 @@ body {
     line-height: 1.4;
 }
 
+/* Ícones dos KPI cards */
 .kpi-icon {
     width: 36px;
     height: 36px;
@@ -132,6 +135,7 @@ body {
 .kpi-icon--orange { background: #fff7ed; }
 .kpi-icon--green  { background: #f0fdf4; }
 
+/* Valor principal */
 .kpi-value {
     font-family: 'Montserrat', sans-serif;
     font-size: 28px;
@@ -140,9 +144,14 @@ body {
     line-height: 1;
 }
 
+/* Rodapé do card */
 .kpi-card-footer {
     padding-top: 8px;
     border-top: 1px solid #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 
 .kpi-classification {
@@ -188,4 +197,71 @@ body {
     position: relative;
     width: 100%;
     height: 260px;
+}
+
+.kpi-tooltip-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.kpi-tooltip-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+    display: block;
+    flex-shrink: 0;
+}
+
+.kpi-tooltip-wrap:hover .kpi-tooltip-icon {
+    opacity: 0.8;
+}
+
+.kpi-tooltip-box {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+
+    position: absolute;
+    bottom: calc(100% + 10px);
+    right: -8px;
+
+    width: 220px;
+
+    background: #1a1a2e;
+    color: #f9fafb;
+    font-size: 12px;
+    font-family: 'Public Sans', sans-serif;
+    line-height: 1.6;
+    padding: 10px 13px;
+    border-radius: 9px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    transform: translateY(4px);
+    z-index: 9999;
+}
+
+/* Setinha do tooltip */
+.kpi-tooltip-box::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    border: 6px solid transparent;
+    border-top-color: #1a1a2e;
+}
+
+.kpi-tooltip-box strong {
+    color: #fff;
+    font-weight: 700;
+}
+
+.kpi-tooltip-wrap:hover .kpi-tooltip-box {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
 }

@@ -21,6 +21,7 @@
 
     <main class="dashboard-content">
 
+        <!-- FILTROS -->
         <div class="filtros">
             <span class="filtros-label">Período</span>
             <div class="filtros-row">
@@ -58,6 +59,12 @@
                 <p class="kpi-value">1.586</p>
                 <div class="kpi-card-footer">
                     <span class="kpi-classification">Classificação: <b class="class-baixa">Baixa (entre 0 e 100)</b></span>
+                    <div class="kpi-tooltip-wrap">
+                        <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
+                        <div class="kpi-tooltip-box">
+                            Os limites desta classificação foram definidos por uma regra ativa. Para revisar ou criar novas regras, acesse <strong>Regras</strong> no menu lateral.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -75,6 +82,12 @@
                 <p class="kpi-value">255</p>
                 <div class="kpi-card-footer">
                     <span class="kpi-classification">Classificação: <b class="class-baixa">Baixa</b></span>
+                    <div class="kpi-tooltip-wrap">
+                        <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
+                        <div class="kpi-tooltip-box">
+                            Os limites desta classificação foram definidos por uma regra ativa. Para revisar ou criar novas regras, acesse <strong>Regras</strong> no menu lateral.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -93,6 +106,12 @@
                 <p class="kpi-value">47%</p>
                 <div class="kpi-card-footer">
                     <span class="kpi-classification">Classificação: <b class="class-critica">Crítica</b></span>
+                    <div class="kpi-tooltip-wrap">
+                        <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
+                        <div class="kpi-tooltip-box">
+                            Os limites desta classificação foram definidos por uma regra ativa. Para revisar ou criar novas regras, acesse <strong>Regras</strong> no menu lateral.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -111,6 +130,12 @@
                 <p class="kpi-value">20%/80%</p>
                 <div class="kpi-card-footer">
                     <span class="kpi-classification">Classificação: <b class="class-baixa">Baixa</b></span>
+                    <div class="kpi-tooltip-wrap">
+                        <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
+                        <div class="kpi-tooltip-box">
+                            Os limites desta classificação foram definidos por uma regra ativa. Para revisar ou criar novas regras, acesse <strong>Regras</strong> no menu lateral.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -141,8 +166,6 @@
     <script>
         initPage("Visão Geral da Evasão na Instituição");
 
-        // GRÁFICO 1 — Barras Empilhadas (Top 3 Cursos)
-        
         const ctxRanking = document.getElementById('chartRanking').getContext('2d');
 
         new Chart(ctxRanking, {
@@ -214,7 +237,6 @@
             }
         });
 
-        // GRÁFICO 2 — Linhas (Matrículas, Evasão, Trancamentos)
         const ctxTrend = document.getElementById('chartTrend').getContext('2d');
 
         new Chart(ctxTrend, {
