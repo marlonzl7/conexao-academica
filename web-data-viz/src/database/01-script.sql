@@ -198,7 +198,7 @@ CREATE VIEW `vw_top3_evasao` AS
 			INNER JOIN instituicao i
 				ON c.id_instituicao = i.id_instituicao
 			GROUP BY 
-				i.nome, c.nome, ic.ano)
+				i.id_instituicao, i.nome, c.nome, ic.ano)
 		SELECT * FROM ranked
 		WHERE ranking <= 3
         ORDER BY 
@@ -214,14 +214,14 @@ CREATE VIEW `vw_indic_situacao_aluno` AS
     ic.quantidade_alunos_situacao_trancada AS quantidade_trancados,
     ic.quantidade_matriculas + ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada AS total_alunos,
         
-	-- Percentual de alunos matriculados
-	ROUND(ic.quantidade_matriculas * 100.0 / NULLIF((ic.quantidade_matriculas + ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada), 0)) AS percentual_matriculados,
+	-- Percentual de alunos ativos
+	ROUND((ic.quantidade_matriculas - (ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada)) * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_matriculados,
     
 	-- Percentual de evasão de alunos desvinculados
-	ROUND(ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF((ic.quantidade_matriculas + ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada), 0)) AS percentual_evadidos,
+	ROUND(ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_evadidos,
 	
     -- Percentual de alunos de situação trancada
-    ROUND(ic.quantidade_alunos_situacao_trancada * 100.0 / NULLIF((ic.quantidade_matriculas + ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada), 0)) AS percentual_trancados
+    ROUND(ic.quantidade_alunos_situacao_trancada * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_trancados
     
 		FROM indicadores_curso ic
 			INNER JOIN curso c
@@ -229,4 +229,4 @@ CREATE VIEW `vw_indic_situacao_aluno` AS
 			INNER JOIN instituicao i
 				ON c.id_instituicao = i.id_instituicao
 		GROUP BY 
-			i.nome, ic.ano;
+			c.id_curso, c.nome, ic.ano;
