@@ -102,4 +102,3 @@ CREATE VIEW `vw_indic_geral` AS
 			ON c.id_instituicao = i.id_instituicao
 	GROUP BY 
 		i.nome, ic.ano;
-
