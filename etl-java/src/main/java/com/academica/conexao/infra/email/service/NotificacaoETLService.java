@@ -59,7 +59,6 @@ public class NotificacaoETLService {
             O processo de ETL foi finalizado.
         
             Duração: %.2fs
-            Total de linhas processadas: %d
 
             Bases processadas:
             %s
