@@ -90,7 +90,8 @@ CREATE TABLE log (
 -- VIEWS
 
 CREATE VIEW `vw_info_user` AS
-	SELECT u.nome AS nome_usuario,
+	SELECT u.id_usuario,
+    u.nome AS nome_usuario,
     i.nome AS nome_instituicao,
     cr.nome AS nome_curso,
 	u.cpf AS cpf,
@@ -106,40 +107,14 @@ FROM usuario u
 		ON cr.id_instituicao = i.id_instituicao;
 
 CREATE VIEW `vw_indic_geral` AS
-	SELECT i.nome AS nome_instituicao,
+	SELECT i.id_instituicao,
+    i.nome AS nome_instituicao,
     ic.ano AS ano_emissao,
     SUM(ic.quantidade_matriculas) AS total_matriculas,
     SUM(ic.quantidade_alunos_situacao_desvinculada) AS total_desvinculados,
     SUM(ic.quantidade_alunos_situacao_trancada) AS total_trancados,
-    ROUND(SUM(ic.quantidade_alunos_situacao_desvinculada) * 100.0 / NULLIF(SUM(ic.quantidade_matriculas), 0), 1) AS taxa_evasao
-    FROM indicadores_curso ic
-		INNER JOIN curso c
-			ON ic.id_curso = c.id_curso
-		INNER JOIN instituicao i
-			ON c.id_instituicao = i.id_instituicao
-	GROUP BY 
-		i.nome, ic.ano;
-
-CREATE VIEW `vw_indic_curso` AS
-	SELECT i.nome AS nome_instituicao,
-    c.nome AS nome_curso,
-    ic.ano AS ano_emissao,
-    ic.quantidade_matriculas AS quantidade_matriculas,
-    ic.quantidade_alunos_situacao_desvinculada AS quantidades_desvinculados,
-    ic.quantidade_alunos_situacao_trancada AS quantidade_trancados,
-    ROUND(ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF(ic.quantidade_matriculas, 0), 1) AS taxa_evasao
-    FROM indicadores_curso ic
-		INNER JOIN curso c
-			ON ic.id_curso = c.id_curso
-		INNER JOIN instituicao i
-			ON c.id_instituicao = i.id_instituicao;
-
-CREATE VIEW `vw_indic_modalidade` AS
-	SELECT i.nome AS nome_instituicao,
-    ic.ano AS ano_emissao,
-    SUM(ic.quantidade_matriculas) AS total_matriculas,
-    
-    -- Total de alunos desvinculados da modalidade presencial
+    ROUND(SUM(ic.quantidade_alunos_situacao_desvinculada) * 100.0 / NULLIF(SUM(ic.quantidade_matriculas), 0), 1) AS taxa_evasao,
+     -- Total de alunos desvinculados da modalidade presencial
 	SUM(CASE
 			WHEN c.modalidade = 'PRESENCIAL'
             THEN ic.quantidade_alunos_situacao_desvinculada
@@ -167,16 +142,41 @@ CREATE VIEW `vw_indic_modalidade` AS
                     ELSE 0
 				END) * 100.0 / NULLIF(SUM(ic.quantidade_alunos_situacao_desvinculada), 0)), 1) AS evadidos_ead
 	-- IMPORTANTE: Use os dois percentuais para criar a KPI de diferença de evasão presencial e EaD!!!
-                
-		FROM indicadores_curso ic
-			INNER JOIN curso c
-				ON ic.id_curso = c.id_curso
-			INNER JOIN instituicao i
-				ON c.id_instituicao = i.id_instituicao
-		GROUP BY 
-			i.id_instituicao, i.nome, ic.ano;
+    FROM indicadores_curso ic
+		INNER JOIN curso c
+			ON ic.id_curso = c.id_curso
+		INNER JOIN instituicao i
+			ON c.id_instituicao = i.id_instituicao
+	GROUP BY 
+		i.id_instituicao, i.nome, ic.ano;
 
-CREATE VIEW `vw_top3_evasao` AS
+CREATE VIEW `vw_indic_curso` AS
+	SELECT i.id_instituicao,
+    c.id_curso,
+    i.nome AS nome_instituicao,
+    c.nome AS nome_curso,
+    ic.ano AS ano_emissao,
+    ic.quantidade_matriculas AS quantidade_matriculas,
+    ic.quantidade_alunos_situacao_desvinculada AS quantidades_desvinculados,
+    ic.quantidade_alunos_situacao_trancada AS quantidade_trancados,
+    ROUND(ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF(ic.quantidade_matriculas, 0), 1) AS taxa_evasao,
+        ic.quantidade_matriculas + ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada AS total_alunos,
+        
+	-- Percentual de alunos ativos
+	ROUND((ic.quantidade_matriculas - (ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada)) * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_matriculados,
+    
+	-- Percentual de evasão de alunos desvinculados
+	ROUND(ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_evadidos,
+	
+    -- Percentual de alunos de situação trancada
+    ROUND(ic.quantidade_alunos_situacao_trancada * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_trancados
+    FROM indicadores_curso ic
+		INNER JOIN curso c
+			ON ic.id_curso = c.id_curso
+		INNER JOIN instituicao i
+			ON c.id_instituicao = i.id_instituicao;
+
+CREATE VIEW `vw_top_3_evasao` AS
 	WITH ranked AS (
 		SELECT i.id_instituicao,
         i.nome AS nome_instituicao,
@@ -205,28 +205,3 @@ CREATE VIEW `vw_top3_evasao` AS
 			id_instituicao,
             ano_emissao,
             ranking;
-
-CREATE VIEW `vw_indic_situacao_aluno` AS
-	SELECT i.nome AS nome_instituicao,
-    ic.ano AS ano_emissao,
-	ic.quantidade_matriculas AS quantidade_matriculas,
-    ic.quantidade_alunos_situacao_desvinculada AS quantidades_desvinculados,
-    ic.quantidade_alunos_situacao_trancada AS quantidade_trancados,
-    ic.quantidade_matriculas + ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada AS total_alunos,
-        
-	-- Percentual de alunos ativos
-	ROUND((ic.quantidade_matriculas - (ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada)) * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_matriculados,
-    
-	-- Percentual de evasão de alunos desvinculados
-	ROUND(ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_evadidos,
-	
-    -- Percentual de alunos de situação trancada
-    ROUND(ic.quantidade_alunos_situacao_trancada * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_trancados
-    
-		FROM indicadores_curso ic
-			INNER JOIN curso c
-				ON ic.id_curso = c.id_curso
-			INNER JOIN instituicao i
-				ON c.id_instituicao = i.id_instituicao
-		GROUP BY 
-			c.id_curso, c.nome, ic.ano;
