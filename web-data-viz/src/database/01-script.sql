@@ -127,7 +127,7 @@ CREATE VIEW `vw_indic_curso` AS
     ic.quantidade_matriculas AS quantidade_matriculas,
     ic.quantidade_alunos_situacao_desvinculada AS quantidades_desvinculados,
     ic.quantidade_alunos_situacao_trancada AS quantidade_trancados,
-    ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF(ic.quantidade_matriculas, 0) AS taxa_evasao
+    ROUND(ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF(ic.quantidade_matriculas, 0), 1) AS taxa_evasao
     FROM indicadores_curso ic
 		INNER JOIN curso c
 			ON ic.id_curso = c.id_curso
