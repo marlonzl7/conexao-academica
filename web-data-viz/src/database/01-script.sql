@@ -2,6 +2,8 @@ CREATE DATABASE conexaoacademica;
 
 USE conexaoacademica;
 
+-- TABELAS
+
 CREATE TABLE cargo (
     id_cargo INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(90) NOT NULL UNIQUE
@@ -84,5 +86,20 @@ CREATE TABLE log (
     CONSTRAINT chk_tipo CHECK (tipo IN ('DEBUG', 'INFO', 'WARN', 'ERROR'))
 );
 
+-- VIEWS
 
+CREATE VIEW `vw_indic_geral` AS
+	SELECT i.nome AS nome_instituicao,
+    ic.ano AS ano_emissao,
+    SUM(ic.quantidade_matriculas) AS total_matriculas,
+    SUM(ic.quantidade_alunos_situacao_desvinculada) AS total_desvinculados,
+    SUM(ic.quantidade_alunos_situacao_trancada) AS total_trancados,
+    ROUND(SUM(ic.quantidade_alunos_situacao_desvinculada) * 100.0 / NULLIF(SUM(ic.quantidade_matriculas), 0), 1) AS taxa_evasao
+    FROM indicadores_curso ic
+		INNER JOIN curso c
+			ON ic.id_curso = c.id_curso
+		INNER JOIN instituicao i
+			ON c.id_instituicao = i.id_instituicao
+	GROUP BY 
+		i.nome, ic.ano;
 
