@@ -5,13 +5,25 @@ async function buscarInstituicoes() {
 
     const instrucao = `
         SELECT 
-            i.id_instituicao, 
-            i.nome, 
-            COUNT(u.id_usuario) AS total_usuarios, 
-            COUNT(CASE WHEN u.ativo = 1 THEN 1 END) AS usuarios_ativos 
-        FROM instituicao i 
-            LEFT JOIN usuario u 
-                ON i.id_instituicao = u.id_instituicao 
+            i.id_instituicao,
+            i.nome,
+            COUNT(DISTINCT u.id_usuario) AS total_usuarios,
+            COUNT(
+                DISTINCT CASE 
+                    WHEN u.ativo = 1 
+                    THEN u.id_usuario 
+                END
+            ) AS usuarios_ativos
+        FROM instituicao i
+        LEFT JOIN usuario u 
+            ON (
+                u.id_instituicao = i.id_instituicao
+                OR u.id_curso IN (
+                    SELECT c.id_curso
+                    FROM curso c
+                    WHERE c.id_instituicao = i.id_instituicao
+                )
+            )
         GROUP BY i.id_instituicao, i.nome;
     `;
 
@@ -20,25 +32,42 @@ async function buscarInstituicoes() {
 
 async function buscarPorId(id) {
     const instrucao = `
-        SELECT 
-            i.id_instituicao,
-            i.nome AS instituicaoNome,
+        SELECT
+            i.id_instituicao AS id,
+            i.nome AS nomeInstituicao,
+            COUNT(DISTINCT u.id_usuario) AS total_usuarios,
+            COUNT(
+                DISTINCT CASE 
+                WHEN u.ativo = 1 
+                THEN u.id_usuario 
+                END
+            ) AS usuarios_ativos,
             u.id_usuario,
             u.nome AS nomePessoa,
             u.email AS emailPessoa,
-            u.ativo AS usuarioAtivo,
-            c.nome AS cargoNome
+            c.nome AS cargoNome,
+            u.ativo AS usuarioAtivo
         FROM instituicao i
-        LEFT JOIN curso cu 
-            ON cu.id_instituicao = i.id_instituicao
         LEFT JOIN usuario u 
-            ON u.id_usuario = cu.id_administrador
-            OR u.id_usuario = cu.id_coordenador
-            OR u.id_usuario = cu.id_diretor
-        LEFT JOIN cargo c 
+            ON (
+                u.id_instituicao = i.id_instituicao
+            OR u.id_curso IN (
+                SELECT cu.id_curso
+                FROM curso cu
+                WHERE cu.id_instituicao = i.id_instituicao
+            )
+            )
+        LEFT JOIN cargo c
             ON c.id_cargo = u.id_cargo
         WHERE i.id_instituicao = ?
-        GROUP BY u.id_usuario, u.nome, u.email, c.nome, i.id_instituicao, i.nome;
+        GROUP BY 
+        i.id_instituicao,
+        i.nome,
+        u.id_usuario,
+        u.nome,
+        u.email,
+        c.nome,
+        u.ativo;
     `;
 
     return await database.executar(instrucao, [id]);
@@ -49,13 +78,16 @@ async function pesquisarInstituicoes(termo) {
         SELECT 
             i.id_instituicao AS id,
             i.nome,
-            COUNT(DISTINCT u.id_usuario) AS qtdPessoas,
-            COUNT(DISTINCT IF(u.ativo = 1, u.id_usuario, NULL)) AS ativos
+            COUNT(DISTINCT u.id_usuario) AS total_usuarios,
+            COUNT(
+                DISTINCT CASE 
+                    WHEN u.ativo = 1 
+                    THEN u.id_usuario 
+                END
+            ) AS usuarios_ativos
         FROM instituicao i
-        LEFT JOIN curso c 
-            ON c.id_instituicao = i.id_instituicao
         LEFT JOIN usuario u 
-            ON u.id_usuario = c.id_usuario
+            ON u.id_instituicao = i.id_instituicao
         WHERE i.nome LIKE CONCAT('%', ?, '%')
         GROUP BY i.id_instituicao, i.nome
         ORDER BY i.nome;
@@ -119,17 +151,18 @@ async function cadastrarCoordenador(idInstituicao, cpf, nome, email, senha) {
 async function buscarKPIs(idInstituicao) {
     const instrucao = `
         SELECT
-            COUNT(u.id_usuario) AS totalPessoas,
-            SUM(u.ativo = 1) AS totalAtivo,
-            SUM(c.nome = 'diretor') AS totalDiretor
+            COUNT(u.id_usuario) AS total_usuarios,
+            COUNT(
+                DISTINCT CASE 
+                    WHEN u.ativo = 1 
+                    THEN u.id_usuario 
+                END
+            ) AS usuarios_ativos,
+            SUM(c.nome = 'diretor') AS total_diretores
         FROM usuario u
         JOIN cargo c ON u.id_cargo = c.id_cargo
-        LEFT JOIN curso cu ON (
-            cu.id_administrador = u.id_usuario OR
-            cu.id_diretor = u.id_usuario OR
-            cu.id_coordenador = u.id_usuario
-        )
-        WHERE cu.id_instituicao = ?
+        LEFT JOIN instituicao i ON u.id_instituicao = i.id_instituicao
+        WHERE i.id_instituicao = ?
     `;
 
     const resultado = await database.executar(instrucao, [idInstituicao]);

@@ -14,7 +14,7 @@ async function renderResponsaveis(dados) {
         const email = pessoa.emailPessoa || "N/A";
         const cargo = (pessoa.cargoNome || "").toLowerCase().trim();
 
-        const estaAtivo = pessoa.usuarioAtivo === 1;
+        const estaAtivo = pessoa.usuarioAtivo == 1;
 
         const htmlPessoa = `
 <div class="pessoa-card">
@@ -125,8 +125,8 @@ function buscarInstituicao() {
         .then(data => {
             console.log(data);
             const nomeInstituicao =
-                data.instituicao?.instituicaoNome ||
-                data.dados?.[0]?.instituicaoNome ||
+                data.instituicao?.nome ||
+                data.dados?.[0]?.nomeInstituicao     ||
                 "Sem nome";
 
             document.getElementById("nome_instituicao").textContent = nomeInstituicao;
