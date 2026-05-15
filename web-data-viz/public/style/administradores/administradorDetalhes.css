@@ -47,11 +47,18 @@ body {
     color: #243b8a;
 }
 
+.acoes-topo {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
 .titulo-sessao {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+    gap: 20px;
 }
 
 .info-texto h1 {

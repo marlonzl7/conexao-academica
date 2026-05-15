@@ -73,6 +73,22 @@ async function alterarStatusUsuario(req, res) {
     }
 }
 
+async function cadastrarDiretor(req, res) {
+    const { idInstituicao, cpf, nome, email, senha } = req.body;
+
+    if (!idInstituicao || !nome || !email || !cpf || !senha) {
+        return res.status(400).json(respostaErro("Todos os campos são obrigatórios"));
+    }
+
+    try {
+        await administradorModel.cadastrarDiretor(idInstituicao, cpf, nome, email, senha);
+        res.status(201).json({ sucesso: true, mensagem: "Diretor cadastrado" });
+    } catch (erro) {
+        console.error("Erro no controller:", erro);
+        res.status(500).json(respostaErro("Erro ao cadastrar diretor"));
+    }
+}
+
 async function cadastrarAdministrador(req, res) {
     const { idInstituicao, cpf, nome, email, senha } = req.body;
 
@@ -125,6 +141,7 @@ module.exports = {
     buscarPorId,
     pesquisarInstituicoes,
     alterarStatusUsuario,
+    cadastrarDiretor,
     cadastrarAdministrador,
     cadastrarCoordenador,
     buscarKPIs
