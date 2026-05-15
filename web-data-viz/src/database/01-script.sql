@@ -175,33 +175,3 @@ CREATE VIEW `vw_indic_curso` AS
 			ON ic.id_curso = c.id_curso
 		INNER JOIN instituicao i
 			ON c.id_instituicao = i.id_instituicao;
-
-CREATE VIEW `vw_top_3_evasao` AS
-	WITH ranked AS (
-		SELECT i.id_instituicao,
-        i.nome AS nome_instituicao,
-        c.nome AS nome_curso,
-        ic.ano AS ano_emissao,
-        SUM(ic.quantidade_matriculas) AS total_matriculas,
-        SUM(ic.quantidade_alunos_situacao_desvinculada) AS total_evadidos,
-        
-        -- Ranking de cursos baseado em instituição/ano
-        DENSE_RANK() OVER (
-			PARTITION BY i.id_instituicao, ic.ano
-            ORDER BY
-				SUM(ic.quantidade_alunos_situacao_desvinculada) * 100.0
-                / NULLIF(SUM(ic.quantidade_matriculas), 0) DESC) AS ranking
-                
-		FROM indicadores_curso ic
-			INNER JOIN curso c
-				ON ic.id_curso = c.id_curso
-			INNER JOIN instituicao i
-				ON c.id_instituicao = i.id_instituicao
-			GROUP BY 
-				i.id_instituicao, i.nome, c.nome, ic.ano)
-		SELECT * FROM ranked
-		WHERE ranking <= 3
-        ORDER BY 
-			id_instituicao,
-            ano_emissao,
-            ranking;
