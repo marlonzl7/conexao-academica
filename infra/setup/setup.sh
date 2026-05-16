@@ -39,7 +39,7 @@ REPO_DIR="$BASE_DIR/repo"
 
 echo "Criando estrutura..."
 sudo mkdir -p "$BASE_DIR"
-sudo mkdir -p "$BASE_DIR/banco-de-dados"
+sudo mkdir -p "$BASE_DIR/init-scripts"
 sudo mkdir -p "$BASE_DIR/repo"
 sudo mkdir -p "$BASE_DIR/bases"
 
