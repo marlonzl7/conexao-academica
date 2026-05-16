@@ -107,6 +107,14 @@ else
     echo "Arquivo .env já existe, pulando"
 fi
 
+echo "Copiando arquivos de bases..."
+sudo mkdir -p "$BASE_DIR/bases"
+if ! ls "$BASE_DIR/bases/"*.txt >/dev/null 2>&1; then
+	cp "$REPO_DIR/infra/bases/"*.txt "$BASE_DIR/bases/"
+else
+	echo "Arquivos de bases já existem, pulando"
+fi
+
 echo "Ajustando permissões..."
 chmod 750 "$BASE_DIR"
 chmod 600 "$BASE_DIR/.env"
