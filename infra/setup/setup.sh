@@ -23,7 +23,7 @@ echo "Instalando Docker Compose..."
 if docker compose version >/dev/null 2>&1; then
     echo "Docker Compose já está instalado, pulando"
 else
-    sudo apt install docker-compose-plugin -y
+    sudo apt install docker-compose -y
 fi
 
 echo "Instalando Java..."
