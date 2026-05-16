@@ -136,6 +136,14 @@ async function cadastrarCoordenador(idCurso, cpf, nome, email, senha) {
     return await database.executar(instrucao, [idCurso, cpf, nome, email, hashSenha]);
 }
 
+async function listarCursos(idInstituicao) {
+    const instrucao = `
+        SELECT id_curso, id_instituicao, nome, modalidade FROM curso WHERE id_instituicao = ?;
+    `
+
+    return await database.executar(instrucao, [idInstituicao])
+}
+
 async function buscarKPIs(idInstituicao) {
     const instrucao = `
         SELECT
@@ -165,5 +173,6 @@ module.exports = {
     cadastrarDiretor,
     cadastrarAdministrador,
     cadastrarCoordenador,
+    listarCursos,
     buscarKPIs
 };
