@@ -41,6 +41,7 @@ echo "Criando estrutura..."
 sudo mkdir -p "$BASE_DIR"
 sudo mkdir -p "$BASE_DIR/banco-de-dados"
 sudo mkdir -p "$BASE_DIR/repo"
+sudo mkdir -p "$BASE_DIR/bases"
 
 sudo chown -R "$USER:$USER" "$BASE_DIR"
 
@@ -110,11 +111,14 @@ else
 fi
 
 echo "Copiando arquivos de bases..."
-sudo mkdir -p "$BASE_DIR/bases"
 if ! ls "$BASE_DIR/bases/"*.txt >/dev/null 2>&1; then
-	cp "$REPO_DIR/infra/bases/"*.txt "$BASE_DIR/bases/"
+    if ls "$REPO_DIR/infra/bases/"*.txt >/dev/null 2>&1; then
+        cp "$REPO_DIR/infra/bases/"*.txt "$BASE_DIR/bases/"
+    else
+        echo "Nenhum arquivo .txt encontrado em $REPO_DIR/infra/bases"
+    fi
 else
-	echo "Arquivos de bases já existem, pulando"
+    echo "Arquivos de bases já existem, pulando"
 fi
 
 echo "Ajustando permissões..."
