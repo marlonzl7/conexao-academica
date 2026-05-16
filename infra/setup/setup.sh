@@ -23,7 +23,7 @@ echo "Instalando Docker Compose..."
 if docker compose version >/dev/null 2>&1; then
     echo "Docker Compose já está instalado, pulando"
 else
-    sudo apt install docker-compose-plugin -y
+    sudo apt install docker-compose -y
 fi
 
 echo "Instalando Java..."
@@ -98,6 +98,8 @@ AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 AWS_SESSION_TOKEN=
 AWS_REGION=
+BASES_INSTITUICAO=
+BASES_CURSO=
 ETL_DB_URL=
 ETL_DB_USER=
 ETL_DB_PASSWORD=
