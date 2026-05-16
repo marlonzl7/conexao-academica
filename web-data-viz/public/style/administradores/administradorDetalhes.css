@@ -12,7 +12,7 @@ body {
 
 .container {
     margin-left: 250px;
-    padding-top: 80px; 
+    padding-top: 100px; 
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -47,11 +47,18 @@ body {
     color: #243b8a;
 }
 
+.acoes-topo {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
 .titulo-sessao {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+    gap: 20px;
 }
 
 .info-texto h1 {
@@ -109,10 +116,13 @@ body {
     border-radius: 15px;
     padding: 15px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;      
+    align-items: center;       
     justify-content: space-between; 
     gap: 25px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    margin-top: 10px;
 }
 
 .pessoa-info {
@@ -207,7 +217,6 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-left: auto; 
 }
 
 .overlay.hidden {

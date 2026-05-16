@@ -69,9 +69,17 @@
             <div class="info-texto">
                 <h1 id="nome_instituicao"></h1>
             </div>
-            <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro')">
-                <span class="plus-icon">+</span>Adicionar Administrador
-            </button>
+
+            <div class="acoes-topo">
+                <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro-diretor')">
+                    <span class="plus-icon">+</span>Adicionar Diretor
+                </button>
+
+                <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro-admin')">
+                    <span class="plus-icon">+</span>Adicionar Administrador
+                </button>
+            </div>
+
         </section>
 
         <hr class="divider">
@@ -82,9 +90,8 @@
                 <h2>Diretores</h2>
             </div>
 
-            <div class="pessoa-card" id="card_diretor">
-                <!-- Exemplo de card de pessoa -->
-            </div>
+            <div id="card_diretor"></div><!-- ← removida classe pessoa-card -->
+
         </section>
 
         <section class="categoria">
@@ -93,9 +100,8 @@
                 <h2>Administradores</h2>
             </div>
 
-            <div class="pessoa-card" id="card_administrador">
-                <!-- Exemplo de card de pessoa -->
-            </div>
+            <div id="card_administrador"></div><!-- ← removida classe pessoa-card -->
+
         </section>
 
         <section class="categoria">
@@ -104,19 +110,56 @@
                 <h2>Coordenadores</h2>
             </div>
 
-            <div class="pessoa-card" id="card_coordenador">
-                <!-- Exemplo de card de pessoa -->
-            </div>
+            <div id="card_coordenador"></div><!-- ← removida classe pessoa-card -->
+
         </section>
 
-        <!-- modal-overlay: div que estou usando para as sombras do background -->
-        <div id="modal-overlay-cadastro" class="overlay hidden">
-            <!-- modal de cadastro -->
+        <div id="modal-overlay-cadastro-diretor" class="overlay hidden">
             <div class="modal">
 
                 <div class="modal-header">
-                    <h2>Cadastrar Administrador</h2>    
-                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro')">X</span>
+                    <h2>Cadastrar Diretor</h2>
+                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro-diretor')">X</span>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" id="diretor_nome" placeholder="Ex: Carlos">
+                    </div>
+
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" id="diretor_cpf" placeholder="Ex: 19480967540">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="diretor_email" placeholder="Ex: carlos@gmail.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="diretor_senha" placeholder="Ex: cT202#R">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="modal-botao-cancelar"
+                        onclick="fecharModal('modal-overlay-cadastro-diretor')">Cancelar</button>
+                    <button class="modal-botao-confirmar" onclick="cadastrarDiretor()">Cadastrar</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="modal-overlay-cadastro-admin" class="overlay hidden">
+            <div class="modal">
+
+                <div class="modal-header">
+                    <h2>Cadastrar Administrador</h2>
+                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro-admin')">X</span>
                 </div>
 
                 <div class="modal-body">
@@ -136,7 +179,6 @@
                         <input type="email" id="admin_email" placeholder="Ex: carlos@gmail.com">
                     </div>
 
-                    
                     <div class="form-group">
                         <label>Senha</label>
                         <input type="password" id="admin_senha" placeholder="Ex: cT202#R">
@@ -145,7 +187,7 @@
 
                 <div class="modal-footer">
                     <button class="modal-botao-cancelar"
-                        onclick="fecharModal('modal-overlay-cadastro')">Cancelar</button>
+                        onclick="fecharModal('modal-overlay-cadastro-admin')">Cancelar</button>
                     <button class="modal-botao-confirmar" onclick="cadastrarAdministrador()">Cadastrar</button>
                 </div>
 

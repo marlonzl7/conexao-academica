@@ -3,8 +3,8 @@ function criarCard(inst) {
 
     const id = inst.id || inst.id_instituicao;
     const nome = inst.nome ?? "Sem nome";
-    const qtd = inst.qtdPessoas ?? 0;
-    const ativos = inst.ativos ?? 0;
+    const qtd = inst.total_usuarios ?? 0;
+    const ativos = inst.usuarios_ativos ?? 0;
 
     card.classList.add("instituicao-card");
 
