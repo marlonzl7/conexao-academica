@@ -43,7 +43,7 @@ services:
       - mysql
     
     volumes:
-      - ./bases:app/bases
+      - ./bases:/app/bases
 
     environment:
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
