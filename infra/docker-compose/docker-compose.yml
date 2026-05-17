@@ -41,6 +41,9 @@ services:
 
     depends_on:
       - mysql
+    
+    volumes:
+      - ./bases:app/bases
 
     environment:
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
