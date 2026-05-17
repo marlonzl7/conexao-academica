@@ -36,7 +36,7 @@ services:
 
   etl-java:
     container_name: etl-java
-    image: marlonzl7/conexao-academica:etl-java-v1.0.0
+    image: marlonzl7/conexao-academica:etl-java-latest
     restart: no
 
     depends_on:
