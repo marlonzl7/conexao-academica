@@ -2,11 +2,12 @@ FROM node:24-alpine
 
 WORKDIR /app
 
-COPY web-data-viz /app
+COPY web-data-viz/package*.json ./
 
-RUN npm install
+RUN npm i
+
+COPY web-data-viz .
 
 EXPOSE 80
 
 CMD ["npm", "start"]
-

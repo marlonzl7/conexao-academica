@@ -52,16 +52,24 @@ else
     echo "Repositório já existe, pulando clone"
 fi
 
+echo "Copiando docker-compose.yml..."
+if [ ! -f "$BASE_DIR/docker-compose.yml" ]; then
+    cp "$REPO_DIR/infra/docker-compose/docker-compose.yml" \
+       "$BASE_DIR/docker-compose.yml"
+else
+    echo "docker-compose.yml já existe, pulando"
+fi
+
 echo "Copiando scripts de setup do banco de dados..."
-if ! ls "$BASE_DIR/banco-de-dados/"*.sql >/dev/null 2>&1; then
+if ! ls "$BASE_DIR/init-scripts/"*.sql >/dev/null 2>&1; then
     cp "$REPO_DIR/web-data-viz/src/database/01-script.sql" \
-        "$BASE_DIR/banco-de-dados/01-script.sql"
+        "$BASE_DIR/init-scripts/01-script.sql"
 
     cp "$REPO_DIR/web-data-viz/src/database/02-create-users.sql" \
-        "$BASE_DIR/banco-de-dados/02-criar-usuarios.sql"
+        "$BASE_DIR/init-scripts/02-create-users.sql"
 
     cp "$REPO_DIR/web-data-viz/src/database/03-iniciar-banco.sql" \
-        "$BASE_DIR/banco-de-dados/03-iniciar-banco.sql"
+        "$BASE_DIR/init-scripts/03-iniciar-banco.sql"
 else
     echo "Scripts já existem, pulando"
 fi
