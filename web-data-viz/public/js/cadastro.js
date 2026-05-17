@@ -125,7 +125,7 @@ function iniciar() {
             validarSenha(senhaInput) &&
             validarConfirmacaoSenha(senhaInput, confirmarSenhaInput)
         ) {
-            const url = '/usuarios/diretor';
+            const url = '/usuarios/administrador-instituicao';
 
             const nomeInstituicao = instituicaoInput.value;
             const idInstituicao = mapaInstituicoes[nomeInstituicao];
@@ -136,7 +136,7 @@ function iniciar() {
             }
 
             const dados = {
-                id_instituicao: idInstituicao,
+                idInstituicao: idInstituicao,
                 cpf: cpfInput.value,
                 nome: nomeInput.value,
                 email: emailInput.value,

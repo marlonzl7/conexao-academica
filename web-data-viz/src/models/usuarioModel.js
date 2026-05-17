@@ -1,6 +1,7 @@
 var database = require("../database/config");
 var { gerarHash, compararSenhas } = require("../utils/senhaUtils");
 var cargoModel = require("./cargoModel");
+var instituicaoModel = require("./instituicaoModel");
 
 async function login(email, senha) {
     const instrucao = `
@@ -50,6 +51,46 @@ async function login(email, senha) {
     return usuario;
 }
 
+// Usuário Administrador da Instituição
+async function cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email, senha) {
+    if (await existeUsuarioPorEmail(email)) {
+        throw "EMAIL_EXISTENTE";
+    }
+
+    const idCargo = await cargoModel.obterIdPorNome('administrador_instituicao');
+
+    if (await existeAdministradorInstituicao(idInstituicao, idCargo)) {
+        throw "ADMINISTRADOR_INSTITUICAO_EXISTENTE";
+    }
+
+    const hashSenha = await gerarHash(senha);
+
+    const instrucao = `
+        INSERT INTO usuario (id_cargo, id_instituicao, cpf, nome, email, senha) VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    const parametros = [idCargo, idInstituicao, cpf, nome, email, hashSenha];
+
+    const resultado = await database.executar(instrucao, parametros);
+
+    return resultado.insertId;
+}
+
+async function existeAdministradorInstituicao(idInstituicao, idCargo) {
+    const instrucao = `
+        SELECT 1
+        FROM usuario
+        WHERE id_instituicao = ?
+            AND id_cargo = ?
+        LIMIT 1
+    `;
+
+    const resultado = await database.executar(instrucao, [idInstituicao, idCargo]);
+
+    return resultado.length > 0;
+}
+
+// Usuário Diretor
 async function cadastrarUsuarioDiretor(id_instituicao, cpf, nome, email, senha) {
     if (await existeUsuarioPorEmail(email)) {
         throw "EMAIL_EXISTENTE";
@@ -172,6 +213,7 @@ async function deletarUsuario(idUsuario) {
 }
 
 module.exports = {
+    cadastrarAdministradorInstituicao,
     cadastrarUsuarioDiretor,
     buscarDadosConta,
     atualizarSenha,
