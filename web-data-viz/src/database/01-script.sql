@@ -1,4 +1,3 @@
-DROP DATABASE conexaoacademica;
 CREATE DATABASE conexaoacademica;
 
 USE conexaoacademica;
