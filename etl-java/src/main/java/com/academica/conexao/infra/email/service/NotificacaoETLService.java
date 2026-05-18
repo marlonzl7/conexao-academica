@@ -19,7 +19,7 @@ public class NotificacaoETLService {
     }
 
     public void notificar(ResultadoETL resultadoETL) {
-        List<String> emailsAdministradores = dao.buscarEmailPorCargo("administrador");
+        List<String> emailsAdministradores = dao.buscarEmailPorCargo("administrador_sistema");
 
         if (!emailsAdministradores.isEmpty()) {
             String assunto = "ETL finalizado";
