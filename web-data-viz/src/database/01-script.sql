@@ -90,7 +90,10 @@ CREATE TABLE log (
 -- VIEWS
 
 CREATE VIEW `vw_info_user` AS
-	SELECT u.id_usuario,
+	SELECT u.id_usuario AS id_usuario,
+    i.id_instituicao AS id_instituicao,
+    cr.id_curso AS id_curso,
+    ca.id_cargo AS id_cargo,
     u.nome AS nome_usuario,
     i.nome AS nome_instituicao,
     cr.nome AS nome_curso,
@@ -101,9 +104,9 @@ CREATE VIEW `vw_info_user` AS
 FROM usuario u
 	INNER JOIN cargo ca
 		ON ca.id_cargo = u.id_cargo
-	INNER JOIN instituicao i
+	LEFT JOIN instituicao i
 		ON i.id_instituicao = u.id_instituicao
-    INNER JOIN curso cr
+    LEFT JOIN curso cr
 		ON cr.id_instituicao = i.id_instituicao;
 
 CREATE VIEW `vw_indic_geral` AS
