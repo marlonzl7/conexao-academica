@@ -187,45 +187,4 @@ function cadastrarAdministrador() {
         });
 }
 
-function cadastrarDiretor() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const idInstituicao = urlParams.get('id');
-
-    const nome = document.getElementById("diretor_nome").value.trim();
-    const email = document.getElementById("diretor_email").value.trim();
-    const senha = document.getElementById("diretor_senha").value.trim();
-    const cpf = document.getElementById("diretor_cpf").value.trim();
-
-    if (!nome || !email || !senha || !cpf) {
-        alert("Todos os campos são obrigatórios.");
-        return;
-    }
-
-    fetch(`/administrador/cadastrarDiretor`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            idInstituicao,
-            nome,
-            email,
-            senha,
-            cpf
-        })
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (data.sucesso) {
-                alert("Diretor cadastrado com sucesso!");
-                fecharModal("modal-overlay-cadastro-diretor");
-                buscarInstituicao();
-            } else {
-                alert("Erro ao cadastrar diretor: " + (data.mensagem || "Erro desconhecido"));
-            }
-        })
-        .catch(error => {
-            console.error("Erro ao cadastrar diretor:", error);
-            alert("Erro ao cadastrar diretor.");
-        });
-}
-
 window.onload = buscarInstituicao;
