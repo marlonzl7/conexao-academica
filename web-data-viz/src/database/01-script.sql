@@ -51,7 +51,8 @@ CREATE TABLE regra (
     id_regra INT PRIMARY KEY AUTO_INCREMENT,
     id_instituicao INT NOT NULL,
     id_kpi INT NOT NULL,
-    classificacao VARCHAR(20) NOT NULL,
+    classificacao VARCHAR(20) NOT N
+    }ULL,
     cor_hexadecimal CHAR(6),
     limite_inferior DECIMAL(5,2) NOT NULL,
     limite_superior DECIMAL(5,2) NOT NULL,
