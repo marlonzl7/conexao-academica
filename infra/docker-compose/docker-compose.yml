@@ -23,6 +23,7 @@ services:
       - mysql
 
     environment:
+      AMBIENTE_PROCESSO: ${AMBIENTE_PROCESSO}
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
       DB_DATABASE: ${DB_DATABASE}
