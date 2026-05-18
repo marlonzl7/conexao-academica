@@ -109,6 +109,46 @@
             </div>
         </section>
 
+        <div id="modal-overlay-cadastro-diretor" class="overlay hidden">
+            <div class="modal">
+
+                <div class="modal-header">
+                    <h2>Cadastrar Diretor</h2>
+                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro-diretor')">X</span>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" id="diretor_nome" placeholder="Ex: Carlos">
+                    </div>
+
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" id="diretor_cpf" placeholder="Ex: 19480967540">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="diretor_email" placeholder="Ex: carlos@gmail.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="diretor_senha" placeholder="Ex: cT202#R">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="modal-botao-cancelar"
+                        onclick="fecharModal('modal-overlay-cadastro-diretor')">Cancelar</button>
+                    <button class="modal-botao-confirmar" onclick="cadastrarDiretor()">Cadastrar</button>
+                </div>
+
+            </div>
+        </div>
+
         <!-- modal-overlay: div que estou usando para as sombras do background -->
         <div id="modal-overlay-cadastro" class="overlay hidden">
             <!-- modal de cadastro -->

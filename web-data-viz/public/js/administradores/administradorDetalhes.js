@@ -99,7 +99,7 @@ async function alterarStatus(idUsuario, ativo, inputEl) {
         const data = await response.json();
 
         if (data.sucesso) {
-            const card = inputEl.closest('.pessoa-card'); 
+            const card = inputEl.closest('.pessoa-card');
             const label = card.querySelector('.toggle-label');
             if (label) label.textContent = ativo ? 'Ativo' : 'Inativo';
         }
@@ -116,6 +116,47 @@ function fecharModal(id) {
 
 function abrirModal(id) {
     document.getElementById(id).classList.remove('hidden');
+}
+
+function cadastrarDiretor() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idInstituicao = urlParams.get('id');
+
+    const nome = document.getElementById("diretor_nome").value.trim();
+    const email = document.getElementById("diretor_email").value.trim();
+    const senha = document.getElementById("diretor_senha").value.trim();
+    const cpf = document.getElementById("diretor_cpf").value.trim();
+
+    if (!nome || !email || !senha || !cpf) {
+        alert("Todos os campos são obrigatórios.");
+        return;
+    }
+
+    fetch(`/administrador/cadastrarDiretor`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            idInstituicao,
+            nome,
+            email,
+            senha,
+            cpf
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.sucesso) {
+                alert("Diretor cadastrado com sucesso!");
+                fecharModal("modal-overlay-cadastro-diretor");
+                buscarInstituicao();
+            } else {
+                alert("Erro ao cadastrar diretor: " + (data.mensagem || "Erro desconhecido"));
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao cadastrar diretor:", error);
+            alert("Erro ao cadastrar diretor.");
+        });
 }
 
 function cadastrarCoordenador() {
@@ -148,33 +189,33 @@ function cadastrarCoordenador() {
         })
     })
 
-    .then(res => res.json())
+        .then(res => res.json())
 
-    .then(data => {
+        .then(data => {
 
-        if (data.sucesso) {
+            if (data.sucesso) {
 
-            alert("Coordenador cadastrado com sucesso!");
+                alert("Coordenador cadastrado com sucesso!");
 
-            fecharModal("modal-overlay-cadastro");
+                fecharModal("modal-overlay-cadastro");
 
-            buscarInstituicao();
+                buscarInstituicao();
 
-        } else {
+            } else {
 
-            alert(
-                "Erro ao cadastrar Coordenador: " +
-                (data.mensagem || "Erro desconhecido")
-            );
-        }
-    })
+                alert(
+                    "Erro ao cadastrar Coordenador: " +
+                    (data.mensagem || "Erro desconhecido")
+                );
+            }
+        })
 
-    .catch(error => {
+        .catch(error => {
 
-        console.error("Erro ao cadastrar Coordenador:", error);
+            console.error("Erro ao cadastrar Coordenador:", error);
 
-        alert("Erro ao cadastrar Coordenador.");
-    });
+            alert("Erro ao cadastrar Coordenador.");
+        });
 }
 
 function buscarInstituicao() {
