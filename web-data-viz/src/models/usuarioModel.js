@@ -5,29 +5,23 @@ var instituicaoModel = require("./instituicaoModel");
 
 async function login(email, senha) {
     const instrucao = `
-    SELECT
-        u.id_usuario,
-        c.nome as cargo,
-        u.nome,
-        u.email,
-        u.senha,
-        u.ativo,
-        i.id_instituicao    
-    FROM usuario u
-    JOIN cargo c ON u.id_cargo = c.id_cargo
-    LEFT JOIN curso cu ON (
-        cu.id_administrador = u.id_usuario OR 
-        cu.id_diretor       = u.id_usuario OR 
-        cu.id_coordenador   = u.id_usuario      
-    )
-    LEFT JOIN instituicao i ON i.id_instituicao = cu.id_instituicao
-    WHERE u.email = ?
-    LIMIT 1
-    `
-    ;
+        SELECT
+            u.id_usuario,
+            u.nome,
+            u.email,
+            u.senha,
+            u.ativo,
+            u.id_instituicao,
+            u.id_curso,
+            c.nome AS cargo
+        FROM usuario u
+        JOIN cargo c
+            ON c.id_cargo = u.id_cargo
+        WHERE u.email = ?
+        LIMIT 1
+    `;
 
-    const parametros = [email];
-    const resultado = await database.executar(instrucao, parametros);
+    const resultado = await database.executar(instrucao, [email]);
 
     const usuario = resultado[0];
 
@@ -36,15 +30,15 @@ async function login(email, senha) {
     const hashParaComparar = usuario ? usuario.senha : hashFake;
 
     const senhaValida = await compararSenhas(senha, hashParaComparar);
-    
+
     if (!usuario || !senhaValida) {
         throw "CREDENCIAIS_INVALIDAS";
     }
-    
+
     if (!usuario.ativo) {
         throw "USUARIO_INATIVO";
     }
-    
+
     delete usuario.senha;
     delete usuario.ativo;
 

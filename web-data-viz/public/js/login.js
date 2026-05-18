@@ -4,11 +4,11 @@ function mostrarSenha(idInput, icone) {
 
     if (input.type === "password") {
         input.type = "text";
-    icone.src = "/assets/imgs/olho_aberto.png";
+        icone.src = "/assets/imgs/olho_aberto.png";
         icone.alt = "Ocultar senha";
     } else {
         input.type = "password";
-       icone.src = "/assets/imgs/olho_fechado.png";
+        icone.src = "/assets/imgs/olho_fechado.png";
         icone.alt = "Mostrar senha";
     }
 }
@@ -62,66 +62,95 @@ function validarCampos() {
 
     if (email == '' || senha == '') {
         div_msg_login.innerHTML = "Por favor, preencha todos os campos."
-        return;
+        return false;
     }
 
+    return true;
 }
 
 // Realizar login
 async function login() {
     const url = "/usuarios/login";
     const dados = {
-        email: ipt_email.value,
-        senha: ipt_senha.value
+        email: ipt_email.value.trim(),
+        senha: ipt_senha.value.trim()
     }
 
-    const resposta = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(dados)
-    });
+    try {
+        const resposta = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        });
 
-    const json = await resposta.json();
+        const json = await resposta.json();
 
-    if (!resposta.ok) {
-        div_msg_login.innerHTML = "Falha na autenticação: " + json.mensagem;
-        return;
+        if (!resposta.ok) {
+            div_msg_login.innerHTML = "Falha na autenticação: " + json.mensagem;
+            return;
+        }
+        
+        const usuario = json.dados;
+
+        iniciarSessao(usuario);
+
+        redirecionarPorCargo(usuario.cargo);
+
+    } catch (erro) {
+        console.error(erro);
+
+        div_msg_login.innerHTML =
+            "Erro ao conectar com servidor";
     }
-    
 
-    localStorage.setItem("usuario", JSON.stringify(json.dados));
-
-   
-    iniciarSessao(
-        json.dados.id_usuario, 
-        json.dados.nome, 
-        json.dados.email,
-        json.dados.id_instituicao
-    );
-
-    if (json.dados.cargo === 'diretor') {
-        window.location.href = '/pages/dashboards/diretor.html';
-        return;
-    } else if (json.dados.cargo === 'coordenador') {
-        window.location.href = '/pages/dashboards/coordenador.html';
-        return;
-    } else if(json.dados.cargo === 'administrador') {
-        window.location.href = '/pages/administradores/administradorConexao.html';
-        return;
-    } else if(json.dados.cargo === 'administrador_instituicao') {
-        window.location.href = '/pages/administradores/administradorInstituicao.html';
-        return;
-    }
 }
 
-function iniciarSessao(id_usuario, nome, email, cargo, idInstituicao) {
-    sessionStorage.ID_USUARIO = id_usuario;
-    sessionStorage.NOME = nome;
-    sessionStorage.EMAIL = email;
-    sessionStorage.CARGO = cargo
-    sessionStorage.ID_INSTITUICAO = idInstituicao;
+function iniciarSessao(usuario) {
+    sessionStorage.ID_USUARIO = usuario.id_usuario;
+
+    sessionStorage.NOME_USUARIO = usuario.nome;
+
+    sessionStorage.EMAIL_USUARIO = usuario.email;
+
+    sessionStorage.CARGO_USUARIO = usuario.cargo;
+
+    sessionStorage.ID_INSTITUICAO = usuario.id_instituicao || "";
+
+    sessionStorage.ID_CURSO = usuario.id_curso || "";
+
+    sessionStorage.USUARIO = JSON.stringify(usuario);
+}
+
+function redirecionarPorCargo(cargo) {
+
+    switch (cargo) {
+
+        case "administrador_sistema":
+            window.location.href =
+                "/pages/administradores/administradorConexao.html";
+            break;
+
+        case "administrador_instituicao":
+            window.location.href =
+                "/pages/administradores/administradorInstituicao.html";
+            break;
+
+        case "diretor":
+            window.location.href =
+                "/pages/dashboards/diretor.html";
+            break;
+
+        case "coordenador":
+            window.location.href =
+                "/pages/dashboards/coordenador.html";
+            break;
+
+        default:
+            window.location.href =
+                "/index.html";
+    }
 }
 
 // Header responsivo
@@ -161,17 +190,5 @@ function menu() {
     imagem_home.src = imagens[5];
   }
 }
-
-//parte para armazenar id de usuario logado
-
-then(resposta => {
-    if (resposta.sucesso) {
-        const usuario = resposta.dados;
-
-        localStorage.setItem("usuario", JSON.stringify(usuario));
-
-        window.location.href = "/dashboard.html";
-    }
-});
 
 window.addEventListener("resize", resTablet);

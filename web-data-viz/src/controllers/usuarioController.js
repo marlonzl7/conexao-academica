@@ -166,6 +166,5 @@ module.exports = {
     atualizarSenha,
     atualizarDados,
     login,
-    deletarUsuario,
-    cadastrarUsuarioDiretor
+    deletarUsuario
 }
