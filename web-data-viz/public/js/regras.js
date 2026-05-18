@@ -33,8 +33,8 @@ document.querySelectorAll(".overlay").forEach(overlay => {
 
 async function carregarTabela() {
     try {
-        const id_usuario = sessionStorage.getItem("ID_USUARIO");
-        const res = await fetch(`/regras?id_usuario=${id_usuario}`);
+        const id_instituicao = sessionStorage.getItem("ID_INSTITUICAO");
+        const res = await fetch(`/regras?id_instituicao=${id_instituicao}`);
         const resposta = await res.json(); // estava faltando essa linha
 
         if (!res.ok) {
@@ -115,7 +115,7 @@ async function carregarKpis() {
 }
 
 async function cadastrarRegra() {
-    const id_usuario = sessionStorage.getItem("ID_USUARIO");
+    const id_instituicao = sessionStorage.getItem("ID_INSTITUICAO");
     const kpiInput = document.getElementById("cadastro-kpi")
     const classificacaoInput = document.getElementById("cadastro-classificacao");
     const limiteInferiorInput = document.getElementById("cadastro-limite_inferior");
@@ -128,7 +128,7 @@ async function cadastrarRegra() {
     ) {
         const url = `/regras/cadastrar`;
         const dados = {
-            idUsuario: id_usuario,
+            idUsuario: id_instituicao,
             kpi: kpiInput.value,
             classificacao: classificacaoInput.value,
             limiteInferior: limiteInferiorInput.value,
