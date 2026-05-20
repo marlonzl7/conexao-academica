@@ -160,7 +160,6 @@ function cadastrarDiretor() {
 }
 
 function cadastrarCoordenador() {
-
     const urlParams = new URLSearchParams(window.location.search);
     const idInstituicao = urlParams.get('id');
 
@@ -190,19 +189,13 @@ function cadastrarCoordenador() {
     })
 
         .then(res => res.json())
-
         .then(data => {
 
             if (data.sucesso) {
-
                 alert("Coordenador cadastrado com sucesso!");
-
-                fecharModal("modal-overlay-cadastro");
-
+                fecharModal("modal-overlay-cadastro-coordenador");
                 buscarInstituicao();
-
             } else {
-
                 alert(
                     "Erro ao cadastrar Coordenador: " +
                     (data.mensagem || "Erro desconhecido")
@@ -211,9 +204,7 @@ function cadastrarCoordenador() {
         })
 
         .catch(error => {
-
             console.error("Erro ao cadastrar Coordenador:", error);
-
             alert("Erro ao cadastrar Coordenador.");
         });
 }
@@ -247,21 +238,16 @@ function buscarInstituicao() {
 }
 
 async function listarCursos() {
-
     const urlParams = new URLSearchParams(window.location.search);
-
     const idInstituicao = urlParams.get('id');
 
     try {
-
         const resposta = await fetch(
             `/administrador/cursos/${idInstituicao}`
         );
 
         const cursos = await resposta.json();
-
         console.log(cursos);
-
         const select = document.getElementById("select_curso");
 
         if (!select) {
@@ -276,7 +262,6 @@ async function listarCursos() {
         `;
 
         cursos.forEach(curso => {
-
             select.insertAdjacentHTML(
                 'beforeend',
                 `
@@ -288,7 +273,6 @@ async function listarCursos() {
         });
 
     } catch (erro) {
-
         console.error("Erro ao listar cursos:", erro);
     }
 }
