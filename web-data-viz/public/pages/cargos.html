@@ -106,7 +106,7 @@
 </script>
 
 <script>
-    const API = "http://localhost:3333/cargos";
+    const API = "/cargos";
     let cargoSelecionadoId = null;
  
     async function carregarCargos() {
@@ -116,11 +116,7 @@
             if (!response.ok) throw new Error("Erro na API");
             data = await response.json();
         } catch {
-            data = [
-                { id_cargo: 1, nome: "Administrador" },
-                { id_cargo: 2, nome: "Coordenador" },
-                { id_cargo: 3, nome: "Diretor" }
-            ];
+            console.error("Não foi possível carregar os cargos");
         }
  
         const tabela = document.getElementById("tabelaCargos");
