@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador | Conexão Acadêmica</title>
-    <link rel="stylesheet" href="../../style/administradores/administradorConexao.css">
+    <link rel="stylesheet" href="../../style/administradores/administradorConexao.css"> 
     <link rel="stylesheet" href="../../style/components/header.css">
     <link rel="stylesheet" href="../../style/components/sidebar.css">
     <link rel="icon" type="image/png" href="../../assets/imgs/logo.png">
@@ -17,47 +17,8 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="header-left">
-        </div>
-
-        <div class="header-right">
-            <a href="#" class="link-item">
-                <img src="../../assets/icons/notification-icon-fill.svg" alt="Ícone Notificação" id="notification-icon">
-            </a>
-
-            <a href="#" class="link-item">
-                <span>Username</span>
-                <img src="../../assets/icons/account-icon-fill.svg" alt="Ícone Usuário">
-            </a>
-        </div>
-    </header>
-
-    <aside class="sidebar">
-        <header class="sidebar-header">
-            <img src="../../assets/icons/logo.png" alt="Logo">
-            <span>Conexão Acadêmica</span>
-        </header>
-
-        <nav class="sidebar-main">
-
-            <a href="/pages/administradorConexao.html" class="link-box">
-                <img src="../../assets/icons/planner-icon.svg" alt="Ícone Painel">
-                <span>Painel</span>
-            </a>
-
-            <a href="/pages/conta.html" class="link-box">
-                <img src="../../assets/icons/person-icon.svg" alt="Ícone Conta">
-                <span>Conta</span>
-            </a>
-
-        </nav>
-
-        <footer class="sidebar-footer">
-            <img src="../../assets/icons/logout-icon.svg" alt="Logout">
-            <span>Sair</span>
-        </footer>
-    </aside>
+    <div id="header-container"></div>
+    <div id="sidebar-container"></div>
 
     <main class="content-wrapper">
         <div class="main-container">
@@ -78,4 +39,8 @@
     </main>
 </body>
 <script src="../../js/administradores/administradorConexao.js"></script>
+<script src="../../js/include.js"></script>
+<script>
+    initPage("Administrador | Conexão Acadêmica");
+</script>
 </html>

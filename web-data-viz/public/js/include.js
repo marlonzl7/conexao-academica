@@ -6,14 +6,49 @@ async function loadComponent(id, file) {
 
 
 async function initPage(title) {
-    await loadComponent("sidebar-container", "../../components/sidebar.html");
-    await loadComponent("header-container", "../../components/header.html");
+    document.title = title;
 
-    const pageTitle = document.getElementById("page-title");
+    const params = new URLSearchParams(window.location.search);
+    let layout = params.get("layout");
 
-    if (pageTitle) {
-        pageTitle.textContent = title;
+    if (!layout) {
+        layout = sessionStorage.getItem("layout");
     }
+
+    console.log("Layout:", layout);
+
+    let sidebar = "";
+    let header = "";
+
+    switch (layout) {
+
+        case "diretor":
+            sidebar = "/components/sidebar.html";
+            header = "/components/headers/header-diretor.html";
+            break;
+
+        case "coordenador":
+            sidebar = "/components/sidebar.html";
+            header = "/components/headers/header-coordenador.html";
+            break;
+
+        case "administrador_instituicao":
+            sidebar = "/components/sidebar.html";
+            header = "/components/headers/header-admInstituicao.html";
+            break;
+
+        case "administrador_sistema":
+            sidebar = "/components/sidebar.html";
+            header = "/components/headers/header-admConexao.html";
+            break;
+
+        default:
+            console.error("Cargo inválido");
+            return;
+    }
+
+    await loadComponent("sidebar-container", sidebar);
+    await loadComponent("header-container", header);
 
     carregarNomeUsuario();
 }
