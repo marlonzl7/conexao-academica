@@ -16,7 +16,7 @@ function mostrarSenha(idInput, icone) {
 //validação email 
 function onkey_email() {
     email = ipt_email.value.trim(); //.trim é para tirar todos os espaços em branco
-    
+
     let erro = "";
 
     if (email == '') {
@@ -91,7 +91,7 @@ async function login() {
             div_msg_login.innerHTML = "Falha na autenticação: " + json.mensagem;
             return;
         }
-        
+
         const usuario = json.dados;
 
         iniciarSessao(usuario);
@@ -121,6 +121,11 @@ function iniciarSessao(usuario) {
     sessionStorage.ID_CURSO = usuario.id_curso || "";
 
     sessionStorage.USUARIO = JSON.stringify(usuario);
+
+    sessionStorage.setItem(
+        "layout",
+        usuario.cargo
+    );
 }
 
 function redirecionarPorCargo(cargo) {
@@ -166,29 +171,29 @@ const imagens = [
 ];
 
 function resTablet() {
-  if (window.innerWidth >= 768) {
-    menu_header.style.display = "";
-  }
+    if (window.innerWidth >= 768) {
+        menu_header.style.display = "";
+    }
 }
 
 function menu() {
-  var imagem_menu = document.getElementById("imagem-menu");
-  var imagem_sobreNos = document.getElementById("sobre-imagem");
-  var imagem_contactUs = document.getElementById("contato-imagem");
-  var imagem_login = document.getElementById("login-imagem");
-  var imagem_home = document.getElementById("home-imagem");
+    var imagem_menu = document.getElementById("imagem-menu");
+    var imagem_sobreNos = document.getElementById("sobre-imagem");
+    var imagem_contactUs = document.getElementById("contato-imagem");
+    var imagem_login = document.getElementById("login-imagem");
+    var imagem_home = document.getElementById("home-imagem");
 
-  if (menu_header.style.display === "block") {
-    menu_header.style.display = "";
-    imagem_menu.src = imagens[0];
-  } else {
-    menu_header.style.display = "block";
-    imagem_menu.src = imagens[1];
-    imagem_sobreNos.src = imagens[2];
-    imagem_contactUs.src = imagens[3];
-    imagem_login.src = imagens[4];
-    imagem_home.src = imagens[5];
-  }
+    if (menu_header.style.display === "block") {
+        menu_header.style.display = "";
+        imagem_menu.src = imagens[0];
+    } else {
+        menu_header.style.display = "block";
+        imagem_menu.src = imagens[1];
+        imagem_sobreNos.src = imagens[2];
+        imagem_contactUs.src = imagens[3];
+        imagem_login.src = imagens[4];
+        imagem_home.src = imagens[5];
+    }
 }
 
 window.addEventListener("resize", resTablet);
