@@ -32,7 +32,8 @@ public class Main {
         long inicio = System.nanoTime();
 
         Connection connection = new DatabaseConnection().getConnection();
-        LogsManager logsManager = new LogsManager(new LogEntryDAO(connection));
+        Connection connectionLogs = new DatabaseConnection().getConnection();
+        LogsManager logsManager = new LogsManager(new LogEntryDAO(connectionLogs));
 
         try {
             logsManager.log(LogLevel.INFO, "Main", "Iniciando ETL");
@@ -150,7 +151,13 @@ public class Main {
             try {
                 connection.close();
             } catch (SQLException e) {
-                logsManager.log(LogLevel.ERROR, "Main", "Erro ao fechar conexão");
+                logsManager.log(LogLevel.ERROR, "Main", "Erro ao fechar conexão ETL");
+            }
+
+            try {
+                connectionLogs.close();
+            } catch (SQLException e) {
+                System.err.println("Erro ao fechar conexão de logs");
             }
         }
     }
