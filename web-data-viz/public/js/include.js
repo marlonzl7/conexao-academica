@@ -23,22 +23,22 @@ async function initPage(title) {
     switch (layout) {
 
         case "diretor":
-            sidebar = "/components/sidebar.html";
+            sidebar = "/components/sidebars/sidebar-diretor.html";
             header = "/components/headers/header-diretor.html";
             break;
 
         case "coordenador":
-            sidebar = "/components/sidebar.html";
+            sidebar = "/components/sidebars/sidebar-coordenador.html";
             header = "/components/headers/header-coordenador.html";
             break;
 
         case "administrador_instituicao":
-            sidebar = "/components/sidebar.html";
+            sidebar = "/components/sidebars/sidebar-admInstituicao.html";
             header = "/components/headers/header-admInstituicao.html";
             break;
 
         case "administrador_sistema":
-            sidebar = "/components/sidebar.html";
+            sidebar = "/components/sidebars/sidebar-admConexao.html";
             header = "/components/headers/header-admConexao.html";
             break;
 
