@@ -14,7 +14,7 @@ public class LeitorExcelService {
     private Iterator<Row> iterator;
 
     private final Integer ROW_CACHE_SIZE;
-    private final Integer BUFFER_SIZE = 4096;
+    private final Integer BUFFER_SIZE = 131072;
 
     public LeitorExcelService(int rowCacheSize) {
         this.ROW_CACHE_SIZE = rowCacheSize;
