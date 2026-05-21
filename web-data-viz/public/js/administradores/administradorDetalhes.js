@@ -225,7 +225,7 @@ function buscarInstituicao() {
             console.log(data);
             const nomeInstituicao =
                 data.instituicao?.instituicaoNome ||
-                data.dados?.[0]?.instituicaoNome ||
+                data.dados?.[0]?.nomeInstituicao ||
                 "Sem nome";
 
             document.getElementById("nome_instituicao").textContent = nomeInstituicao;
