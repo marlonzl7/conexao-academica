@@ -17,9 +17,9 @@ async function listarRegras(req, res) {
 
 async function cadastrarRegra(req, res) {
     try {
-        const { idInstituicao, kpi, classificacao, limiteInferior, limiteSuperior } = req.body;
+        const { idInstituicao, idKpi, classificacao, limiteInferior, limiteSuperior } = req.body;
 
-        await regraModel.cadastrarRegra(idInstituicao, kpi, classificacao, limiteInferior, limiteSuperior);
+        await regraModel.cadastrarRegra(idInstituicao, idKpi, classificacao, limiteInferior, limiteSuperior);
 
         return res.status(201).json(respostaSucesso(true, null, "Regra registrada com sucesso!"));
     } catch(erro) {
