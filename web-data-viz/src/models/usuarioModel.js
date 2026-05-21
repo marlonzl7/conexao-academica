@@ -155,8 +155,7 @@ async function buscarDadosConta(idUsuario) {
             u.cpf, 
             i.nome as instituicao
         FROM usuario u
-        LEFT JOIN curso c ON c.id_diretor = u.id_usuario
-        LEFT JOIN instituicao i ON i.id_instituicao = c.id_instituicao
+        LEFT JOIN instituicao i ON i.id_instituicao = u.id_instituicao
         WHERE u.id_usuario = ?
         LIMIT 1;
     `;

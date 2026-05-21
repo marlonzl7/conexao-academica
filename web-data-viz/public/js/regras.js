@@ -13,6 +13,7 @@ function abrirEdicao(id, classificacao, kpi, inferior, superior) {
     document.getElementById("edicao-kpi").value = kpi;
     document.getElementById("edicao-limite_inferior").value = inferior;
     document.getElementById("edicao-limite_superior").value = superior;
+
     abrirModal("modal-overlay-edicao");
 }
 
@@ -34,8 +35,9 @@ document.querySelectorAll(".overlay").forEach(overlay => {
 async function carregarTabela() {
     try {
         const id_instituicao = sessionStorage.getItem("ID_INSTITUICAO");
+
         const res = await fetch(`/regras?id_instituicao=${id_instituicao}`);
-        const resposta = await res.json(); // estava faltando essa linha
+        const resposta = await res.json();
 
         if (!res.ok) {
             alert(resposta.mensagem || "Erro ao carregar as regras.");
@@ -43,6 +45,7 @@ async function carregarTabela() {
         }
 
         renderizarTabela(resposta.dados);
+
     } catch (erro) {
         console.error(erro);
         alert("Erro ao se conectar com o servidor.");
@@ -53,7 +56,7 @@ function renderizarTabela(dados) {
     const tbody = document.querySelector(".tabela tbody");
     tbody.innerHTML = "";
 
-    if (dados.length === 0) {
+    if (!dados || dados.length === 0) {
         tbody.innerHTML = `
             <tr>
                 <td colspan="5">Nenhuma regra cadastrada.</td>
@@ -64,8 +67,6 @@ function renderizarTabela(dados) {
     dados.forEach(regra => {
         const tr = document.createElement("tr");
 
-        console.log(regra);
-
         tr.innerHTML = `
             <td>${regra.nome_classificacao}</td>
             <td>${regra.nome_kpi}</td>
@@ -73,16 +74,25 @@ function renderizarTabela(dados) {
             <td>${regra.limite_superior}%</td>
             <td class="acoes-tabela">
                 <button>
-                    <img src="../assets/icons/write-icon.png" alt="Ícone de escrita"
+                    <img src="../assets/icons/write-icon.png"
                         class="acoes-tabela-img"
-                        onclick="abrirEdicao(${regra.id_regra}, '${regra.classificacao}', ${regra.id_kpi}, ${regra.limite_inferior}, ${regra.limite_superior})">
+                        onclick='abrirEdicao(
+                            ${regra.id_regra},
+                            ${JSON.stringify(regra.nome_classificacao)},
+                            ${regra.id_kpi},
+                            ${regra.limite_inferior},
+                            ${regra.limite_superior}
+                        )'>
                 </button>
+
                 <button>
-                    <img src="../assets/icons/delete-icon.png" alt="Ícone de deleção"
+                    <img src="../assets/icons/delete-icon.png"
                         class="acoes-tabela-img"
                         onclick="abrirDelecao(${regra.id_regra})">
                 </button>
-            </td>`;
+            </td>
+        `;
+
         tbody.appendChild(tr);
     });
 }
@@ -101,10 +111,11 @@ async function carregarKpis() {
 
         selects.forEach(select => {
             select.innerHTML = "";
+
             resposta.dados.forEach(kpi => {
                 const option = document.createElement("option");
                 option.value = kpi.id_kpi;
-                option.textContent = kpi.nome; // ajuste para o nome da coluna no seu banco
+                option.textContent = kpi.nome;
                 select.appendChild(option);
             });
         });
@@ -116,7 +127,8 @@ async function carregarKpis() {
 
 async function cadastrarRegra() {
     const id_instituicao = sessionStorage.getItem("ID_INSTITUICAO");
-    const kpiInput = document.getElementById("cadastro-kpi")
+
+    const kpiInput = document.getElementById("cadastro-kpi");
     const classificacaoInput = document.getElementById("cadastro-classificacao");
     const limiteInferiorInput = document.getElementById("cadastro-limite_inferior");
     const limiteSuperiorInput = document.getElementById("cadastro-limite_superior");
@@ -126,42 +138,44 @@ async function cadastrarRegra() {
         validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
         validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput)
     ) {
-        const url = `/regras/cadastrar`;
         const dados = {
-            idUsuario: id_instituicao,
-            kpi: kpiInput.value,
+            idInstituicao: id_instituicao,
+            idKpi: kpiInput.value,
             classificacao: classificacaoInput.value,
             limiteInferior: limiteInferiorInput.value,
-            limiteSuperior: limiteSuperiorInput.value,
+            limiteSuperior: limiteSuperiorInput.value
         };
 
         try {
-            const res = await fetch(url, {
+            const res = await fetch("/regras/cadastrar", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dados),
+                body: JSON.stringify(dados)
             });
 
             const resposta = await res.json();
 
             if (!res.ok) {
-                alert(resposta.mensagem || "Erro ao realizar o cadastro de regras");
+                alert(resposta.mensagem || "Erro ao cadastrar regra.");
                 return;
             }
 
             alert(resposta.mensagem);
             fecharModal("modal-overlay-cadastro");
+            await carregarTabela();
+
         } catch (erro) {
             console.error(erro);
             alert("Erro ao se conectar com o servidor");
         }
     } else {
-        alert("Verifique se todos os campos estão válidos e tente novamente.");
+        alert("Verifique os campos.");
     }
 }
 
 async function atualizarRegra() {
     const idRegra = document.getElementById("edicao-regra-id").value;
+
     const classificacaoInput = document.getElementById("edicao-classificacao");
     const kpiInput = document.getElementById("edicao-kpi");
     const limiteInferiorInput = document.getElementById("edicao-limite_inferior");
@@ -172,65 +186,63 @@ async function atualizarRegra() {
         validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
         validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput)
     ) {
-        const url = `/regras/editar/${idRegra}`
         const dados = {
+            idInstituicao: sessionStorage.getItem("ID_INSTITUICAO"),
+            idKpi: kpiInput.value,
             classificacao: classificacaoInput.value,
-            kpi: kpiInput.value,
             limiteInferior: limiteInferiorInput.value,
             limiteSuperior: limiteSuperiorInput.value
         };
 
         try {
-            const res = await fetch(url, {
+            const res = await fetch(`/regras/editar/${idRegra}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dados),
+                body: JSON.stringify(dados)
             });
 
             const resposta = await res.json();
 
-            if(!res.ok) {
-                alert(resposta.mensagem || "Erro ao realizar a edição de regras.");
+            if (!res.ok) {
+                alert(resposta.mensagem || "Erro ao editar regra.");
                 return;
             }
 
             alert(resposta.mensagem);
             fecharModal("modal-overlay-edicao");
+            await carregarTabela();
+
         } catch (erro) {
             console.error(erro);
-            alert("Erro ao se conectar com o servidor.")
+            alert("Erro ao se conectar com o servidor.");
         }
-    } else {
-        alert("Verifique se todos os campos estão válidos e tente novamente.");        
     }
 }
 
-
 async function deletarRegra() {
     const idRegra = document.getElementById("delecao-regra-id").value;
-    
-    if(!idRegra) {
-        alert("Nenhum registro encontrado para exclusão.");
+
+    if (!idRegra) {
+        alert("Nenhuma regra selecionada.");
         return;
     }
 
-    const url = `/regras/deletar/${idRegra}`;
-
     try {
-        const res = await fetch(url, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json"  },
+        const res = await fetch(`/regras/deletar/${idRegra}`, {
+            method: "DELETE"
         });
 
         const resposta = await res.json();
-    
-        if(!res.ok) {
-            alert(resposta.mensagem || "Erro ao deletar a regra.");
+
+        if (!res.ok) {
+            alert(resposta.mensagem || "Erro ao deletar.");
             return;
         }
 
         alert(resposta.mensagem);
         fecharModal("modal-overlay-delecao");
+        await carregarTabela();
+
     } catch (erro) {
         console.error(erro);
         alert("Erro ao se conectar com o servidor.");

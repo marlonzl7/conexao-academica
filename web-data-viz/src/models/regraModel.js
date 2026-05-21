@@ -31,15 +31,15 @@ async function deletarRegra(idRegra) {
 }
 
 async function listarRegras(idInstituicao) {
-    const instrucao = `SELECT r.id_regra, 
+    const instrucao = `SELECT r.id_regra AS id_regra, 
 	                   CASE
-		                    WHEN r.classificacao = 0 THEN 'Baixo'
-                            WHEN r.classificacao = 1 THEN 'Médio'
-                            WHEN r.classificacao = 2 THEN 'Alto'
+		                    WHEN r.classificacao = 'BAIXO' THEN 'Baixo'
+                            WHEN r.classificacao = 'MEDIO' THEN 'Médio'
+                            WHEN r.classificacao = 'ALTO' THEN 'Alto'
 	                    END AS nome_classificacao,
-	                    r.limite_inferior, 
-                        r.limite_superior, 
-                        r.id_kpi, 
+	                    r.limite_inferior AS limite_inferior, 
+                        r.limite_superior AS limite_superior, 
+                        r.id_kpi AS id_kpi, 
                         k.nome AS nome_kpi 
                         FROM regra r
                         INNER JOIN kpi k ON r.id_kpi = k.id_kpi

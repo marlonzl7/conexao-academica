@@ -34,7 +34,7 @@
                     <span class="plus-icon">+</span>Adicionar Diretor
                 </button>
 
-                <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro-admin')">
+                <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro-coordenador')">
                     <span class="plus-icon">+</span>Adicionar Coordenador
                 </button>
             </div>
@@ -116,13 +116,13 @@
         </div>
 
         <!-- modal-overlay: div que estou usando para as sombras do background -->
-        <div id="modal-overlay-cadastro" class="overlay hidden">
+        <div id="modal-overlay-cadastro-coordenador" class="overlay hidden">
             <!-- modal de cadastro -->
             <div class="modal">
 
                 <div class="modal-header">
                     <h2>Cadastrar Coordenador</h2>
-                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro')">X</span>
+                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro-coordenador')">X</span>
                 </div>
 
                 <div class="modal-body">
@@ -158,7 +158,7 @@
 
                 <div class="modal-footer">
                     <button class="modal-botao-cancelar"
-                        onclick="fecharModal('modal-overlay-cadastro')">Cancelar</button>
+                        onclick="fecharModal('modal-overlay-cadastro-coordenador')">Cancelar</button>
                     <button class="modal-botao-confirmar" onclick="cadastrarCoordenador()">Cadastrar</button>
                 </div>
 
