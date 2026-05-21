@@ -14,7 +14,7 @@ public class LeitorExcelService {
     private Iterator<Row> iterator;
 
     private final Integer ROW_CACHE_SIZE;
-    private final Integer BUFFER_SIZE = 131072;
+    private final Integer BUFFER_SIZE = Integer.parseInt(System.getenv().getOrDefault("ETL_BUFFER_SIZE", "4096"));
 
     public LeitorExcelService(int rowCacheSize) {
         this.ROW_CACHE_SIZE = rowCacheSize;
