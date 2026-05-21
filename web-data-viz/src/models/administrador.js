@@ -125,7 +125,7 @@ async function cadastrarAdministrador(idInstituicao, cpf, nome, email, senha, id
     return await database.executar(instrucaoUsuario, [4, idInstituicao, idUsuarioCriador, cpf, nome, email, hashSenha, 1]);
 }
 
-async function cadastrarCoordenador(idCurso, cpf, nome, email, senha) {
+async function cadastrarCoordenador(id_curso, cpf, nome, email, senha) {
     const hashSenha = await gerarHash(senha);
 
     const instrucao = `
@@ -133,7 +133,7 @@ async function cadastrarCoordenador(idCurso, cpf, nome, email, senha) {
         VALUES (3, NULL, ?, ?, ?, ?, ?, 1);
     `;
 
-    return await database.executar(instrucao, [idCurso, cpf, nome, email, hashSenha]);
+    return await database.executar(instrucao, [id_curso, cpf, nome, email, hashSenha]);
 }
 
 async function listarCursos(idInstituicao) {

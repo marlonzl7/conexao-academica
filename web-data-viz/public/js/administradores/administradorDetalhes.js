@@ -168,9 +168,9 @@ function cadastrarCoordenador() {
     const senha = document.getElementById("coordenador_senha").value.trim();
     const cpf = document.getElementById("coordenador_cpf").value.trim();
 
-    const idCurso = document.getElementById("select_curso").value;
+    const id_curso = document.getElementById("select_curso").value;
 
-    if (!nome || !email || !senha || !cpf || !idCurso) {
+    if (!nome || !email || !senha || !cpf || !id_curso) {
         alert("Todos os campos são obrigatórios.");
         return;
     }
@@ -180,7 +180,7 @@ function cadastrarCoordenador() {
         headers: { 'Content-Type': 'application/json' },
 
         body: JSON.stringify({
-            idCurso,
+            id_curso,
             nome,
             email,
             senha,
