@@ -138,14 +138,6 @@ function buscarInstituicao() {
         });
 }
 
-function fecharModal(id) {
-    document.getElementById(id).classList.add('hidden');
-}
-
-function abrirModal(id) {
-    document.getElementById(id).classList.remove('hidden');
-}
-
 function cadastrarAdministrador() {
     const urlParams = new URLSearchParams(window.location.search);
     const idInstituicao = urlParams.get('id');
@@ -175,7 +167,7 @@ function cadastrarAdministrador() {
         .then(data => {
             if (data.sucesso) {
                 alert("Administrador cadastrado com sucesso!");
-                fecharModal("modal-overlay-cadastro-admin");
+                fecharModal();
                 buscarInstituicao();
             } else {
                 alert("Erro ao cadastrar administrador: " + (data.mensagem || "Erro desconhecido"));

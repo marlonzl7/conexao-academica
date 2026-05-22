@@ -85,3 +85,27 @@ function formCoordenador() {
         </div>
     `;
 }
+
+function formAdministrador() {
+    return `
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text" id="admin_nome" placeholder="Ex: Carlos">
+        </div>
+
+        <div class="form-group">
+            <label>CPF</label>
+            <input type="text" id="admin_cpf" placeholder="Ex: 19480967540">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="admin_email" placeholder="Ex: carlos@gmail.com">
+        </div>
+
+        <div class="form-group">
+            <label>Senha</label>
+            <input type="password" id="admin_senha" placeholder="Ex: cT202#R">
+        </div>
+    `;
+}

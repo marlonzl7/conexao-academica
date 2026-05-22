@@ -51,3 +51,31 @@ window.abrirModalCoordenador = async function () {
 
     await listarCursos();
 }
+
+window.abrirModalAdministrador = async function () {
+
+    abrirModal({
+
+        titulo: "Cadastrar Administrador",
+
+        conteudo: formAdministrador(),
+
+        botoes: `
+            <button
+                class="modal-botao-cancelar"
+                onclick="fecharModal()">
+
+                Cancelar
+            </button>
+
+            <button
+                class="modal-botao-confirmar"
+                onclick="cadastrarAdministrador()">
+
+                Cadastrar
+            </button>
+        `
+    });
+
+    await listarCursos();
+}

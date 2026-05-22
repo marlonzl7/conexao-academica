@@ -44,12 +44,19 @@ window.abrirModal = function ({
     tipo = "default"
 }) {
 
-    const modal = document.getElementById("modal-container");
+    const modal =
+        document.getElementById("modal-container");
+
+    const classeTamanho =
+        MODAL_CONFIG.tamanhos[tamanho];
+
+    const classeTipo =
+        MODAL_CONFIG.tipos[tipo];
 
     modal.className = `
         modal
-        modal-${tamanho}
-        modal-${tipo}
+        ${classeTamanho}
+        ${classeTipo}
     `;
 
     document.getElementById("modal-title").innerHTML = titulo;
