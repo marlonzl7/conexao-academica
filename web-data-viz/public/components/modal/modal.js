@@ -5,18 +5,18 @@ window.addEventListener("DOMContentLoaded", () => {
     modalRoot.innerHTML = `
         <div id="modal-overlay" class="overlay hidden">
 
-            <div class="modal">
+            <div id="modal-container" class="modal">
 
                 <div class="modal-header">
 
                     <h2 id="modal-title"></h2>
 
-                    <span
+                    <button
                         class="fechar-modal"
                         onclick="fecharModal()">
 
-                        X
-                    </span>
+                        ✕
+                    </button>
 
                 </div>
 
@@ -37,10 +37,20 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 window.abrirModal = function ({
-    titulo,
-    conteudo,
-    botoes
+    titulo = "",
+    conteudo = "",
+    botoes = "",
+    tamanho = "md",
+    tipo = "default"
 }) {
+
+    const modal = document.getElementById("modal-container");
+
+    modal.className = `
+        modal
+        modal-${tamanho}
+        modal-${tipo}
+    `;
 
     document.getElementById("modal-title").innerHTML = titulo;
 
