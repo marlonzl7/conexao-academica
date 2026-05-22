@@ -110,14 +110,6 @@ async function alterarStatus(idUsuario, ativo, inputEl) {
     }
 }
 
-function fecharModal(id) {
-    document.getElementById(id).classList.add('hidden');
-}
-
-function abrirModal(id) {
-    document.getElementById(id).classList.remove('hidden');
-}
-
 function cadastrarDiretor() {
     const urlParams = new URLSearchParams(window.location.search);
     const idInstituicao = urlParams.get('id');
@@ -147,7 +139,7 @@ function cadastrarDiretor() {
         .then(data => {
             if (data.sucesso) {
                 alert("Diretor cadastrado com sucesso!");
-                fecharModal("modal-overlay-cadastro-diretor");
+                fecharModal();
                 buscarInstituicao();
             } else {
                 alert("Erro ao cadastrar diretor: " + (data.mensagem || "Erro desconhecido"));
@@ -193,7 +185,7 @@ function cadastrarCoordenador() {
 
             if (data.sucesso) {
                 alert("Coordenador cadastrado com sucesso!");
-                fecharModal("modal-overlay-cadastro-coordenador");
+                fecharModal();
                 buscarInstituicao();
             } else {
                 alert(

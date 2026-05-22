@@ -1,8 +1,6 @@
-// Base do Modal
+window.addEventListener("DOMContentLoaded", () => {
 
-const modalRoot = document.getElementById("modal-root");
-
-function criarEstruturaModal() {
+    const modalRoot = document.getElementById("modal-root");
 
     modalRoot.innerHTML = `
         <div id="modal-overlay" class="overlay hidden">
@@ -10,25 +8,35 @@ function criarEstruturaModal() {
             <div class="modal">
 
                 <div class="modal-header">
+
                     <h2 id="modal-title"></h2>
 
-                    <button class="fechar-modal"
+                    <span
+                        class="fechar-modal"
                         onclick="fecharModal()">
+
                         X
-                    </button>
+                    </span>
+
                 </div>
 
-                <div class="modal-body" id="modal-body"></div>
+                <div
+                    class="modal-body"
+                    id="modal-body">
+                </div>
 
-                <div class="modal-footer" id="modal-footer"></div>
+                <div
+                    class="modal-footer"
+                    id="modal-footer">
+                </div>
 
             </div>
 
         </div>
     `;
-}
+});
 
-function abrirModal({
+window.abrirModal = function ({
     titulo,
     conteudo,
     botoes
@@ -46,12 +54,10 @@ function abrirModal({
         .remove("hidden");
 }
 
-function fecharModal() {
+window.fecharModal = function () {
 
     document
         .getElementById("modal-overlay")
         .classList
         .add("hidden");
 }
-
-criarEstruturaModal();
