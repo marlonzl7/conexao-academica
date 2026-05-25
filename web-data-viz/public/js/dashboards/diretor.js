@@ -1,3 +1,29 @@
+function getKPIs() {
+    const totalMatriculas = document.getElementById('total-matriculas');
+    const alunosEvadidos = document.getElementById('alunos-evadidos');
+    const taxaEvasao = document.getElementById('taxa-evasao');
+    const evasaoPresencialEAD = document.getElementById('evasao-presencial-ead');
+
+    fetch(`/dashboards/diretor/kpis`)
+        .then(response => response.json())
+        .then(data => {
+
+            const dados = data[0];
+
+            totalMatriculas.textContent = dados.totalMatriculas;
+            alunosEvadidos.textContent = dados.alunosEvadidos;
+            taxaEvasao.textContent = `${Number(dados.taxaEvasao).toFixed(2)}%`;
+            evasaoPresencialEAD.textContent = `${Number(dados.evadidosPresencial).toFixed(2)}%/${Number(dados.evadidosEAD).toFixed(2)}%`;
+        })
+        .catch(error => {
+            console.error('Erro ao buscar KPIs:', error);
+             totalMatriculas.textContent = 'N/A';
+             alunosEvadidos.textContent = 'N/A';
+             taxaEvasao.textContent = 'N/A';
+             evasaoPresencialEAD.textContent = 'N/A';
+         });
+}
+
 new Chart(document.getElementById('chartRanking'), {
     type: 'bar',
     data: {
@@ -170,3 +196,7 @@ new Chart(document.getElementById('chartTrend'), {
         }
     }
 });
+
+window.onload = function() {
+    getKPIs();
+};
