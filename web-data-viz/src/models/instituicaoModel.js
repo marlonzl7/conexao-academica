@@ -11,7 +11,24 @@ async function buscar(busca) {
     return await database.executar(instrucao, parametro);
 }
 
+async function buscarIdPorIdCurso(idCurso) {
+    const instrucao = `
+        SELECT id_instituicao
+        FROM curso
+        WHERE id_curso = ?
+    `;
+
+    const resultado = await database.executar(instrucao, [idCurso]);
+
+    if (resultado.length === 0) {
+        return null;
+    }
+
+    return resultado[0].id_instituicao;
+}
+
 module.exports = {
     listar,
-    buscar
+    buscar,
+    buscarIdPorIdCurso
 };

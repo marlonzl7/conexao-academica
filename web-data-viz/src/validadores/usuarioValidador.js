@@ -1,4 +1,4 @@
-var { respostaErro } = require("../database/dtos/resposta");
+var { respostaErro } = require("../dtos/resposta");
 
 function validarCadastroUsuario(req, res, next) {
     const { cpf, nome, email, senha, confirmacaoSenha } = req.body;

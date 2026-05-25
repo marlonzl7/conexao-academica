@@ -1,6 +1,6 @@
-var { respostaErro } = require("../database/dtos/resposta");
+var { respostaErro } = require("../dtos/resposta");
 
-function validarCadastroRegra(req, res, next) {
+function validarLimitesRegra(req, res, next) {
     const { limiteInferior, limiteSuperior } = req.body; // corrigido
     const erros = [];
 
@@ -34,5 +34,5 @@ function validarLimiteSuperior(superior, inferior) {
 
 
 module.exports = {
-    validarCadastroRegra
+    validarLimitesRegra
 };
