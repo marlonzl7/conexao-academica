@@ -32,7 +32,8 @@ public class Main {
         long inicio = System.nanoTime();
 
         Connection connection = new DatabaseConnection().getConnection();
-        LogsManager logsManager = new LogsManager(new LogEntryDAO(connection));
+        Connection connectionLogs = new DatabaseConnection().getConnection();
+        LogsManager logsManager = new LogsManager(new LogEntryDAO(connectionLogs));
 
         try {
             logsManager.log(LogLevel.INFO, "Main", "Iniciando ETL");
@@ -91,7 +92,10 @@ public class Main {
                     bucket
             );
 
-            LeitorExcelService leitor = new LeitorExcelService(100);
+            int rowCacheSize = Integer.parseInt(System.getenv().getOrDefault("ETL_ROW_CACHE_SIZE", "100"));
+            int batchSize = Integer.parseInt(System.getenv().getOrDefault("ETL_BATCH_SIZE", "3000"));
+
+            LeitorExcelService leitor = new LeitorExcelService(rowCacheSize);
 
             ETLOrchestrator orchestrator = new ETLOrchestrator(
                     List.of(
@@ -102,7 +106,7 @@ public class Main {
                                     connection,
                                     logsManager,
                                     new InstituicaoDAO(connection),
-                                    3000
+                                    batchSize
                             ),
                             new CursoETLPipeline(
                                     s3Service,
@@ -112,7 +116,7 @@ public class Main {
                                     logsManager,
                                     new CursoDAO(connection),
                                     new IndicadorCursoDAO(connection),
-                                    3000
+                                    batchSize
                             )
                     )
             );
@@ -150,7 +154,13 @@ public class Main {
             try {
                 connection.close();
             } catch (SQLException e) {
-                logsManager.log(LogLevel.ERROR, "Main", "Erro ao fechar conexão");
+                logsManager.log(LogLevel.ERROR, "Main", "Erro ao fechar conexão ETL");
+            }
+
+            try {
+                connectionLogs.close();
+            } catch (SQLException e) {
+                System.err.println("Erro ao fechar conexão de logs");
             }
         }
     }

@@ -1,7 +1,7 @@
 USE conexaoacademica;
 
 INSERT INTO cargo (nome) VALUES
-	('administrador'),
+	('administrador_sistema'),
 	('diretor'),
 	('coordenador'),
 	('administrador_instituicao');

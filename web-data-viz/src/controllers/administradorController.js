@@ -106,14 +106,14 @@ async function cadastrarAdministrador(req, res) {
 }
 
 async function cadastrarCoordenador(req, res) {
-    const { idCurso, cpf, nome, email, senha } = req.body;
+    const { id_curso, cpf, nome, email, senha } = req.body;
 
-    if (!idCurso || !nome || !email || !cpf || !senha) {
+    if (!id_curso || !nome || !email || !cpf || !senha) {
         return res.status(400).json(respostaErro("Todos os campos são obrigatórios"));
     }
 
     try {
-        await administradorModel.cadastrarCoordenador(idCurso, cpf, nome, email, senha);
+        await administradorModel.cadastrarCoordenador(id_curso, cpf, nome, email, senha);
         res.status(201).json({ sucesso: true, mensagem: "Coordenador cadastrado" });
     } catch (erro) {
         console.error("Erro no controller:", erro);

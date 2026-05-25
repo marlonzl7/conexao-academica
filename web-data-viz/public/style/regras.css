@@ -5,6 +5,10 @@
     font-family: 'Public Sans', sans-serif;
 }
 
+body {
+    background-color: #f4f4f4;
+}
+
 main {
     margin-left: 250px;
     height: 85vh;
