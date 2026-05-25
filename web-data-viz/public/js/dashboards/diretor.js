@@ -1,10 +1,80 @@
-function getKPIs() {
+const idInstituicao = sessionStorage.getItem('ID_INSTITUICAO');
+
+async function carregarAnos() {
+
+    const selectAnoInicio =
+        document.getElementById('ano-inicio');
+
+    const selectAnoFim =
+        document.getElementById('ano-fim');
+
+    const resposta = await fetch(
+        `/dashboards/diretor/anos-disponiveis?idInstituicao=${idInstituicao}`
+    );
+
+    const anos = await resposta.json();
+
+    selectAnoInicio.innerHTML = '';
+    selectAnoFim.innerHTML = '';
+
+    anos.forEach(item => {
+
+        selectAnoInicio.innerHTML += `
+            <option value="${item.ano}">
+                ${item.ano}
+            </option>
+        `;
+
+        selectAnoFim.innerHTML += `
+            <option value="${item.ano}">
+                ${item.ano}
+            </option>
+        `;
+    });
+
+    // seleciona automaticamente
+    selectAnoInicio.value = anos[0].ano;
+
+    selectAnoFim.value =
+        anos[anos.length - 1].ano;
+
+    await getKPIs();
+}
+
+async function buscarDados() {
+    const anoInicio = document.getElementById('ano-inicio').value;
+    const anoFim = document.getElementById('ano-fim').value;
+
+    if(anoInicio && anoFim && anoInicio > anoFim) {
+        alert('O ano de início deve ser menor ou igual ao ano de fim.');
+        return;
+    }
+
+    const respostaKPIs = await fetch(`/dashboards/diretor/kpis?anoInicio=${anoInicio}&anoFim=${anoFim}&idInstituicao=${idInstituicao}`);
+    const respostaGrafico = await fetch(`/dashboards/diretor/graficos/top-3-maior-evasao?anoInicio=${anoInicio}&anoFim=${anoFim}&idInstituicao=${idInstituicao}`);
+
+    if (!respostaKPIs.ok) {
+        console.error('Erro ao buscar KPIs:', respostaKPIs.statusText);
+        return;
+    }
+    if (!respostaGrafico.ok) {
+        console.error('Erro ao buscar gráfico:', respostaGrafico.statusText);
+        return;
+    }
+
+    await getKPIs();
+}
+
+async function getKPIs() {
     const totalMatriculas = document.getElementById('total-matriculas');
     const alunosEvadidos = document.getElementById('alunos-evadidos');
     const taxaEvasao = document.getElementById('taxa-evasao');
     const evasaoPresencialEAD = document.getElementById('evasao-presencial-ead');
 
-    fetch(`/dashboards/diretor/kpis`)
+    const anoInicio = document.getElementById('ano-inicio').value;
+    const anoFim = document.getElementById('ano-fim').value;
+
+    fetch(`/dashboards/diretor/kpis?anoInicio=${anoInicio}&anoFim=${anoFim}&idInstituicao=${idInstituicao}`)
         .then(response => response.json())
         .then(data => {
 
@@ -197,6 +267,7 @@ new Chart(document.getElementById('chartTrend'), {
     }
 });
 
-window.onload = function() {
-    getKPIs();
+window.onload = async function() {
+    await carregarAnos();
+    await getKPIs();
 };
