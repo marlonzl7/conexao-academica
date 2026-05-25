@@ -7,12 +7,23 @@ function abrirModal(id) {
     document.getElementById(id).classList.remove("hidden");
 }
 
-function abrirEdicao(id, classificacao, kpi, inferior, superior) {
+function abrirEdicao(
+    id,
+    classificacao,
+    kpi,
+    descricao,
+    cor,
+    inferior,
+    superior
+) {
     document.getElementById("edicao-regra-id").value = id;
     document.getElementById("edicao-classificacao").value = classificacao;
     document.getElementById("edicao-kpi").value = kpi;
+    document.getElementById("edicao-descricao").value = descricao;
+    document.getElementById("edicao-cor").value = `#${cor}`;
     document.getElementById("edicao-limite_inferior").value = inferior;
     document.getElementById("edicao-limite_superior").value = superior;
+
     abrirModal("modal-overlay-edicao");
 }
 
@@ -56,7 +67,7 @@ function renderizarTabela(dados) {
     if (dados.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="5">Nenhuma regra cadastrada.</td>
+                <td colspan="7">Nenhuma regra cadastrada.</td>
             </tr>`;
         return;
     }
@@ -67,15 +78,35 @@ function renderizarTabela(dados) {
         console.log(regra);
 
         tr.innerHTML = `
-            <td>${regra.nome_classificacao}</td>
+            <td>${regra.classificacao}</td>
             <td>${regra.nome_kpi}</td>
+            <td>${regra.descricao}</td>
+            <td>
+                <div style="
+                    width:20px;
+                    height:20px;
+                    background:#${regra.cor_hexadecimal};
+                    border-radius:4px;
+                "></div>
+            </td>
             <td>${regra.limite_inferior}%</td>
             <td>${regra.limite_superior}%</td>
             <td class="acoes-tabela">
                 <button>
-                    <img src="../assets/icons/write-icon.png" alt="Ícone de escrita"
+                    <img 
+                        src="../assets/icons/write-icon.png"
+                        alt="Ícone de escrita"
                         class="acoes-tabela-img"
-                        onclick="abrirEdicao(${regra.id_regra}, '${regra.classificacao}', ${regra.id_kpi}, ${regra.limite_inferior}, ${regra.limite_superior})">
+                        onclick="abrirEdicao(
+                            ${regra.id_regra},
+                            '${regra.classificacao}',
+                            ${regra.id_kpi},
+                            '${regra.descricao}',
+                            '${regra.cor_hexadecimal}',
+                            ${regra.limite_inferior},
+                            ${regra.limite_superior}
+                        )"
+                    >
                 </button>
                 <button>
                     <img src="../assets/icons/delete-icon.png" alt="Ícone de deleção"
@@ -118,11 +149,14 @@ async function cadastrarRegra() {
     const id_usuario = sessionStorage.getItem("ID_USUARIO");
     const kpiInput = document.getElementById("cadastro-kpi")
     const classificacaoInput = document.getElementById("cadastro-classificacao");
+    const descricaoInput = document.getElementById("cadastro-descricao");
+    const corInput = document.getElementById("cadastro-cor");
     const limiteInferiorInput = document.getElementById("cadastro-limite_inferior");
     const limiteSuperiorInput = document.getElementById("cadastro-limite_superior");
 
     if (
         validarClassificacao(classificacaoInput) &&
+        validarDescricao(descricaoInput) &&
         validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
         validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput)
     ) {
@@ -131,6 +165,8 @@ async function cadastrarRegra() {
             idUsuario: id_usuario,
             kpi: kpiInput.value,
             classificacao: classificacaoInput.value,
+            descricao: descricaoInput.value,
+            cor: corInput.value.replace("#", ""),
             limiteInferior: limiteInferiorInput.value,
             limiteSuperior: limiteSuperiorInput.value,
         };
@@ -151,6 +187,7 @@ async function cadastrarRegra() {
 
             alert(resposta.mensagem);
             fecharModal("modal-overlay-cadastro");
+            await carregarTabela();
         } catch (erro) {
             console.error(erro);
             alert("Erro ao se conectar com o servidor");
@@ -161,21 +198,26 @@ async function cadastrarRegra() {
 }
 
 async function atualizarRegra() {
+    const kpiInput = document.getElementById("edicao-kpi");
     const idRegra = document.getElementById("edicao-regra-id").value;
     const classificacaoInput = document.getElementById("edicao-classificacao");
-    const kpiInput = document.getElementById("edicao-kpi");
+    const descricaoInput = document.getElementById("edicao-descricao");
+    const corInput = document.getElementById("edicao-cor");
     const limiteInferiorInput = document.getElementById("edicao-limite_inferior");
     const limiteSuperiorInput = document.getElementById("edicao-limite_superior");
 
     if (
         validarClassificacao(classificacaoInput) &&
+        validarDescricao(descricaoInput) &&
         validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
-        validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput)
+        validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput) 
     ) {
         const url = `/regras/editar/${idRegra}`
         const dados = {
+            idKpi: kpiInput.value,
             classificacao: classificacaoInput.value,
-            kpi: kpiInput.value,
+            descricao: descricaoInput.value,
+            cor: corInput.value.replace("#", ""),
             limiteInferior: limiteInferiorInput.value,
             limiteSuperior: limiteSuperiorInput.value
         };
@@ -196,6 +238,7 @@ async function atualizarRegra() {
 
             alert(resposta.mensagem);
             fecharModal("modal-overlay-edicao");
+            await carregarTabela();
         } catch (erro) {
             console.error(erro);
             alert("Erro ao se conectar com o servidor.")
@@ -231,6 +274,7 @@ async function deletarRegra() {
 
         alert(resposta.mensagem);
         fecharModal("modal-overlay-delecao");
+        await carregarTabela();
     } catch (erro) {
         console.error(erro);
         alert("Erro ao se conectar com o servidor.");

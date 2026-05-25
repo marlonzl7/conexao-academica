@@ -8,8 +8,5 @@ INSERT INTO cargo (nome) VALUES
 
 INSERT INTO kpi (nome) VALUES
     ('taxa_evasao_instituicao'),
-    ('tendencia_evasao_instituicao'),
     ('taxa_evasao_curso'),
-    ('risco_evasao_curso'),
-    ('tendencia_evasao_curso'),
-    ('total_alunos_matriculados');
+    ('risco_evasao_curso');

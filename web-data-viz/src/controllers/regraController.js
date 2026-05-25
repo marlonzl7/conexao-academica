@@ -1,5 +1,5 @@
 const regraModel = require("../models/regraModel");
-const { respostaSucesso, respostaErro } = require("../database/dtos/resposta");
+const { respostaSucesso, respostaErro } = require("../dtos/resposta");
 
 async function listarRegras(req, res) {
     try {
@@ -17,9 +17,25 @@ async function listarRegras(req, res) {
 
 async function cadastrarRegra(req, res) {
     try {
-        const { idUsuario, kpi, classificacao, limiteInferior, limiteSuperior } = req.body;
+        const {
+            idUsuario,
+            kpi,
+            classificacao,
+            descricao,
+            cor,
+            limiteInferior,
+            limiteSuperior
+        } = req.body;
 
-        await regraModel.cadastrarRegra(idUsuario, kpi, classificacao, limiteInferior, limiteSuperior);
+        await regraModel.cadastrarRegra(
+            idUsuario,
+            kpi,
+            classificacao,
+            descricao,
+            cor,
+            limiteInferior,
+            limiteSuperior
+        );
 
         return res.status(201).json(respostaSucesso(true, null, "Regra registrada com sucesso!"));
     } catch(erro) {
@@ -32,9 +48,24 @@ async function cadastrarRegra(req, res) {
 async function atualizarRegra(req, res) {
     try {
         const { id } = req.params;
-        const { classificacao, limiteInferior, limiteSuperior } = req.body;
+        const {
+            idKpi,
+            classificacao,
+            descricao,
+            cor,
+            limiteInferior,
+            limiteSuperior
+        } = req.body;
 
-        await regraModel.atualizarRegra(id, classificacao, limiteInferior, limiteSuperior)
+        await regraModel.atualizarRegra(
+            id,
+            idKpi,
+            classificacao,
+            descricao,
+            cor,
+            limiteInferior,
+            limiteSuperior
+        );
 
         return res.status(200).json(respostaSucesso(true, null, "Regra atualizada com sucesso!"))
     } catch (erro) {

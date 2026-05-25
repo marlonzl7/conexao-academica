@@ -90,6 +90,8 @@
                     <tr>
                         <th>Classificação</th>
                         <th>KPI</th>
+                        <th>Descrição</th>
+                        <th>Cor</th>
                         <th>Limite inferior</th>
                         <th>Limite superior</th>
                         <th>Ações</th>
@@ -114,11 +116,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Classificação</label>
-                    <select id="cadastro-classificacao">
-                        <option value="0">Baixo</option>
-                        <option value="1">Médio</option>
-                        <option value="2">Crítico</option>
-                    </select>
+                    <input type="text" id="cadastro-classificacao" placeholder="Ex: Muito Alto"/>
                 </div>
                 <div class="form-group">
                     <label>KPI</label>
@@ -126,6 +124,15 @@
                     <select id="cadastro-kpi">
                         <option>Risco de evasão</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <input type="text" id="cadastro-descricao">
+                </div>
+
+                <div class="form-group">
+                    <label>Cor</label>
+                    <input type="color" id="cadastro-cor" value="#00FF00">
                 </div>
                 <div class="form-group">
                     <label>Limite inferior</label>
@@ -155,18 +162,21 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Classificação</label>
-                    <select id="edicao-classificacao">
-                        <option value="0">Baixo</option>
-                        <option value="1">Médio</option>
-                        <option value="2">Crítico</option>
-                    </select>
+                    <input type="text" id="edicao-classificacao" placeholder="Ex: Muito Alto"/>
                 </div>
                 <div class="form-group">
                     <label>KPI</label>
-                    <!-- adicionar referências ao banco aqui depois -->
-                    <select id="edicao-kpi">
-                        <option>Risco de evasão</option>
-                    </select>
+
+                    <select id="edicao-kpi"></select>
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <input type="text" id="edicao-descricao">
+                </div>
+
+                <div class="form-group">
+                    <label>Cor</label>
+                    <input type="color" id="edicao-cor" value="#00FF00">
                 </div>
                 <div class="form-group">
                     <label>Limite inferior</label>
@@ -207,8 +217,6 @@
 
     <script src="../js/regras.js"></script>
     <script src="../js/validacoes.js"></script>
-</body>
-
 </body>
 
 </html>
