@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alertas | Conexão Acadêmica</title>
-    <link rel="stylesheet" href="../../style/dashboards/alertas.css">
-    <link rel="stylesheet" href="../../style/components/sidebar.css">
-    <link rel="stylesheet" href="../../style/components/header.css">
-    <link rel="icon" type="image/png" href="../../assets/imgs/logo.png">
+    <link rel="stylesheet" href="/style/alertas.css">
+    <link rel="stylesheet" href="/style/components/sidebar.css">
+    <link rel="stylesheet" href="/style/components/header.css">
+    <link rel="icon" type="image/png" href="/assets/imgs/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div id="sidebar-container"></div>
+   <div id="sidebar-container"></div>
     <div id="header-container"></div>
 
     <main class="dashboard-content">
@@ -285,8 +285,14 @@
         </div>
     </div>
 
-    <script src="../../js/include.js"></script>
-    <script src="../../js/dashboards/alertas.js"></script>
+   
+    <script src="/alertas.js"></script>
+    <script src="/js/include.js"></script>
+    <script src="/js/informacoes.js"></script>
+    <script src="/js/login.js"></script>
+    <script>
+        initPage("Informações da Conta");
+    </script>
     <script>
         initPage("Alertas");
 
