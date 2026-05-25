@@ -1,8 +1,20 @@
 var database = require("../database/config");
 
 async function obterIdPorNome(nome) {
-    const instrucao = `SELECT id_cargo FROM cargo WHERE nome = ?`;
-    return await database.executar(instrucao, [nome]);
+    const instrucao = `
+        SELECT id_cargo 
+        FROM cargo 
+        WHERE nome = ?
+        LIMIT 1
+    `;
+    
+    const resultado = await database.executar(instrucao, [nome]);
+
+    if (!resultado || resultado.length === 0) {
+        throw "CARGO_NAO_ENCONTRADO";
+    }
+
+    return resultado[0].id_cargo;
 }
 
 async function getAllRoles() {

@@ -1,4 +1,3 @@
-// var ambiente_processo = 'producao';
 var ambiente_processo = 'desenvolvimento';
 
 var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
@@ -22,6 +21,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var instituicoesRouter = require("./src/routes/instituicoes");
 var administradorRouter = require("./src/routes/administrador");
 var cargosRouter = require("./src/routes/cargos.js");
+var dashboardCoordenadorRouter = require("./src/routes/dashboardCoordenador.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +36,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/instituicoes", instituicoesRouter);
 app.use("/administrador", administradorRouter);
 app.use("/cargos", cargosRouter);
+app.use("/dashboards/coordenador", dashboardCoordenadorRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

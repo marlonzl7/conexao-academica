@@ -12,8 +12,8 @@ async function kpi() {
     .then((data) => {
       console.log(data);
       const nomeInstituicao =
-        data.instituicao?.instituicaoNome ||
-        data.dados?.[0]?.instituicaoNome ||
+        data.instituicao?.nomeInstituicao ||
+        data.dados?.[0]?.nomeInstituicao ||
         "Sem nome";
 
       document.getElementById("nome_instituicao").textContent = nomeInstituicao;
@@ -32,10 +32,10 @@ async function kpi() {
     const data = res.dados;
 
     document.getElementById("total_pessoas").textContent =
-      data.totalPessoas || 0;
-    document.getElementById("total_ativo").textContent = data.totalAtivo || 0;
+      data.total_usuarios || 0;
+    document.getElementById("total_ativo").textContent = data.usuarios_ativos || 0;
     document.getElementById("total_diretor").textContent =
-      data.totalDiretor || 0;
+      data.total_diretores || 0;
   } catch (error) {
     console.error("Erro:", error);
   }

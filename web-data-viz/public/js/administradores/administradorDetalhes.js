@@ -99,7 +99,7 @@ async function alterarStatus(idUsuario, ativo, inputEl) {
         const data = await response.json();
 
         if (data.sucesso) {
-            const card = inputEl.closest('.pessoa-card'); 
+            const card = inputEl.closest('.pessoa-card');
             const label = card.querySelector('.toggle-label');
             if (label) label.textContent = ativo ? 'Ativo' : 'Inativo';
         }
@@ -118,21 +118,21 @@ function abrirModal(id) {
     document.getElementById(id).classList.remove('hidden');
 }
 
-function cadastrarCoordenador() {
+function cadastrarDiretor() {
     const urlParams = new URLSearchParams(window.location.search);
     const idInstituicao = urlParams.get('id');
 
-    const nome = document.getElementById("coordenador_nome").value.trim();
-    const email = document.getElementById("coordenador_email").value.trim();
-    const senha = document.getElementById("coordenador_senha").value.trim();
-    const cpf = document.getElementById("coordenador_cpf").value.trim();
+    const nome = document.getElementById("diretor_nome").value.trim();
+    const email = document.getElementById("diretor_email").value.trim();
+    const senha = document.getElementById("diretor_senha").value.trim();
+    const cpf = document.getElementById("diretor_cpf").value.trim();
 
     if (!nome || !email || !senha || !cpf) {
         alert("Todos os campos são obrigatórios.");
         return;
     }
 
-    fetch(`/administrador/cadastrarCoordenador`, {
+    fetch(`/administrador/cadastrarDiretor`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -146,13 +146,63 @@ function cadastrarCoordenador() {
         .then(res => res.json())
         .then(data => {
             if (data.sucesso) {
-                alert("Coordenador cadastrado com sucesso!");
-                fecharModal("modal-overlay-cadastro");
+                alert("Diretor cadastrado com sucesso!");
+                fecharModal("modal-overlay-cadastro-diretor");
                 buscarInstituicao();
             } else {
-                alert("Erro ao cadastrar Coordenador: " + (data.mensagem || "Erro desconhecido"));
+                alert("Erro ao cadastrar diretor: " + (data.mensagem || "Erro desconhecido"));
             }
         })
+        .catch(error => {
+            console.error("Erro ao cadastrar diretor:", error);
+            alert("Erro ao cadastrar diretor.");
+        });
+}
+
+function cadastrarCoordenador() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idInstituicao = urlParams.get('id');
+
+    const nome = document.getElementById("coordenador_nome").value.trim();
+    const email = document.getElementById("coordenador_email").value.trim();
+    const senha = document.getElementById("coordenador_senha").value.trim();
+    const cpf = document.getElementById("coordenador_cpf").value.trim();
+
+    const id_curso = document.getElementById("select_curso").value;
+
+    if (!nome || !email || !senha || !cpf || !id_curso) {
+        alert("Todos os campos são obrigatórios.");
+        return;
+    }
+
+    fetch(`/administrador/cadastrarCoordenador`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+
+        body: JSON.stringify({
+            id_curso,
+            nome,
+            email,
+            senha,
+            cpf
+        })
+    })
+
+        .then(res => res.json())
+        .then(data => {
+
+            if (data.sucesso) {
+                alert("Coordenador cadastrado com sucesso!");
+                fecharModal("modal-overlay-cadastro-coordenador");
+                buscarInstituicao();
+            } else {
+                alert(
+                    "Erro ao cadastrar Coordenador: " +
+                    (data.mensagem || "Erro desconhecido")
+                );
+            }
+        })
+
         .catch(error => {
             console.error("Erro ao cadastrar Coordenador:", error);
             alert("Erro ao cadastrar Coordenador.");
@@ -175,7 +225,7 @@ function buscarInstituicao() {
             console.log(data);
             const nomeInstituicao =
                 data.instituicao?.instituicaoNome ||
-                data.dados?.[0]?.instituicaoNome ||
+                data.dados?.[0]?.nomeInstituicao ||
                 "Sem nome";
 
             document.getElementById("nome_instituicao").textContent = nomeInstituicao;
@@ -187,4 +237,47 @@ function buscarInstituicao() {
         });
 }
 
-window.onload = buscarInstituicao;
+async function listarCursos() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idInstituicao = urlParams.get('id');
+
+    try {
+        const resposta = await fetch(
+            `/administrador/cursos/${idInstituicao}`
+        );
+
+        const cursos = await resposta.json();
+        console.log(cursos);
+        const select = document.getElementById("select_curso");
+
+        if (!select) {
+            console.error("select_curso não encontrado");
+            return;
+        }
+
+        select.innerHTML = `
+            <option value="">
+                Selecione um curso
+            </option>
+        `;
+
+        cursos.forEach(curso => {
+            select.insertAdjacentHTML(
+                'beforeend',
+                `
+                <option value="${curso.id_curso}">
+                    ${curso.nome}
+                </option>
+                `
+            );
+        });
+
+    } catch (erro) {
+        console.error("Erro ao listar cursos:", erro);
+    }
+}
+
+window.onload = () => {
+    buscarInstituicao();
+    listarCursos();
+};

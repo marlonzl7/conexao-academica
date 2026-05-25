@@ -14,7 +14,7 @@ async function renderResponsaveis(dados) {
         const email = pessoa.emailPessoa || "N/A";
         const cargo = (pessoa.cargoNome || "").toLowerCase().trim();
 
-        const estaAtivo = pessoa.usuarioAtivo === 1;
+        const estaAtivo = pessoa.usuarioAtivo == 1;
 
         const htmlPessoa = `
 <div class="pessoa-card">
@@ -125,8 +125,8 @@ function buscarInstituicao() {
         .then(data => {
             console.log(data);
             const nomeInstituicao =
-                data.instituicao?.instituicaoNome ||
-                data.dados?.[0]?.instituicaoNome ||
+                data.instituicao?.nome ||
+                data.dados?.[0]?.nomeInstituicao     ||
                 "Sem nome";
 
             document.getElementById("nome_instituicao").textContent = nomeInstituicao;
@@ -160,7 +160,7 @@ function cadastrarAdministrador() {
         return;
     }
 
-    fetch(`/administrador/cadastrar`, {
+    fetch(`/administrador/cadastrarAdministrador`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -175,7 +175,7 @@ function cadastrarAdministrador() {
         .then(data => {
             if (data.sucesso) {
                 alert("Administrador cadastrado com sucesso!");
-                fecharModal("modal-overlay-cadastro");
+                fecharModal("modal-overlay-cadastro-admin");
                 buscarInstituicao();
             } else {
                 alert("Erro ao cadastrar administrador: " + (data.mensagem || "Erro desconhecido"));

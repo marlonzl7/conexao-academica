@@ -1,0 +1,82 @@
+services:
+  mysql:
+    container_name: ${DB_HOST}
+    image: mysql:8.0
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d
+
+    ports:
+      - "${DB_PORT}:3306"
+
+  site:
+    container_name: web-data-viz
+    image: marlonzl7/conexao-academica:web-data-viz-latest
+    restart: always
+    
+    depends_on:
+      - mysql
+
+    environment:
+      AMBIENTE_PROCESSO: ${AMBIENTE_PROCESSO}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD} 
+      
+      APP_PORT: ${APP_PORT}
+      APP_HOST: ${APP_HOST}
+
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_FROM: ${SMTP_FROM}
+
+    ports:
+      - "${APP_PORT}:80"
+
+  etl-java:
+    container_name: etl-java
+    image: marlonzl7/conexao-academica:etl-java-latest
+    restart: no
+
+    depends_on:
+      - mysql
+    
+    volumes:
+      - ./bases:/app/bases
+
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+      AWS_REGION: ${AWS_REGION}
+
+      BUCKET_NAME: ${BUCKET_NAME}
+      BASES_INSTITUICAO: ${BASES_INSTITUICAO}
+      BASES_CURSO: ${BASES_CURSO}
+
+      ETL_DB_URL: ${ETL_DB_URL}
+      ETL_DB_USER: ${ETL_DB_USER}
+      ETL_DB_PASSWORD: ${ETL_DB_PASSWORD}
+
+      ETL_ROW_CACHE_SIZE: ${ETL_ROW_CACHE_SIZE}
+      ETL_BATCH_SIZE: ${ETL_BATCH_SIZE}
+      ETL_BUFFER_SIZE: ${ETL_BUFFER_SIZE}
+
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_FROM: ${SMTP_FROM}
+
+
+volumes:
+  mysql_data:

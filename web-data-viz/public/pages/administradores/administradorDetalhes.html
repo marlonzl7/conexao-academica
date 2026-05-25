@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador | Detalhes</title>
     <link rel="stylesheet" href="../../style/administradores/administradorDetalhes.css">
-    <link rel="stylesheet" href="../../style/components/header.css">
     <link rel="stylesheet" href="../../style/components/sidebar.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,47 +15,8 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="header-left">
-        </div>
-
-        <div class="header-right">
-            <a href="#" class="link-item">
-                <img src="../../assets/icons/notification-icon-fill.svg" alt="Ícone Notificação" id="notification-icon">
-            </a>
-
-            <a href="#" class="link-item">
-                <span>Username</span>
-                <img src="../../assets/icons/account-icon-fill.svg" alt="Ícone Usuário">
-            </a>
-        </div>
-    </header>
-
-    <aside class="sidebar">
-        <header class="sidebar-header">
-            <img src="../../assets/icons/logo.png" alt="Logo">
-            <span>Conexão Acadêmica</span>
-        </header>
-
-        <nav class="sidebar-main">
-
-            <a href="/pages/administradorInstituicao.html" class="link-box">
-                <img src="../../assets/icons/planner-icon.svg" alt="Ícone Painel">
-                <span>Painel</span>
-            </a>
-
-            <a href="/pages/conta.html" class="link-box">
-                <img src="../../assets/icons/person-icon.svg" alt="Ícone Conta">
-                <span>Conta</span>
-            </a>
-
-        </nav>
-
-        <footer class="sidebar-footer">
-            <img src="../../assets/icons/logout-icon.svg" alt="Logout">
-            <span>Sair</span>
-        </footer>
-    </aside>
+    <!-- Incluindo o sidebar -->
+    <div id="sidebar-container"></div>
 
     <main class="container">
         <header class="header-nav">
@@ -69,9 +29,15 @@
             <div class="info-texto">
                 <h1 id="nome_instituicao"></h1>
             </div>
-            <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro')">
-                <span class="plus-icon">+</span> Adicionar Coordenador
-            </button>
+            <div class="acoes-topo">
+                <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro-diretor')">
+                    <span class="plus-icon">+</span>Adicionar Diretor
+                </button>
+
+                <button class="btn-adicionar" onclick="abrirModal('modal-overlay-cadastro-coordenador')">
+                    <span class="plus-icon">+</span>Adicionar Coordenador
+                </button>
+            </div>
         </section>
 
         <hr class="divider">
@@ -82,7 +48,7 @@
                 <h2>Diretores</h2>
             </div>
 
-            <div class="pessoa-card" id="card_diretor">
+            <div id="card_diretor">
                 <!-- Exemplo de card de pessoa -->
             </div>
         </section>
@@ -93,7 +59,7 @@
                 <h2>Administradores</h2>
             </div>
 
-            <div class="pessoa-card" id="card_administrador">
+            <div id="card_administrador">
                 <!-- Exemplo de card de pessoa -->
             </div>
         </section>
@@ -104,19 +70,59 @@
                 <h2>Coordenador</h2>
             </div>
 
-            <div class="pessoa-card" id="card_coordenador">
+            <div id="card_coordenador">
                 <!-- Exemplo de card de pessoa -->
             </div>
         </section>
 
+        <div id="modal-overlay-cadastro-diretor" class="overlay hidden">
+            <div class="modal">
+
+                <div class="modal-header">
+                    <h2>Cadastrar Diretor</h2>
+                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro-diretor')">X</span>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" id="diretor_nome" placeholder="Ex: Carlos">
+                    </div>
+
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" id="diretor_cpf" placeholder="Ex: 19480967540">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="diretor_email" placeholder="Ex: carlos@gmail.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="diretor_senha" placeholder="Ex: cT202#R">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="modal-botao-cancelar"
+                        onclick="fecharModal('modal-overlay-cadastro-diretor')">Cancelar</button>
+                    <button class="modal-botao-confirmar" onclick="cadastrarDiretor()">Cadastrar</button>
+                </div>
+
+            </div>
+        </div>
+
         <!-- modal-overlay: div que estou usando para as sombras do background -->
-        <div id="modal-overlay-cadastro" class="overlay hidden">
+        <div id="modal-overlay-cadastro-coordenador" class="overlay hidden">
             <!-- modal de cadastro -->
             <div class="modal">
 
                 <div class="modal-header">
                     <h2>Cadastrar Coordenador</h2>
-                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro')">X</span>
+                    <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro-coordenador')">X</span>
                 </div>
 
                 <div class="modal-body">
@@ -141,11 +147,18 @@
                         <label>Senha</label>
                         <input type="password" id="coordenador_senha" placeholder="Ex: cT202#R">
                     </div>
+
+                    <div class="form-group">
+                        <label>Curso</label>
+                        <select id="select_curso">
+                            <option value="">Selecione um curso</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
                     <button class="modal-botao-cancelar"
-                        onclick="fecharModal('modal-overlay-cadastro')">Cancelar</button>
+                        onclick="fecharModal('modal-overlay-cadastro-coordenador')">Cancelar</button>
                     <button class="modal-botao-confirmar" onclick="cadastrarCoordenador()">Cadastrar</button>
                 </div>
 
@@ -153,6 +166,10 @@
         </div>
     </main>
     <script src="../../js/administradores/administradorDetalhes.js"></script>
+    <script src="../../js/include.js"></script>
+    <script>
+        initPage("Administrador | Detalhes");
+    </script>
 </body>
 
 </html>

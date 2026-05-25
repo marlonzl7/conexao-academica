@@ -7,63 +7,16 @@
     <link rel="stylesheet" href="../style/cargos.css">
     <link rel="stylesheet" href="../style/components/header.css">
     <link rel="stylesheet" href="../style/components/sidebar.css">
-    <title>Cargos - Conexão Acadêmica</title>
+    <link rel="icon" type="image/png" href="/assets/imgs/logoTopo.png">
+    
+    <title>Cargos  Conexão Acadêmica</title>
 </head>
 
 <body>
-  <aside class="sidebar">
-        <header class="sidebar-header">
-            <img src="../assets/icons/logo.png" alt="Logo">
-            <span>Conexão Acadêmica</span>
-        </header>
-
-        <nav class="sidebar-main">
-
-            <a href="../pages/dashboard.html" class="link-box">
-                <img src="../assets/icons/dash-icon.svg" alt="Ícone Dashboard">
-                <span>Dashboard</span>
-            </a>
-
-            <a href="../pages/regras.html" class="link-box">
-                <img src="../assets/icons/regra-icon.svg" alt="Ícone Regras">
-                <span>Regras</span>
-            </a>
-
-              <a href="./cargos.html" class="link-box">
-                <img src="../assets/icons/regra-icon.svg" alt="Ícone Conta">
-                <span>Cargos</span>
-            </a>
-
-            <a href="../pages/conta.html" class="link-box">
-                <img src="../assets/icons/person-icon.svg" alt="Ícone Conta">
-                <span>Conta</span>
-            </a>
-
-        </nav>
-
-        <footer class="sidebar-footer">
-            <a href="./index.html" class="link-box">
-            <img src="../assets/icons/logout-icon.svg" alt="Logout">
-            <span>Sair</span>
-            </a>
-        </footer>
-    </aside>
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
  
     <div class="main-wrap">
-        <header class="topbar">
-            <button class="topbar-icon-btn" title="Notificações">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                </svg>
-            </button>
-            <div class="topbar-user">
-                <div class="topbar-avatar">U</div>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="6 9 12 15 18 9"/>
-                </svg>
-            </div>
-        </header>
  
         <section class="content">
             <h1>Visualizar Cargos</h1>
@@ -144,129 +97,12 @@
             </div>
         </div>
     </div>
- 
+
 </body>
- 
+
+<script src="/js/include.js"></script> 
+<script src="/js/cargos.js"></script>
 <script>
-    const API = "http://localhost:3333/cargos";
-    let cargoSelecionadoId = null;
- 
-    async function carregarCargos() {
-        let data = [];
-        try {
-            const response = await fetch(API);
-            if (!response.ok) throw new Error("Erro na API");
-            data = await response.json();
-        } catch {
-            data = [
-                { id_cargo: 1, nome: "Administrador" },
-                { id_cargo: 2, nome: "Coordenador" },
-                { id_cargo: 3, nome: "Diretor" }
-            ];
-        }
- 
-        const tabela = document.getElementById("tabelaCargos");
-        tabela.innerHTML = "";
-        data.forEach(cargo => {
-            tabela.innerHTML += `
-                <tr>
-                    <td>${cargo.nome}</td>
-                    <td>
-                        <button onclick="abrirModalEditar(${cargo.id_cargo}, '${cargo.nome}')" title="Editar">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                            </svg>
-                        </button>
-                        <button onclick="abrirModalExcluir(${cargo.id_cargo})" title="Excluir">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="3 6 5 6 21 6"/>
-                                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-                                <path d="M10 11v6"/>
-                                <path d="M14 11v6"/>
-                                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-                            </svg>
-                        </button>
-                    </td>
-                </tr>
-            `;
-        });
-    }
- 
-    async function criarCargo() {
-        const nome = document.getElementById("inputNovo").value.trim();
-        if (!nome) return;
-        try {
-            await fetch(API, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ nome })
-            });
-        } catch {}
-        document.getElementById("inputNovo").value = "";
-        fecharModal("modalNovo");
-        carregarCargos();
-    }
- 
-    async function atualizarCargo() {
-        const nome = document.getElementById("inputEditar").value.trim();
-        if (!nome) return;
-        try {
-            await fetch(`${API}/${cargoSelecionadoId}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ nome })
-            });
-        } catch {}
-        fecharModal("modalEditar");
-        carregarCargos();
-    }
- 
-    async function deletarCargo() {
-        try {
-            await fetch(`${API}/${cargoSelecionadoId}`, { method: "DELETE" });
-        } catch {}
-        fecharModal("modalExcluir");
-        carregarCargos();
-    }
- 
-    function abrirModalNovo() {
-        document.getElementById("inputNovo").value = "";
-        abrirModal("modalNovo");
-    }
- 
-    function abrirModalEditar(id, nome) {
-        cargoSelecionadoId = id;
-        document.getElementById("inputEditar").value = nome;
-        abrirModal("modalEditar");
-    }
- 
-    function abrirModalExcluir(id) {
-        cargoSelecionadoId = id;
-        abrirModal("modalExcluir");
-    }
- 
-    function abrirModal(id) {
-        document.getElementById(id).classList.add("show");
-    }
- 
-    function fecharModal(id) {
-        document.getElementById(id).classList.remove("show");
-    }
- 
-    document.querySelectorAll(".modal").forEach(modal => {
-        modal.addEventListener("click", function(e) {
-            if (e.target === modal) fecharModal(modal.id);
-        });
-    });
- 
-    document.addEventListener("keydown", e => {
-        if (e.key === "Escape") {
-            document.querySelectorAll(".modal.show").forEach(m => fecharModal(m.id));
-        }
-    });
- 
-    window.onload = carregarCargos;
+    initPage("Cargos");
 </script>
- 
 </html>

@@ -4,6 +4,10 @@ var router = express.Router();
 var usuarioController = require("../controllers/usuarioController");
 var { validarCadastroUsuario } = require("../validadores/usuarioValidador");
 
+router.post("/administrador-instituicao", validarCadastroUsuario, function(req, res) {
+    usuarioController.cadastrarUsuarioAdministradorInstituicao(req, res);
+});
+
 router.post("/diretor", validarCadastroUsuario, function (req, res) {
     usuarioController.cadastrarUsuarioDiretor(req, res);
 });

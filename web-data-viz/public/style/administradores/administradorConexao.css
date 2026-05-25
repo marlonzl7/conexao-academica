@@ -6,13 +6,13 @@
 }
 
 body {
-    background-color: #fcfcfc;
+    background-color: #f4f4f4;
     color: #333;
 }
 
 .content-wrapper {
     margin-left: 250px; 
-    padding-top: 40px;  
+    padding-top: 60px;  
     min-height: 100vh;
     display: flex;
     justify-content: center; 

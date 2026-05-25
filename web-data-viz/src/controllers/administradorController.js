@@ -73,6 +73,22 @@ async function alterarStatusUsuario(req, res) {
     }
 }
 
+async function cadastrarDiretor(req, res) {
+    const { idInstituicao, cpf, nome, email, senha } = req.body;
+
+    if (!idInstituicao || !nome || !email || !cpf || !senha) {
+        return res.status(400).json(respostaErro("Todos os campos são obrigatórios"));
+    }
+
+    try {
+        await administradorModel.cadastrarDiretor(idInstituicao, cpf, nome, email, senha);
+        res.status(201).json({ sucesso: true, mensagem: "Diretor cadastrado" });
+    } catch (erro) {
+        console.error("Erro no controller:", erro);
+        res.status(500).json(respostaErro("Erro ao cadastrar diretor"));
+    }
+}
+
 async function cadastrarAdministrador(req, res) {
     const { idInstituicao, cpf, nome, email, senha } = req.body;
 
@@ -90,18 +106,30 @@ async function cadastrarAdministrador(req, res) {
 }
 
 async function cadastrarCoordenador(req, res) {
-    const { idInstituicao, cpf, nome, email, senha } = req.body;
+    const { id_curso, cpf, nome, email, senha } = req.body;
 
-    if (!idInstituicao || !nome || !email || !cpf || !senha) {
+    if (!id_curso || !nome || !email || !cpf || !senha) {
         return res.status(400).json(respostaErro("Todos os campos são obrigatórios"));
     }
 
     try {
-        await administradorModel.cadastrarCoordenador(idInstituicao, cpf, nome, email, senha);
+        await administradorModel.cadastrarCoordenador(id_curso, cpf, nome, email, senha);
         res.status(201).json({ sucesso: true, mensagem: "Coordenador cadastrado" });
     } catch (erro) {
         console.error("Erro no controller:", erro);
         res.status(500).json(respostaErro("Erro ao cadastrar coordenador"));
+    }
+}
+
+async function listarCursos(req, res) {
+    const { idInstituicao } = req.params;
+
+    try{
+        const cursos = await administradorModel.listarCursos(idInstituicao);
+        res.status(200).json(cursos);
+    }catch(erro){
+        console.error("Erro no controller:", erro);
+        res.status(500).json(respostaErro("Erro ao listar cursos"));
     }
 }
 
@@ -125,7 +153,9 @@ module.exports = {
     buscarPorId,
     pesquisarInstituicoes,
     alterarStatusUsuario,
+    cadastrarDiretor,
     cadastrarAdministrador,
     cadastrarCoordenador,
+    listarCursos,
     buscarKPIs
 };

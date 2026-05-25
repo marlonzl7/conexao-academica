@@ -14,7 +14,7 @@ function formatarCPF(cpf) {
 }
 
 function buscarDados() {
-    const usuarioStr = localStorage.getItem("usuario");
+    const usuarioStr = sessionStorage.getItem("USUARIO");
     if (!usuarioStr) return console.error("Usuário não logado");
 
     const usuario = JSON.parse(usuarioStr);

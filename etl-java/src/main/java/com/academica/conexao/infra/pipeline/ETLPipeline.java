@@ -8,6 +8,9 @@ import org.apache.poi.ss.usermodel.Row;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -48,13 +51,17 @@ public abstract class ETLPipeline {
                 logsManager.log(LogLevel.INFO, getClass().getSimpleName(), "Iniciando processo de ETL para base: " + base);
                 contador = 0;
                 contadorErros = 0;
+                Path tmp = null;
 
                 try {
                     connection.setAutoCommit(false);
 
                     try {
-                        InputStream is = s3Service.abrirStream(base);
-                        leitor.abrir(is);
+                        InputStream s3Stream = s3Service.abrirStream(base);
+                        tmp = Files.createTempFile("etl-", ".xlsx");
+                        Files.copy(s3Stream, tmp, StandardCopyOption.REPLACE_EXISTING);
+                        s3Stream.close();
+                        leitor.abrir(Files.newInputStream(tmp));
                     } catch (IOException e) {
                         logsManager.log(LogLevel.ERROR, getClass().getSimpleName(), "Erro ao abrir Stream. Pulando para próxima base. Erro: " + e.getMessage());
                         continue;
@@ -106,6 +113,12 @@ public abstract class ETLPipeline {
                         leitor.fechar();
                     } catch (Exception e) {
                         logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Erro ao fechar leitor excel: " + e.getMessage());
+                    }
+
+                    try {
+                        if (tmp != null) Files.deleteIfExists(tmp);
+                    } catch (Exception e) {
+                        logsManager.log(LogLevel.WARN, getClass().getSimpleName(), "Erro ao deletar arquivo temporário: " + e.getMessage());
                     }
                 }
             }
