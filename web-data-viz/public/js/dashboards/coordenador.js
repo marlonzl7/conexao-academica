@@ -35,7 +35,6 @@ async function carregarDashboard() {
             respostaGraficoLinha,
             respostaSituacao
         ] = await Promise.all([
-
             fetch(`/dashboards/coordenador/kpis?idCurso=${idCurso}&inicio=${inicio}&fim=${fim}`),
 
             fetch(`/dashboards/coordenador/graficos/taxa-evasao-anual?idCurso=${idCurso}&inicio=${inicio}&fim=${fim}`),
@@ -52,6 +51,14 @@ async function carregarDashboard() {
         console.log(graficoLinhaResposta);
 
         console.log(situacaoResposta);
+
+        const tituloGrafico = document
+            .getElementById("titulo-grafico-linha");
+
+        tituloGrafico.innerText =
+            inicio === fim
+                ? `Taxa de evasão (${inicio})`
+                : `Taxa de evasão (${inicio} - ${fim})`;
 
         preencherKpis(kpis);
 
@@ -122,21 +129,55 @@ async function carregarFiltros() {
 
 function preencherKpis(resposta) {
 
-    const kpis = resposta.dados.kpis;
+    const { kpis } = resposta.dados;
 
     document.getElementById("kpi-total-matriculas")
         .innerText = kpis.matriculas.valor;
 
-    document.getElementById("classificacao-total-matriculas")
-        .innerText = kpis.matriculas.unidade;
+    const classificacaoMatriculas = document
+        .getElementById("classificacao-total-matriculas");
+
+    if (kpis.matriculas.classificacao) {
+
+        classificacaoMatriculas.innerText =
+            `${kpis.matriculas.classificacao.nome} - ${kpis.matriculas.classificacao.descricao}`;
+
+        classificacaoMatriculas.style.color =
+            kpis.matriculas.classificacao.cor;
+
+    } else {
+
+        classificacaoMatriculas.innerText =
+            "Sem classificação";
+
+        classificacaoMatriculas.style.color = "";
+
+    }
 
     document.getElementById("kpi-alunos-evadidos")
         .innerText = kpis.evadidos.valor;
 
-    document.getElementById("classificacao-alunos-evadidos")
-        .innerText = kpis.evadidos.unidade;
+    const classificacaoEvadidos = document
+        .getElementById("classificacao-alunos-evadidos");
 
-        document.getElementById("kpi-taxa-evasao")
+    if (kpis.evadidos.classificacao) {
+
+        classificacaoEvadidos.innerText =
+            `${kpis.evadidos.classificacao.nome} - ${kpis.evadidos.classificacao.descricao}`;
+
+        classificacaoEvadidos.style.color =
+            kpis.evadidos.classificacao.cor;
+
+    } else {
+
+        classificacaoEvadidos.innerText =
+            "Sem classificação";
+
+        classificacaoEvadidos.style.color = "";
+
+    }
+
+    document.getElementById("kpi-taxa-evasao")
         .innerText = `${kpis.taxaEvasao.valor}%`;
 
     const classificacaoTaxa = document
@@ -152,7 +193,10 @@ function preencherKpis(resposta) {
 
     } else {
 
-        classificacaoTaxa.innerText = "Sem classificação";
+        classificacaoTaxa.innerText =
+            "Sem classificação";
+
+        classificacaoTaxa.style.color = "";
 
     }
 
@@ -172,7 +216,10 @@ function preencherKpis(resposta) {
 
     } else {
 
-        descricaoRisco.innerText = "Sem classificação";
+        descricaoRisco.innerText =
+            "Sem classificação";
+
+        descricaoRisco.style.color = "";
 
     }
 }
@@ -189,9 +236,14 @@ function renderizarGraficoLinha(dados) {
 
     const ctx = document.getElementById("lineChart").getContext("2d");
 
+    const tipoGrafico =
+        dados.length === 1
+            ? "bar"
+            : "line";
+
     lineChart = new Chart(ctx, {
 
-        type: "line",
+        type: tipoGrafico,
 
         data: {
 

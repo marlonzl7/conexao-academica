@@ -38,6 +38,20 @@ async function listarKPIs({ idCurso, inicio, fim }) {
             "taxa_evasao_curso"
         );
 
+    const classificacaoMatriculas =
+        buscarClassificacao(
+            kpi.matriculas,
+            regras,
+            "matriculas_curso"
+        );
+
+    const classificacaoEvadidos =
+        buscarClassificacao(
+            kpi.evadidos,
+            regras,
+            "evadidos_curso"
+        );
+
     const classificacaoRiscoEvasao =
         buscarClassificacao(
             kpi.risco_evasao,
@@ -58,12 +72,16 @@ async function listarKPIs({ idCurso, inicio, fim }) {
         kpis: {
             matriculas: {
                 valor: Number(kpi.matriculas),
-                unidade: "alunos"
+                unidade: "alunos",
+                classificacao: 
+                    classificacaoMatriculas
             },
 
             evadidos: {
                 valor: Number(kpi.evadidos),
-                unidade: "alunos"
+                unidade: "alunos",
+                classificacao:
+                    classificacaoEvadidos
             },
 
             taxaEvasao: {
