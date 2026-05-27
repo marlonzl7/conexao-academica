@@ -1,5 +1,5 @@
 const kpiModel = require("../models/kpiModel");
-const { respostaSucesso, respostaErro } = require("../database/dtos/resposta");
+const { respostaSucesso, respostaErro } = require("../dtos/resposta");
 
 async function listarKpis(req, res) {
     try {
@@ -16,9 +16,9 @@ async function listarKpis(req, res) {
 
 async function buscarKpi(req, res) {
     try {
-        const { id_kpi } = req.params;
+        const { id } = req.params;
 
-        const resultado = await kpiModel.buscarKpi(id_kpi);
+        const resultado = await kpiModel.buscarKpi(id);
 
         if(!resultado || resultado.length === 0) {
             return res.status(404).json(respostaErro("KPI não encontrada"));

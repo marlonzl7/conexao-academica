@@ -35,7 +35,7 @@ function buscarDados() {
 }
 
 function carregarDados() {
-    const usuarioStr = localStorage.getItem("usuario");
+    const usuarioStr = sessionStorage.getItem("usuario");
     if (!usuarioStr) return;
 
     const usuario = JSON.parse(usuarioStr);
@@ -57,7 +57,7 @@ function carregarDados() {
 function salvar(event) {
     event.preventDefault(); 
 
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuario = JSON.parse(sessionStorage.getItem("usuario"));
     const idUsuario = usuario.id_usuario;
 
     const nome = document.getElementById("nome").value;
@@ -80,7 +80,7 @@ function salvar(event) {
     
             usuario.nome = nome;
             usuario.email = email;
-            localStorage.setItem("usuario", JSON.stringify(usuario));
+            sessionStorage.setItem("usuario", JSON.stringify(usuario));
             
             window.location.href = "informacoes-da-conta.html";
         } else {
@@ -91,7 +91,7 @@ function salvar(event) {
 }
 
 function alterarSenha() {
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuario = JSON.parse(sessionStorage.getItem("USUARIO"));
     const idUsuario = usuario.id_usuario;
 
     const senhaAtual = document.getElementById("senhaAtual").value;
@@ -127,7 +127,7 @@ function alterarSenha() {
 }
 
 function confirmarExclusao() {
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuario = JSON.parse(sessionStorage.getItem("usuario"));
     const idUsuario = usuario.id_usuario;
 
     
@@ -144,7 +144,7 @@ function confirmarExclusao() {
             if (resposta.sucesso) {
                 alert("Sua conta foi excluída com sucesso.");
                 
-                localStorage.clear();
+                sessionStorage.clear();
                 sessionStorage.clear();
                 
                 window.location.href = "login.html";

@@ -132,7 +132,7 @@ function redirecionarPorCargo(cargo) {
 
     switch (cargo) {
 
-        case "administrador":
+        case "administrador_sistema":
             window.location.href =
                 "/pages/administradores/administradorConexao.html";
             break;
@@ -154,7 +154,7 @@ function redirecionarPorCargo(cargo) {
 
         default:
             window.location.href =
-                "/index.html";
+                "/pages/index.html";
     }
 }
 
