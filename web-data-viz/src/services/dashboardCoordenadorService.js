@@ -169,6 +169,15 @@ async function listarSituacaoAlunos({
     };
 }
 
+async function listarPeriodos(idCurso) {
+    const resultado =
+        await dashboardCoordenadorModel.listarPeriodos(idCurso);
+
+    return {
+        anos: resultado
+    }
+}
+
 function buscarClassificacao(
     valor,
     regras,
@@ -197,5 +206,6 @@ function buscarClassificacao(
 module.exports = {
     listarKPIs,
     listarTaxaEvasaoAnual,
-    listarSituacaoAlunos
+    listarSituacaoAlunos,
+    listarPeriodos
 };

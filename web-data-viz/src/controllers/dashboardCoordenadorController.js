@@ -97,8 +97,30 @@ async function listarSituacaoAlunos(req, res) {
     }
 }
 
+async function listarPeriodos(req, res) {
+    try {
+        const { idCurso } = req.query;
+
+        const resultado =
+            await dashboardCoordenadorService.listarPeriodos(idCurso);
+
+        return res.status(200).json(respostaSucesso(
+            true,
+            resultado,
+            "Períodos listados com sucesso"
+        ));
+    } catch (erro) {
+        console.log(erro);
+
+        return res.status(500).json(
+            respostaErro("Erro internon no servidor")
+        );
+    }
+}
+
 module.exports = {
     listarKPIs,
     listarTaxaEvasaoAnual,
-    listarSituacaoAlunos
+    listarSituacaoAlunos,
+    listarPeriodos
 };

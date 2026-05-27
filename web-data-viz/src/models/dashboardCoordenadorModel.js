@@ -142,11 +142,23 @@ async function listarSituacaoAlunosPorPeriodo(idCurso, inicio, fim) {
     return await database.executar(instrucao, [idCurso, inicio, fim]);
 }
 
+async function listarPeriodos(idCurso) {
+    const instrucao = `
+        SELECT ano_emissao AS ano
+        FROM vw_indic_curso
+        WHERE id_curso = ?
+        ORDER BY ano_emissao ASC
+    `;
+
+    return await database.executar(instrucao, [idCurso]);
+}
+
 module.exports = {
     listarKPIs,
     listarKPIsPorPeriodo,
     listarTaxaEvasaoAnual,
     listarTaxaEvasaoAnualPorPeriodo,
     listarSituacaoAlunos,
-    listarSituacaoAlunosPorPeriodo
+    listarSituacaoAlunosPorPeriodo,
+    listarPeriodos
 }
