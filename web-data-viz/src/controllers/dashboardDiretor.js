@@ -41,8 +41,24 @@ async function getGraficoEvasao(req, res) {
     }
 }
 
+async function getTaxaEvasaoAnual(req, res) {
+    try{
+        const anoInicio = req.query.anoInicio;
+        const anoFim = req.query.anoFim;
+        const idInstituicao = req.query.idInstituicao;
+
+        const responseFromModel = await dashboardDiretorModel.getGraficoResumoEvasao(anoInicio, anoFim, idInstituicao);
+        return res.status(200).json(responseFromModel);
+    }
+    catch (erro) {
+        console.error("Erro na controller (getTaxaEvasaoAnual):", erro);
+        return res.status(500).json({ erro: erro.message });
+    }
+}
+
 module.exports = {
     getKPIs,
     getAnosDisponiveis,
-    getGraficoEvasao
+    getGraficoEvasao,
+    getTaxaEvasaoAnual
 };

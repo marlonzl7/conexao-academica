@@ -42,8 +42,26 @@ async function getGraficoEvasao(anoInicio, anoFim, idInstituicao) {
     return await database.executar(instrucao, [anoInicio, anoFim, idInstituicao]);
 }
 
+async function getGraficoResumoEvasao(anoInicio, anoFim, idInstituicao) {
+    var instrucao = `
+    SELECT 
+        SUM(quantidade_matriculas) AS totalMatriculas,
+        SUM(quantidades_desvinculados) AS qtdDesvinculados,
+        SUM(quantidade_trancados) AS qtdTrancados,
+        id_instituicao AS idInstituicao,
+        ano_emissao AS anoEmissao
+    FROM vw_indic_curso 
+        WHERE ano_emissao BETWEEN ? AND ? AND id_instituicao = ?
+    GROUP BY ano_emissao, id_instituicao ORDER BY ano_emissao ASC;
+    `;
+
+    return await database.executar(instrucao, [anoInicio, anoFim, idInstituicao]);
+}
+
+
 module.exports = {
     getKPIs,
     getAnosDisponiveis,
-    getGraficoEvasao
+    getGraficoEvasao,
+    getGraficoResumoEvasao
 };
