@@ -27,17 +27,11 @@
         <div class="filtros">
             <span class="filtros-label">Período</span>
             <div class="filtros-row">
-                <select class="filtro-select" id="ano-inicio" name="ano-inicio">
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025" selected>2025</option>
+                <select class="filtro-select" id="ano-inicio" name="ano-inicio" onchange="buscarDados()">
+                    
                 </select>
-                <select class="filtro-select" id="ano-fim" name="ano-fim">
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                    <option value="2026" selected>2026</option>
+                <select class="filtro-select" id="ano-fim" name="ano-fim" onchange="buscarDados()">
+                    
                 </select>
             </div>
         </div>
@@ -58,17 +52,14 @@
                         </svg>
                     </div>
                 </div>
-                <p class="kpi-value">1.586</p>
+                <p class="kpi-value" id="total-matriculas"></p>
                 <div class="kpi-card-footer">
                     <span class="kpi-classification">Classificação: <b class="class-baixa">Baixa (entre 0 e
                             100)</b></span>
                     <div class="kpi-tooltip-wrap">
-                        <a href="../regras.html">
-                            <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
-                        </a>
+                        <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
                         <div class="kpi-tooltip-box">
-                            Os limites desta classificação foram definidos por uma regra ativa. Para revisar ou criar
-                            novas regras, acesse <strong>Regras</strong> no menu lateral ou clique aqui.
+                            Os limites desta classificação foram definidos por uma regra ativa.
                         </div>
                     </div>
                 </div>np
@@ -85,16 +76,13 @@
                         </svg>
                     </div>
                 </div>
-                <p class="kpi-value">255</p>
+                <p class="kpi-value" id="alunos-evadidos"></p>
                 <div class="kpi-card-footer">
                     <span class="kpi-classification">Classificação: <b class="class-baixa">Baixa</b></span>
                     <div class="kpi-tooltip-wrap">
-                        <a href="../regras.html">
-                            <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
-                        </a>
+                        <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
                         <div class="kpi-tooltip-box">
-                            Os limites desta classificação foram definidos por uma regra ativa. Para revisar ou criar
-                            novas regras, acesse <strong>Regras</strong> no menu lateral ou clique aqui.
+                            Os limites desta classificação foram definidos por uma regra ativa.
                         </div>
                     </div>
                 </div>
@@ -112,16 +100,13 @@
                         </svg>
                     </div>
                 </div>
-                <p class="kpi-value">47%</p>
+                <p class="kpi-value" id="taxa-evasao"></p>
                 <div class="kpi-card-footer">
                     <span class="kpi-classification">Classificação: <b class="class-critica">Crítica</b></span>
                     <div class="kpi-tooltip-wrap">
-                        <a href="../regras.html">
-                            <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
-                        </a>
+                        <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
                         <div class="kpi-tooltip-box">
-                            Os limites desta classificação foram definidos por uma regra ativa. Para revisar ou criar
-                            novas regras, acesse <strong>Regras</strong> no menu lateral ou clique aqui.
+                            Os limites desta classificação foram definidos por uma regra ativa.
                         </div>
                     </div>
                 </div>
@@ -140,16 +125,13 @@
                         </svg>
                     </div>
                 </div>
-                <p class="kpi-value">20%/80%</p>
+                <p class="kpi-value" id="evasao-presencial-ead"></p>
                 <div class="kpi-card-footer">
                     <span class="kpi-classification">Classificação: <b class="class-baixa">Baixa</b></span>
                     <div class="kpi-tooltip-wrap">
-                        <a href="../regras.html">
-                            <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
-                        </a>
+                        <img class="kpi-tooltip-icon" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
                         <div class="kpi-tooltip-box">
-                            Os limites desta classificação foram definidos por uma regra ativa. Para revisar ou criar
-                            novas regras, acesse <strong>Regras</strong> no menu lateral ou clique aqui.
+                            Os limites desta classificação foram definidos por uma regra ativa.
                         </div>
                     </div>
                 </div>
@@ -163,7 +145,7 @@
             <div class="chart-card">
                 <h2 class="chart-title">Top 3 Cursos com maior evasão</h2>
                 <div class="chart-canvas-container" style="height: 300px;">
-                    <canvas id="chartRanking"></canvas>
+                    <canvas id="chartRanking" onchange="carregarGraficoEvasao()"></canvas>
                 </div>
             </div>
 
