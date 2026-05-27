@@ -1,68 +1,62 @@
 const idInstituicao = sessionStorage.getItem('ID_INSTITUICAO');
+let chartRankingInstance = null;
+
+function carregarDados() {
+    getKPIs();
+    carregarGraficoEvasao();
+}
 
 async function carregarAnos() {
+    try {
+        const selectAnoInicio =
+            document.getElementById('ano-inicio');
 
-    const selectAnoInicio =
-        document.getElementById('ano-inicio');
+        const selectAnoFim =
+            document.getElementById('ano-fim');
 
-    const selectAnoFim =
-        document.getElementById('ano-fim');
+        const resposta = await fetch(
+            `/dashboards/diretor/anos-disponiveis?idInstituicao=${idInstituicao}`
+        );
 
-    const resposta = await fetch(
-        `/dashboards/diretor/anos-disponiveis?idInstituicao=${idInstituicao}`
-    );
+        const anos = await resposta.json();
 
-    const anos = await resposta.json();
+        selectAnoInicio.innerHTML = '';
+        selectAnoFim.innerHTML = '';
 
-    selectAnoInicio.innerHTML = '';
-    selectAnoFim.innerHTML = '';
-
-    anos.forEach(item => {
-
-        selectAnoInicio.innerHTML += `
+        anos.forEach(item => {
+            selectAnoInicio.innerHTML += `
             <option value="${item.ano}">
                 ${item.ano}
             </option>
         `;
-
-        selectAnoFim.innerHTML += `
+            selectAnoFim.innerHTML += `
             <option value="${item.ano}">
                 ${item.ano}
             </option>
         `;
-    });
+        });
 
-    // seleciona automaticamente
-    selectAnoInicio.value = anos[0].ano;
+        if (anos.length > 0) {
+            selectAnoInicio.value = anos[0].ano;
+            selectAnoFim.value = anos[anos.length - 1].ano;
+        }
 
-    selectAnoFim.value =
-        anos[anos.length - 1].ano;
-
-    await getKPIs();
+        carregarDados();
+    } catch (erro) {
+        console.error('Erro ao carregar anos disponíveis:', erro);
+    }
 }
 
 async function buscarDados() {
     const anoInicio = document.getElementById('ano-inicio').value;
     const anoFim = document.getElementById('ano-fim').value;
 
-    if(anoInicio && anoFim && anoInicio > anoFim) {
+    if (anoInicio && anoFim && anoInicio > anoFim) {
         alert('O ano de início deve ser menor ou igual ao ano de fim.');
         return;
     }
 
-    const respostaKPIs = await fetch(`/dashboards/diretor/kpis?anoInicio=${anoInicio}&anoFim=${anoFim}&idInstituicao=${idInstituicao}`);
-    const respostaGrafico = await fetch(`/dashboards/diretor/graficos/top-3-maior-evasao?anoInicio=${anoInicio}&anoFim=${anoFim}&idInstituicao=${idInstituicao}`);
-
-    if (!respostaKPIs.ok) {
-        console.error('Erro ao buscar KPIs:', respostaKPIs.statusText);
-        return;
-    }
-    if (!respostaGrafico.ok) {
-        console.error('Erro ao buscar gráfico:', respostaGrafico.statusText);
-        return;
-    }
-
-    await getKPIs();
+    carregarDados();
 }
 
 async function getKPIs() {
@@ -87,91 +81,108 @@ async function getKPIs() {
         })
         .catch(error => {
             console.error('Erro ao buscar KPIs:', error);
-             totalMatriculas.textContent = 'N/A';
-             alunosEvadidos.textContent = 'N/A';
-             taxaEvasao.textContent = 'N/A';
-             evasaoPresencialEAD.textContent = 'N/A';
-         });
+            totalMatriculas.textContent = 'N/A';
+            alunosEvadidos.textContent = 'N/A';
+            taxaEvasao.textContent = 'N/A';
+            evasaoPresencialEAD.textContent = 'N/A';
+        });
 }
 
-new Chart(document.getElementById('chartRanking'), {
-    type: 'bar',
-    data: {
-        labels: ['2013', '2015', '2016', '2017', '2018'],
-        datasets: [
-            {
-                label: 'ADS',
-                data: [100, 100, 110, 115, 105],
-                backgroundColor: '#ef4444',
-                stack: 'stack0',
-                borderRadius: 8,
-            },
-            {
-                label: 'CCO',
-                data: [80, 75, 60, 55, 80],
-                backgroundColor: '#3b82f6',
-                stack: 'stack0',
-                borderRadius: 8,
-            },
-            {
-                label: 'SIS',
-                data: [95, 35, 35, 30, 60],
-                backgroundColor: '#f97316',
-                stack: 'stack0',
-                borderRadius: 8,
+function carregarGraficoEvasao() {
+    const anoInicio = document.getElementById('ano-inicio').value;
+    const anoFim = document.getElementById('ano-fim').value;
+
+    fetch(`/dashboards/diretor/graficos/top-3-maior-evasao?anoInicio=${anoInicio}&anoFim=${anoFim}&idInstituicao=${idInstituicao}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Dados do gráfico de evasão:', data);
+
+            const listaDados = Array.isArray(data) ? data : [data];
+            const anosUnicos = [...new Set(listaDados.map(item => item.anoEmissao))];
+            const cursosUnicos = [...new Set(listaDados.map(item => item.nomeCurso))];
+
+            const chartExistente = Chart.getChart("chartRanking");
+            if (chartExistente) {
+                chartExistente.destroy();
             }
-        ]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'bottom',
-                align: 'center',
-                labels: {
-                    usePointStyle: true,
-                    pointStyle: 'circle',
-                    boxWidth: 8,
-                    font: { family: 'Public Sans', size: 12 },
-                    color: '#6b7280',
-                    padding: 20
-                }
-            },
-            tooltip: {
-                backgroundColor: '#1a1a2e',
-                titleFont: { family: 'Public Sans', size: 12 },
-                bodyFont: { family: 'Public Sans', size: 12 },
-                padding: 10,
-                cornerRadius: 8,
-                mode: 'index',
-                intersect: false,
-            }
-        },
-        scales: {
-            x: {
-                stacked: true,
-                grid: { display: false },
-                border: { display: false },
-                ticks: {
-                    font: { family: 'Public Sans', size: 12 },
-                    color: '#6b7280'
-                }
-            },
-            y: {
-                stacked: true,
-                grid: { color: '#b3b3b3' },
-                border: { display: false },
-                ticks: {
-                    font: { family: 'Public Sans', size: 11 },
-                    color: '#9ca3af',
-                    maxTicksLimit: 6,
+
+            const datasetsFormatados = cursosUnicos.slice(0, 3).map((curso, index) => {
+                const dadosAlinhadosPorAno = anosUnicos.map(ano => {
+                    const correspondencia = listaDados.find(item => item.nomeCurso === curso && item.anoEmissao === ano);
+                    return correspondencia ? correspondencia.qtdDesvinculados : 0;
+                });
+
+                return {
+                    label: curso,
+                    data: dadosAlinhadosPorAno,
+                    backgroundColor: ['#ef4444', '#3b82f6', '#f97316'][index],
+                    stack: 'stack0',
+                    borderRadius: 8,
+                };
+            });
+
+            new Chart(document.getElementById('chartRanking'), {
+                type: 'bar',
+                data: {
+                    labels: anosUnicos,
+                    datasets: datasetsFormatados
                 },
-                beginAtZero: true,
-            }
-        }
-    }
-});
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            align: 'center',
+                            labels: {
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                boxWidth: 8,
+                                font: { family: 'Public Sans', size: 12 },
+                                color: '#6b7280',
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1a1a2e',
+                            titleFont: { family: 'Public Sans', size: 12 },
+                            bodyFont: { family: 'Public Sans', size: 12 },
+                            padding: 10,
+                            cornerRadius: 8,
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { display: false },
+                            border: { display: false },
+                            ticks: {
+                                font: { family: 'Public Sans', size: 12 },
+                                color: '#6b7280'
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            grid: { color: '#b3b3b3' },
+                            border: { display: false },
+                            ticks: {
+                                font: { family: 'Public Sans', size: 11 },
+                                color: '#9ca3af',
+                                maxTicksLimit: 6,
+                            },
+                            beginAtZero: true,
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao buscar dados do gráfico de evasão:', error);
+        });
+}
+
 
 // grafico 2
 new Chart(document.getElementById('chartTrend'), {
@@ -215,7 +226,7 @@ new Chart(document.getElementById('chartTrend'), {
                 tension: 0,
                 fill: false,
             }
-            
+
         ]
     },
     options: {
@@ -267,7 +278,8 @@ new Chart(document.getElementById('chartTrend'), {
     }
 });
 
-window.onload = async function() {
+window.onload = async function () {
     await carregarAnos();
     await getKPIs();
+    await carregarGraficoEvasao();
 };
