@@ -16,4 +16,8 @@ router.get("/graficos/situacao-alunos", validarPeriodo, function (req, res) {
     dashboardCoordenadorController.listarSituacaoAlunos(req, res);
 });
 
+router.get("/anos", function(req, res) {
+    dashboardCoordenadorController.listarPeriodos(req, res);
+})
+
 module.exports = router;

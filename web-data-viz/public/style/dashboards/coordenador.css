@@ -12,6 +12,13 @@
        min-height: 100vh;
    }
 
+   .main {
+        margin-left: 270px;
+        width: calc(100% - 270px);
+        min-height: 100vh;
+
+        padding: 120px 24px 24px;
+    }
 
    .link-box {
        display: flex;
@@ -110,7 +117,6 @@
    }
 
    .cards {
-        margin-top: 80px;
        display: grid;
        grid-template-columns: repeat(4, 1fr);
        gap: 18px;
@@ -294,8 +300,14 @@
        border-radius: 12px;
        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
        margin-right: 17px;
+       height: 400px;
 
    }
+
+    #lineChart {
+        width: 100% !important;
+        height: 100% !important;
+    }
 
 
    canvas {
