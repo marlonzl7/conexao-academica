@@ -5,7 +5,7 @@ async function listarRegras(req, res) {
     try {
         const idInstituicao = req.query.id_instituicao;
 	
-	console.log("Listar regras. ID_INSTITUICAO: " + idInstituicao);
+	    console.log("Listar regras. ID_INSTITUICAO: " + idInstituicao);
 
         const resultado = await regraModel.listarRegras(idInstituicao);
         return res.status(200).json(respostaSucesso(true, resultado, "Regras listadas com sucesso."));
@@ -18,8 +18,8 @@ async function listarRegras(req, res) {
 async function cadastrarRegra(req, res) {
     try {
         const {
-            idUsuario,
-            kpi,
+            idInstituicao,
+            idKpi,
             classificacao,
             descricao,
             cor,
@@ -28,8 +28,8 @@ async function cadastrarRegra(req, res) {
         } = req.body;
 
         await regraModel.cadastrarRegra(
-            idUsuario,
-            kpi,
+            idInstituicao,
+            idKpi,
             classificacao,
             descricao,
             cor,

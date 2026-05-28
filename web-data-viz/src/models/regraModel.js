@@ -1,9 +1,9 @@
 var database = require("../database/config")
 
-async function cadastrarRegra(idUsuario, idKpi, classificacao, descricao, corHexadecimal, limiteInferior, limiteSuperior) {
+async function cadastrarRegra(idInstituicao, idKpi, classificacao, descricao, corHexadecimal, limiteInferior, limiteSuperior) {
 
-    const instrucao = `INSERT INTO regra (id_usuario, id_kpi, classificacao, descricao, cor_hexadecimal, limite_inferior, limite_superior) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    const parametros = [idUsuario, idKpi, classificacao, descricao, corHexadecimal, limiteInferior, limiteSuperior]
+    const instrucao = `INSERT INTO regra (id_instituicao, id_kpi, classificacao, descricao, cor_hexadecimal, limite_inferior, limite_superior) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const parametros = [idInstituicao, idKpi, classificacao, descricao, corHexadecimal, limiteInferior, limiteSuperior]
 
     return database.executar(instrucao, parametros);
 }
@@ -37,7 +37,7 @@ async function deletarRegra(idRegra) {
     return database.executar(instrucao, parametros);
 }
 
-async function listarRegras(idUsuario) {
+async function listarRegras(idInstituicao) {
     const instrucao = `
         SELECT 
             r.id_regra,
@@ -51,10 +51,10 @@ async function listarRegras(idUsuario) {
         FROM regra r
         INNER JOIN kpi k 
             ON r.id_kpi = k.id_kpi
-        WHERE r.id_usuario = ?
+        WHERE r.id_instituicao = ?
     `;
     
-    const parametros = [idUsuario]
+    const parametros = [idInstituicao]
 
     return await database.executar(instrucao, parametros);
 }
