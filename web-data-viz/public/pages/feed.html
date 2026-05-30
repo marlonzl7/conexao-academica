@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Conexão Acadêmica – Feed</title>
+    <link rel="stylesheet" href="../style/components/modal.css" />
     <style>
         *,
         *::before,
@@ -437,6 +438,12 @@
             transition: background 0.12s, color 0.12s;
         }
 
+        .action-btn img {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+
         .action-btn:hover {
             background: var(--page-bg);
             color: var(--text-main);
@@ -466,52 +473,14 @@
             user-select: none;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-        }
-
         .modal textarea {
             width: 100%;
             height: 80px;
         }
     </style>
 </head>
-<!-- MODAL EDITAR -->
-<div id="modalEditar" class="modal">
-    <div class="modal-content">
-        <h3>Editar Post</h3>
-        <textarea id="editTexto"></textarea>
-        <br><br>
-        <button onclick="salvarEdicao()">Salvar</button>
-        <button onclick="fecharModal()">Cancelar</button>
-    </div>
-</div>
-
-<!-- MODAL EXCLUIR -->
-<div id="modalExcluir" class="modal">
-    <div class="modal-content">
-        <h3>Deseja excluir?</h3>
-        <button onclick="confirmarExclusao()">Sim</button>
-        <button onclick="fecharModal()">Não</button>
-    </div>
-</div>
-
 <body>
+    <div id="modal-root"></div>
 
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -669,9 +638,12 @@
         </main>
     </div>
 
+    <script src="../components/modal/modalConfig.js"></script>
+    <script src="../components/modal/modal.js"></script>
+    <script src="../components/modal/modalTemplates.js"></script>
+    <script src="../components/modal/feedModalActions.js"></script>
     <script>
         let tipoSelecionado = null;
-        let postAtual = null;
 
         /* ===== SELECIONAR TAG ===== */
         function selectTag(btn, tipo) {
@@ -722,8 +694,14 @@
         <span class="badge ${tipo === 'critica' ? 'badge-c' : 'badge-s'}">
           ${tipo === 'critica' ? 'Críticas' : 'Sugestões'}
         </span>
-        <button class="action-btn" onclick="abrirEditar(this)">Editar</button>
-        <button class="action-btn del" onclick="abrirExcluir(this)">Excluir</button>
+        <button type="button" class="action-btn" onclick="abrirModalEditarPost(this)" title="Editar">
+            <img src="/assets/icons/write-icon.png" alt="Editar" class="table-action-icon">
+            Editar
+        </button>
+        <button type="button" class="action-btn del" onclick="abrirModalExcluirPost(this)" title="Excluir">
+            <img src="/assets/icons/delete-icon.png" alt="Excluir" class="table-action-icon">
+            Excluir
+        </button>
       </div>
     </div>
 
@@ -763,33 +741,23 @@
 
         /* ===== EDITAR ===== */
         function abrirEditar(btn) {
-            postAtual = btn.closest(".post-card");
-            document.getElementById("modalEditar").style.display = "flex";
-            document.getElementById("editTexto").value =
-                postAtual.querySelector(".post-text").innerText;
+            abrirModalEditarPost(btn);
         }
 
         function salvarEdicao() {
             const novoTexto = document.getElementById("editTexto").value;
-            postAtual.querySelector(".post-text").innerText = novoTexto;
+            window.postAtual.querySelector(".post-text").innerText = novoTexto;
             fecharModal();
         }
 
         /* ===== EXCLUIR ===== */
         function abrirExcluir(btn) {
-            postAtual = btn.closest(".post-card");
-            document.getElementById("modalExcluir").style.display = "flex";
+            abrirModalExcluirPost(btn);
         }
 
         function confirmarExclusao() {
-            postAtual.remove();
+            window.postAtual.remove();
             fecharModal();
-        }
-
-        /* ===== MODAL ===== */
-        function fecharModal() {
-            document.getElementById("modalEditar").style.display = "none";
-            document.getElementById("modalExcluir").style.display = "none";
         }
     </script>
 </body>

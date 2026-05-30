@@ -4,29 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/cargos.css">
-    <link rel="stylesheet" href="../style/components/header.css">
-    <link rel="stylesheet" href="../style/components/sidebar.css">
+    <link rel="stylesheet" href="/style/crud.css">
+    <link rel="stylesheet" href="/style/components/header.css">
+    <link rel="stylesheet" href="/style/components/sidebar.css">
+    <link rel="stylesheet" href="/style/components/modal.css">
     <link rel="icon" type="image/png" href="/assets/imgs/logoTopo.png">
-    
-    <title>Cargos  Conexão Acadêmica</title>
+
+    <title>Cargos Conexão Acadêmica</title>
 </head>
 
 <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
- 
-    <div class="main-wrap">
- 
-        <section class="content">
-            <h1>Visualizar Cargos</h1>
-            <p>Gerencie os cargos e permissões do sistema</p>
- 
-            <div class="top-actions">
-                <button class="btn" onclick="abrirModalNovo()">+ Novo Cargo</button>
+
+    <main>
+        <div class="container">
+            <div class="container-title">
+                <h1>Visualizar Cargos</h1>
+                <div class="container-title-info">
+                    Gerencie os cargos e permissões do sistema
+                </div>
             </div>
- 
-            <table>
+
+            <div class="topo-tabela">
+                <button type="button" class="botao-cadastro" onclick="abrirModalNovoCargo()">
+                    <img src="/assets/icons/plus-icon.png" alt="Ícone de mais" class="img-botao-cadastro">
+                    Novo Cargo
+                </button>
+            </div>
+
+            <table class="tabela">
                 <thead>
                     <tr>
                         <th>Cargos</th>
@@ -35,74 +42,22 @@
                 </thead>
                 <tbody id="tabelaCargos"></tbody>
             </table>
-        </section>
-    </div>
- 
-    <div id="modalNovo" class="modal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h2>Novo Cargo</h2>
-                <button class="modal-close" onclick="fecharModal('modalNovo')" title="Fechar">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="inputNovo" placeholder="Nome do cargo">
-            </div>
-            <div class="modal-footer">
-                <button class="modal-btn modal-btn-cancel" onclick="fecharModal('modalNovo')">Cancelar</button>
-                <button class="modal-btn modal-btn-confirm" onclick="criarCargo()">Salvar</button>
-            </div>
         </div>
-    </div>
- 
-    <div id="modalEditar" class="modal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h2>Editar Cargo</h2>
-                <button class="modal-close" onclick="fecharModal('modalEditar')" title="Fechar">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="inputEditar" placeholder="Nome do cargo">
-            </div>
-            <div class="modal-footer">
-                <button class="modal-btn modal-btn-cancel" onclick="fecharModal('modalEditar')">Cancelar</button>
-                <button class="modal-btn modal-btn-confirm" onclick="atualizarCargo()">Salvar</button>
-            </div>
-        </div>
-    </div>
- 
-    <div id="modalExcluir" class="modal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h2>Exclusão</h2>
-                <button class="modal-close" onclick="fecharModal('modalExcluir')" title="Fechar">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir esse registro?</p>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-btn modal-btn-cancel" onclick="fecharModal('modalExcluir')">Cancelar</button>
-                <button class="modal-btn modal-btn-danger" onclick="deletarCargo()">Excluir</button>
-            </div>
-        </div>
-    </div>
+    </main>
+
+    <div id="modal-root"></div>
+
+    <script src="/components/modal/modalConfig.js"></script>
+    <script src="/components/modal/modal.js"></script>
+    <script src="/components/modal/modalTemplates.js"></script>
+    <script src="/components/modal/cargosModalForms.js"></script>
+    <script src="/components/modal/cargosModalActions.js"></script>
+
+    <script src="/js/include.js"></script>
+    <script src="/js/cargos.js"></script>
+    <script>
+        initPage("Cargos");
+    </script>
 
 </body>
-
-<script src="/js/include.js"></script> 
-<script src="/js/cargos.js"></script>
-<script>
-    initPage("Cargos");
-</script>
 </html>
