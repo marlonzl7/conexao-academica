@@ -1,36 +1,29 @@
+window.regraKpis = [];
+
 document.addEventListener("DOMContentLoaded", () => {
     carregarTabela();
     carregarKpis();
 });
 
-function abrirModal(id) {
-    document.getElementById(id).classList.remove("hidden");
+function preencherKpis() {
+    document.querySelectorAll("select[id$='-kpi']").forEach(select => {
+        select.innerHTML = "";
+        window.regraKpis.forEach(kpi => {
+            const option = document.createElement("option");
+            option.value = kpi.id_kpi;
+            option.textContent = kpi.nome;
+            select.appendChild(option);
+        });
+    });
 }
 
 function abrirEdicao(id, classificacao, kpi, inferior, superior) {
-    document.getElementById("edicao-regra-id").value = id;
-    document.getElementById("edicao-classificacao").value = classificacao;
-    document.getElementById("edicao-kpi").value = kpi;
-    document.getElementById("edicao-limite_inferior").value = inferior;
-    document.getElementById("edicao-limite_superior").value = superior;
-
-    abrirModal("modal-overlay-edicao");
+    abrirModalEdicaoRegra(id, classificacao, kpi, inferior, superior);
 }
 
 function abrirDelecao(id) {
-    document.getElementById("delecao-regra-id").value = id;
-    abrirModal("modal-overlay-delecao");
+    abrirModalDelecaoRegra(id);
 }
-
-function fecharModal(id) {
-    document.getElementById(id).classList.add("hidden");
-}
-
-document.querySelectorAll(".overlay").forEach(overlay => {
-    overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) fecharModal(overlay.id);
-    });
-});
 
 async function carregarTabela() {
     try {
@@ -73,22 +66,22 @@ function renderizarTabela(dados) {
             <td>${regra.limite_inferior}%</td>
             <td>${regra.limite_superior}%</td>
             <td class="acoes-tabela">
-                <button>
-                    <img src="../assets/icons/write-icon.png"
-                        class="acoes-tabela-img"
-                        onclick='abrirEdicao(
+                <button type="button" class="table-action-button" title="Editar" onclick='abrirEdicao(
                             ${regra.id_regra},
                             ${JSON.stringify(regra.nome_classificacao)},
                             ${regra.id_kpi},
                             ${regra.limite_inferior},
                             ${regra.limite_superior}
                         )'>
+                    <img src="/assets/icons/write-icon.png"
+                        class="acoes-tabela-img table-action-icon"
+                        alt="Editar">
                 </button>
 
-                <button>
-                    <img src="../assets/icons/delete-icon.png"
-                        class="acoes-tabela-img"
-                        onclick="abrirDelecao(${regra.id_regra})">
+                <button type="button" class="table-action-button del" title="Excluir" onclick="abrirDelecao(${regra.id_regra})">
+                    <img src="/assets/icons/delete-icon.png"
+                        class="acoes-tabela-img table-action-icon"
+                        alt="Excluir">
                 </button>
             </td>
         `;
@@ -107,18 +100,8 @@ async function carregarKpis() {
             return;
         }
 
-        const selects = document.querySelectorAll("select[id$='-kpi']");
-
-        selects.forEach(select => {
-            select.innerHTML = "";
-
-            resposta.dados.forEach(kpi => {
-                const option = document.createElement("option");
-                option.value = kpi.id_kpi;
-                option.textContent = kpi.nome;
-                select.appendChild(option);
-            });
-        });
+        window.regraKpis = resposta.dados || [];
+        preencherKpis();
 
     } catch (erro) {
         console.error(erro);
@@ -161,7 +144,7 @@ async function cadastrarRegra() {
             }
 
             alert(resposta.mensagem);
-            fecharModal("modal-overlay-cadastro");
+            fecharModal();
             await carregarTabela();
 
         } catch (erro) {
@@ -209,7 +192,7 @@ async function atualizarRegra() {
             }
 
             alert(resposta.mensagem);
-            fecharModal("modal-overlay-edicao");
+            fecharModal();
             await carregarTabela();
 
         } catch (erro) {
@@ -240,7 +223,7 @@ async function deletarRegra() {
         }
 
         alert(resposta.mensagem);
-        fecharModal("modal-overlay-delecao");
+        fecharModal();
         await carregarTabela();
 
     } catch (erro) {

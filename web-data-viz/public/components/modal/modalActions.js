@@ -1,4 +1,4 @@
-window.abrirModalDiretor = function () {
+window.abrirModalDiretor = async function () {
 
     abrirModal({
 
@@ -6,23 +6,15 @@ window.abrirModalDiretor = function () {
 
         conteudo: formDiretor(),
 
-        botoes: `
-            <button
-                class="modal-botao-cancelar"
-                onclick="fecharModal()">
+        botoes: botoesCadastro(
+            "cadastrarDiretor"
+        ),
 
-                Cancelar
-            </button>
+        tamanho: "md",
 
-            <button
-                class="modal-botao-confirmar"
-                onclick="cadastrarDiretor()">
-
-                Cadastrar
-            </button>
-        `
+        tipo: "default"
     });
-}
+};
 
 window.abrirModalCoordenador = async function () {
 
@@ -32,25 +24,17 @@ window.abrirModalCoordenador = async function () {
 
         conteudo: formCoordenador(),
 
-        botoes: `
-            <button
-                class="modal-botao-cancelar"
-                onclick="fecharModal()">
+        botoes: botoesCadastro(
+            "cadastrarCoordenador"
+        ),
 
-                Cancelar
-            </button>
+        tamanho: "md",
 
-            <button
-                class="modal-botao-confirmar"
-                onclick="cadastrarCoordenador()">
-
-                Cadastrar
-            </button>
-        `
+        tipo: "default"
     });
 
     await listarCursos();
-}
+};
 
 window.abrirModalAdministrador = async function () {
 
@@ -60,22 +44,14 @@ window.abrirModalAdministrador = async function () {
 
         conteudo: formAdministrador(),
 
-        botoes: `
-            <button
-                class="modal-botao-cancelar"
-                onclick="fecharModal()">
+        botoes: botoesCadastro(
+            "cadastrarAdministrador"
+        ),
 
-                Cancelar
-            </button>
+        tamanho: "md",
 
-            <button
-                class="modal-botao-confirmar"
-                onclick="cadastrarAdministrador()">
-
-                Cadastrar
-            </button>
-        `
+        tipo: "default"
     });
 
     await listarCursos();
-}
+};

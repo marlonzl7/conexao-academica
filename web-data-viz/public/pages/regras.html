@@ -7,13 +7,15 @@
     <title>Regras</title>
     <link rel="stylesheet" href="../style/components/header.css">
     <link rel="stylesheet" href="../style/components/sidebar.css">
-    <link rel="stylesheet" href="../style/regras.css">
+    <link rel="stylesheet" href="../style/components/modal.css">
+    <link rel="stylesheet" href="../style/crud.css">
     <link rel="icon" type="image/png" href="/assets/imgs/logoTopo.png">
 </head>
 
 <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
+    <div id="modal-root"></div>
     <main>
         <div class="container">
             <div class="container-title">
@@ -24,7 +26,7 @@
             </div>
 
             <div class="topo-tabela">
-                <button class="botao-cadastro" onclick="abrirModal('modal-overlay-cadastro')">
+                <button class="botao-cadastro" onclick="abrirModalCadastroRegra()">
                     <img src="/assets/icons/plus-icon.png" alt="Ícone de mais" class="img-botao-cadastro">
                     Cadastrar
                 </button>
@@ -47,112 +49,16 @@
         </div>
     </main>
 
-    <div id="modal-overlay-cadastro" class="overlay hidden">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Registrar Regras</h2>
-                <span class="fechar-modal" onclick="fecharModal('modal-overlay-cadastro')">X</span>
-            </div>
-
-            <input type="hidden" id="cadastro-regra-id" value="">
-
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Classificação</label>
-                    <select id="cadastro-classificacao">
-                        <option value="BAIXO">Baixo</option>
-                        <option value="MEDIO">Médio</option>
-                        <option value="ALTO">Alto</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>KPI</label>
-                    <!-- adicionar referências ao banco aqui depois -->
-                    <select id="cadastro-kpi"></select>
-                </div>
-                <div class="form-group">
-                    <label>Limite inferior</label>
-                    <input type="text" id="cadastro-limite_inferior" placeholder="Ex: 50%">
-                </div>
-                <div class="form-group">
-                    <label>Limite superior</label>
-                    <input type="text" id="cadastro-limite_superior" placeholder="Ex: 80%">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-cadastro')">Cancelar</button>
-                <button class="modal-botao-confirmar" onclick="cadastrarRegra()">Registrar</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-overlay-edicao" class="overlay hidden">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Editar Regras</h2>
-                <span class="fechar-modal" onclick="fecharModal('modal-overlay-edicao')">X</span>
-            </div>
-
-            <input type="hidden" id="edicao-regra-id" value="">
-
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Classificação</label>
-                    <select id="edicao-classificacao">
-                        <option value="BAIXO">Baixo</option>
-                        <option value="MEDIO">Médio</option>
-                        <option value="ALTO">Alto</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>KPI</label>
-                    <!-- adicionar referências ao banco aqui depois -->
-                    <select id="edicao-kpi"></select>
-                </div>
-                <div class="form-group">
-                    <label>Limite inferior</label>
-                    <input type="text" id="edicao-limite_inferior" placeholder="Ex: 50%">
-                </div>
-                <div class="form-group">
-                    <label>Limite superior</label>
-                    <input type="text" id="edicao-limite_superior" placeholder="Ex: 80%">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-edicao')">Cancelar</button>
-                <button class="modal-botao-confirmar" onclick="atualizarRegra()">Salvar</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-overlay-delecao" class="overlay hidden">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Exclusão</h2>
-                <span class="fechar-modal" onclick="fecharModal('modal-overlay-delecao')">X</span>
-            </div>
-
-            <input type="hidden" id="delecao-regra-id" value="">
-
-            <div class="modal-body">
-                <div class="form-group center">
-                    <span>Tem certeza que deseja excluir esse registro?</span>
-                </div>
-            </div>
-            <div class="modal-footer center">
-                <button class="modal-botao-cancelar" onclick="fecharModal('modal-overlay-delecao')">Cancelar</button>
-                <button class="modal-botao-deletar" onclick="deletarRegra()">Deletar</button>
-            </div>
-        </div>
-    </div>
-
+    <script src="../components/modal/modalConfig.js"></script>
+    <script src="../components/modal/modal.js"></script>
+    <script src="../components/modal/modalTemplates.js"></script>
+    <script src="../components/modal/regrasModalForms.js"></script>
+    <script src="../components/modal/regrasModalActions.js"></script>
     <script src="../js/regras.js"></script>
     <script src="../js/validacoes.js"></script>
+    <script src="/js/include.js"></script>
+    <script>
+        initPage("Administrador | Regras de Classificação");
+    </script>
 </body>
-
-</body>
-<script src="/js/include.js"></script>
-<script>
-    initPage("Administrador | Regras de Classificação");
-</script>
 </html>

@@ -1,40 +1,34 @@
-window.addEventListener("DOMContentLoaded", () => {
-
+function initModal() {
     const modalRoot = document.getElementById("modal-root");
+
+    if (!modalRoot) return;
 
     modalRoot.innerHTML = `
         <div id="modal-overlay" class="overlay hidden">
-
             <div id="modal-container" class="modal">
 
                 <div class="modal-header">
-
                     <h2 id="modal-title"></h2>
 
-                    <button
-                        class="fechar-modal"
-                        onclick="fecharModal()">
-
-                        ✕
-                    </button>
-
+                    <button class="fechar-modal" type="button" onclick="fecharModal()">✕</button>
                 </div>
 
-                <div
-                    class="modal-body"
-                    id="modal-body">
-                </div>
-
-                <div
-                    class="modal-footer"
-                    id="modal-footer">
-                </div>
+                <div class="modal-body" id="modal-body"></div>
+                <div class="modal-footer" id="modal-footer"></div>
 
             </div>
-
         </div>
     `;
-});
+
+    const overlay = document.getElementById("modal-overlay");
+    overlay.addEventListener("click", (event) => {
+        if (event.target === overlay) {
+            fecharModal();
+        }
+    });
+}
+
+initModal();
 
 window.abrirModal = function ({
     titulo = "",
