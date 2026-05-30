@@ -136,3 +136,7 @@ function validarMensagem(input){
 
     return true;
 }
+
+function validarDescricao(input) {
+    return input.value.trim().length >= 3;
+}

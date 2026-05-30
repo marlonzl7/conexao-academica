@@ -52,7 +52,7 @@ function renderizarTabela(dados) {
     if (!dados || dados.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="5">Nenhuma regra cadastrada.</td>
+                <td colspan="7">Nenhuma regra cadastrada.</td>
             </tr>`;
         return;
     }
@@ -61,15 +61,26 @@ function renderizarTabela(dados) {
         const tr = document.createElement("tr");
 
         tr.innerHTML = `
-            <td>${regra.nome_classificacao}</td>
+            <td>${regra.classificacao}</td>
             <td>${regra.nome_kpi}</td>
+            <td>${regra.descricao}</td>
+            <td>
+                <div style="
+                    width:20px;
+                    height:20px;
+                    background:#${regra.cor_hexadecimal};
+                    border-radius:4px;
+                "></div>
+            </td>
             <td>${regra.limite_inferior}%</td>
             <td>${regra.limite_superior}%</td>
             <td class="acoes-tabela">
                 <button type="button" class="table-action-button" title="Editar" onclick='abrirEdicao(
                             ${regra.id_regra},
-                            ${JSON.stringify(regra.nome_classificacao)},
+                            '${regra.classificacao}',
                             ${regra.id_kpi},
+                            '${regra.descricao}',
+                            '${regra.cor_hexadecimal}',
                             ${regra.limite_inferior},
                             ${regra.limite_superior}
                         )'>
@@ -113,11 +124,14 @@ async function cadastrarRegra() {
 
     const kpiInput = document.getElementById("cadastro-kpi");
     const classificacaoInput = document.getElementById("cadastro-classificacao");
+    const descricaoInput = document.getElementById("cadastro-descricao");
+    const corInput = document.getElementById("cadastro-cor");
     const limiteInferiorInput = document.getElementById("cadastro-limite_inferior");
     const limiteSuperiorInput = document.getElementById("cadastro-limite_superior");
 
     if (
         validarClassificacao(classificacaoInput) &&
+        validarDescricao(descricaoInput) &&
         validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
         validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput)
     ) {
@@ -125,6 +139,8 @@ async function cadastrarRegra() {
             idInstituicao: id_instituicao,
             idKpi: kpiInput.value,
             classificacao: classificacaoInput.value,
+            descricao: descricaoInput.value,
+            cor: corInput.value.replace("#", ""),
             limiteInferior: limiteInferiorInput.value,
             limiteSuperior: limiteSuperiorInput.value
         };
@@ -146,7 +162,6 @@ async function cadastrarRegra() {
             alert(resposta.mensagem);
             fecharModal();
             await carregarTabela();
-
         } catch (erro) {
             console.error(erro);
             alert("Erro ao se conectar com o servidor");
@@ -157,22 +172,26 @@ async function cadastrarRegra() {
 }
 
 async function atualizarRegra() {
+    const kpiInput = document.getElementById("edicao-kpi");
     const idRegra = document.getElementById("edicao-regra-id").value;
 
     const classificacaoInput = document.getElementById("edicao-classificacao");
-    const kpiInput = document.getElementById("edicao-kpi");
+    const descricaoInput = document.getElementById("edicao-descricao");
+    const corInput = document.getElementById("edicao-cor");
     const limiteInferiorInput = document.getElementById("edicao-limite_inferior");
     const limiteSuperiorInput = document.getElementById("edicao-limite_superior");
 
     if (
         validarClassificacao(classificacaoInput) &&
+        validarDescricao(descricaoInput) &&
         validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
-        validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput)
+        validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput) 
     ) {
         const dados = {
-            idInstituicao: sessionStorage.getItem("ID_INSTITUICAO"),
             idKpi: kpiInput.value,
             classificacao: classificacaoInput.value,
+            descricao: descricaoInput.value,
+            cor: corInput.value.replace("#", ""),
             limiteInferior: limiteInferiorInput.value,
             limiteSuperior: limiteSuperiorInput.value
         };
@@ -194,7 +213,6 @@ async function atualizarRegra() {
             alert(resposta.mensagem);
             fecharModal();
             await carregarTabela();
-
         } catch (erro) {
             console.error(erro);
             alert("Erro ao se conectar com o servidor.");
@@ -225,7 +243,6 @@ async function deletarRegra() {
         alert(resposta.mensagem);
         fecharModal();
         await carregarTabela();
-
     } catch (erro) {
         console.error(erro);
         alert("Erro ao se conectar com o servidor.");

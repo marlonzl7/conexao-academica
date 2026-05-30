@@ -52,6 +52,7 @@ CREATE TABLE regra (
     id_instituicao INT NOT NULL,
     id_kpi INT NOT NULL,
     classificacao VARCHAR(20) NOT NULL,
+    descricao VARCHAR(120) NOT NULL,
     cor_hexadecimal CHAR(6),
     limite_inferior DECIMAL(5,2) NOT NULL,
     limite_superior DECIMAL(5,2) NOT NULL,
@@ -100,10 +101,10 @@ CREATE VIEW `vw_info_user` AS
 FROM usuario u
 	INNER JOIN cargo ca
 		ON ca.id_cargo = u.id_cargo
-	INNER JOIN instituicao i
+	LEFT JOIN instituicao i
 		ON i.id_instituicao = u.id_instituicao
-    INNER JOIN curso cr
-		ON cr.id_instituicao = i.id_instituicao;
+    LEFT JOIN curso cr
+		ON cr.id_curso = u.id_curso;
 
 CREATE VIEW `vw_indic_geral` AS
 	SELECT i.id_instituicao,
@@ -159,7 +160,6 @@ CREATE VIEW `vw_indic_curso` AS
     ic.quantidade_alunos_situacao_desvinculada AS quantidades_desvinculados,
     ic.quantidade_alunos_situacao_trancada AS quantidade_trancados,
     ROUND(ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF(ic.quantidade_matriculas, 0), 1) AS taxa_evasao,
-        ic.quantidade_matriculas + ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada AS total_alunos,
         
 	-- Percentual de alunos ativos
 	ROUND((ic.quantidade_matriculas - (ic.quantidade_alunos_situacao_desvinculada + ic.quantidade_alunos_situacao_trancada)) * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_matriculados,
@@ -168,7 +168,11 @@ CREATE VIEW `vw_indic_curso` AS
 	ROUND(ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_evadidos,
 	
     -- Percentual de alunos de situação trancada
-    ROUND(ic.quantidade_alunos_situacao_trancada * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_trancados
+    ROUND(ic.quantidade_alunos_situacao_trancada * 100.0 / NULLIF((ic.quantidade_matriculas), 0), 1) AS percentual_trancados,
+
+    -- Percentual de risco de evasão
+    ROUND(((ic.quantidade_alunos_situacao_desvinculada * 100.0 / NULLIF(ic.quantidade_matriculas, 0)) * 0.7) + ((ic.quantidade_alunos_situacao_trancada * 100.0 / NULLIF(ic.quantidade_matriculas, 0)) * 0.3), 1) AS risco_evasao
+
     FROM indicadores_curso ic
 		INNER JOIN curso c
 			ON ic.id_curso = c.id_curso

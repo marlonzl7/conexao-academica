@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Dashboard | Coordenador</title>
+
     <link rel="stylesheet" href="../../style/dashboards/coordenador.css">
     <link rel="stylesheet" href="../../style/components/sidebar.css">
     <link rel="stylesheet" href="../../style/components/header.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -23,30 +25,22 @@
     <div class="main">
 
         <div class="filters">
+
             <span class="filtros-label">Período</span>
-            <select>
-                <option>2025</option>
-                <option>2024</option>
-                <option>2023</option>
-                <option>2022</option>
-                <option>2021</option>
-                <option>2020</option>
-                <option>2019</option>
+
+            <select id="filtro-inicio">
+
             </select>
 
-            <select>
-                <option>2025</option>
-                <option>2024</option>
-                <option>2023</option>
-                <option>2022</option>
-                <option>2021</option>
-                <option>2020</option>
-                <option>2019</option>
+            <select id="filtro-fim">
+
             </select>
+
         </div>
 
         <div class="cards">
 
+            <!-- TOTAL MATRÍCULAS -->
 
             <div class="card">
 
@@ -54,14 +48,20 @@
 
                     <div>
                         <h4>Total de Matrículas</h4>
-                        <div class="number">1586</div>
+
+                        <div class="number" id="kpi-total-matriculas">
+                            --
+                        </div>
                     </div>
 
                     <div class="card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            height="24px"
+                            viewBox="0 -960 960 960"
+                            width="24px"
                             fill="#1f1f1f">
-                            <path d="M690-480h60v-68l59 34 30-52-59-34 59-34-30-52-59 34v-68h-60v68l-59-34-30 52 59 34-59 34 30 52 59-34v68ZM80-120q-33 0-56.5-23.5T0-200v-560q0-33 23.5-56.5T80-840h800q33 0 56.5 23.5T960-760v560q0 33-23.5 56.5T880-120H80Zm556-80h244v-560H80v560h4q42-75 116-117.5T360-360q86 0 160 42.5T636-200ZM445-435q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35ZM182-200h356q-34-38-80.5-59T360-280q-51 0-97 21t-81 59Zm149.5-291.5Q320-503 320-520t11.5-28.5Q343-560 360-560t28.5 11.5Q400-537 
-               400-520t-11.5 28.5Q377-480 360-480t-28.5-11.5ZM480-480Z" />
+
+                            <path d="M690-480h60v-68l59 34 30-52-59-34 59-34-30-52-59 34v-68h-60v68l-59-34-30 52 59 34-59 34 30 52 59-34v68ZM80-120q-33 0-56.5-23.5T0-200v-560q0-33 23.5-56.5T80-840h800q33 0 56.5 23.5T960-760v560q0 33-23.5 56.5T880-120H80Zm556-80h244v-560H80v560h4q42-75 116-117.5T360-360q86 0 160 42.5T636-200ZM445-435q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35ZM182-200h356q-34-38-80.5-59T360-280q-51 0-97 21t-81 59Zm149.5-291.5Q320-503 320-520t11.5-28.5Q343-560 360-560t28.5 11.5Q400-537 400-520t-11.5 28.5Q377-480 360-480t-28.5-11.5ZM480-480Z" />
                         </svg>
                     </div>
 
@@ -73,13 +73,18 @@
 
                     <div>
                         <span>Classificação:</span>
-                        <p class="green">Alta (+1200)</p>
+
+                        <p id="classificacao-total-matriculas">
+                            --
+                        </p>
                     </div>
 
                     <div class="card-info">
 
                         <a href="../regras.html">
-                            <img class="icon-info" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
+                            <img class="icon-info"
+                                src="../../assets/icons/ponto-de-exclamacao.png"
+                                alt="info">
                         </a>
 
                         <div class="card-info2">
@@ -94,6 +99,7 @@
 
             </div>
 
+            <!-- ALUNOS EVADIDOS -->
 
             <div class="card">
 
@@ -101,14 +107,25 @@
 
                     <div>
                         <h4>Alunos Evadidos</h4>
-                        <div class="number">255</div>
+
+                        <div class="number" id="kpi-alunos-evadidos">
+                            --
+                        </div>
                     </div>
 
                     <div class="card-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+
+                        <svg width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#ef4444"
+                            stroke-width="2">
+
                             <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
                             <polyline points="17 6 23 6 23 12" />
                         </svg>
+
                     </div>
 
                 </div>
@@ -119,13 +136,18 @@
 
                     <div>
                         <span>Classificação:</span>
-                        <p class="orange">Médio (200 a 400)</p>
+
+                        <p id="classificacao-alunos-evadidos">
+                            --
+                        </p>
                     </div>
 
                     <div class="card-info">
 
                         <a href="../regras.html">
-                            <img class="icon-info" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
+                            <img class="icon-info"
+                                src="../../assets/icons/ponto-de-exclamacao.png"
+                                alt="info">
                         </a>
 
                         <div class="card-info2">
@@ -140,6 +162,7 @@
 
             </div>
 
+            <!-- TAXA EVASÃO -->
 
             <div class="card">
 
@@ -147,15 +170,26 @@
 
                     <div>
                         <h4>Taxa de Evasão</h4>
-                        <div class="number">47%</div>
+
+                        <div class="number" id="kpi-taxa-evasao">
+                            --
+                        </div>
                     </div>
 
                     <div class="card-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2">
+
+                        <svg width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#f97316"
+                            stroke-width="2">
+
                             <line x1="18" y1="20" x2="18" y2="10" />
                             <line x1="12" y1="20" x2="12" y2="4" />
                             <line x1="6" y1="20" x2="6" y2="14" />
                         </svg>
+
                     </div>
 
                 </div>
@@ -166,13 +200,18 @@
 
                     <div>
                         <span>Classificação:</span>
-                        <p class="red">Crítica (+35%)</p>
+
+                        <p id="classificacao-taxa-evasao">
+                            --
+                        </p>
                     </div>
 
                     <div class="card-info">
 
                         <a href="../regras.html">
-                            <img class="icon-info" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
+                            <img class="icon-info"
+                                src="../../assets/icons/ponto-de-exclamacao.png"
+                                alt="info">
                         </a>
 
                         <div class="card-info2">
@@ -187,6 +226,7 @@
 
             </div>
 
+            <!-- RISCO EVASÃO -->
 
             <div class="card">
 
@@ -194,15 +234,23 @@
 
                     <div>
                         <h4>Risco de Evasão</h4>
-                        <div class="number red">Alto</div>
+
+                        <div class="number red" id="kpi-risco-evasao">
+                            --
+                        </div>
                     </div>
 
                     <div class="card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            height="24px"
+                            viewBox="0 -960 960 960"
+                            width="24px"
                             fill="#1f1f1f">
-                            <path
-                                d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z" />
+
+                            <path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z" />
                         </svg>
+
                     </div>
 
                 </div>
@@ -213,13 +261,18 @@
 
                     <div>
                         <span>Descrição:</span>
-                        <p>30% alunos situação trancada</p>
+
+                        <p id="descricao-risco-evasao">
+                            --
+                        </p>
                     </div>
 
                     <div class="card-info">
 
                         <a href="../regras.html">
-                            <img class="icon-info" src="../../assets/icons/ponto-de-exclamacao.png" alt="info">
+                            <img class="icon-info"
+                                src="../../assets/icons/ponto-de-exclamacao.png"
+                                alt="info">
                         </a>
 
                         <div class="card-info2">
@@ -239,7 +292,7 @@
         <div class="charts">
 
             <div class="chart-box">
-                <h3>Taxa de evasão 2019 - 2024</h3>
+                <h3 id="titulo-grafico-linha">Taxa de evasão</h3>
                 <canvas id="lineChart"></canvas>
             </div>
 
@@ -253,10 +306,13 @@
     </div>
 
     <script src="../../js/dashboards/coordenador.js"></script>
+
     <script src="../../js/include.js"></script>
+
     <script>
         initPage("Dashboard | Coordenador");
     </script>
+
 </body>
 
 </html>
