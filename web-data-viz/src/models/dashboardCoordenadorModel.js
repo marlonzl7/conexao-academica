@@ -62,7 +62,19 @@ async function listarTaxaEvasaoAnual(idCurso) {
     const instrucao = `
         SELECT
             ano_emissao AS ano,
-            taxa_evasao
+            taxa_evasao,
+
+            (
+                quantidade_matriculas -
+                (
+                    quantidades_desvinculados +
+                    quantidade_trancados
+                )
+            ) AS ativos,
+
+            quantidade_trancados AS trancados,
+            quantidades_desvinculados AS evadidos
+
         FROM vw_indic_curso
         WHERE id_curso = ?
         ORDER BY ano_emissao DESC
@@ -82,9 +94,21 @@ async function listarTaxaEvasaoAnualPorPeriodo(idCurso, inicio, fim) {
     const instrucao = `
         SELECT
             ano_emissao AS ano,
-            taxa_evasao
+            taxa_evasao,
+
+            (
+                quantidade_matriculas -
+                (
+                    quantidades_desvinculados +
+                    quantidade_trancados
+                )
+            ) AS ativos,
+
+            quantidade_trancados AS trancados,
+            quantidades_desvinculados AS evadidos
+
         FROM vw_indic_curso
-        WHERE id_curso = ? 
+        WHERE id_curso = ?
         AND ano_emissao BETWEEN ? AND ?
         ORDER BY ano_emissao ASC
     `;

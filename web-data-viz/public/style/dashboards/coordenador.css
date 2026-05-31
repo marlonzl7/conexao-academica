@@ -299,19 +299,17 @@
        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
        margin-right: 17px;
        height: 400px;
-
    }
 
-    #lineChart {
-        width: 100% !important;
-        height: 100% !important;
+    .chart-box h3 {
+        text-align: center;
+        margin-bottom: 1rem;
+
+        font-size: 1rem;
+        font-weight: 600;
+
+        color: #374151;
     }
-
-
-   canvas {
-       width: 100% !important;
-       height: 300px !important;
-   }
 
    @media(max-width:1200px) {
        .cards {

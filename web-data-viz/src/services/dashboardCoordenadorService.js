@@ -138,7 +138,10 @@ async function listarTaxaEvasaoAnual({
 
         serie: resultado.map(item => ({
             ano: Number(item.ano),
-            taxaEvasao: Number(item.taxa_evasao)
+            taxaEvasao: Number(item.taxa_evasao),
+            ativos: Number(item.ativos),
+            evadidos: Number(item.evadidos),
+            trancados: Number(item.trancados)
         }))
     };
 }
