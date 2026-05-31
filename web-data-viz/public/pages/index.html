@@ -7,12 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="../style/index.css">
 </head>
 
 <body>
 
-  <!-- HEADER -->
   <header>
     <a class="header-brand" href="#">
       <div class="brand-icon">C</div>
@@ -34,7 +33,6 @@
     </button>
   </header>
 
-  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#">Home</a>
     <a href="#section-sobrenos">Sobre Nós</a>
@@ -43,7 +41,6 @@
     <a href="/pages/login.html">Login</a>
   </div>
 
-  <!-- HERO -->
   <section id="section-home">
     <div class="hero-inner">
       <div class="hero-badge">
@@ -83,7 +80,6 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="section-sobrenos">
     <div class="sobre-grid">
 
@@ -136,7 +132,6 @@
     </div>
   </section>
 
-  <!-- SOLUTIONS -->
   <section id="section-carrosel">
     <div class="section-header fade-up">
       <span class="section-tag">Nossas soluções</span>
@@ -199,7 +194,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="section-contactus">
     <div class="contact-grid">
 
@@ -245,7 +239,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-grid">
       <div class="footer-brand-col">
@@ -282,41 +275,6 @@
       <p>© 2026 Conexão Acadêmica. Todos os direitos reservados.</p>
     </div>
   </footer>
-
-  <script>
-    // Mobile menu
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('open');
-    }
-
-    // Close mobile menu on link click
-    document.querySelectorAll('.mobile-menu a').forEach(a => {
-      a.addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.remove('open');
-      });
-    });
-
-    // Scroll animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    // Form submit
-    function enviarMensagem() {
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
-      if (!name || !email || !message) {
-        alert('Por favor, preencha todos os campos.');
-        return;
-      }
-      alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-    }
-  </script>
-
+  <script src="../js/index.js"></script>
 </body>
 </html>
