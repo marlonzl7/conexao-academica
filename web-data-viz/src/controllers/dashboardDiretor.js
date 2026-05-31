@@ -7,10 +7,10 @@ async function getKPIs(req, res) {
         const anoFim = req.query.anoFim;
 
         const responseFromModel = await dashboardDiretorModel.getKPIs(anoInicio, anoFim, idInstituicao);
-        return res.status(200).json(responseFromModel);
+        return res.status(200).json(respostaSucesso(responseFromModel));
     } catch (erro) {
         console.error("Erro na controller (getKPIs):", erro);
-        return res.status(500).json({ erro: erro.message });
+        return res.status(500).json(respostaErro("Erro ao buscar KPIs"));
     }
 }
 
@@ -19,11 +19,11 @@ async function getAnosDisponiveis(req, res) {
         const idInstituicao = req.query.idInstituicao;
 
         const responseFromModel = await dashboardDiretorModel.getAnosDisponiveis(idInstituicao);
-        return res.status(200).json(responseFromModel);
+        return res.status(200).json(respostaSucesso(responseFromModel));
     }
     catch (erro) {
         console.error("Erro na controller (getAnosDisponiveis):", erro);
-        return res.status(500).json({ erro: erro.message });
+        return res.status(500).json(respostaErro("Erro ao buscar anos disponíveis"));
     }
 }
     
@@ -34,10 +34,10 @@ async function getGraficoEvasao(req, res) {
         const idInstituicao = req.query.idInstituicao;
 
         const responseFromModel = await dashboardDiretorModel.getGraficoEvasao(anoInicio, anoFim, idInstituicao);
-        return res.status(200).json(responseFromModel);
+        return res.status(200).json(respostaSucesso(responseFromModel));
     } catch (erro) {
         console.error("Erro na controller (getGraficoEvasao):", erro);
-        return res.status(500).json({ erro: erro.message });
+        return res.status(500).json(respostaErro("Erro ao buscar gráfico de evasão"));
     }
 }
 
@@ -48,11 +48,11 @@ async function getTaxaEvasaoAnual(req, res) {
         const idInstituicao = req.query.idInstituicao;
 
         const responseFromModel = await dashboardDiretorModel.getGraficoResumoEvasao(anoInicio, anoFim, idInstituicao);
-        return res.status(200).json(responseFromModel);
+        return res.status(200).json(respostaSucesso(responseFromModel));
     }
     catch (erro) {
         console.error("Erro na controller (getTaxaEvasaoAnual):", erro);
-        return res.status(500).json({ erro: erro.message });
+        return res.status(500).json(respostaErro("Erro ao buscar taxa de evasão anual"));
     }
 }
 

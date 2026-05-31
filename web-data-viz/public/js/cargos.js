@@ -79,7 +79,7 @@ async function criarCargo() {
 
         if (!response.ok) throw new Error("Erro ao criar");
 
-        showToast("success", "Cargo criado com sucesso!");
+        showToast("success", "Cargo criado", "Cargo cadastrado com sucesso!");
         fecharModal();
         carregarCargos();
 
@@ -102,7 +102,7 @@ async function atualizarCargo(id) {
 
         if (!response.ok) throw new Error("Erro ao atualizar");
 
-        showToast("success", "Cargo atualizado com sucesso!");
+        showToast("success", "Cargo atualizado", "Cargo atualizado com sucesso!");
         fecharModal();
         carregarCargos();
 
@@ -118,7 +118,7 @@ async function deletarCargo(id) {
 
         if (!response.ok) throw new Error("Erro ao deletar");
 
-        showToast("success", "Cargo excluído.");
+        showToast("success", "Cargo excluído", "Cargo excluído com sucesso.");
         fecharModal();
         carregarCargos();
 
@@ -128,4 +128,4 @@ async function deletarCargo(id) {
     }
 }
 
-window.onload = carregarCargos;
+window.onload = carregarCargos; 

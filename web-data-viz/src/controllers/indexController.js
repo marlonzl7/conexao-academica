@@ -7,15 +7,15 @@ async function contact(req, res) {
         console.log("Dados recebidos:", name, email, message);
 
         if (!name || !email || !message) {
-            return res.status(400).json({ mensagem: "Dados incompletos", dados: { name, email, message } });
+            return res.status(400).json(respostaErro("Dados incompletos"));
         }
 
         await indexModel.enviarMensagem(name, email, message);
-        return res.status(200).json({ sucesso: true, mensagem: "Enviado com sucesso!", dados: { name, email, message } });
+        return res.status(200).json(respostaSucesso({ mensagem: "Enviado com sucesso!", dados: { name, email, message } }));
 
     } catch (erro) {
         console.error("\nERRO NO CONTROLLER:\n", erro);
-        return res.status(500).json({ mensagem: erro.message,  dados: null });
+        return res.status(500).json(respostaErro("Erro ao enviar mensagem"));
     }
 }
 
