@@ -11,62 +11,59 @@ body {
 }
 
 .content-wrapper {
-    margin-left: 250px; 
-    padding-top: 60px;  
+    margin-left: 250px;
+    padding-top: 60px;
     min-height: 100vh;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .main-container {
     width: 90%;
-    max-width: 1150px;
+    max-width: 1100px;
     display: flex;
     flex-direction: column;
-    padding: 40px 0;
+    padding: 36px 0;
 }
 
-
 .titulo-pagina {
-    align-self: flex-start; 
-    margin-bottom: 50px;
+    align-self: flex-start;
+    margin-bottom: 32px;
 }
 
 .titulo-pagina h1 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 38px;
+    font-size: 30px;
     font-weight: 700;
     color: #000;
 }
 
 .titulo-pagina p {
     color: #888;
-    font-size: 16px;
-    margin-top: 5px;
+    font-size: 14px;
+    margin-top: 4px;
 }
 
-.pesquisa-instituicao{
+.pesquisa-instituicao {
     display: flex;
-    align-items:flex-end;
-    justify-content: end;
-    padding-bottom: 1em;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 16px;
+    gap: 8px;
 }
 
 .pesquisa-instituicao > img {
-    justify-content: center;
-    align-self: center;
-    width: 25px;
-    height: 25px;
-    margin-right: 12px;
+    width: 18px;
+    height: 18px;
     opacity: 0.6;
 }
 
 #pesquisa_instituicao {
-    width: 300px;
-    padding: 12px 15px;
+    width: 260px;
+    padding: 10px 14px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 13px;
     transition: border-color 0.3s;
 }
 
@@ -87,63 +84,65 @@ body {
 .instituicao-card {
     background: #fff;
     border: 1px solid #e0e0e0;
-    padding: 35px;
-    border-radius: 15px;
+    padding: 24px 28px;
+    border-radius: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2em;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
 }
 
 .inst-info {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
 }
 
 .inst-logo-placeholder {
     background-color: #f2f2f2;
-    width: 180px;
-    height: 110px;
-    border-radius: 10px;
+    width: 130px;
+    height: 80px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid #eee;
+    flex-shrink: 0;
 }
 
 .inst-logo-placeholder img {
-    width: 60px;
+    width: 44px;
     opacity: 0.8;
 }
 
 .inst-text h3 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .inst-text p {
     color: #999;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .btn-acessar {
-    background-color: #1E3A8A; 
+    background-color: #1E3A8A;
     color: white;
     border: none;
-    padding: 14px 40px;
+    padding: 11px 28px;
     border-radius: 5px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     transition: background 0.3s;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .btn-acessar:hover {
@@ -151,6 +150,5 @@ body {
 }
 
 .btn-acessar span {
-    font-size: 20px;
+    font-size: 16px;
 }
-
