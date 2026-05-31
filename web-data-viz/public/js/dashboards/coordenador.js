@@ -226,9 +226,16 @@ function renderizarGraficoLinha(dados) {
         document.getElementById("lineChart")
             .getContext("2d");
 
+    const tipoGrafico =
+        dados.length === 1
+            ? "bar"
+            : "line";
+
+    const ehBarra = dados.length === 1;
+
     lineChart = new Chart(ctx, {
 
-        type: "line",
+        type: tipoGrafico,
 
         data: {
 
@@ -244,7 +251,7 @@ function renderizarGraficoLinha(dados) {
                     ),
 
                     borderColor: "#22c55e",
-                    backgroundColor: "rgba(34,197,94,0.05)",
+                    backgroundColor: ehBarra ? "#22c55e" : "rgba(34,197,94,0.05)",
 
                     tension: 0.2,
 
@@ -262,7 +269,7 @@ function renderizarGraficoLinha(dados) {
                     ),
 
                     borderColor: "#ef4444",
-                    backgroundColor: "rgba(239,68,68,0.05)",
+                    backgroundColor: ehBarra ? "#ef4444" : "rgba(239,68,68,0.05)",
 
                     tension: 0.2,
 
@@ -280,7 +287,7 @@ function renderizarGraficoLinha(dados) {
                     ),
 
                     borderColor: "#3b82f6",
-                    backgroundColor: "rgba(59,130,246,0.05)",
+                    backgroundColor: ehBarra ? "#3b82f6" : "rgba(59,130,246,0.05)",
 
                     tension: 0.2,
 
@@ -416,6 +423,9 @@ function renderizarGraficoDonut(dados) {
     }
 
     const ultimoAno = dados[dados.length - 1];
+
+    document.getElementById("titulo-donut").innerText =
+        `Distribuição da Situação dos Alunos (${ultimoAno.ano})`;
 
     const ctx = document.getElementById("donutChart");
 
