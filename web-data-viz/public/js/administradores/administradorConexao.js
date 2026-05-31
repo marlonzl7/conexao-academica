@@ -1,13 +1,17 @@
+const POR_PAGINA = 2;
+
+let todasInstituicoes = [];
+let paginaAtual = 1;
+
 function criarCard(inst) {
     const card = document.createElement("div");
 
-    const id = inst.id || inst.id_instituicao;
-    const nome = inst.nome ?? "Sem nome";
-    const qtd = inst.total_usuarios ?? 0;
+    const id    = inst.id || inst.id_instituicao;
+    const nome  = inst.nome ?? "Sem nome";
+    const qtd   = inst.total_usuarios ?? 0;
     const ativos = inst.usuarios_ativos ?? 0;
 
     card.classList.add("instituicao-card");
-
     card.innerHTML = `
         <div class="inst-info">
             <div class="inst-logo-placeholder">
@@ -30,87 +34,120 @@ function criarCard(inst) {
     return card;
 }
 
-function renderInstituicoes(listaDados) {
+function renderInstituicoes(dados) {
     const lista = document.getElementById("lista_instituicoes");
-
     if (!lista) return;
 
     lista.innerHTML = "";
 
-    const dados = Array.isArray(listaDados)
-        ? listaDados
-        : (listaDados?.dados ?? []);
-
-    if (dados.length === 0) {
+    if (!dados.length) {
         lista.innerHTML = "<p>Nenhuma instituição encontrada</p>";
+        renderPaginacao(0);
         return;
     }
 
-    dados.forEach(inst => {
-        const card = criarCard(inst);
-        lista.appendChild(card);
-    });
+    const inicio = (paginaAtual - 1) * POR_PAGINA;
+    const pagina = dados.slice(inicio, inicio + POR_PAGINA);
+
+    pagina.forEach(inst => lista.appendChild(criarCard(inst)));
+    renderPaginacao(dados.length);
 }
 
-function buscarInstituicoes() {
-    fetch(`/administrador`)
-        .then(res => res.json())
-        .then(data => {
-            renderInstituicoes(data.dados);
-        })
-        .catch(error => {
-            console.error("Erro ao buscar instituições: ", error);
-        });
+function renderPaginacao(total) {
+    let container = document.getElementById("paginacao");
+    if (!container) return;
+
+    const totalPaginas = Math.ceil(total / POR_PAGINA);
+    container.innerHTML = "";
+
+    if (totalPaginas <= 1) return;
+
+    const info = document.createElement("span");
+    info.className = "pag-info";
+    info.textContent = `Página ${paginaAtual} de ${totalPaginas}`;
+
+    const btnAnterior = document.createElement("button");
+    btnAnterior.className = "pag-btn";
+    btnAnterior.textContent = "← Anterior";
+    btnAnterior.disabled = paginaAtual === 1;
+    btnAnterior.onclick = () => irParaPagina(paginaAtual - 1);
+
+    const btnProximo = document.createElement("button");
+    btnProximo.className = "pag-btn";
+    btnProximo.textContent = "Próximo →";
+    btnProximo.disabled = paginaAtual === totalPaginas;
+    btnProximo.onclick = () => irParaPagina(paginaAtual + 1);
+
+    container.appendChild(btnAnterior);
+    container.appendChild(info);
+    container.appendChild(btnProximo);
+}
+
+function irParaPagina(pagina) {
+    paginaAtual = pagina;
+    const termo = document.getElementById("pesquisa_instituicao")?.value.trim() ?? "";
+    const dados = filtrarDados(termo);
+    renderInstituicoes(dados);
+    document.getElementById("lista_instituicoes")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function filtrarDados(termo) {
+    if (!termo) return todasInstituicoes;
+    const lower = termo.toLowerCase();
+    return todasInstituicoes.filter(i => (i.nome ?? "").toLowerCase().includes(lower));
+}
+
+async function buscarInstituicoes() {
+    try {
+        const res  = await fetch("/administrador");
+        const data = await res.json();
+        todasInstituicoes = Array.isArray(data.dados) ? data.dados : [];
+    } catch (erro) {
+        console.error("Erro ao buscar instituições:", erro);
+        todasInstituicoes = [];
+    }
+
+    paginaAtual = 1;
+    renderInstituicoes(todasInstituicoes);
 }
 
 let timerBusca;
 
 function configurarBuscaDinamica() {
     const input = document.getElementById("pesquisa_instituicao");
-
-    if (!input) {
-        console.error("Input não encontrado");
-        return;
-    }
+    if (!input) return;
 
     input.addEventListener("input", () => {
         const termo = input.value.trim();
-
         clearTimeout(timerBusca);
 
-        if (termo.length === 0) {
-            buscarInstituicoes();
-            return;
-        }
-
         timerBusca = setTimeout(() => {
+            paginaAtual = 1;
+
+            if (termo.length === 0) {
+                renderInstituicoes(todasInstituicoes);
+                return;
+            }
+
+            const local = filtrarDados(termo);
+            renderInstituicoes(local);
+
             executarPesquisa(termo);
         }, 300);
     });
 }
 
 async function executarPesquisa(termo) {
-    const lista = document.getElementById("lista_instituicoes");
-
-    if (!lista) {
-        console.error("Lista de instituições não encontrada");
-        return;
-    }
-    
-    lista.innerHTML = "<p>Buscando...</p>";
-
     try {
         const response = await fetch(`/administrador/search?termo=${encodeURIComponent(termo)}`);
         const data = await response.json();
 
         if (data.sucesso) {
-            renderInstituicoes(data.dados);
-        } else {
-            lista.innerHTML = "<p>Erro na busca</p>";
+            todasInstituicoes = Array.isArray(data.dados) ? data.dados : [];
+            renderInstituicoes(filtrarDados(termo));
         }
-    } catch (error) {
-        console.error("Erro na pesquisa dinâmica:", error);
-        lista.innerHTML = "<p>Erro ao buscar</p>";
+    } catch (erro) {
+        console.error("Erro na pesquisa:", erro);
     }
 }
 
