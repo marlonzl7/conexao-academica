@@ -204,12 +204,19 @@ function carregarGraficoEvasao() {
                 return registro ? Number(registro.qtdTrancados) : 0;
             });
 
+            const tipoGrafico =
+                anosUnicos.length === 1
+                    ? 'bar'
+                    : 'line';
+
+            const ehBarra = tipoGrafico === 'bar';
+
             const datasetsFormatados = [
                 {
                     label: 'Matrículas',
                     data: matriculasAlinhadas,
                     borderColor: '#22c55e',
-                    backgroundColor: 'rgba(34,197,94,0.05)',
+                    backgroundColor: ehBarra ? '#22c55e' : 'rgba(34,197,94,0.05)',
                     tension: 0.2,
                     fill: false,
                 },
@@ -217,7 +224,7 @@ function carregarGraficoEvasao() {
                     label: 'Evadidos',
                     data: evadidosAlinhados,
                     borderColor: '#ef4444',
-                    backgroundColor: 'rgba(239,68,68,0.05)',
+                    backgroundColor: ehBarra ? '#ef4444' : 'rgba(239,68,68,0.05)',
                     tension: 0.2,
                     fill: false,
                 },
@@ -225,16 +232,16 @@ function carregarGraficoEvasao() {
                     label: 'Trancados',
                     data: trancadosAlinhados,
                     borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59,130,246,0.05)',
+                    backgroundColor: ehBarra ? '#3b82f6' : 'rgba(59,130,246,0.05)',
                     tension: 0.2,
                     fill: false,
                 }
             ];
 
             new Chart(document.getElementById('chartTrend'), {
-                type: 'line',
+                type: tipoGrafico,
                 data: {
-                    labels: anosUnicos, 
+                    labels: anosUnicos,
                     datasets: datasetsFormatados
                 },
                 options: {
