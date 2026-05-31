@@ -2,158 +2,130 @@ const API = "/cargos";
 
 let cargoSelecionadoId = null;
 
-async function carregarCargos() {
+function escapar(str) {
+    return str?.replace(/'/g, "\\'") ?? "";
+}
 
+function getInput(id) {
+    return document.getElementById(id)?.value.trim() ?? "";
+}
+
+async function carregarCargos() {
     let data = [];
 
     try {
-
         const response = await fetch(API);
-        if (!response.ok) {
-            throw new Error("Erro na API");
-        }
 
-        data = await response.json();
-        data = Array.isArray(data) ? data : data.dados || [];
+        if (!response.ok) throw new Error("Erro na API");
+
+        const json = await response.json();
+        data = Array.isArray(json) ? json : (json.dados ?? []);
 
     } catch {
-        console.error(
-            "Não foi possível carregar os cargos"
-        );
+        console.error("Não foi possível carregar os cargos.");
+        showToast("danger", "Erro ao carregar cargos.", "Tente recarregar a página.");
     }
 
-    const tabela =
-    document.getElementById("tabelaCargos");
-
-    tabela.innerHTML = "";
-
-    data.forEach(cargo => {
-        const cargoNomeEscapado = cargo.nome ? cargo.nome.replace(/'/g, "\\'") : "";
-
-        tabela.innerHTML += `
-            <tr>
-
-                <td>
-                    ${cargo.nome}
-                </td>
-
-                <td class="acoes-tabela">
-
-                    <button
-                        type="button"
-                        class="table-action-button"
-                        onclick="abrirModalEditarCargo(${cargo.id_cargo}, '${cargoNomeEscapado}')"
-                        title="Editar">
-                        <img src="/assets/icons/write-icon.png" alt="Editar" class="acoes-tabela-img table-action-icon">
-                    </button>
-
-                    <button
-                        type="button"
-                        class="table-action-button del"
-                        onclick="abrirModalExcluirCargo(${cargo.id_cargo})"
-                        title="Excluir">
-                        <img src="/assets/icons/delete-icon.png" alt="Excluir" class="acoes-tabela-img table-action-icon">
-                    </button>
-
-                </td>
-
-            </tr>
-        `;
-    });
+    renderizarTabela(data);
 }
 
-async function criarCargo() {
-    const nome =
-        document
-            .getElementById("inputNovo")
-            .value
-            .trim();
+function renderizarTabela(cargos) {
+    const tabela = document.getElementById("tabelaCargos");
 
-    if (!nome) {
+    if (!cargos.length) {
+        tabela.innerHTML = `
+            <tr>
+                <td colspan="2" style="text-align: center; color: #aaa;">
+                    Nenhum cargo cadastrado.
+                </td>
+            </tr>
+        `;
         return;
     }
 
-    try {
-        await fetch(API, {
-            method: "POST",
-            headers: {
-                "Content-Type":
-                    "application/json"
-            },
+    tabela.innerHTML = cargos.map(cargo => `
+        <tr>
+            <td>${cargo.nome}</td>
+            <td class="acoes-tabela">
+                <button
+                    type="button"
+                    class="table-action-button"
+                    onclick="abrirModalEditarCargo(${cargo.id_cargo}, '${escapar(cargo.nome)}')"
+                    title="Editar">
+                    <img src="/assets/icons/write-icon.png" alt="Editar" class="table-action-icon">
+                </button>
+                <button
+                    type="button"
+                    class="table-action-button del"
+                    onclick="abrirModalExcluirCargo(${cargo.id_cargo})"
+                    title="Excluir">
+                    <img src="/assets/icons/delete-icon.png" alt="Excluir" class="table-action-icon">
+                </button>
+            </td>
+        </tr>
+    `).join("");
+}
 
-            body: JSON.stringify({
-                nome
-            })
+async function criarCargo() {
+    const nome = getInput("inputNovo");
+    if (!nome) return;
+
+    try {
+        const response = await fetch(API, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome }),
         });
 
+        if (!response.ok) throw new Error("Erro ao criar");
+
+        showToast("success", "Cargo criado com sucesso!");
         fecharModal();
         carregarCargos();
 
     } catch (erro) {
-        console.error(
-            "Erro ao criar cargo:",
-            erro
-        );
+        console.error("Erro ao criar cargo:", erro);
+        showToast("danger", "Erro ao criar cargo.", "Tente novamente.");
     }
 }
 
 async function atualizarCargo(id) {
-    const nome =
-        document
-            .getElementById("inputEditar")
-            .value
-            .trim();
-
-    if (!nome) {
-        return;
-    }
+    const nome = getInput("inputEditar");
+    if (!nome) return;
 
     try {
-        await fetch(`${API}/${id}`, {
+        const response = await fetch(`${API}/${id}`, {
             method: "PUT",
-            headers: {
-                "Content-Type":
-                    "application/json"
-            },
-
-            body: JSON.stringify({
-                nome
-            })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome }),
         });
 
-        fecharModal();
+        if (!response.ok) throw new Error("Erro ao atualizar");
 
+        showToast("success", "Cargo atualizado com sucesso!");
+        fecharModal();
         carregarCargos();
 
     } catch (erro) {
-        console.error(
-            "Erro ao atualizar cargo:",
-            erro
-        );
+        console.error("Erro ao atualizar cargo:", erro);
+        showToast("danger", "Erro ao atualizar cargo.", "Tente novamente.");
     }
 }
 
 async function deletarCargo(id) {
-
     try {
-        await fetch(
-            `${API}/${id}`,
-            {
-                method: "DELETE"
-            }
-        );
+        const response = await fetch(`${API}/${id}`, { method: "DELETE" });
 
+        if (!response.ok) throw new Error("Erro ao deletar");
+
+        showToast("success", "Cargo excluído.");
         fecharModal();
         carregarCargos();
 
     } catch (erro) {
-        console.error(
-            "Erro ao deletar cargo:",
-            erro
-        );
+        console.error("Erro ao deletar cargo:", erro);
+        showToast("danger", "Erro ao excluir cargo.", "Tente novamente.");
     }
 }
 
-window.onload = function () {
-    carregarCargos();
-}
+window.onload = carregarCargos;
