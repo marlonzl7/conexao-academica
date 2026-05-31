@@ -11,7 +11,7 @@ async function contact(req, res) {
         }
 
         await indexModel.enviarMensagem(name, email, message);
-        return res.status(200).json(respostaSucesso({ mensagem: "Enviado com sucesso!", dados: { name, email, message } }));
+        return res.status(200).json(respostaSucesso(true, "Mensagem enviada com sucesso"));
 
     } catch (erro) {
         console.error("\nERRO NO CONTROLLER:\n", erro);

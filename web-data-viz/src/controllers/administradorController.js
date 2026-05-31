@@ -6,13 +6,10 @@ async function listar(req, res) {
         const resultado = await administradorModel.buscarInstituicoes();
 
         if (!resultado || resultado.length === 0) {
-            return res.status(200).send(respostaSucesso({ sucesso: true, dados: [] }));
+            return res.status(200).send(respostaErro("Nenhuma instituição encontrada"));
         }
 
-        res.status(200).json({
-            sucesso: true,
-            dados: resultado
-        })
+        res.status(200).json(respostaSucesso(true, resultado));
 
     } catch (erro) {
         console.error("Erro no controller:", erro);
@@ -30,10 +27,7 @@ async function buscarPorId(req, res) {
 
     try {
         const resultado = await administradorModel.buscarPorId(id);
-        res.status(200).json(respostaSucesso({
-            sucesso: true,
-            dados: resultado
-        }));
+        res.status(200).json(respostaSucesso(true, resultado));
     } catch (erro) {
         console.error("Erro no controller:", erro);
         res.status(500).json(respostaErro("Erro ao buscar detalhes da instituição"));
@@ -45,10 +39,7 @@ async function pesquisarInstituicoes(req, res) {
 
     try {
         const resultado = await administradorModel.pesquisarInstituicoes(termo);
-        res.status(200).json(respostaSucesso({
-            sucesso: true,
-            dados: resultado
-        }));
+        res.status(200).json(respostaSucesso(true, resultado));
     }
     catch (erro) {
         console.error("Erro no controller:", erro);
@@ -66,7 +57,7 @@ async function alterarStatusUsuario(req, res) {
 
     try {
         await administradorModel.alterarStatusUsuario(idUsuario, ativo ? 1 : 0);
-        res.status(200).json(respostaSucesso({ sucesso: true, mensagem: "Status atualizado" }));
+        res.status(200).json(respostaSucesso(true, "Status do usuário atualizado"));
     } catch (erro) {
         console.error("Erro no controller:", erro);
         res.status(500).json(respostaErro("Erro ao atualizar status"));
@@ -82,7 +73,7 @@ async function cadastrarDiretor(req, res) {
 
     try {
         await administradorModel.cadastrarDiretor(idInstituicao, cpf, nome, email, senha);
-        res.status(201).json(respostaSucesso({ sucesso: true, mensagem: "Diretor cadastrado" }));
+        res.status(201).json(respostaSucesso(true, "Diretor cadastrado"));
     } catch (erro) {
         console.error("Erro no controller:", erro);
         res.status(500).json(respostaErro("Erro ao cadastrar diretor"));
@@ -98,7 +89,7 @@ async function cadastrarAdministrador(req, res) {
 
     try {
         await administradorModel.cadastrarAdministrador(idInstituicao, cpf, nome, email, senha);
-        res.status(201).json(respostaSucesso({ sucesso: true, mensagem: "Administrador cadastrado" }));
+        res.status(201).json(respostaSucesso(true, "Administrador cadastrado"));
     } catch (erro) {
         console.error("Erro no controller:", erro);
         res.status(500).json(respostaErro("Erro ao cadastrar administrador"));
@@ -114,7 +105,7 @@ async function cadastrarCoordenador(req, res) {
 
     try {
         await administradorModel.cadastrarCoordenador(id_curso, cpf, nome, email, senha);
-        res.status(201).json(respostaSucesso({ sucesso: true, mensagem: "Coordenador cadastrado" }));
+        res.status(201).json(respostaSucesso(true, "Coordenador cadastrado"));
     } catch (erro) {
         console.error("Erro no controller:", erro);
         res.status(500).json(respostaErro("Erro ao cadastrar coordenador"));
@@ -126,7 +117,7 @@ async function listarCursos(req, res) {
 
     try{
         const cursos = await administradorModel.listarCursos(idInstituicao);
-        res.status(200).json(respostaSucesso({ sucesso: true, dados: cursos }));
+        res.status(200).json(respostaSucesso(true, cursos));
     }catch(erro){
         console.error("Erro no controller:", erro);
         res.status(500).json(respostaErro("Erro ao listar cursos"));
@@ -138,7 +129,7 @@ async function buscarKPIs(req, res) {
 
     try {
         const resultado = await administradorModel.buscarKPIs(idInstituicao);
-        res.status(200).json(respostaSucesso({ sucesso: true, dados: resultado }));
+        res.status(200).json(respostaSucesso(true, resultado));
     } catch (erro) {
         console.error("Erro no controller:", erro);
         res.status(500).json(respostaErro("Erro ao buscar KPIs"));

@@ -7,7 +7,7 @@ async function getKPIs(req, res) {
         const anoFim = req.query.anoFim;
 
         const responseFromModel = await dashboardDiretorModel.getKPIs(anoInicio, anoFim, idInstituicao);
-        return res.status(200).json(respostaSucesso(responseFromModel));
+        return res.status(200).json(respostaSucesso(true, responseFromModel));
     } catch (erro) {
         console.error("Erro na controller (getKPIs):", erro);
         return res.status(500).json(respostaErro("Erro ao buscar KPIs"));
@@ -19,7 +19,7 @@ async function getAnosDisponiveis(req, res) {
         const idInstituicao = req.query.idInstituicao;
 
         const responseFromModel = await dashboardDiretorModel.getAnosDisponiveis(idInstituicao);
-        return res.status(200).json(respostaSucesso(responseFromModel));
+        return res.status(200).json(respostaSucesso(true, responseFromModel));
     }
     catch (erro) {
         console.error("Erro na controller (getAnosDisponiveis):", erro);
@@ -34,7 +34,7 @@ async function getGraficoEvasao(req, res) {
         const idInstituicao = req.query.idInstituicao;
 
         const responseFromModel = await dashboardDiretorModel.getGraficoEvasao(anoInicio, anoFim, idInstituicao);
-        return res.status(200).json(respostaSucesso(responseFromModel));
+        return res.status(200).json(respostaSucesso(true, responseFromModel));
     } catch (erro) {
         console.error("Erro na controller (getGraficoEvasao):", erro);
         return res.status(500).json(respostaErro("Erro ao buscar gráfico de evasão"));
@@ -48,7 +48,7 @@ async function getTaxaEvasaoAnual(req, res) {
         const idInstituicao = req.query.idInstituicao;
 
         const responseFromModel = await dashboardDiretorModel.getGraficoResumoEvasao(anoInicio, anoFim, idInstituicao);
-        return res.status(200).json(respostaSucesso(responseFromModel));
+        return res.status(200).json(respostaSucesso(true, responseFromModel));
     }
     catch (erro) {
         console.error("Erro na controller (getTaxaEvasaoAnual):", erro);

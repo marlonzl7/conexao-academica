@@ -4,7 +4,7 @@ const { respostaSucesso, respostaErro } = require("../dtos/resposta.js");
 async function getAllRoles(req, res) {
     try {
         const responseFromModel = await cargoModel.getAllRoles();
-        return res.status(200).json(respostaSucesso(responseFromModel));
+        return res.status(200).json(respostaSucesso(true, responseFromModel));
     } catch (erro) {
         console.error("Erro na controller (getAllRoles):", erro);
         return res.status(500).json(respostaErro("Erro ao listar cargos"));
@@ -37,7 +37,7 @@ async function updateRole(req, res) {
         }
 
         const responseFromModel = await cargoModel.updateRole(roleId, nome);
-        return res.status(200).json(respostaSucesso(responseFromModel));
+        return res.status(200).json(respostaSucesso(true, responseFromModel));
 
     } catch (erro) {
         console.error("Erro na controller (updateRole):", erro);
@@ -55,7 +55,7 @@ async function createRole(req, res) {
         }
 
         const response = await cargoModel.createRole(nome);
-        return res.status(201).json(respostaSucesso(response));
+        return res.status(201).json(respostaSucesso(true, response));
 
     } catch (erro) {
         console.error("Erro na controller (createRole):", erro);
