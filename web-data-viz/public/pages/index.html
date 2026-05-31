@@ -1,185 +1,322 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conexão Acadêmica</title>
-  <link rel="stylesheet" href="/style/index.css">
-  <link rel="icon" type="image/png" href="/assets/imgs/logoTopo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Public+Sans:wght@400;700&display=swap"
-    rel="stylesheet">
-
-</head>
-<body>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/index.css">
 </head>
 
 <body>
 
+  <!-- HEADER -->
   <header>
-    <img src="/assets/icons/logo.png" alt="Logo Conexão Acadêmica">
-    <h3>Conexão Acadêmica</h3>
+    <a class="header-brand" href="#">
+      <div class="brand-icon">C</div>
+      <span class="brand-name">Conexão Acadêmica</span>
+    </a>
+
     <nav>
-      <button onclick="menu()">
-        <img id="imagem-menu" src="/assets/icons/menu.png" alt="Menu Hamburguer">
-      </button>
-      <ul id="menu">
-        <li><img id="home-imagem" src="" alt="Imagem Home"><a href="">Home</a></li>
-        <li><img id="sobre-imagem" src="" alt="Imagem Sobre Nós"><a href="#section-sobrenos">Sobre Nós</a></li>
-        <li><img id="contato-imagem" src="" alt="Imagem Contate-nos"><a href="#section-contactus">Contate-nos</a></li>
-        <li><img id="login-imagem" src="" alt="Imagem Login"><a href="/pages/login.html">Login</a></li>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#section-sobrenos">Sobre Nós</a></li>
+        <li><a href="#section-carrosel">Soluções</a></li>
+        <li><a href="#section-contactus">Contato</a></li>
+        <li><a href="/pages/login.html" class="nav-cta">Login</a></li>
       </ul>
     </nav>
+
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Home</a>
+    <a href="#section-sobrenos">Sobre Nós</a>
+    <a href="#section-carrosel">Soluções</a>
+    <a href="#section-contactus">Contato</a>
+    <a href="/pages/login.html">Login</a>
+  </div>
+
+  <!-- HERO -->
   <section id="section-home">
-    <div id="container-home">
-      <div class="content-wrapper">
-        <h1>
-          <b>Transformando dados acadêmicos em decisões inteligentes.</b>
-        </h1>
-        <p>
-          Conectamos universidades e gestores por meio de tecnologia e análise de dados, facilitando decisões
-          estratégicas que elevam a qualidade acadêmica e a eficiência administrativa.
-        </p>
-        <a href="/pages/cadastro.html" class="btn-cadastre">Cadastre-se <img src="/assets/icons/seta-direita.png"
-            alt="Imagem Seta a Direita"></a>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        <span>Plataforma de Gestão Acadêmica</span>
       </div>
-      <div class="image-wrapper">
-        <img src="/assets/imgs/estudantes_home.svg" alt="Estudantes analisando gráfico">
+
+      <div class="hero-text">
+        <h1>Transformando dados acadêmicos em <span class="highlight">decisões inteligentes.</span></h1>
+        <p>Conectamos universidades e gestores por meio de tecnologia e análise de dados, facilitando decisões estratégicas que elevam a qualidade acadêmica.</p>
+      </div>
+
+      <div class="hero-actions">
+        <a href="/pages/cadastro.html" class="btn-primary">
+          Cadastre-se agora
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#section-sobrenos" class="btn-secondary">Saiba mais</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">200+</span>
+          <span class="stat-label">Instituições</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">Satisfação</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">5M+</span>
+          <span class="stat-label">Dados processados</span>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ABOUT -->
   <section id="section-sobrenos">
-    <div class="container-sobre">
-      <div class="sobre-content">
-        <h2>Sobre a Conexão Acadêmica</h2>
-        <p>A Conexão Acadêmica surgiu com o propósito de simplificar a gestão educacional. Acreditamos que dados, quando
-          bem interpretados, são a ferramenta mais poderosa para elevar o padrão acadêmico.</p>
-        <div class="card-grid">
-          <div class="card-valor">
-            <img src="/assets/icons/verified.png" alt="Inovação">
-            <h3>Inovação Orientada</h3>
-            <p>Algoritmos avançados para prever tendências.</p>
+    <div class="sobre-grid">
+
+      <div class="sobre-visual fade-up">
+        <div class="sobre-visual-bg">
+          <div class="sobre-illustration">
+            <div class="sobre-chart">
+              <div class="chart-bar" style="height:45px; animation-delay:0.1s"></div>
+              <div class="chart-bar" style="height:75px; animation-delay:0.2s"></div>
+              <div class="chart-bar" style="height:55px; animation-delay:0.3s"></div>
+              <div class="chart-bar" style="height:90px; animation-delay:0.4s"></div>
+              <div class="chart-bar" style="height:65px; animation-delay:0.5s"></div>
+              <div class="chart-bar" style="height:110px; animation-delay:0.6s"></div>
+              <div class="chart-bar" style="height:80px; animation-delay:0.7s"></div>
+            </div>
           </div>
-          <div class="card-valor">
-            <img src="/assets/icons/verified.png" alt="Gestão">
-            <h3>Gestão Estratégica</h3>
-            <p>Painéis dinâmicos para decisões inteligentes.</p>
+        </div>
+        <div class="sobre-floating-card card-1">
+          <div class="card-1-icon">📈</div>
+          <div class="card-1-text">
+            <strong>+32%</strong>
+            <span>Performance média</span>
           </div>
         </div>
       </div>
-      <img class="image-sobrenos" src="/assets/imgs/group.svg" alt="Equipe trabalhando">
+
+      <div class="sobre-content fade-up">
+        <span class="section-tag">Sobre a empresa</span>
+        <h2>Simplificamos a gestão educacional.</h2>
+        <p>A Conexão Acadêmica surgiu com o propósito de tornar dados educacionais acessíveis e acionáveis. Acreditamos que informação bem interpretada é a ferramenta mais poderosa para elevar o padrão acadêmico.</p>
+
+        <div class="valor-cards">
+          <div class="valor-card">
+            <div class="valor-icon">🔬</div>
+            <div>
+              <h3>Inovação Orientada</h3>
+              <p>Algoritmos avançados para prever tendências e antecipar cenários.</p>
+            </div>
+          </div>
+          <div class="valor-card">
+            <div class="valor-icon">📊</div>
+            <div>
+              <h3>Gestão Estratégica</h3>
+              <p>Painéis dinâmicos para decisões baseadas em dados confiáveis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
+  <!-- SOLUTIONS -->
   <section id="section-carrosel">
-    <div class="carrosel-header">
-      <h2>Soluções Inteligentes para sua Instituição</h2>
-      <p>Tecnologia estratégica para transformar gestão acadêmica.</p>
+    <div class="section-header fade-up">
+      <span class="section-tag">Nossas soluções</span>
+      <h2>Inteligência estratégica para sua instituição.</h2>
+      <p>Tecnologia de ponta que transforma a gestão acadêmica em vantagem competitiva.</p>
     </div>
-    <div class="carrosel-container">
-      <button onclick="anterior()" class="btn-prev">&#10094;</button>
-      <div class="carrosel-track">
-        <div class="carrosel-card">
-          <h3>Visão Inteligente da Instituição</h3>
-          <p>Transforme dados acadêmicos em clareza estratégica.</p>
-          <img src="/assets/imgs/visionboard.svg" alt="Imagem Visão Inteligente">
-          <p>Centralize indicadores, acompanhe métricas em tempo real e tenha uma visão completa do desempenho
-            institucional em um único painel.
-            Decisões mais rápidas começam com informação organizada e acessível.
-          </p>
-          <a href="">Saiba Mais</a>
-        </div>
-        <div class="carrosel-card">
-          <h3>Análise Acadêmica Avançada</h3>
-          <p>Insights que revelam oportunidades invisíveis.</p>
-          <img src="/assets/imgs/analysis.svg" alt="Imagem Análise">
-          <p>
-            Vá além dos números básicos. Nossa plataforma identifica padrões, tendências e pontos
-            críticos que impactam o desempenho dos alunos e da instituição, permitindo ações precisas e
-            fundamentadas.
-          </p>
-          <a href="">Saiba Mais</a>
-        </div>
-        <div class="carrosel-card">
-          <h3>Previsão e Performance</h3>
-          <p>Antecipe cenários. Planeje com confiança.</p>
-          <img src="/assets/imgs/performance.svg" alt="Imagem Performance">
-          <p>
-            Utilize modelos analíticos para projetar resultados acadêmicos,
-            reduzir riscos e melhorar indicadores estratégicos. A previsão inteligente transforma incertezas em
-            planejamento seguro.
-          </p>
-          <a href="">Saiba Mais</a>
-        </div>
-        <div class="carrosel-card">
-          <h3>Gestão Estratégica Orientada por Dados</h3>
-          <p>Decisões baseadas em evidência, não em suposições.</p>
-          <img src="/assets/imgs/strategic.svg" alt="Imagem Estratégica">
-          <p>
-            Integre dados pedagógicos, administrativos e institucionais em uma única estratégia de crescimento.
-            Otimize recursos, aumente eficiência e fortaleça a performance educacional.
-          </p>
-          <a href="">Saiba Mais</a>
-        </div>
+
+    <div class="solutions-grid">
+      <div class="solution-card fade-up">
+        <div class="solution-number">01</div>
+        <h3>Visão Inteligente da Instituição</h3>
+        <p class="tagline">Clareza estratégica em tempo real.</p>
+        <p>Centralize indicadores, acompanhe métricas e tenha uma visão completa do desempenho institucional em um único painel.</p>
+        <a href="#" class="solution-link">
+          Saiba mais
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
       </div>
-      <button onclick="proximo()" class="btn-next">&#10095;</button>
+
+      <div class="solution-card fade-up">
+        <div class="solution-number">02</div>
+        <h3>Análise Acadêmica Avançada</h3>
+        <p class="tagline">Insights que revelam oportunidades.</p>
+        <p>Identifique padrões, tendências e pontos críticos que impactam o desempenho dos alunos e da instituição.</p>
+        <a href="#" class="solution-link">
+          Saiba mais
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="solution-card fade-up">
+        <div class="solution-number">03</div>
+        <h3>Previsão e Performance</h3>
+        <p class="tagline">Antecipe cenários com confiança.</p>
+        <p>Utilize modelos analíticos para projetar resultados acadêmicos, reduzir riscos e melhorar indicadores estratégicos.</p>
+        <a href="#" class="solution-link">
+          Saiba mais
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="solution-card fade-up">
+        <div class="solution-number">04</div>
+        <h3>Gestão Orientada por Dados</h3>
+        <p class="tagline">Evidência, não suposição.</p>
+        <p>Integre dados pedagógicos e administrativos em uma única estratégia de crescimento para otimizar recursos.</p>
+        <a href="#" class="solution-link">
+          Saiba mais
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
 
+  <!-- CONTACT -->
   <section id="section-contactus">
-    <div class="contact-content">
-      <div class="contactus-header">
-        <h2>Entre em Contato</h2>
-        <p>Estamos prontos para transformar sua gestão acadêmica.</p>
-      </div>
-      <form id="contact-form">
-        <input type="text" id="name" name="name" placeholder="Seu Nome" required>
-        <input type="email" id="email" name="email" placeholder="Seu Email" required>
-        <textarea id="message" name="message" placeholder="Sua Mensagem" required></textarea>
-        <button type="button" onclick="enviarMensagem()">Enviar Mensagem</button>
-      </form>
-    </div>
-    <img src="/assets/imgs/contactus.svg" alt="Contato Conexão Acadêmica">
-  </section>
+    <div class="contact-grid">
 
-  <footer>
-    <div id="container-footer">
-      <div class="footer-bloco footer-sobre">
-        <img src="/assets/icons/logo.png" alt="Logo Conexão Acadêmica">
-        <h3>Conexão Acadêmica</h3>
-        <p>Simplificando a gestão educacional através de dados.</p>
-        <div class="footer-social">
-          <a href="#"><img src="/assets/icons/linkedin.png" alt="LinkedIn"></a>
-          <a href="#"><img src="/assets/icons/instagram.png" alt="Instagram"></a>
+      <div class="contact-info fade-up">
+        <span class="section-tag">Contate-nos</span>
+        <h2>Vamos transformar sua gestão juntos.</h2>
+        <p>Estamos prontos para entender os desafios da sua instituição e apresentar as melhores soluções para elevar sua performance acadêmica.</p>
+
+        <div class="contact-details">
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">📧</div>
+            <span>contato@conexaoacademica.com.br</span>
+          </div>
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">📞</div>
+            <span>(11) 99999-9999</span>
+          </div>
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">📍</div>
+            <span>São Paulo, SP</span>
+          </div>
         </div>
       </div>
-      <nav class="footer-bloco footer-link">
-        <h3>Menu</h3>
-        <a href="#section-home">Home</a>
+
+      <div class="contact-form-wrapper fade-up">
+        <p class="form-title">Envie sua mensagem</p>
+
+        <div class="form-group">
+          <label>Seu nome</label>
+          <input type="text" id="name" placeholder="João Silva" required>
+        </div>
+        <div class="form-group">
+          <label>Seu e-mail</label>
+          <input type="email" id="email" placeholder="joao@universidade.edu.br" required>
+        </div>
+        <div class="form-group">
+          <label>Mensagem</label>
+          <textarea id="message" placeholder="Como podemos ajudar sua instituição?" required></textarea>
+        </div>
+        <button class="form-submit" onclick="enviarMensagem()">Enviar mensagem →</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <div class="brand-icon-lg">C</div>
+        <h3>Conexão Acadêmica</h3>
+        <p>Simplificando a gestão educacional através de dados e inteligência estratégica.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link" aria-label="LinkedIn">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Instagram">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-nav-col">
+        <h4>Menu</h4>
+        <a href="#">Home</a>
         <a href="#section-sobrenos">Sobre Nós</a>
         <a href="#section-carrosel">Soluções</a>
         <a href="#section-contactus">Contate-nos</a>
-      </nav>
-      <div class="footer-bloco footer-contato">
-        <h3>Fale Conosco</h3>
+      </div>
+
+      <div class="footer-contact-col">
+        <h4>Contato</h4>
         <p>contato@conexaoacademica.com.br</p>
         <p>(11) 99999-9999</p>
         <p>São Paulo, SP</p>
       </div>
     </div>
+
     <div class="footer-bottom">
-      <p>&copy; 2026 Conexão Acadêmica. Todos os direitos reservados.</p>
+      <p>© 2026 Conexão Acadêmica. Todos os direitos reservados.</p>
     </div>
   </footer>
-  <script src="/js/index.js"></script>
-  <script src="/js/validacoes.js"></script>
-  <script src="/js/login.js"></script>
+
+  <script>
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-menu a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('open');
+      });
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Form submit
+    function enviarMensagem() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !email || !message) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+      }
+      alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+    }
+  </script>
 
 </body>
 </html>
