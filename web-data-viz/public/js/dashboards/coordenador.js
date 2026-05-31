@@ -1,3 +1,5 @@
+Chart.register(ChartDataLabels);
+
 let lineChart;
 let donutChart;
 
@@ -32,14 +34,11 @@ async function carregarDashboard() {
 
         const [
             respostaKpis,
-            respostaGraficoLinha,
-            respostaSituacao
+            respostaGraficoLinha
         ] = await Promise.all([
             fetch(`/dashboards/coordenador/kpis?idCurso=${idCurso}&inicio=${inicio}&fim=${fim}`),
 
-            fetch(`/dashboards/coordenador/graficos/taxa-evasao-anual?idCurso=${idCurso}&inicio=${inicio}&fim=${fim}`),
-
-            fetch(`/dashboards/coordenador/graficos/situacao-alunos?idCurso=${idCurso}&inicio=${inicio}&fim=${fim}`)
+            fetch(`/dashboards/coordenador/graficos/taxa-evasao-anual?idCurso=${idCurso}&inicio=${inicio}&fim=${fim}`)
         ]);
 
         const kpis = await respostaKpis.json();
@@ -48,25 +47,14 @@ async function carregarDashboard() {
 
         const graficoLinhaResposta = await respostaGraficoLinha.json();
 
-        const situacaoResposta = await respostaSituacao.json();
-
         console.log(graficoLinhaResposta);
-
-        console.log(situacaoResposta);
-
-        const tituloGrafico = document
-            .getElementById("titulo-grafico-linha");
-
-        tituloGrafico.innerText =
-            inicio === fim
-                ? `Taxa de evasão (${inicio})`
-                : `Taxa de evasão (${inicio} - ${fim})`;
 
         preencherKpis(kpis);
 
-        renderizarGraficoLinha(graficoLinhaResposta.dados.serie);
+        const serie = graficoLinhaResposta.dados.serie;
 
-        renderizarGraficoDonut(situacaoResposta.dados.serie);
+        renderizarGraficoLinha(serie);
+        renderizarGraficoDonut(serie);
 
     } catch (erro) {
 
@@ -230,42 +218,193 @@ function renderizarGraficoLinha(dados) {
 
     const labels = dados.map(item => item.ano);
 
-    const taxas = dados.map(item => item.taxaEvasao);
-
     if (lineChart) {
         lineChart.destroy();
     }
 
-    const ctx = document.getElementById("lineChart").getContext("2d");
-
-    const tipoGrafico =
-        dados.length === 1
-            ? "bar"
-            : "line";
+    const ctx =
+        document.getElementById("lineChart")
+            .getContext("2d");
 
     lineChart = new Chart(ctx, {
 
-        type: tipoGrafico,
+        type: "line",
 
         data: {
 
             labels,
 
             datasets: [
+
                 {
-                    label: "Taxa de Evasão (%)",
-                    data: taxas,
-                    borderColor: "red",
-                    backgroundColor: "red",
-                    tension: 0,
-                    pointRadius: 5
+                    label: "Ativos",
+
+                    data: dados.map(
+                        item => item.ativos
+                    ),
+
+                    borderColor: "#22c55e",
+                    backgroundColor: "rgba(34,197,94,0.05)",
+
+                    tension: 0.2,
+
+                    fill: false,
+
+                    pointRadius: 3,
+                    pointHoverRadius: 5
+                },
+
+                {
+                    label: "Evadidos",
+
+                    data: dados.map(
+                        item => item.evadidos
+                    ),
+
+                    borderColor: "#ef4444",
+                    backgroundColor: "rgba(239,68,68,0.05)",
+
+                    tension: 0.2,
+
+                    fill: false,
+
+                    pointRadius: 3,
+                    pointHoverRadius: 5
+                },
+
+                {
+                    label: "Trancados",
+
+                    data: dados.map(
+                        item => item.trancados
+                    ),
+
+                    borderColor: "#3b82f6",
+                    backgroundColor: "rgba(59,130,246,0.05)",
+
+                    tension: 0.2,
+
+                    fill: false,
+
+                    pointRadius: 3,
+                    pointHoverRadius: 5
                 }
             ]
         },
 
         options: {
+
             responsive: true,
-            maintainAspectRatio: false
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                datalabels: {
+                    display: false
+                },
+
+                legend: {
+
+                    position: "bottom",
+
+                    align: "center",
+
+                    labels: {
+
+                        usePointStyle: true,
+
+                        pointStyle: "circle",
+
+                        boxWidth: 8,
+
+                        font: {
+                            family: "Public Sans",
+                            size: 12
+                        },
+
+                        color: "#6b7280",
+
+                        padding: 10
+                    }
+                },
+
+                tooltip: {
+
+                    backgroundColor: "#1a1a2e",
+
+                    titleFont: {
+                        family: "Public Sans",
+                        size: 12
+                    },
+
+                    bodyFont: {
+                        family: "Public Sans",
+                        size: 12
+                    },
+
+                    padding: 10,
+
+                    cornerRadius: 8,
+
+                    mode: "index",
+
+                    intersect: false
+                }
+            },
+
+            layout: {
+                padding: {
+                    bottom: 20
+                }
+            },
+
+            scales: {
+
+                x: {
+
+                    grid: {
+                        display: false
+                    },
+
+                    border: {
+                        display: false
+                    },
+
+                    ticks: {
+
+                        font: {
+                            family: "Public Sans",
+                            size: 11
+                        },
+
+                        color: "#9ca3af"
+                    }
+                },
+
+                y: {
+
+                    grid: {
+                        color: "#b3b3b3"
+                    },
+
+                    border: {
+                        display: false
+                    },
+
+                    ticks: {
+
+                        font: {
+                            family: "Public Sans",
+                            size: 11
+                        },
+
+                        color: "#9ca3af",
+
+                        maxTicksLimit: 6
+                    },
+                }
+            }
         }
     });
 }
@@ -301,17 +440,73 @@ function renderizarGraficoDonut(dados) {
                     ],
 
                     backgroundColor: [
-                        "#6c63ff",
-                        "#ff7b7b",
-                        "#53c7de"
+                        "#22c55e",
+                        "#3b82f6",
+                        "#ef4444"
                     ]
                 }
             ]
         },
 
         options: {
+
             responsive: true,
-            maintainAspectRatio: false
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                datalabels: {
+
+                    color: "#fff",
+
+                    font: {
+                        weight: "bold",
+                        size: 13
+                    },
+
+                    formatter: (value, context) => {
+
+                        const total =
+                            context.dataset.data.reduce(
+                                (acc, curr) => acc + curr,
+                                0
+                            );
+
+                        return `${((value / total) * 100).toFixed(0)}%`;
+                    }
+                },
+
+                legend: {
+
+                    position: "bottom",
+
+                    labels: {
+
+                        usePointStyle: true,
+
+                        pointStyle: "circle",
+
+                        boxWidth: 8,
+
+                        font: {
+                            family: "Public Sans",
+                            size: 12
+                        },
+
+                        color: "#6b7280",
+
+                        padding: 20
+                    }
+                }
+            },
+
+            layout: {
+                padding: {
+                    bottom: 20
+                }
+            }
+
         }
     });
 }
