@@ -1,3 +1,5 @@
+const STORAGE_USER_KEY = "USUARIO";
+
 window.onload = function () {
 
     const path = window.location.pathname;
@@ -8,16 +10,31 @@ window.onload = function () {
     }
 };
 
+function obterUsuarioSessao() {
+    const usuarioStr = sessionStorage.getItem(STORAGE_USER_KEY);
+
+    if (!usuarioStr) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(usuarioStr);
+    } catch (erro) {
+        console.error("Erro ao interpretar usuário da sessão:", erro);
+        return null;
+    }
+}
+
 function formatarCPF(cpf) {
     if (!cpf) return "N/A";
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
 
 function buscarDados() {
-    const usuarioStr = sessionStorage.getItem("USUARIO");
-    if (!usuarioStr) return console.error("Usuário não logado");
+    const usuario = obterUsuarioSessao();
 
-    const usuario = JSON.parse(usuarioStr);
+    if (!usuario) return;
+
     const idUsuario = usuario.id_usuario;
 
     fetch(`/usuarios/${idUsuario}`)
@@ -35,10 +52,10 @@ function buscarDados() {
 }
 
 function carregarDados() {
-    const usuarioStr = sessionStorage.getItem("usuario");
-    if (!usuarioStr) return;
+    const usuario = obterUsuarioSessao();
 
-    const usuario = JSON.parse(usuarioStr);
+    if (!usuario) return;
+
     const idUsuario = usuario.id_usuario;
 
     fetch(`/usuarios/${idUsuario}`)
@@ -51,13 +68,22 @@ function carregarDados() {
             if(document.getElementById("instituicao")) document.getElementById("instituicao").value = dados.instituicao || "";
             if(document.getElementById("nome")) document.getElementById("nome").value = dados.nome;
             if(document.getElementById("email")) document.getElementById("email").value = dados.email;
+        })
+        .catch(erro => {
+            console.error("Erro ao carregar dados:", erro);
         });
 }
 
 function salvar(event) {
     event.preventDefault(); 
 
-    const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    const usuario = obterUsuarioSessao();
+
+    if (!usuario) {
+        alert("Usuário não encontrado na sessão.");
+        return;
+    }
+
     const idUsuario = usuario.id_usuario;
 
     const nome = document.getElementById("nome").value;
@@ -80,7 +106,7 @@ function salvar(event) {
     
             usuario.nome = nome;
             usuario.email = email;
-            sessionStorage.setItem("usuario", JSON.stringify(usuario));
+            sessionStorage.setItem(STORAGE_USER_KEY, JSON.stringify(usuario));
             
             window.location.href = "informacoes-da-conta.html";
         } else {
@@ -91,7 +117,13 @@ function salvar(event) {
 }
 
 function alterarSenha() {
-    const usuario = JSON.parse(sessionStorage.getItem("USUARIO"));
+    const usuario = obterUsuarioSessao();
+
+    if (!usuario) {
+        alert("Usuário não encontrado na sessão.");
+        return;
+    }
+
     const idUsuario = usuario.id_usuario;
 
     const senhaAtual = document.getElementById("senhaAtual").value;
@@ -127,7 +159,13 @@ function alterarSenha() {
 }
 
 function confirmarExclusao() {
-    const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    const usuario = obterUsuarioSessao();
+
+    if (!usuario) {
+        alert("Usuário não encontrado na sessão.");
+        return;
+    }
+
     const idUsuario = usuario.id_usuario;
 
     
@@ -144,7 +182,6 @@ function confirmarExclusao() {
             if (resposta.sucesso) {
                 alert("Sua conta foi excluída com sucesso.");
                 
-                sessionStorage.clear();
                 sessionStorage.clear();
                 
                 window.location.href = "login.html";
