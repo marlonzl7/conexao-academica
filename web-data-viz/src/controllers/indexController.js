@@ -3,19 +3,19 @@ const { respostaSucesso, respostaErro } = require("../dtos/resposta");
 
 async function contact(req, res) {
     try {
-        const { nomeServer, emailServer, mensagemServer } = req.body;
-        console.log("Dados recebidos:", nomeServer, emailServer, mensagemServer);
+        const { name, email, message } = req.body;
+        console.log("Dados recebidos:", name, email, message);
 
-        if (!nomeServer || !emailServer || !mensagemServer) {
-            return res.status(400).json.respostaErro({ erro: "Dados incompletos" });
+        if (!name || !email || !message) {
+            return res.status(400).json({ mensagem: "Dados incompletos", dados: { name, email, message } });
         }
 
-        await indexModel.enviarMensagem(nomeServer, emailServer, mensagemServer);
-        return res.status(200).json.respostaSucesso({ mensagem: "Enviado com sucesso!" });
+        await indexModel.enviarMensagem(name, email, message);
+        return res.status(200).json({ sucesso: true, mensagem: "Enviado com sucesso!", dados: { name, email, message } });
 
     } catch (erro) {
         console.error("\nERRO NO CONTROLLER:\n", erro);
-        return res.status(500).json.respostaErro({ erro: erro.message });
+        return res.status(500).json({ mensagem: erro.message,  dados: null });
     }
 }
 
