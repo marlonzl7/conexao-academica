@@ -44,6 +44,8 @@ async function carregarDashboard() {
 
         const kpis = await respostaKpis.json();
 
+        document.getElementById("nome-curso").innerText = `Curso: ${kpis.dados.curso.nome}`;
+
         const graficoLinhaResposta = await respostaGraficoLinha.json();
 
         const situacaoResposta = await respostaSituacao.json();
