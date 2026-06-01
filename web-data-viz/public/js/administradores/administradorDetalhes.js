@@ -102,10 +102,11 @@ async function alterarStatus(idUsuario, ativo, inputEl) {
             const card = inputEl.closest('.pessoa-card');
             const label = card.querySelector('.toggle-label');
             if (label) label.textContent = ativo ? 'Ativo' : 'Inativo';
+            showToast("success", "Status atualizado", `O usuário agora está ${ativo ? 'ativo' : 'inativo'}.`);
         }
     } catch (error) {
         console.error("Erro ao alterar status:", error);
-        alert("Erro ao alterar status do usuário");
+        showToast("danger", "Erro ao alterar status", "Tente novamente");
         inputEl.checked = !ativo;
     }
 }
@@ -120,7 +121,7 @@ function cadastrarDiretor() {
     const cpf = document.getElementById("diretor_cpf").value.trim();
 
     if (!nome || !email || !senha || !cpf) {
-        alert("Todos os campos são obrigatórios.");
+        showToast("danger", "Erro ao cadastrar diretor", "Todos os campos são obrigatórios.");
         return;
     }
 
@@ -138,16 +139,16 @@ function cadastrarDiretor() {
         .then(res => res.json())
         .then(data => {
             if (data.sucesso) {
-                alert("Diretor cadastrado com sucesso!");
+                showToast("success", "Diretor Cadastrado", "Diretor cadastrado com sucesso!");
                 fecharModal();
                 buscarInstituicao();
             } else {
-                alert("Erro ao cadastrar diretor: " + (data.mensagem || "Erro desconhecido"));
+                showToast("danger", "Erro ao cadastrar diretor", data.mensagem || "Erro desconhecido");
             }
         })
         .catch(error => {
             console.error("Erro ao cadastrar diretor:", error);
-            alert("Erro ao cadastrar diretor.");
+            showToast("danger", "Erro ao cadastrar diretor", "Tente novamente");
         });
 }
 
@@ -163,7 +164,7 @@ function cadastrarCoordenador() {
     const id_curso = document.getElementById("select_curso").value;
 
     if (!nome || !email || !senha || !cpf || !id_curso) {
-        alert("Todos os campos são obrigatórios.");
+        showToast("danger", "Erro ao cadastrar coordenador", "Todos os campos são obrigatórios.");
         return;
     }
 
@@ -184,20 +185,17 @@ function cadastrarCoordenador() {
         .then(data => {
 
             if (data.sucesso) {
-                alert("Coordenador cadastrado com sucesso!");
+                showToast("success", "Coordenador Cadastrado", "Coordenador cadastrado com sucesso!");
                 fecharModal();
                 buscarInstituicao();
             } else {
-                alert(
-                    "Erro ao cadastrar Coordenador: " +
-                    (data.mensagem || "Erro desconhecido")
-                );
+                showToast("danger", "Erro ao cadastrar coordenador", data.mensagem || "Erro desconhecido");
             }
         })
 
         .catch(error => {
             console.error("Erro ao cadastrar Coordenador:", error);
-            alert("Erro ao cadastrar Coordenador.");
+            showToast("danger", "Erro ao cadastrar coordenador", "Tente novamente");
         });
 }
 
@@ -225,7 +223,7 @@ function buscarInstituicao() {
         })
         .catch(error => {
             console.error("Erro ao buscar instituição: ", error);
-            alert("Erro ao buscar instituição.")
+            showToast("danger", "Erro ao buscar instituição", "Tente novamente");
         });
 }
 

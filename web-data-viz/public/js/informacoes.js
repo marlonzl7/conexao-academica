@@ -80,7 +80,7 @@ function salvar(event) {
     const usuario = obterUsuarioSessao();
 
     if (!usuario) {
-        alert("Usuário não encontrado na sessão.");
+        showToast("danger", "Usuário não encontrado", "Usuário não foi encontrado na sessão.");
         return;
     }
 
@@ -90,7 +90,7 @@ function salvar(event) {
     const email = document.getElementById("email").value;
 
     if (!nome || !email) {
-        alert("Preencha todos os campos!");
+        showToast("danger", "Preencha todos os campos", "Preencha todos os campos obrigatórios.");
         return;
     }
 
@@ -102,7 +102,7 @@ function salvar(event) {
     .then(res => res.json())
     .then(resposta => {
         if (resposta.sucesso) {
-            alert("Dados atualizados com sucesso!");
+            showToast("sucess", "Dados atualizados com sucesso", "Os dados foram atualizados com sucesso.");
     
             usuario.nome = nome;
             usuario.email = email;
@@ -120,7 +120,7 @@ function alterarSenha() {
     const usuario = obterUsuarioSessao();
 
     if (!usuario) {
-        alert("Usuário não encontrado na sessão.");
+        showToast("danger", "Usuário não encontrado", "Usuário não foi encontrado na sessão.");
         return;
     }
 
@@ -149,7 +149,7 @@ function alterarSenha() {
     .then(res => res.json())
     .then(resposta => {
         if (resposta.sucesso) {
-            alert("Senha alterada com sucesso!");
+            showToast("sucess", "Senha alterada com sucesso", "A senha foi alterada com sucesso.");
             window.location.href = "informacoes-da-conta.html";
         } else {
             mensagem.innerText = resposta.mensagem;
@@ -162,7 +162,7 @@ function confirmarExclusao() {
     const usuario = obterUsuarioSessao();
 
     if (!usuario) {
-        alert("Usuário não encontrado na sessão.");
+        showToast("danger", "Usuário não encontrado", "Usuário não foi encontrado na sessão.");
         return;
     }
 
@@ -180,18 +180,18 @@ function confirmarExclusao() {
         .then(res => res.json())
         .then(resposta => {
             if (resposta.sucesso) {
-                alert("Sua conta foi excluída com sucesso.");
+                showToast("sucess", "Sua conta foi excluída", "Sua conta foi excluída com sucesso.");
                 
                 sessionStorage.clear();
                 
                 window.location.href = "login.html";
             } else {
-                alert("Erro ao excluir conta: " + resposta.mensagem);
+                showToast("danger", "Erro ao excluir conta", resposta.mensagem);
             }
         })
         .catch(erro => {
             console.error("Erro na requisição:", erro);
-            alert("Erro ao conectar com o servidor.");
+            showToast("danger", "Erro ao conectar com servidor", "Houve um erro ao tentar se conectar com o servidor.")
         });
     }
 }

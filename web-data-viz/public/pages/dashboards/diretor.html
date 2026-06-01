@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../style/dashboards/diretor.css">
     <link rel="stylesheet" href="../../style/components/sidebar.css">
     <link rel="stylesheet" href="../../style/components/header.css">
+    <link rel="stylesheet" href="/style/components/toast.css">
     <link rel="icon" type="image/png" href="../../assets/imgs/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +22,8 @@
 
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
+
+    <div class="toast-viewport" id="toast-viewport"></div>
     
     <main class="dashboard-content">
         <!-- FILTROS -->
@@ -62,7 +65,7 @@
                             Os limites desta classificação foram definidos por uma regra ativa.
                         </div>
                     </div>
-                </div>np
+                </div>
             </div>
 
             <!-- Card 2: Alunos Evadidos -->
@@ -161,6 +164,7 @@
     </main>
 
     <script src="../../js/include.js"></script>
+    <script src="../../components/toast/toast.js"></script>
     <script src="../../js/dashboards/diretor.js"></script>
     <script>
         initPage("Visão Geral da Evasão na Instituição");

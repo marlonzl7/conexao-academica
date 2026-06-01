@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/style/components/header.css">
     <link rel="stylesheet" href="/style/dashboard-exemplo.css">
     <link rel="stylesheet" href="/style/informacoes.css">
+    <link rel="stylesheet" href="../style/components/toast.css">
     <link rel="icon" type="image/png" href="/assets/imgs/logoTopo.png">
     <title>Conta</title>
 </head>
@@ -15,6 +16,8 @@
 <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
+    <div class="toast-viewport" id="toast-viewport"></div>
+
     <main class="main-content">
         <div class="container">
             <section class="card">
@@ -55,6 +58,7 @@
 
     <script src="/js/include.js"></script>
     <script src="/js/informacoes.js"></script>
+    <script src="../components/toast/toast.js"></script>
     <script src="/js/login.js"></script>
     <script>
         initPage("Informações da Conta");

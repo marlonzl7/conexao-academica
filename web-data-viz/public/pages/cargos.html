@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/style/components/header.css">
     <link rel="stylesheet" href="/style/components/sidebar.css">
     <link rel="stylesheet" href="/style/components/modal.css">
+    <link rel="stylesheet" href="/style/components/toast.css">
+    <link rel="stylesheet" href="/style/components/paginacao.css">
     <link rel="icon" type="image/png" href="/assets/imgs/logoTopo.png">
 
     <title>Cargos Conexão Acadêmica</title>
@@ -16,6 +18,8 @@
 <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
+
+    <div class="toast-viewport" id="toast-viewport"></div>
 
     <main>
         <div class="container">
@@ -42,6 +46,7 @@
                 </thead>
                 <tbody id="tabelaCargos"></tbody>
             </table>
+            <div class="paginacao" id="paginacao"></div>
         </div>
     </main>
 
@@ -54,10 +59,12 @@
     <script src="/components/modal/cargosModalActions.js"></script>
 
     <script src="/js/include.js"></script>
+    <script src="/components/toast/toast.js"></script>
     <script src="/js/cargos.js"></script>
     <script>
         initPage("Cargos");
     </script>
 
 </body>
+
 </html>
