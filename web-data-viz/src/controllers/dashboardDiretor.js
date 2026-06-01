@@ -1,5 +1,7 @@
 const dashboardDiretorModel = require("../models/dashboardDiretor");
 
+var { respostaSucesso, respostaErro } = require("../dtos/resposta");
+
 async function getKPIs(req, res) {
     try{
         const idInstituicao = req.query.idInstituicao;
