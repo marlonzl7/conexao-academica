@@ -14,7 +14,7 @@ window.abrirModalCadastroRegra = async function () {
     preencherKpis();
 };
 
-window.abrirModalEdicaoRegra = async function (id, classificacao, kpi, inferior, superior) {
+window.abrirModalEdicaoRegra = async function (id, classificacao, kpi, descricao, cor, inferior, superior) {
     if (!window.regraKpis || !window.regraKpis.length) {
         await carregarKpis();
     }
