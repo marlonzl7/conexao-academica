@@ -117,6 +117,20 @@ function iniciar() {
         }
     }
 
+    function mostrarSenha(idInput, icone) {
+    const input = document.getElementById(idInput);
+
+    if (input.type === "password") {
+        input.type = "text";
+        icone.src = "/assets/icons/show-icon-azul.png";
+        icone.alt = "Ocultar senha";
+    } else {
+        input.type = "password";
+        icone.src = "/assets/icons/hide-icon-azul.png";
+        icone.alt = "Mostrar senha";
+    }
+}
+
     async function cadastrar() {
         if (
             validarCPF(cpfInput) &&

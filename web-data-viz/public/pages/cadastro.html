@@ -10,81 +10,74 @@
 
 <body>
     <div id="popup-overlay" class="popup-overlay">
-    <div class="popup-box">
-        <h3>Cadastro concluído!</h3>
-        <p>Nossa equipe de suporte entrará em contato nos próximos dias para aprovar seu cadastro.</p>
-        <button id="btn-popup-ok" class="btn-popup-ok">Entendido</button>
+        <div class="popup-box">
+            <h3>Cadastro concluído!</h3>
+            <p>Nossa equipe de suporte entrará em contato nos próximos dias para aprovar seu cadastro.</p>
+            <button id="btn-popup-ok" class="btn-popup-ok">Entendido</button>
+        </div>
     </div>
-</div>
     <main>
-        <header>
-            <img src="/assets/icons/logo.png" alt="Logo Conexão Acadêmica">
-            <h3>Conexão Acadêmica</h3>
-            <nav>
-                <button onclick="menu()">
-                    <img id="imagem-menu" src="/assets/icons/menu.png" alt="Menu Hamburguer">
-                </button>
-                <ul id="menu">
-                    <li><img id="home-imagem" alt="Imagem Home"><a href="index.html">Home</a></li>
-                    <li><img id="sobre-imagem" alt="Imagem Sobre Nós"><a href="index.html#section-sobrenos">Sobre Nós</a>
-                    </li>
-                    <li><img id="contato-imagem" alt="Imagem Contate-nos"><a
-                            href="index.html#section-contactus">Contate-nos</a></li>
-                    <li><img id="login-imagem" alt="Imagem Login"><a href="login.html">Login</a></li>
-                </ul>
-            </nav>
-        </header>
 
-        <h3 class="title">
-            Insira suas informações para cadastrar sua conta
-        </h3>
 
-        <div class="input-group">
-            <div class="input-box">
-                <label for="instituicao">Instituição:</label>
-                <input list="instituicoes" name="instituicao" id="instituicao" required>
+        <div class="card-cadastro">
+            <h3 class="title">
+                CADASTRE-SE AQUI
+            </h3>
 
-                <datalist id="instituicoes">
-                </datalist>
+            <div class="input-group">
+                <div class="input-box">
+                    <input list="instituicoes" name="instituicao" id="instituicao" placeholder=" " required>
+                    <label for="instituicao">Instituição</label>
+
+                    <datalist id="instituicoes">
+                    </datalist>
+                </div>
+
+                <div class="input-box">
+                    <input type="text" name="cpf" id="cpf" maxlength="11" placeholder=" " required>
+                    <label for="cpf">CPF</label>
+                    <div class="erro"><span id="cpfInvalido"></span></div>
+                </div>
+
+                <div class="input-box">
+                    <input type="text" name="nome" id="nome" placeholder=" " required>
+                    <label for="nome">Nome completo</label>
+                    <div class="erro"><span id="nomeInvalido"></span></div>
+                </div>
+
+                <div class="input-box">
+                    <input type="email" name="email" id="email" placeholder=" " required>
+                    <label for="email">E-mail</label>
+                    <div class="erro"><span id="emailInvalido"></span></div>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" name="senha" id="senha" placeholder=" " required>
+                    <label for="senha">Senha</label>
+                    <img src="/assets/icons/hide-icon-azul.png" alt="Mostrar senha" class="olho-senha" onclick="mostrarSenha()">
+                    <div class="erro"><span id="senhaInvalida"></span></div>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" name="confirmarSenha" id="confirmarSenha" placeholder=" " required>
+                    <label for="confirmarSenha">Confirmar senha</label>
+                    <div class="erro"><span id="confirmarSenhaInvalida"></span></div>
+                </div>
+
+                <div class="check-box">
+                    <input type="checkbox">
+                    Desejo receber notícias e atualizações de dados por e-mail
+                </div>
             </div>
 
-            <div class="input-box">
-                <label for="cpf">CPF:</label>
-                <input type="text" name="cpf" id="cpf" maxlength="11" required>
-                <div class="erro"><span id="cpfInvalido"></span></div>
-            </div>
-
-            <div class="input-box">
-                <label for="nome">Nome completo:</label>
-                <input type="text" name="nome" id="nome" required>
-                <div class="erro"><span id="nomeInvalido"></span></div>
-            </div>
-
-            <div class="input-box">
-                <label for="email">Email:</label>
-                <input type="email" name="email" id="email" required>
-                <div class="erro"><span id="emailInvalido"></span></div>
-            </div>
-
-            <div class="input-box">
-                <label for="senha">Senha:</label>
-                <input type="password" name="senha" id="senha" required>
-                <div class="erro"><span id="senhaInvalida"></span></div>
-            </div>
-
-            <div class="input-box">
-                <label for="confirmarSenha">Confirmar senha:</label>
-                <input type="password" name="confirmarSenha" id="confirmarSenha" required>
-                <div class="erro"><span id="confirmarSenhaInvalida"></span></div>
+            <div class="footer">
+                <button class="btn-cadastro" id="btn-cadastro">Cadastrar</button>
+                <p class="sub">
+                    Já possuí uma conta? <span id="link-login">Entrar</span>
+                </p>
             </div>
         </div>
 
-        <div class="footer">
-            <button class="btn-cadastro" id="btn-cadastro">Cadastrar</button>
-            <p class="sub">
-                Já possuí uma conta? <span id="link-login">Entrar</span>
-            </p>
-        </div>
     </main>
     <script src="/js/cadastro.js"></script>
     <script src="/js/validacoes.js"></script>
