@@ -64,6 +64,7 @@ async function listarRegrasPorInstituicao(idInstituicao) {
         SELECT
             k.nome AS nome_kpi,
             r.classificacao,
+            r.descricao,
             r.cor_hexadecimal,
             r.limite_inferior,
             r.limite_superior

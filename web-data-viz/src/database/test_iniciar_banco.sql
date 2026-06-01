@@ -57,20 +57,19 @@ VALUES
 (2006, 2024, 600, 180, 120);
 
 INSERT INTO regra 
-(id_usuario, id_kpi, classificacao, limite_inferior, limite_superior)
+(id_instituicao, id_kpi, classificacao, descricao, cor_hexadecimal, limite_inferior, limite_superior)
 VALUES
+-- Regras para a USP (id_instituicao: 1001) - KPI: taxa_evasao_curso (id_kpi: 3)
+(1001, 3, 'ALTO', 'Taxa de evasão crítica para o curso', 'FF0000', 30.00, 100.00),
+(1001, 3, 'MEDIO', 'Taxa de evasão em estado de alerta', 'FFA500', 15.00, 29.99),
 
--- Coordenador ADS EAD (alto risco)
-(5, 1, 'ALTO', 30.00, 100.00),
-(5, 1, 'MEDIO', 15.00, 29.99),
+-- Regras para a UFMG (id_instituicao: 1002) - KPI: risco_evasao_curso (id_kpi: 4)
+(1002, 4, 'ALTO', 'Risco de evasão calculado muito alto', 'FF0000', 25.00, 100.00),
+(1002, 4, 'MEDIO', 'Risco de evasão calculado moderado', 'FFA500', 10.00, 24.99),
 
--- Coordenador Pedagogia
-(6, 1, 'ALTO', 25.00, 100.00),
-(6, 1, 'MEDIO', 10.00, 24.99),
-
--- Coordenador CC (baixo risco)
-(2, 1, 'ALTO', 20.00, 100.00),
-	(2, 1, 'MEDIO', 10.00, 19.99);
+-- Regras para a Faculdade EAD Brasil (id_instituicao: 1004) - KPI: taxa_evasao_curso (id_kpi: 3)
+(1004, 3, 'ALTO', 'Evasão severa no ambiente virtual', 'FF0000', 20.00, 100.00),
+(1004, 3, 'MEDIO', 'Evasão moderada no ambiente virtual', 'FFA500', 10.00, 19.99);
     
 -- INSERT CARGOS DO SISTEMA    
 INSERT INTO cargo (nome) VALUES

@@ -236,8 +236,8 @@ async function listarCursos() {
             `/administrador/cursos/${idInstituicao}`
         );
 
-        const cursos = await resposta.json();
-        console.log(cursos);
+        const dados = await resposta.json();
+        console.log(dados);
         const select = document.getElementById("select_curso");
 
         if (!select) {
@@ -251,14 +251,12 @@ async function listarCursos() {
             </option>
         `;
 
-        cursos.forEach(curso => {
+        const listaDeCursos = Array.isArray(dados) ? dados : (dados.cursos || dados.dados || []);
+
+        listaDeCursos.forEach(cursos => {
             select.insertAdjacentHTML(
                 'beforeend',
-                `
-                <option value="${curso.id_curso}">
-                    ${curso.nome}
-                </option>
-                `
+                `<option value="${cursos.id_curso}">${cursos.nome}</option>`
             );
         });
 
