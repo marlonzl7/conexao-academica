@@ -14,3 +14,13 @@
         </a>
     </div>
 </header>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const usernameElement = document.getElementById("header-username");
+        const nomeSessao = sessionStorage.getItem("NOME_USUARIO");
+
+        if (usernameElement) {
+            usernameElement.textContent = nomeSessao ? nomeSessao : "Usuário";
+        }
+    });
+</script>
