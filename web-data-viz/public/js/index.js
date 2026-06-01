@@ -21,7 +21,7 @@ function enviarMensagem() {
   const email = document.getElementById('email').value.trim();
   const message = document.getElementById('message').value.trim();
   if (!name || !email || !message) {
-    alert('Por favor, preencha todos os campos.');
+    showToast("danger", "Preencha todos os campos", "Preencha todos os campos obrigatórios.");
     return;
   }
 
@@ -34,10 +34,10 @@ function enviarMensagem() {
   })
   .then(response => response.json())
   .then(data => {
-    alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+    showToast("sucess", "Mensagem enviada com sucesso", "Entraremos em contato em breve.")
   })
   .catch(error => {
     console.error('Error:', error);
-    alert('Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.');
+    showToast("danger", "Ocorreu um erro ao enviar a mensagem", "Por favor, tente novamente.");
   });
 }

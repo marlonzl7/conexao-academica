@@ -1,53 +1,71 @@
 window.formCadastroRegra = function () {
     return `
-        <input type="hidden" id="cadastro-regra-id" value="">
+        <input type="hidden" id="cadastro-regra-id">
 
         <div class="form-group">
             <label>Classificação</label>
-            <select id="cadastro-classificacao">
-                <option value="BAIXO">Baixo</option>
-                <option value="MEDIO">Médio</option>
-                <option value="ALTO">Alto</option>
-            </select>
+            <select id="cadastro-classificacao">...</select>
         </div>
+
         <div class="form-group">
             <label>KPI</label>
             <select id="cadastro-kpi"></select>
         </div>
+
+        <div class="form-group">
+            <label>Descrição</label>
+            <input type="text" id="cadastro-descricao">
+        </div>
+
+        <div class="form-group">
+            <label>Cor</label>
+            <input type="color" id="cadastro-cor">
+        </div>
+
         <div class="form-group">
             <label>Limite inferior</label>
-            <input type="text" id="cadastro-limite_inferior" placeholder="Digite o limite inferior (ex: 50%)">
+            <input type="text" id="cadastro-limite_inferior">
         </div>
+
         <div class="form-group">
             <label>Limite superior</label>
-            <input type="text" id="cadastro-limite_superior" placeholder="Digite o limite superior (ex: 80%)">
+            <input type="text" id="cadastro-limite_superior">
         </div>
     `;
 };
 
 window.formEdicaoRegra = function () {
     return `
-        <input type="hidden" id="edicao-regra-id" value="">
+        <input type="hidden" id="cadastro-regra-id">
 
         <div class="form-group">
             <label>Classificação</label>
-            <select id="edicao-classificacao">
-                <option value="BAIXO">Baixo</option>
-                <option value="MEDIO">Médio</option>
-                <option value="ALTO">Alto</option>
-            </select>
+            <select id="cadastro-classificacao">...</select>
         </div>
+
         <div class="form-group">
             <label>KPI</label>
-            <select id="edicao-kpi"></select>
+            <select id="cadastro-kpi"></select>
         </div>
+
+        <div class="form-group">
+            <label>Descrição</label>
+            <input type="text" id="cadastro-descricao">
+        </div>
+
+        <div class="form-group">
+            <label>Cor</label>
+            <input type="color" id="cadastro-cor">
+        </div>
+
         <div class="form-group">
             <label>Limite inferior</label>
-            <input type="text" id="edicao-limite_inferior" placeholder="Digite o limite inferior (ex: 50%)">
+            <input type="text" id="cadastro-limite_inferior">
         </div>
+
         <div class="form-group">
             <label>Limite superior</label>
-            <input type="text" id="edicao-limite_superior" placeholder="Digite o limite superior (ex: 80%)">
+            <input type="text" id="cadastro-limite_superior">
         </div>
     `;
 };
