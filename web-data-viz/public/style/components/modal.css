@@ -257,3 +257,10 @@
     from { opacity: 0; }
     to   { opacity: 1; }
 }
+
+.erro-validacao {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
