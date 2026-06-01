@@ -102,10 +102,11 @@ async function alterarStatus(idUsuario, ativo, inputEl) {
             const card = inputEl.closest('.pessoa-card'); 
             const label = card.querySelector('.toggle-label');
             if (label) label.textContent = ativo ? 'Ativo' : 'Inativo';
+            showToast("success", "Status atualizado", `O usuário agora está ${ativo ? 'ativo' : 'inativo'}.`);
         }
     } catch (error) {
         console.error("Erro ao alterar status:", error);
-        alert("Erro ao alterar status do usuário");
+        showToast("danger", "Erro ao alterar status", "Tente novamente mais tarde.");
         inputEl.checked = !ativo;
     }
 }
@@ -134,7 +135,7 @@ function buscarInstituicao() {
         })
         .catch(error => {
             console.error("Erro ao buscar instituição: ", error);
-            alert("Erro ao buscar instituição.")
+            showToast("danger", "Erro ao buscar instituição", "Tente novamente");
         });
 }
 
@@ -148,7 +149,7 @@ function cadastrarAdministrador() {
     const cpf = document.getElementById("admin_cpf").value.trim();
 
     if (!nome || !email || !senha || !cpf) {
-        alert("Todos os campos são obrigatórios.");
+        showToast("danger", "Erro ao cadastrar administrador", "Todos os campos são obrigatórios.");
         return;
     }
 
@@ -166,16 +167,16 @@ function cadastrarAdministrador() {
         .then(res => res.json())
         .then(data => {
             if (data.sucesso) {
-                alert("Administrador cadastrado com sucesso!");
+                showToast("success", "Administrador Cadastrado", "Administrador cadastrado com sucesso!");
                 fecharModal();
                 buscarInstituicao();
             } else {
-                alert("Erro ao cadastrar administrador: " + (data.mensagem || "Erro desconhecido"));
+                showToast("danger", "Erro ao cadastrar administrador", data.mensagem || "Erro desconhecido");
             }
         })
         .catch(error => {
             console.error("Erro ao cadastrar administrador:", error);
-            alert("Erro ao cadastrar administrador.");
+            showToast("danger", "Erro ao cadastrar administrador", "Tente novamente");
         });
 }
 

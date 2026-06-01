@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador | Conexão Acadêmica</title>
-    <link rel="stylesheet" href="../../style/administradores/administradorConexao.css"> 
+    <link rel="stylesheet" href="../../style/administradores/administradorConexao.css">
+    <link rel="stylesheet" href="../../style/components/paginacao.css">
     <link rel="stylesheet" href="../../style/components/header.css">
     <link rel="stylesheet" href="../../style/components/sidebar.css">
     <link rel="icon" type="image/png" href="../../assets/imgs/logo.png">
@@ -32,9 +33,9 @@
                 <input type="text" name="name" id="pesquisa_instituicao" placeholder="Digite o nome da instituição...">
             </section>
 
-            <section class="lista-section" id="lista_instituicoes">
-                <!-- Lista das instituições -->
-            </section>
+            <section class="lista-section" id="lista_instituicoes"></section>
+
+            <div class="paginacao" id="paginacao"></div>
         </div>
     </main>
 </body>
@@ -43,4 +44,5 @@
 <script>
     initPage("Administrador | Conexão Acadêmica");
 </script>
+
 </html>

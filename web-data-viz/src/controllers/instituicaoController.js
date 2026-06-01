@@ -7,7 +7,7 @@ async function listar(req, res) {
 
         if (busca) {
             const resultado = await instituicaoModel.buscar(busca);
-            return res.status(200).json(respostaSucesso(true, resultado, "Instituições buscadas com sucesso"));
+            return res.status(200).json(respostaSucesso(true, resultado, "Instituições encontradas com sucesso"));
         }
 
         const resultado = await instituicaoModel.listar();

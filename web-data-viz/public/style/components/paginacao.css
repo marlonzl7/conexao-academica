@@ -1,0 +1,40 @@
+/* ─── Paginação ─────────────────────────────────────── */
+
+.paginacao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px 0 8px;
+}
+
+.pag-btn {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1E3A8A;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pag-btn:hover:not(:disabled) {
+    background: #1E3A8A;
+    color: #fff;
+    border-color: #1E3A8A;
+}
+
+.pag-btn:disabled {
+    color: #ccc;
+    border-color: #eee;
+    cursor: not-allowed;
+}
+
+.pag-info {
+    font-size: 13px;
+    color: #888;
+    min-width: 100px;
+    text-align: center;
+}

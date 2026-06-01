@@ -33,7 +33,7 @@ async function carregarTabela() {
         const resposta = await res.json();
 
         if (!res.ok) {
-            alert(resposta.mensagem || "Erro ao carregar as regras.");
+            showToast("danger", "Erro ao carregar as regras", "Houve um erro ao carregar as regras.");
             return;
         }
 
@@ -41,7 +41,7 @@ async function carregarTabela() {
 
     } catch (erro) {
         console.error(erro);
-        alert("Erro ao se conectar com o servidor.");
+        showToast("danger", "Erro ao se conectar com o servidor", "Houve um erro ao conectar com o servidor.");
     }
 }
 
@@ -155,19 +155,19 @@ async function cadastrarRegra() {
             const resposta = await res.json();
 
             if (!res.ok) {
-                alert(resposta.mensagem || "Erro ao cadastrar regra.");
+                showToast("danger", "Erro ao cadastrar regra", "Houve um erro ao cadastrar a regra.");
                 return;
             }
 
-            alert(resposta.mensagem);
+            showToast("sucess", "Regra cadastrada", "Regra cadastrada com sucesso.");
             fecharModal();
             await carregarTabela();
         } catch (erro) {
             console.error(erro);
-            alert("Erro ao se conectar com o servidor");
+            showToast("danger", "Erro ao se conectar com o servidor", "Houve um erro ao conectar com o servidor.");
         }
     } else {
-        alert("Verifique os campos.");
+        showToast("danger", "Verifique os campos", "Campos obrigatórios não preenchidos.");
     }
 }
 
@@ -206,16 +206,16 @@ async function atualizarRegra() {
             const resposta = await res.json();
 
             if (!res.ok) {
-                alert(resposta.mensagem || "Erro ao editar regra.");
+                showToast("danger", "Erro ao editar regra", "Houve um erro ao editar a regra.");
                 return;
             }
 
-            alert(resposta.mensagem);
+            showToast("sucess", "Regra editada com sucesso", "A regra foi editada com sucesso.");
             fecharModal();
             await carregarTabela();
         } catch (erro) {
             console.error(erro);
-            alert("Erro ao se conectar com o servidor.");
+            showToast("danger", "Erro ao se conectar com o servidor", "Houve um erro ao conectar com o servidor.");
         }
     }
 }
@@ -236,15 +236,15 @@ async function deletarRegra() {
         const resposta = await res.json();
 
         if (!res.ok) {
-            alert(resposta.mensagem || "Erro ao deletar.");
+            showToast("danger", "Erro ao deletar regra", "Houve um erro ao deletar a regra.");
             return;
         }
 
-        alert(resposta.mensagem);
+        showToast("sucess", "Regra deletada com sucesso", "A regra foi deletada com sucesso.");
         fecharModal();
         await carregarTabela();
     } catch (erro) {
         console.error(erro);
-        alert("Erro ao se conectar com o servidor.");
+        showToast("danger", "Erro ao se conectar com o servidor", "Houve um erro ao conectar com o servidor.");
     }
 }
