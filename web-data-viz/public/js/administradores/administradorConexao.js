@@ -1,4 +1,4 @@
-const POR_PAGINA = 2;
+const POR_PAGINA = 5;
 
 let todasInstituicoes = [];
 let paginaAtual = 1;
