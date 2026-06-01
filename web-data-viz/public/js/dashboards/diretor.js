@@ -39,7 +39,7 @@ async function buscarDados() {
     const anoFim = document.getElementById('ano-fim').value;
 
     if (anoInicio && anoFim && anoInicio > anoFim) {
-        alert('O ano de início deve ser menor ou igual ao ano de fim.');
+        showToast('danger', 'Filtragem por ano incorreta', 'O ano de início deve ser menor ou igual ao ano de fim.');
         return;
     }
 
