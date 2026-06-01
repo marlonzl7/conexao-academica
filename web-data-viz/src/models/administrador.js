@@ -162,7 +162,7 @@ async function buscarKPIs(idInstituicao) {
         LEFT JOIN instituicao i_curso ON cur.id_instituicao = i_curso.id_instituicao
     WHERE 
         i.id_instituicao = 1001      
-        OR i_curso.id_instituicao = 1001;
+        OR i_curso.id_instituicao = 1001; 
     `;
 
     const resultado = await database.executar(instrucao, [idInstituicao]);

@@ -102,7 +102,7 @@ function salvar(event) {
     .then(res => res.json())
     .then(resposta => {
         if (resposta.sucesso) {
-            showToast("sucess", "Dados atualizados com sucesso", "Os dados foram atualizados com sucesso.");
+            showToast("success", "Dados atualizados com sucesso", "Os dados foram atualizados com sucesso.");
     
             usuario.nome = nome;
             usuario.email = email;
@@ -149,7 +149,7 @@ function alterarSenha() {
     .then(res => res.json())
     .then(resposta => {
         if (resposta.sucesso) {
-            showToast("sucess", "Senha alterada com sucesso", "A senha foi alterada com sucesso.");
+            showToast("success", "Senha alterada com sucesso", "A senha foi alterada com sucesso.");
             window.location.href = "informacoes-da-conta.html";
         } else {
             mensagem.innerText = resposta.mensagem;
@@ -180,7 +180,7 @@ function confirmarExclusao() {
         .then(res => res.json())
         .then(resposta => {
             if (resposta.sucesso) {
-                showToast("sucess", "Sua conta foi excluída", "Sua conta foi excluída com sucesso.");
+                showToast("success", "Sua conta foi excluída", "Sua conta foi excluída com sucesso.");
                 
                 sessionStorage.clear();
                 
