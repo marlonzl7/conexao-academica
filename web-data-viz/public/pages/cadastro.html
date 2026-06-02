@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div id="popup-overlay" class="popup-overlay">
+    <div id="popup-overlay" class="popup-overlay">x
         <div class="popup-box">
             <h3>Cadastro concluído!</h3>
             <p>Nossa equipe de suporte entrará em contato nos próximos dias para aprovar seu cadastro.</p>
@@ -18,63 +18,124 @@
     </div>
     <main>
 
+        <div class="card-body">
+            <div class="card-info">
+                <header>
+                    <img src="/assets/icons/logo_azul.svg" alt="Logo" class="logo">
+                    <label for="text" class="title-logo">Conexão Acadêmica</label>
+                </header>
 
-        <div class="card-cadastro">
-            <h3 class="title">
-                CADASTRE-SE AQUI
-            </h3>
+                <div class="card-info-content">
+                    <h1 class="headline">
+                        Transformando dados
+                        <p>acadêmicos em</p>
+                        <p class="headline-destaque">análises inteligentes</p>
+                    </h1>
 
-            <div class="input-group">
-                <div class="input-box">
-                    <input list="instituicoes" name="instituicao" id="instituicao" placeholder=" " required>
-                    <label for="instituicao">Instituição</label>
+                    <p class="headline-sub">
+                        Nossa plataforma ajuda instituições a tomar decisões
+                        a partir de dados com maior eficiência.
+                    </p>
 
-                    <datalist id="instituicoes">
-                    </datalist>
-                </div>
+                    <div class="img-grafico">
+                        <img src="/assets/imgs/grafico-info.svg" alt="Gráfico de exemplo">
+                    </div>
 
-                <div class="input-box">
-                    <input type="text" name="cpf" id="cpf" maxlength="11" placeholder=" " required>
-                    <label for="cpf">CPF</label>
-                    <div class="erro"><span id="cpfInvalido"></span></div>
-                </div>
+                    <ul class="features">
+                        <li class="feature-item">
+                            <div class="feature-icon">
 
-                <div class="input-box">
-                    <input type="text" name="nome" id="nome" placeholder=" " required>
-                    <label for="nome">Nome completo</label>
-                    <div class="erro"><span id="nomeInvalido"></span></div>
-                </div>
+                            </div>
+                            <div>
+                                <strong>Análises eficientes</strong>
+                                <p>Visualize e interprete dados acadêmicos de forma eficaz</p>
+                            </div>
+                        </li>
 
-                <div class="input-box">
-                    <input type="email" name="email" id="email" placeholder=" " required>
-                    <label for="email">E-mail</label>
-                    <div class="erro"><span id="emailInvalido"></span></div>
-                </div>
+                        <li class="feature-item">
+                            <div class="feature-icon">
 
-                <div class="input-box">
-                    <input type="password" name="senha" id="senha" placeholder=" " required>
-                    <label for="senha">Senha</label>
-                    <img src="/assets/icons/hide-icon-azul.png" alt="Mostrar senha" class="olho-senha" onclick="mostrarSenha()">
-                    <div class="erro"><span id="senhaInvalida"></span></div>
-                </div>
+                            </div>
+                            <div>
+                                <strong>Economize tempo</strong>
+                                <p>Desfrute de informações relevantes e compreensíveis da sua instituição</p>
+                            </div>
+                        </li>
 
-                <div class="input-box">
-                    <input type="password" name="confirmarSenha" id="confirmarSenha" placeholder=" " required>
-                    <label for="confirmarSenha">Confirmar senha</label>
-                    <div class="erro"><span id="confirmarSenhaInvalida"></span></div>
-                </div>
+                        <li class="feature-item">
+                            <div class="feature-icon">
 
-                <div class="check-box">
-                    <input type="checkbox">
-                    Desejo receber notícias e atualizações de dados por e-mail
+                            </div>
+                            <div>
+                                <strong>Tomada de ação</strong>
+                                <p>Com base nas informações providas, diminua fortemente a evasão</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="footer">
-                <button class="btn-cadastro" id="btn-cadastro">Cadastrar</button>
-                <p class="sub">
-                    Já possuí uma conta? <span id="link-login">Entrar</span>
-                </p>
+            <div class="card-cadastro">
+                <h3 class="title">
+                    CADASTRE-SE AQUI
+                </h3>
+
+                <div class="input-group">
+                    <div class="input-box">
+                        <input list="instituicoes" name="instituicao" id="instituicao" placeholder=" " required>
+                        <label for="instituicao">Instituição</label>
+
+                        <datalist id="instituicoes">
+                        </datalist>
+                    </div>
+
+                    <div class="input-box">
+                        <input type="text" name="cpf" id="cpf" maxlength="11" placeholder=" " required>
+                        <label for="cpf">CPF</label>
+                        <div class="erro"><span id="cpfInvalido"></span></div>
+                    </div>
+
+                    <div class="input-box">
+                        <input type="text" name="nome" id="nome" placeholder=" " required>
+                        <label for="nome">Nome completo</label>
+                        <div class="erro"><span id="nomeInvalido"></span></div>
+                    </div>
+
+                    <div class="input-box">
+                        <input type="email" name="email" id="email" placeholder=" " required>
+                        <label for="email">E-mail</label>
+                        <div class="erro"><span id="emailInvalido"></span></div>
+                    </div>
+
+                    <div class="input-box">
+                        <input type="password" name="senha" id="senha" placeholder=" " required>
+                        <label for="senha">Senha</label>
+                        <img src="/assets/icons/hide-icon-azul.png" alt="Mostrar senha" class="olho-senha"
+                            onclick="mostrarSenha()">
+                        <div class="erro"><span id="senhaInvalida"></span></div>
+                    </div>
+
+                    <div class="input-box">
+                        <input type="password" name="confirmarSenha" id="confirmarSenha" placeholder=" " required>
+                        <label for="confirmarSenha">Confirmar senha</label>
+                        <div class="erro"><span id="confirmarSenhaInvalida"></span></div>
+                    </div>
+
+                    <div class="check-box">
+                        <label for="" class="check-label">
+                            <input type="checkbox" id="receberNoticias">
+                            <span class="check-custom"></span>
+                            Desejo receber notícias e atualizações de dados por e-mail
+                        </label>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <button class="btn-cadastro" id="btn-cadastro">Cadastrar</button>
+                    <p class="sub">
+                        Já possuí uma conta? <span id="link-login">Entrar</span>
+                    </p>
+                </div>
             </div>
         </div>
 
