@@ -61,6 +61,14 @@ CREATE TABLE regra (
     CONSTRAINT chk_limite CHECK (limite_inferior < limite_superior)
 );
 
+CREATE TABLE alerta (
+	id_alerta INT PRIMARY KEY AUTO_INCREMENT,
+    id_regra INT NOT NULL,
+    classificacao VARCHAR(45) NOT NULL,
+    observacao VARCHAR(45) NOT NULL,
+    CONSTRAINT fk_regra FOREIGN KEY (id_regra) REFERENCES regra(id_regra)
+);
+
 CREATE TABLE indicadores_curso (
     id_curso INT,
     ano INT,

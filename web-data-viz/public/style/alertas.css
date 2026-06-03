@@ -16,6 +16,9 @@ body {
 }
 
 .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 28px;
 }
 
@@ -29,6 +32,27 @@ body {
     font-size: 14px;
     color: #718096;
     margin-top: 4px;
+}
+
+.btn-nova-regra {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #455881;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Public Sans', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.btn-nova-regra:hover {
+    background-color: #364569;
 }
 
 .alertas-resumo {
@@ -323,4 +347,76 @@ body {
     font-weight: 500;
     line-height: 1.5;
     word-break: break-word;
+}
+
+ 
+.condicao-grupo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+ 
+.condicao-opcao {
+    display: flex;
+    cursor: pointer;
+}
+ 
+.condicao-opcao input[type="radio"] {
+    display: none;
+}
+ 
+.condicao-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    height: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    transition: border-color 0.2s, background-color 0.2s;
+    background-color: #fff;
+}
+ 
+.condicao-card svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #718096;
+    transition: color 0.2s;
+}
+ 
+.condicao-card strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 2px;
+}
+ 
+.condicao-card p {
+    font-size: 12px;
+    color: #718096;
+    line-height: 1.4;
+    margin: 0;
+}
+ 
+.condicao-opcao input[type="radio"]:checked + .condicao-card {
+    border-color: #455881;
+    background-color: #eef1f8;
+}
+ 
+.condicao-opcao input[type="radio"]:checked + .condicao-card svg {
+    color: #455881;
+}
+ 
+.condicao-opcao input[type="radio"]:checked + .condicao-card strong {
+    color: #455881;
+}
+
+.alerta-condicao-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: #455881;
+    background-color: #eef1f8;
+    padding: 2px 10px;
+    border-radius: 20px;
 }
