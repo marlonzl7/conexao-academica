@@ -119,61 +119,44 @@ window.renderAlertas = function () {
     .join("");
 };
 
-window.formNovoAlerta = function () {
-  return `
+async function obterRegras() {
+  const idInstituicao = sessionStorage.ID_INSTITUICAO;
+
+  const resposta = await fetch(`/regras/${idInstituicao}`);
+
+  return await resposta.json();
+}
+
+window.formNovoAlerta = async function () {
+
+    const regras = await obterRegras();
+
+    return `
         <div class="form-group">
             <label>Regra</label>
-            <select id="alerta-kpi">
-                <option value="">Selecione a regra</option>
-                <option value="taxa-evasao">Taxa de Evasão</option>
-                <option value="matriculas">Total de Matrículas</option>
-                <option value="trancamentos">Trancamentos</option>
-            </select>
-        </div>
 
-        <div class="form-group">
-            <label>Classificação</label>
-            <select id="alerta-classificacao">
-                <option value="">Selecione a classificação</option>
-                <option value="critico">Crítico</option>
-                <option value="atencao">Atenção</option>
-                <option value="normal">Normal</option>
+            <select id="alerta-regra">
+
+                <option value="">
+                    Selecione uma regra
+                </option>
+
+                ${regras.map(regra => `
+                    <option value="${regra.id_regra}">
+                        ${regra.kpi} - ${regra.classificacao}
+                    </option>
+                `).join("")}
+
             </select>
         </div>
 
         <div class="form-group full-width">
-            <label>Condição de Ativação</label>
-            <div class="condicao-grupo">
-                <label class="condicao-opcao">
-                    <input type="radio" name="alerta-condicao" value="superior">
-                    <div class="condicao-card">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="18 15 12 9 6 15"/>
-                        </svg>
-                        <div>
-                            <strong>Limite Superior</strong>
-                            <p>Ativar quando o valor ultrapassar o limite máximo</p>
-                        </div>
-                    </div>
-                </label>
-                <label class="condicao-opcao">
-                    <input type="radio" name="alerta-condicao" value="inferior">
-                    <div class="condicao-card">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"/>
-                        </svg>
-                        <div>
-                            <strong>Limite Inferior</strong>
-                            <p>Ativar quando o valor cair abaixo do limite mínimo</p>
-                        </div>
-                    </div>
-                </label>
-            </div>
-        </div>
+            <label>Observação</label>
 
-        <div class="form-group full-width">
-            <label>Descrição / Observação</label>
-            <textarea id="alerta-descricao" placeholder="Descreva o contexto ou observações sobre este alerta..."></textarea>
+            <textarea
+                id="alerta-observacao"
+                placeholder="Digite uma observação"
+            ></textarea>
         </div>
     `;
 };
@@ -187,7 +170,7 @@ window.formEditarAlerta = function ({
   return `
         <div class="form-group">
             <label>Regra</label>
-            <select id="alerta-kpi">
+            <select id="alerta-regra">
                 <option value="">Selecione a regra</option>
                 <option value="taxa-evasao"  ${kpi === "taxa-evasao" ? "selected" : ""}>Taxa de Evasão</option>
                 <option value="matriculas"   ${kpi === "matriculas" ? "selected" : ""}>Total de Matrículas</option>
@@ -242,17 +225,33 @@ window.formEditarAlerta = function ({
     `;
 };
 
-window.abrirModalNovoAlerta = function () {
-  abrirModal({
-    titulo: "Novo Alerta",
-    conteudo: formNovoAlerta(),
-    botoes: `
-            <button class="modal-botao-cancelar" onclick="fecharModal()">Cancelar</button>
-            <button class="modal-botao-confirmar" onclick="salvarAlerta()">Cadastrar</button>
+window.abrirModalNovoAlerta = async function () {
+
+    const conteudo =
+        await formNovoAlerta();
+
+    abrirModal({
+        titulo: "Novo Alerta",
+
+        conteudo,
+
+        botoes: `
+            <button
+                class="modal-botao-cancelar"
+                onclick="fecharModal()">
+                Cancelar
+            </button>
+
+            <button
+                class="modal-botao-confirmar"
+                onclick="salvarAlerta()">
+                Cadastrar
+            </button>
         `,
-    tamanho: "md",
-    tipo: "default",
-  });
+
+        tamanho: "md",
+        tipo: "default"
+    });
 };
 
 window.abrirModalEditarAlerta = function (id) {
@@ -281,7 +280,7 @@ window.abrirModalDetalhesAlerta = function (id) {
             <div class="modal-detalhe-grid">
                 <div class="modal-detalhe-item">
                     <span class="modal-detalhe-label">Regra (KPI)</span>
-                    <span class="modal-detalhe-valor">${KPI_LABELS[alerta.kpi] ?? alerta.kpi}</span>
+                    <span class="modal-detalhe-valor">${KPI_LABELS[alerta.regra] ?? alerta.regra}</span>
                 </div>
                 <div class="modal-detalhe-item">
                     <span class="modal-detalhe-label">Classificação</span>
@@ -328,7 +327,7 @@ window.abrirModalExcluirAlerta = function (id) {
 };
 
 window.salvarAlerta = function () {
-  const kpi = document.getElementById("alerta-kpi").value;
+  const regra = document.getElementById("alerta-regra").value;
   const classificacao = document.getElementById("alerta-classificacao").value;
   const condicao = document.querySelector(
     'input[name="alerta-condicao"]:checked',
@@ -345,7 +344,7 @@ window.salvarAlerta = function () {
   const alertas = getAlertas();
   alertas.push({
     id: Date.now(),
-    kpi,
+    regra,
     classificacao,
     condicao,
     descricao,
@@ -358,14 +357,14 @@ window.salvarAlerta = function () {
 };
 
 window.atualizarAlerta = function (id) {
-  const kpi = document.getElementById("alerta-kpi").value;
+  const regra = document.getElementById("alerta-regra").value;
   const classificacao = document.getElementById("alerta-classificacao").value;
   const condicao = document.querySelector(
     'input[name="alerta-condicao"]:checked',
   )?.value;
   const descricao = document.getElementById("alerta-descricao").value;
 
-  if (!kpi || !classificacao || !condicao) {
+  if (!regra || !classificacao || !condicao) {
     alert(
       "Preencha todos os campos obrigatórios e selecione a condição de ativação.",
     );
@@ -373,7 +372,7 @@ window.atualizarAlerta = function (id) {
   }
 
   const alertas = getAlertas().map((a) =>
-    a.id === id ? { ...a, kpi, classificacao, condicao, descricao } : a,
+    a.id === id ? { ...a, regra, classificacao, condicao, descricao } : a,
   );
 
   saveAlertas(alertas);

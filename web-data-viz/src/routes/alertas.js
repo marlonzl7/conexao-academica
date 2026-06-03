@@ -1,14 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const alertaController = require('../controllers/alertaController.js');
+const alertaController = require("../controllers/alertasController.js");
 
-router.get('/allAlerts', alertaController.getAllAlerts);
-
-router.post('/create', alertaController.createAlert);
-
-router.delete('/:id', alertaController.deleteAlert);
-
-router.get('/alertFiltered', alertaController.getAlertsByFilter);
+router.get("/regras/:idInstituicao", alertaController.listarRegras);
 
 module.exports = router;

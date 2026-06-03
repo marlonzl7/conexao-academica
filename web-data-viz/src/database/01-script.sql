@@ -66,6 +66,7 @@ CREATE TABLE alerta (
     id_regra INT NOT NULL,
     classificacao VARCHAR(45) NOT NULL,
     observacao VARCHAR(45) NOT NULL,
+    data_hora DATETIME NOT NULL,
     CONSTRAINT fk_regra FOREIGN KEY (id_regra) REFERENCES regra(id_regra)
 );
 
