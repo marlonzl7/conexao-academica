@@ -8,14 +8,17 @@
     <link rel="stylesheet" href="/style/alertas.css">
     <link rel="stylesheet" href="/style/components/sidebar.css">
     <link rel="stylesheet" href="/style/components/header.css">
+    <link rel="stylesheet" href="/style/components/modal.css">
     <link rel="icon" type="image/png" href="/assets/imgs/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-   <div id="sidebar-container"></div>
+    <div id="sidebar-container"></div>
     <div id="header-container"></div>
 
     <main class="dashboard-content">
@@ -37,10 +40,12 @@
                         <p class="resumo-card-descricao">Requerem ação imediata</p>
                     </div>
                     <div class="resumo-card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                            <line x1="12" y1="9" x2="12" y2="13"/>
-                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                            <line x1="12" y1="9" x2="12" y2="13" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
                         </svg>
                     </div>
                 </div>
@@ -54,10 +59,11 @@
                         <p class="resumo-card-descricao">Monitoramento Necessário</p>
                     </div>
                     <div class="resumo-card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <line x1="12" y1="8" x2="12" y2="12"/>
-                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
                     </div>
                 </div>
@@ -71,12 +77,13 @@
                         <p class="resumo-card-descricao">Sistema de monitoramento</p>
                     </div>
                     <div class="resumo-card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 8h1a4 4 0 010 8h-1"/>
-                            <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/>
-                            <line x1="6" y1="1" x2="6" y2="4"/>
-                            <line x1="10" y1="1" x2="10" y2="4"/>
-                            <line x1="14" y1="1" x2="14" y2="4"/>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8h1a4 4 0 010 8h-1" />
+                            <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
+                            <line x1="6" y1="1" x2="6" y2="4" />
+                            <line x1="10" y1="1" x2="10" y2="4" />
+                            <line x1="14" y1="1" x2="14" y2="4" />
                         </svg>
                     </div>
                 </div>
@@ -92,8 +99,9 @@
                     <h2 class="alertas-card-title">Alertas Ativos</h2>
                     <div class="alertas-filtros">
                         <button class="btn-filtrar" id="btn-filtrar" onclick="toggleFiltros()">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                             </svg>
                             Filtrar
                         </button>
@@ -134,13 +142,16 @@
                 <!-- LISTA DE ALERTAS -->
                 <div class="alertas-lista" id="alertas-lista">
 
-                    <div class="alerta-item alerta-item--critico" data-classificacao="critico" data-kpi="taxa-evasao" data-curso="analise-sistemas">
+                    <div class="alerta-item alerta-item--critico" data-classificacao="critico" data-kpi="taxa-evasao"
+                        data-curso="analise-sistemas">
                         <div class="alerta-item-esquerda">
                             <div class="alerta-icone alerta-icone--critico">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                                    <line x1="12" y1="9" x2="12" y2="13"/>
-                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                                    <line x1="12" y1="9" x2="12" y2="13" />
+                                    <line x1="12" y1="17" x2="12.01" y2="17" />
                                 </svg>
                             </div>
                             <div class="alerta-info">
@@ -151,16 +162,18 @@
                                 <span class="alerta-curso">Curso: Análise de Sistemas</span>
                             </div>
                         </div>
-                        <button class="btn-visualizar" onclick="visualizarAlerta(this)">Visualizar</button>
+                        <button class="btn-visualizar" onclick="abrirModalDetalhesAlerta(this)">Visualizar</button>
                     </div>
 
-                    <div class="alerta-item alerta-item--atencao" data-classificacao="atencao" data-kpi="matriculas" data-curso="engenharia">
+                    <div class="alerta-item alerta-item--atencao" data-classificacao="atencao" data-kpi="matriculas"
+                        data-curso="engenharia">
                         <div class="alerta-item-esquerda">
                             <div class="alerta-icone alerta-icone--atencao">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="12" y1="8" x2="12" y2="12"/>
-                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="12" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" />
                                 </svg>
                             </div>
                             <div class="alerta-info">
@@ -171,16 +184,18 @@
                                 <span class="alerta-curso">Curso: Engenharia Civil</span>
                             </div>
                         </div>
-                        <button class="btn-visualizar" onclick="visualizarAlerta(this)">Visualizar</button>
+                        <button class="btn-visualizar" onclick="abrirModalDetalhesAlerta(this)">Visualizar</button>
                     </div>
 
-                    <div class="alerta-item alerta-item--atencao" data-classificacao="atencao" data-kpi="trancamentos" data-curso="administracao">
+                    <div class="alerta-item alerta-item--atencao" data-classificacao="atencao" data-kpi="trancamentos"
+                        data-curso="administracao">
                         <div class="alerta-item-esquerda">
                             <div class="alerta-icone alerta-icone--atencao">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="12" y1="8" x2="12" y2="12"/>
-                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="12" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" />
                                 </svg>
                             </div>
                             <div class="alerta-info">
@@ -191,16 +206,19 @@
                                 <span class="alerta-curso">Curso: Administração</span>
                             </div>
                         </div>
-                        <button class="btn-visualizar" onclick="visualizarAlerta(this)">Visualizar</button>
+                        <button class="btn-visualizar" onclick="abrirModalDetalhesAlerta(this)">Visualizar</button>
                     </div>
 
-                    <div class="alerta-item alerta-item--critico" data-classificacao="critico" data-kpi="taxa-evasao" data-curso="engenharia">
+                    <div class="alerta-item alerta-item--critico" data-classificacao="critico" data-kpi="taxa-evasao"
+                        data-curso="engenharia">
                         <div class="alerta-item-esquerda">
                             <div class="alerta-icone alerta-icone--critico">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                                    <line x1="12" y1="9" x2="12" y2="13"/>
-                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                                    <line x1="12" y1="9" x2="12" y2="13" />
+                                    <line x1="12" y1="17" x2="12.01" y2="17" />
                                 </svg>
                             </div>
                             <div class="alerta-info">
@@ -211,14 +229,16 @@
                                 <span class="alerta-curso">Curso: Engenharia Civil</span>
                             </div>
                         </div>
-                        <button class="btn-visualizar" onclick="visualizarAlerta(this)">Visualizar</button>
+                        <button class="btn-visualizar" onclick="abrirModalDetalhesAlerta(this)">Visualizar</button>
                     </div>
 
-                    <div class="alerta-item alerta-item--normal" data-classificacao="normal" data-kpi="matriculas" data-curso="administracao">
+                    <div class="alerta-item alerta-item--normal" data-classificacao="normal" data-kpi="matriculas"
+                        data-curso="administracao">
                         <div class="alerta-item-esquerda">
                             <div class="alerta-icone alerta-icone--normal">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20 6 9 17 4 12"/>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12" />
                                 </svg>
                             </div>
                             <div class="alerta-info">
@@ -229,14 +249,14 @@
                                 <span class="alerta-curso">Curso: Administração</span>
                             </div>
                         </div>
-                        <button class="btn-visualizar" onclick="visualizarAlerta(this)">Visualizar</button>
+                        <button class="btn-visualizar" onclick="abrirModalDetalhesAlerta(this)">Visualizar</button>
                     </div>
 
                     <!-- Mensagem quando nenhum alerta é encontrado -->
                     <div class="alerta-vazio hidden" id="alerta-vazio">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5">
-                            <circle cx="11" cy="11" r="8"/>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
                         <p>Nenhum alerta encontrado para os filtros selecionados.</p>
                     </div>
@@ -244,58 +264,19 @@
                 </div>
             </div>
         </section>
+        <div id="modal-root"></div>
 
     </main>
 
-    <!-- MODAL DE VISUALIZAÇÃO -->
-    <div id="modal-overlay-visualizacao" class="overlay hidden">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Detalhes do Alerta</h2>
-                <span class="fechar-modal" onclick="fecharModal()">✕</span>
-            </div>
-            <div class="modal-body">
-                <div class="modal-detalhe-grid">
-                    <div class="modal-detalhe-item">
-                        <span class="modal-detalhe-label">KPI</span>
-                        <span class="modal-detalhe-valor" id="modal-kpi">—</span>
-                    </div>
-                    <div class="modal-detalhe-item">
-                        <span class="modal-detalhe-label">Classificação</span>
-                        <span class="modal-detalhe-valor" id="modal-classificacao">—</span>
-                    </div>
-                    <div class="modal-detalhe-item">
-                        <span class="modal-detalhe-label">Curso</span>
-                        <span class="modal-detalhe-valor" id="modal-curso">—</span>
-                    </div>
-                    <div class="modal-detalhe-item">
-                        <span class="modal-detalhe-label">Data de geração</span>
-                        <span class="modal-detalhe-valor" id="modal-data">—</span>
-                    </div>
-                    <div class="modal-detalhe-item modal-detalhe-item--full">
-                        <span class="modal-detalhe-label">Regra acionada</span>
-                        <span class="modal-detalhe-valor" id="modal-regra">—</span>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-botao-cancelar" onclick="fecharModal()">Fechar</button>
-                <a href="../regras.html" class="modal-botao-confirmar">Ver Regras</a>
-            </div>
-        </div>
-    </div>
 
-   
     <script src="/alertas.js"></script>
     <script src="/js/include.js"></script>
-    <script src="/js/informacoes.js"></script>
-    <script src="/js/login.js"></script>
-    <script>
-        initPage("Informações da Conta");
-    </script>
+    <script src="../components/sidebar/sidebar.js"></script>
+    <script src="../components/modal/modal.js"></script>
+    <script src="../components/modal/modalConfig.js"></script>
+    <script src="../components/modal/modalAlertas.js"></script>
     <script>
         initPage("Alertas");
-
         function toggleFiltros() {
             const painel = document.getElementById('filtros-painel');
             painel.classList.toggle('hidden');
@@ -325,26 +306,7 @@
             const vazio = document.getElementById('alerta-vazio');
             vazio.classList.toggle('hidden', visiveis > 0);
         }
-
-        function visualizarAlerta(btn) {
-            const item = btn.closest('.alerta-item');
-            const nome = item.querySelector('.alerta-nome').textContent;
-            const badge = item.querySelector('.alerta-badge').textContent;
-            const curso = item.querySelector('.alerta-curso').textContent;
-
-            document.getElementById('modal-kpi').textContent = nome;
-            document.getElementById('modal-classificacao').textContent = badge;
-            document.getElementById('modal-curso').textContent = curso.replace('Curso: ', '');
-            document.getElementById('modal-data').textContent = new Date().toLocaleDateString('pt-BR');
-            document.getElementById('modal-regra').textContent =
-                'Limite superior definido pela regra ativa. Valor atual excede o threshold configurado.';
-
-            document.getElementById('modal-overlay-visualizacao').classList.remove('hidden');
-        }
-
-        function fecharModal() {
-            document.getElementById('modal-overlay-visualizacao').classList.add('hidden');
-        }
     </script>
 </body>
+
 </html>
