@@ -39,7 +39,7 @@ public class EmailService {
         });
     }
 
-    public void enviar(String destinatario, String assunto, String conteudo) {
+    public void enviar(String destinatario, String assunto, String conteudoHtml) {
         try {
             MimeMessage msg = new MimeMessage(session);
 
@@ -50,10 +50,10 @@ public class EmailService {
                     InternetAddress.parse(destinatario)
             );
 
-            msg.setSubject(assunto);
+            msg.setSubject(assunto, "UTF-8");
             msg.setSentDate(new Date());
 
-            msg.setText(conteudo);
+            msg.setContent(conteudoHtml, "text/html; charset=utf-8");
 
             Transport.send(msg);
 
