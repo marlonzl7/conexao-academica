@@ -31,6 +31,15 @@ async function carregarDashboard() {
         const fim = document
             .getElementById("filtro-fim")
             .value;
+   
+        if (inicio && fim && inicio > fim) {
+            showToast(
+                "danger",
+                "Filtragem por ano incorreta",
+                "O ano de início deve ser menor ou igual ao ano de fim."
+            );
+            return;
+        }
 
         const [
             respostaKpis,

@@ -4,11 +4,7 @@ window.formCadastroRegra = function () {
 
         <div class="form-group">
             <label>Classificação</label>
-            <select id="cadastro-classificacao">
-                <option value="ALTO">Alto</option>
-                <option value="MEDIO">Médio</option>
-                <option value="BAIXO">Baixo</option>
-            </select>
+            <input id="cadastro-classificacao"></input>
         </div>
 
         <div class="form-group">

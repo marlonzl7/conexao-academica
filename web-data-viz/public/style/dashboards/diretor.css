@@ -153,13 +153,23 @@ body {
     gap: 8px;
 }
 
-.kpi-classification {
+.kpi-class-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.kpi-class-label {
     font-size: 12px;
     color: var(--text-secondary);
 }
 
-.kpi-classification b {
+.kpi-classification {
+    font-size: 12px;
     font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
 }
 
 .class-baixa  { color: var(--accent-green); }
