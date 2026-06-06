@@ -399,7 +399,7 @@ window.salvarAlerta = async function () {
     const descricao = document.getElementById('alerta-descricao').value;
 
     if (!id_regra || !classificacao || !condicao) {
-        alert('Preencha todos os campos obrigatórios e escolha uma condição de ativação.');
+        showToast('danger', 'Erro ao cadastrar alerta!', 'Preencha todos os campos obrigatórios e escolha uma condição de ativação.');
         return;
     }
 
@@ -413,10 +413,10 @@ window.salvarAlerta = async function () {
         if (!resposta.ok) throw new Error(dados.mensagem || 'Erro ao cadastrar alerta.');
         fecharModal();
         await renderAlertas();
-        alert('Alerta cadastrado com sucesso!');
+        showToast('success', 'Alerta cadastrado!', 'Alerta criado com sucesso.');
     } catch (erro) {
         console.error('Falha na requisição de cadastro:', erro);
-        alert(erro.message || 'Não foi possível cadastrar o alerta.');
+        showToast('danger', 'Erro ao cadastrar alerta!', erro.message || 'Não foi possível cadastrar o alerta.');
     }
 };
 
@@ -427,7 +427,7 @@ window.atualizarAlerta = async function (id) {
     const observacao = document.getElementById('alerta-descricao').value;
 
     if (!id_regra || !classificacao || !condicao) {
-        alert('Preencha todos os campos obrigatórios e selecione a condição de ativação.');
+        showToast('danger', 'Erro ao atualizar alerta!', 'Preencha todos os campos obrigatórios e selecione a condição de ativação.');
         return;
     }
 
@@ -441,10 +441,10 @@ window.atualizarAlerta = async function (id) {
         if (!resposta.ok) throw new Error(dados.mensagem || 'Erro ao atualizar alerta.');
         fecharModal();
         await renderAlertas();
-        alert('Alerta atualizado com sucesso!');
+        showToast('success', 'Alerta atualizado!', 'Alerta atualizado com sucesso.');
     } catch (erro) {
         console.error('Falha na requisição de atualização:', erro);
-        alert(erro.message || 'Não foi possível atualizar o alerta.');
+        showToast('danger', 'Erro ao atualizar alerta!', erro.message || 'Não foi possível atualizar o alerta.');
     }
 };
 
@@ -453,14 +453,15 @@ window.excluirAlerta = async function (id) {
         const resposta = await fetch(`/alertas/deletar/${id}`, { method: 'DELETE' });
         if (!resposta.ok) {
             const texto = await resposta.text();
-            alert(`Erro ao excluir alerta: ${texto}`);
+            showToast('danger', 'Erro ao excluir alerta!', `Erro ao excluir alerta: ${texto}`);
             return;
         }
         fecharModal();
         await renderAlertas();
+        showToast('success', 'Alerta excluído!', 'Alerta removido com sucesso.');
     } catch (erro) {
         console.error('Falha na requisição de exclusão:', erro);
-        alert('Não foi possível conectar ao servidor para deletar o alerta.');
+        showToast('danger', 'Erro ao excluir alerta!', 'Não foi possível conectar ao servidor para deletar o alerta.');
     }
 };
 

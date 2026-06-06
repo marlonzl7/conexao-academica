@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/style/components/sidebar.css">
     <link rel="stylesheet" href="/style/components/header.css">
     <link rel="stylesheet" href="/style/components/modal.css">
+    <link rel="stylesheet" href="/style/components/toast.css">
     <link rel="icon" type="image/png" href="/assets/imgs/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +19,8 @@
 <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
+
+    <div class="toast-viewport" id="toast-viewport"></div>
 
     <main class="dashboard-content">
 
@@ -136,6 +139,7 @@
     </main>
 
     <script src="../js/include.js"></script>
+    <script src="/components/toast/toast.js"></script>
     <script src="../components/modal/modal.js"></script>
     <script src="../components/modal/modalConfig.js"></script>
     <script src="../components/modal/modalAlertas.js"></script>
