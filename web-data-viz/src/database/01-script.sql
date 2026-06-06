@@ -67,7 +67,10 @@ CREATE TABLE alerta (
     classificacao VARCHAR(45) NOT NULL,
     observacao VARCHAR(45) NOT NULL,
     data_hora DATETIME NOT NULL,
-    CONSTRAINT fk_regra FOREIGN KEY (id_regra) REFERENCES regra(id_regra)
+    condicao VARCHAR(10) NOT NULL,
+    CONSTRAINT fk_regra FOREIGN KEY (id_regra) REFERENCES regra(id_regra),
+    CONSTRAINT chk_classificacao CHECK (classificacao IN('Normal', 'Atenção', 'Crítico')),
+    CONSTRAINT chk_condicao CHECK (condicao IN ('Inferior', 'Superior'))
 );
 
 CREATE TABLE indicadores_curso (
