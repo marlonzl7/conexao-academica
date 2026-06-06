@@ -55,8 +55,8 @@ CREATE TABLE regra (
     classificacao VARCHAR(20) NOT NULL,
     descricao VARCHAR(120) NOT NULL,
     cor_hexadecimal CHAR(6),
-    limite_inferior DECIMAL(5,2) NOT NULL,
-    limite_superior DECIMAL(5,2) NOT NULL,
+    limite_inferior DECIMAL(8,2) NOT NULL,
+    limite_superior DECIMAL(8,2) NOT NULL,
     CONSTRAINT fk_regra_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_regra_kpi FOREIGN KEY (id_kpi) REFERENCES kpi(id_kpi),
     CONSTRAINT chk_limite CHECK (limite_inferior < limite_superior)
