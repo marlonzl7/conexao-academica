@@ -37,6 +37,13 @@ body {
     gap: 24px;
 }
 
+.page-title h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
 .filtros {
     display: flex;
     flex-direction: column;

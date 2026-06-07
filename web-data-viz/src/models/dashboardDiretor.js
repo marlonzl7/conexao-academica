@@ -31,6 +31,7 @@ async function getGraficoEvasao(anoInicio, anoFim, idInstituicao) {
         SELECT 
             id_instituicao AS idInstituicao,
             nome_curso AS nomeCurso,
+            nome_instituicao AS nomeInstituicao,
             ano_emissao AS anoEmissao,
             quantidades_desvinculados AS qtdDesvinculados
         FROM vw_indic_curso

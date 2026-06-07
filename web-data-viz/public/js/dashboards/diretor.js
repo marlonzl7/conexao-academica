@@ -115,6 +115,12 @@ function carregarGraficoRanking() {
       console.log("Dados do gráfico de ranking:", responseData);
 
       const listaDados = responseData.dados || [];
+
+      if (listaDados.length > 0) {
+          document.getElementById("nome-instituicao").textContent =
+              listaDados[0].nomeInstituicao;
+      }
+
       const anosUnicos = [
         ...new Set(listaDados.map((item) => item.anoEmissao)),
       ].sort();
