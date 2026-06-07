@@ -2,7 +2,6 @@ window.formNovoCargo = function () {
     return `
         <div class="form-group">
             <label>Nome do Cargo</label>
-
             <input
                 type="text"
                 id="inputNovo"
@@ -10,7 +9,6 @@ window.formNovoCargo = function () {
                 maxlength="50"
                 oninput="validarCargo(this)"
             >
-
             <span class="erro-validacao" id="erroNovo"></span>
         </div>
     `;
@@ -20,7 +18,6 @@ window.formEditarCargo = function (nome) {
     return `
         <div class="form-group">
             <label>Nome do Cargo</label>
-
             <input
                 type="text"
                 id="inputEditar"
@@ -29,18 +26,13 @@ window.formEditarCargo = function (nome) {
                 maxlength="50"
                 oninput="validarCargo(this)"
             >
-
             <span class="erro-validacao" id="erroEditar"></span>
         </div>
     `;
 };
 
 function validarCargo(input) {
-
-    // Permite apenas letras e espaços
     input.value = input.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
-
-    // Remove espaços duplicados
     input.value = input.value.replace(/\s+/g, " ");
 
     const valor = input.value.trim();
@@ -66,26 +58,4 @@ function validarCargo(input) {
 
     erro.textContent = "";
     return true;
-}
-
-function salvarCargo() {
-
-    const input = document.getElementById("inputNovo");
-
-    if (!input) {
-        console.error("Input não encontrado.");
-        return;
-    }
-
-    if (!validarCargo(input)) {
-        console.log("Validação falhou.");
-        return;
-    }
-
-    const nomeCargo = input.value.trim();
-
-    console.log("Cargo salvo:", nomeCargo);
-
-    // Chamar API aqui
-    // cadastrarCargo(nomeCargo);
 }
