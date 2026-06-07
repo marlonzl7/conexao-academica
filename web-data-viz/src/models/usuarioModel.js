@@ -60,7 +60,7 @@ async function cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email
     const hashSenha = await gerarHash(senha);
 
     const instrucao = `
-        INSERT INTO usuario (id_cargo, id_instituicao, cpf, nome, email, senha, recebe_email) VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO usuario (id_cargo, id_instituicao, cpf, nome, email, senha, recebe_email) VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
     const parametros = [idCargo, idInstituicao, cpf, nome, email, hashSenha, receberNoticias];

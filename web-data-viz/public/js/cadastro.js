@@ -23,6 +23,7 @@ function iniciar() {
     const emailInput = document.getElementById("email");
     const senhaInput = document.getElementById("senha");
     const confirmarSenhaInput = document.getElementById("confirmarSenha");
+    const receberNoticiasInput = document.getElementById("receberNoticias");
     const btnCadastro = document.getElementById("btn-cadastro");
     const btnLogin = document.getElementById("link-login");
 
@@ -141,7 +142,7 @@ function iniciar() {
             validarCPF(cpfInput) &&
             validarNome(nomeInput) &&
             validarEmail(emailInput) &&
-            validarSenha(senhaInput) &&
+            validarSenha(senhaInput) === null &&
             validarConfirmacaoSenha(senhaInput, confirmarSenhaInput)
         ) {
             const url = '/usuarios/administrador-instituicao';
@@ -161,7 +162,7 @@ function iniciar() {
                 email: emailInput.value,
                 senha: senhaInput.value,
                 confirmacaoSenha: confirmarSenhaInput.value,
-                receberNoticias: receberNoticiasInput.checked ? 1 : 0
+                receberNoticias: receberNoticiasInput.checked ? true : false
             }
 
             try {
