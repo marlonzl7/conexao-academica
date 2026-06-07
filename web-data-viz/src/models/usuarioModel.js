@@ -46,7 +46,7 @@ async function login(email, senha) {
 }
 
 // Usuário Administrador da Instituição
-async function cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email, senha) {
+async function cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email, senha, receberNoticias = 0) {
     if (await existeUsuarioPorEmail(email)) {
         throw "EMAIL_EXISTENTE";
     }
@@ -60,10 +60,10 @@ async function cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email
     const hashSenha = await gerarHash(senha);
 
     const instrucao = `
-        INSERT INTO usuario (id_cargo, id_instituicao, cpf, nome, email, senha) VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO usuario (id_cargo, id_instituicao, cpf, nome, email, senha, recebe_email) VALUES (?, ?, ?, ?, ?, ?)
     `;
 
-    const parametros = [idCargo, idInstituicao, cpf, nome, email, hashSenha];
+    const parametros = [idCargo, idInstituicao, cpf, nome, email, hashSenha, receberNoticias];
 
     const resultado = await database.executar(instrucao, parametros);
 

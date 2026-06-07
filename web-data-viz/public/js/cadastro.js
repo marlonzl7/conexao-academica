@@ -2,6 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
     iniciar();
 });
 
+function mostrarSenha(idInput, icone) {
+    const input = document.getElementById(idInput);
+
+    if (input.type === "password") {
+        input.type = "text";
+        icone.src = "/assets/icons/show-icon-azul.png";
+        icone.alt = "Ocultar senha";
+    } else {
+        input.type = "password";
+        icone.src = "/assets/icons/hide-icon-azul.png";
+        icone.alt = "Mostrar senha";
+    }
+}
+
 function iniciar() {
     const instituicaoInput = document.getElementById("instituicao");
     const cpfInput = document.getElementById("cpf");
@@ -122,20 +136,6 @@ function iniciar() {
         }
     }
 
-    function mostrarSenha(idInput, icone) {
-        const input = document.getElementById(idInput);
-
-        if (input.type === "password") {
-            input.type = "text";
-            icone.src = "/assets/icons/show-icon-azul.png";
-            icone.alt = "Ocultar senha";
-        } else {
-            input.type = "password";
-            icone.src = "/assets/icons/hide-icon-azul.png";
-            icone.alt = "Mostrar senha";
-        }
-    }
-
     async function cadastrar() {
         if (
             validarCPF(cpfInput) &&
@@ -160,7 +160,8 @@ function iniciar() {
                 nome: nomeInput.value,
                 email: emailInput.value,
                 senha: senhaInput.value,
-                confirmacaoSenha: confirmarSenhaInput.value
+                confirmacaoSenha: confirmarSenhaInput.value,
+                receberNoticias: receberNoticiasInput.checked ? 1 : 0
             }
 
             try {
