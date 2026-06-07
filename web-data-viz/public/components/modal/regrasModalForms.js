@@ -3,13 +3,8 @@ window.formCadastroRegra = function () {
         <input type="hidden" id="cadastro-regra-id">
 
         <div class="form-group">
-        <label>Classificação</label>
-        <select id="cadastro-classificacao">
-        <option value="">Selecione uma classificação</option>
-        <option value="ALTO">Alto</option>
-        <option value="MEDIO">Médio</option>
-        <option value="BAIXO">Baixo</option>
-    </select>
+            <label>Classificação</label>
+            <input id="cadastro-classificacao"></input>
         </div>
 
         <div class="form-group">
@@ -45,11 +40,7 @@ window.formEdicaoRegra = function () {
 
         <div class="form-group">
             <label>Classificação</label>
-            <select id="edicao-classificacao">
-                <option value="ALTO">Alto</option>
-                <option value="MEDIO">Médio</option>
-                <option value="BAIXO">Baixo</option>
-            </select>
+            <input id="edicao-classificacao">
         </div>
 
         <div class="form-group">
