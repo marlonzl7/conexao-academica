@@ -27,8 +27,7 @@ function abrirDelecao(id) {
 
 async function carregarTabela() {
     try {
-        const id_instituicao =  sessionStorage.getItem("ID_INSTITUICAO");
-    
+        const id_instituicao = sessionStorage.getItem("ID_INSTITUICAO");
 
         const res = await fetch(`/regras?id_instituicao=${id_instituicao}`);
         const resposta = await res.json();
@@ -73,8 +72,8 @@ function renderizarTabela(dados) {
                     border-radius:4px;
                 "></div>
             </td>
-            <td>${regra.limite_inferior}%</td>
-            <td>${regra.limite_superior}%</td>
+            <td>${regra.limite_inferior}</td>
+            <td>${regra.limite_superior}</td>
             <td class="acoes-tabela">
                 <button type="button" 
                         class="table-action-button btn-editar-regra" 
@@ -84,7 +83,6 @@ function renderizarTabela(dados) {
                         class="acoes-tabela-img table-action-icon"
                         alt="Editar">
                 </button>
-
                 <button type="button" class="table-action-button del" title="Excluir" onclick="abrirDelecao(${regra.id_regra})">
                     <img src="/assets/icons/delete-icon.png"
                         class="acoes-tabela-img table-action-icon"
@@ -99,7 +97,6 @@ function renderizarTabela(dados) {
     tbody.querySelectorAll(".btn-editar-regra").forEach(botao => {
         botao.addEventListener("click", function() {
             const dadosRegra = JSON.parse(this.getAttribute("data-regra"));
-            
             abrirEdicao(
                 dadosRegra.id_regra,
                 dadosRegra.classificacao,
@@ -141,54 +138,39 @@ async function cadastrarRegra() {
     const limiteInferiorInput = document.getElementById("cadastro-limite_inferior");
     const limiteSuperiorInput = document.getElementById("cadastro-limite_superior");
 
-    // Descrição obrigatória
+    if (!classificacaoInput.value.trim()) {
+        showToast("danger", "Campo obrigatório", "A classificação deve ser preenchida.");
+        return;
+    }
+
     if (!descricaoInput.value.trim()) {
-        showToast(
-            "danger",
-            "Campo obrigatório",
-            "A descrição deve ser preenchida."
-        );
+        showToast("danger", "Campo obrigatório", "A descrição deve ser preenchida.");
+        return;
+    }
+
+    if (limiteInferiorInput.value.trim() === "") {
+        showToast("danger", "Campo obrigatório", "Informe o limite inferior.");
+        return;
+    }
+
+    if (limiteSuperiorInput.value.trim() === "") {
+        showToast("danger", "Campo obrigatório", "Informe o limite superior.");
         return;
     }
 
     const inferior = Number(limiteInferiorInput.value);
     const superior = Number(limiteSuperiorInput.value);
 
-    // Limite inferior obrigatório
-    if (limiteInferiorInput.value.trim() === "") {
-        showToast(
-            "danger",
-            "Campo obrigatório",
-            "Informe o limite inferior."
-        );
-        return;
-    }
-
-    // Limite superior obrigatório
-    if (limiteSuperiorInput.value.trim() === "") {
-        showToast(
-            "danger",
-            "Campo obrigatório",
-            "Informe o limite superior."
-        );
-        return;
-    }
-
-    // Validação do intervalo
-    if (inferior > superior) {
-        showToast(
-            "danger",
-            "Intervalo inválido",
-            "O limite inferior não pode ser maior que o limite superior."
-        );
+    if (inferior >= superior) {
+        showToast("danger", "Intervalo inválido", "O limite inferior deve ser menor que o limite superior.");
         return;
     }
 
     const dados = {
         idInstituicao: id_instituicao,
         idKpi: kpiInput.value,
-        classificacao: classificacaoInput.value.toUpperCase(),
-        descricao: descricaoInput.value,
+        classificacao: classificacaoInput.value.trim().toUpperCase(),
+        descricao: descricaoInput.value.trim(),
         cor: corInput.value.replace("#", ""),
         limiteInferior: limiteInferiorInput.value,
         limiteSuperior: limiteSuperiorInput.value
@@ -197,96 +179,68 @@ async function cadastrarRegra() {
     try {
         const res = await fetch("/regras/cadastrar", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dados)
         });
 
         const resposta = await res.json();
 
         if (!res.ok) {
-            showToast(
-                "danger",
-                "Erro ao cadastrar regra",
-                "Houve um erro ao cadastrar a regra."
-            );
+            showToast("danger", "Erro ao cadastrar regra", "Houve um erro ao cadastrar a regra.");
             return;
         }
 
-        showToast(
-            "success",
-            "Regra cadastrada",
-            "Regra cadastrada com sucesso."
-        );
-
+        showToast("success", "Regra cadastrada", "Regra cadastrada com sucesso.");
         fecharModal();
         await carregarTabela();
 
     } catch (erro) {
         console.error(erro);
-
-        showToast(
-            "danger",
-            "Erro ao se conectar com o servidor",
-            "Houve um erro ao conectar com o servidor."
-        );
+        showToast("danger", "Erro ao se conectar com o servidor", "Houve um erro ao conectar com o servidor.");
     }
 }
 
 async function atualizarRegra() {
     const kpiInput = document.getElementById("edicao-kpi");
     const idRegra = document.getElementById("edicao-regra-id").value;
-
     const classificacaoInput = document.getElementById("edicao-classificacao");
     const descricaoInput = document.getElementById("edicao-descricao");
     const corInput = document.getElementById("edicao-cor");
     const limiteInferiorInput = document.getElementById("edicao-limite_inferior");
     const limiteSuperiorInput = document.getElementById("edicao-limite_superior");
 
+    if (!classificacaoInput.value.trim()) {
+        showToast("danger", "Campo obrigatório", "A classificação deve ser preenchida.");
+        return;
+    }
+
     if (!descricaoInput.value.trim()) {
-        showToast(
-            "danger",
-            "Campo obrigatório",
-            "A descrição deve ser preenchida."
-        );
+        showToast("danger", "Campo obrigatório", "A descrição deve ser preenchida.");
+        return;
+    }
+
+    if (limiteInferiorInput.value.trim() === "") {
+        showToast("danger", "Campo obrigatório", "Informe o limite inferior.");
+        return;
+    }
+
+    if (limiteSuperiorInput.value.trim() === "") {
+        showToast("danger", "Campo obrigatório", "Informe o limite superior.");
         return;
     }
 
     const inferior = Number(limiteInferiorInput.value);
     const superior = Number(limiteSuperiorInput.value);
 
-    if (limiteInferiorInput.value.trim() === "") {
-        showToast(
-            "danger",
-            "Campo obrigatório",
-            "Informe o limite inferior."
-        );
-        return;
-    }
-
-    if (limiteSuperiorInput.value.trim() === "") {
-        showToast(
-            "danger",
-            "Campo obrigatório",
-            "Informe o limite superior."
-        );
-        return;
-    }
-
-    if (inferior > superior) {
-        showToast(
-            "danger",
-            "Intervalo inválido",
-            "O limite inferior não pode ser maior que o limite superior."
-        );
+    if (inferior >= superior) {
+        showToast("danger", "Intervalo inválido", "O limite inferior deve ser menor que o limite superior.");
         return;
     }
 
     const dados = {
         idKpi: kpiInput.value,
-        classificacao: classificacaoInput.value.toUpperCase(),
-        descricao: descricaoInput.value,
+        classificacao: classificacaoInput.value.trim().toUpperCase(),
+        descricao: descricaoInput.value.trim(),
         cor: corInput.value.replace("#", ""),
         limiteInferior: limiteInferiorInput.value,
         limiteSuperior: limiteSuperiorInput.value
@@ -295,40 +249,24 @@ async function atualizarRegra() {
     try {
         const res = await fetch(`/regras/editar/${idRegra}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dados)
         });
 
         const resposta = await res.json();
 
         if (!res.ok) {
-            showToast(
-                "danger",
-                "Erro ao editar regra",
-                "Houve um erro ao editar a regra."
-            );
+            showToast("danger", "Erro ao editar regra", "Houve um erro ao editar a regra.");
             return;
         }
 
-        showToast(
-            "success",
-            "Regra editada com sucesso",
-            "A regra foi editada com sucesso."
-        );
-
+        showToast("success", "Regra editada com sucesso", "A regra foi editada com sucesso.");
         fecharModal();
         await carregarTabela();
 
     } catch (erro) {
         console.error(erro);
-
-        showToast(
-            "danger",
-            "Erro ao se conectar com o servidor",
-            "Houve um erro ao conectar com o servidor."
-        );
+        showToast("danger", "Erro ao se conectar com o servidor", "Houve um erro ao conectar com o servidor.");
     }
 }
 
@@ -355,6 +293,7 @@ async function deletarRegra() {
         showToast("success", "Regra deletada com sucesso", "A regra foi deletada com sucesso.");
         fecharModal();
         await carregarTabela();
+
     } catch (erro) {
         console.error(erro);
         showToast("danger", "Erro ao se conectar com o servidor", "Houve um erro ao conectar com o servidor.");
