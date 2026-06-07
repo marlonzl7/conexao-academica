@@ -4,7 +4,7 @@ window.formCadastroRegra = function () {
 
         <div class="form-group">
             <label>Classificação</label>
-            <select id="cadastro-classificacao">...</select>
+            <input id="cadastro-classificacao"></input>
         </div>
 
         <div class="form-group">
@@ -36,36 +36,40 @@ window.formCadastroRegra = function () {
 
 window.formEdicaoRegra = function () {
     return `
-        <input type="hidden" id="cadastro-regra-id">
+        <input type="hidden" id="edicao-regra-id">
 
         <div class="form-group">
             <label>Classificação</label>
-            <select id="cadastro-classificacao">...</select>
+            <select id="edicao-classificacao">
+                <option value="ALTO">Alto</option>
+                <option value="MEDIO">Médio</option>
+                <option value="BAIXO">Baixo</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label>KPI</label>
-            <select id="cadastro-kpi"></select>
+            <select id="edicao-kpi"></select>
         </div>
 
         <div class="form-group">
             <label>Descrição</label>
-            <input type="text" id="cadastro-descricao">
+            <input type="text" id="edicao-descricao">
         </div>
 
         <div class="form-group">
             <label>Cor</label>
-            <input type="color" id="cadastro-cor">
+            <input type="color" id="edicao-cor">
         </div>
 
         <div class="form-group">
             <label>Limite inferior</label>
-            <input type="text" id="cadastro-limite_inferior">
+            <input type="text" id="edicao-limite_inferior">
         </div>
 
         <div class="form-group">
             <label>Limite superior</label>
-            <input type="text" id="cadastro-limite_superior">
+            <input type="text" id="edicao-limite_superior">
         </div>
     `;
 };

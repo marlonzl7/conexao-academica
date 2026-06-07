@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="../../style/dashboards/coordenador.css">
     <link rel="stylesheet" href="../../style/components/sidebar.css">
     <link rel="stylesheet" href="../../style/components/header.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/style/components/toast.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
@@ -22,6 +24,8 @@
 
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
+    
+    <div class="toast-viewport" id="toast-viewport"></div>
 
     <div class="main">
 
@@ -265,7 +269,7 @@
                 <div class="card-bottom">
 
                     <div>
-                        <span>Descrição:</span>
+                        <span>Classificação:</span>
 
                         <p id="descricao-risco-evasao">
                             --
@@ -322,9 +326,9 @@
 
     </div>
 
-    <script src="../../js/dashboards/coordenador.js"></script>
-
     <script src="../../js/include.js"></script>
+    <script src="../../components/toast/toast.js"></script>
+    <script src="../../js/dashboards/coordenador.js"></script>
 
     <script>
         initPage("Dashboard | Coordenador");

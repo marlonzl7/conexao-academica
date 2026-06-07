@@ -9,7 +9,7 @@ function validarLimitesRegra(req, res, next) {
     }
 
     if (!validarLimiteSuperior(limiteSuperior, limiteInferior)) {
-        erros.push("Limite superior deve ser menor ou igual a cem e maior que o limite inferior.");
+        erros.push("Limite superior deve ser maior que o limite inferior.");
     }
 
     if (erros.length > 0) {
@@ -29,9 +29,8 @@ function validarLimiteSuperior(superior, inferior) {
     if (superior === undefined || superior === null) return false;
     const valor = parseFloat(superior);
     const inf = parseFloat(inferior);
-    return !isNaN(valor) && valor <= 100 && (isNaN(inf) || valor > inf);
+    return !isNaN(valor) && valor >= 0 && (isNaN(inf) || valor > inf);
 }
-
 
 module.exports = {
     validarLimitesRegra

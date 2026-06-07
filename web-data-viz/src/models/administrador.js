@@ -116,8 +116,8 @@ async function cadastrarDiretor(idInstituicao, cpf, nome, email, senha, idUsuari
 }
 
 async function cadastrarAdministrador(idInstituicao, cpf, nome, email, senha, idUsuarioCriador = null) {
-    const hashSenha = await gerarHash(senha); 
-    
+    const hashSenha = await gerarHash(senha);
+
     const instrucaoUsuario = `
         INSERT INTO usuario (id_cargo, id_instituicao, id_curso, id_usuario_criador, cpf, nome, email, senha, ativo)
         VALUES (?, ?, NULL, ?, ?, ?, ?, ?, ?);
@@ -146,19 +146,23 @@ async function listarCursos(idInstituicao) {
 
 async function buscarKPIs(idInstituicao) {
     const instrucao = `
-        SELECT
-            COUNT(u.id_usuario) AS total_usuarios,
-            COUNT(
-                DISTINCT CASE 
-                    WHEN u.ativo = 1 
-                    THEN u.id_usuario 
-                END
-            ) AS usuarios_ativos,
-            SUM(c.nome = 'diretor') AS total_diretores
-        FROM usuario u
-        JOIN cargo c ON u.id_cargo = c.id_cargo
+    SELECT
+        COUNT(u.id_usuario) AS total_usuarios,
+        COUNT(
+            DISTINCT CASE 
+                WHEN u.ativo = 1 
+            THEN u.id_usuario 
+        END
+        ) AS usuarios_ativos,
+        SUM(c.nome = 'diretor') AS total_diretores
+    FROM usuario u
+        INNER JOIN cargo c ON u.id_cargo = c.id_cargo
         LEFT JOIN instituicao i ON u.id_instituicao = i.id_instituicao
-        WHERE i.id_instituicao = ?
+        LEFT JOIN curso cur ON u.id_curso = cur.id_curso
+        LEFT JOIN instituicao i_curso ON cur.id_instituicao = i_curso.id_instituicao
+    WHERE 
+        i.id_instituicao = 1001      
+        OR i_curso.id_instituicao = 1001; 
     `;
 
     const resultado = await database.executar(instrucao, [idInstituicao]);
@@ -169,7 +173,7 @@ module.exports = {
     buscarInstituicoes,
     buscarPorId,
     pesquisarInstituicoes,
-    alterarStatusUsuario, 
+    alterarStatusUsuario,
     cadastrarDiretor,
     cadastrarAdministrador,
     cadastrarCoordenador,

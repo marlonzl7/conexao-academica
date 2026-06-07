@@ -15,7 +15,15 @@ async function buscarKpi(id_kpi) {
     return await database.executar(instrucao, parametros);
 }
 
+async function buscarKpiPorNome(nome) {
+    const instrucao = `SELECT id_kpi FROM kpi WHERE nome = ?`;
+    const resultado = await database.executar(instrucao, [nome]);
+    
+    return resultado[0].id_kpi;
+}
+
 module.exports = {
     listarKpis,
-    buscarKpi
+    buscarKpi,
+    buscarKpiPorNome
 }

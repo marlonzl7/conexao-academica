@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+var regraService = require("../services/regraService");
 var { respostaSucesso, respostaErro } = require("../dtos/resposta");
 
 async function login(req, res) {
@@ -109,6 +110,7 @@ async function cadastrarUsuarioAdministradorInstituicao(req, res) {
         console.log(req.body);
 
         await usuarioModel.cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email, senha, receberNoticias);
+        await regraService.inicializarRegrasKpisInstituicao(idInstituicao);
 
         try {
             await emailService.enviarEmailCadastroConcluido(email, nome);

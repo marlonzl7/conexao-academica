@@ -17,8 +17,8 @@ function preencherKpis() {
     });
 }
 
-function abrirEdicao(id, classificacao, kpi, inferior, superior) {
-    abrirModalEdicaoRegra(id, classificacao, kpi, inferior, superior);
+function abrirEdicao(id, classificacao, kpi, descricao, cor, inferior, superior) {
+    abrirModalEdicaoRegra(id, classificacao, kpi, descricao, cor, inferior, superior);
 }
 
 function abrirDelecao(id) {
@@ -75,15 +75,10 @@ function renderizarTabela(dados) {
             <td>${regra.limite_inferior}%</td>
             <td>${regra.limite_superior}%</td>
             <td class="acoes-tabela">
-                <button type="button" class="table-action-button" title="Editar" onclick='abrirEdicao(
-                            ${regra.id_regra},
-                            '${regra.classificacao}',
-                            ${regra.id_kpi},
-                            '${regra.descricao}',
-                            '${regra.cor_hexadecimal}',
-                            ${regra.limite_inferior},
-                            ${regra.limite_superior}
-                        )'>
+                <button type="button" 
+                        class="table-action-button btn-editar-regra" 
+                        title="Editar" 
+                        data-regra='${JSON.stringify(regra).replace(/'/g, "&apos;")}'>
                     <img src="/assets/icons/write-icon.png"
                         class="acoes-tabela-img table-action-icon"
                         alt="Editar">
@@ -98,6 +93,22 @@ function renderizarTabela(dados) {
         `;
 
         tbody.appendChild(tr);
+    });
+
+    tbody.querySelectorAll(".btn-editar-regra").forEach(botao => {
+        botao.addEventListener("click", function() {
+            const dadosRegra = JSON.parse(this.getAttribute("data-regra"));
+            
+            abrirEdicao(
+                dadosRegra.id_regra,
+                dadosRegra.classificacao,
+                dadosRegra.id_kpi,
+                dadosRegra.descricao,
+                dadosRegra.cor_hexadecimal,
+                dadosRegra.limite_inferior,
+                dadosRegra.limite_superior
+            );
+        });
     });
 }
 
@@ -138,7 +149,7 @@ async function cadastrarRegra() {
         const dados = {
             idInstituicao: id_instituicao,
             idKpi: kpiInput.value,
-            classificacao: classificacaoInput.value,
+            classificacao: classificacaoInput.value.toUpperCase(),
             descricao: descricaoInput.value,
             cor: corInput.value.replace("#", ""),
             limiteInferior: limiteInferiorInput.value,
@@ -159,7 +170,7 @@ async function cadastrarRegra() {
                 return;
             }
 
-            showToast("sucess", "Regra cadastrada", "Regra cadastrada com sucesso.");
+            showToast("success", "Regra cadastrada", "Regra cadastrada com sucesso.");
             fecharModal();
             await carregarTabela();
         } catch (erro) {
@@ -189,7 +200,7 @@ async function atualizarRegra() {
     ) {
         const dados = {
             idKpi: kpiInput.value,
-            classificacao: classificacaoInput.value,
+            classificacao: classificacaoInput.value.toUpperCase(),
             descricao: descricaoInput.value,
             cor: corInput.value.replace("#", ""),
             limiteInferior: limiteInferiorInput.value,
@@ -210,7 +221,7 @@ async function atualizarRegra() {
                 return;
             }
 
-            showToast("sucess", "Regra editada com sucesso", "A regra foi editada com sucesso.");
+            showToast("success", "Regra editada com sucesso", "A regra foi editada com sucesso.");
             fecharModal();
             await carregarTabela();
         } catch (erro) {
@@ -240,7 +251,7 @@ async function deletarRegra() {
             return;
         }
 
-        showToast("sucess", "Regra deletada com sucesso", "A regra foi deletada com sucesso.");
+        showToast("success", "Regra deletada com sucesso", "A regra foi deletada com sucesso.");
         fecharModal();
         await carregarTabela();
     } catch (erro) {

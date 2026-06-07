@@ -14,7 +14,7 @@ window.abrirModalCadastroRegra = async function () {
     preencherKpis();
 };
 
-window.abrirModalEdicaoRegra = async function (id, classificacao, kpi, inferior, superior) {
+window.abrirModalEdicaoRegra = async function (id, classificacao, kpi, descricao, cor, inferior, superior) {
     if (!window.regraKpis || !window.regraKpis.length) {
         await carregarKpis();
     }
@@ -34,6 +34,7 @@ window.abrirModalEdicaoRegra = async function (id, classificacao, kpi, inferior,
     document.getElementById("edicao-kpi").value = kpi;
     document.getElementById("edicao-limite_inferior").value = inferior;
     document.getElementById("edicao-limite_superior").value = superior;
+    document.getElementById("edicao-descricao").value = descricao;
 };
 
 window.abrirModalDelecaoRegra = function (id) {

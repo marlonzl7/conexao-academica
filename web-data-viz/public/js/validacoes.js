@@ -131,7 +131,7 @@ function validarLimiteInferior(inputInferior, inputSuperior) {
 function validarLimiteSuperior(inputSuperior, inputInferior) {
     const valor = parseFloat(inputSuperior.value);
     const inf = parseFloat(inputInferior.value);
-    return !isNaN(valor) && valor <= 100 && (isNaN(inf) || valor > inf);
+    return !isNaN(valor) && valor >= 0 && (isNaN(inf) || valor > inf);
 }
 
 function validarMensagem(input){
