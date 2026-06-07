@@ -155,3 +155,4 @@ window.onload = () => {
     buscarInstituicoes();
     configurarBuscaDinamica();
 };
+

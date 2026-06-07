@@ -148,8 +148,73 @@ function cadastrarAdministrador() {
     const senha = document.getElementById("admin_senha").value.trim();
     const cpf = document.getElementById("admin_cpf").value.trim();
 
-    if (!nome || !email || !senha || !cpf) {
-        showToast("danger", "Erro ao cadastrar administrador", "Todos os campos são obrigatórios.");
+    // Nome obrigatório
+    if (!nome) {
+        showToast(
+            "danger",
+            "Erro ao cadastrar administrador",
+            "O nome é obrigatório."
+        );
+        return;
+    }
+
+    // CPF obrigatório
+    if (!cpf) {
+        showToast(
+            "danger",
+            "Erro ao cadastrar administrador",
+            "O CPF é obrigatório."
+        );
+        return;
+    }
+
+    // CPF somente números
+    if (!/^\d+$/.test(cpf)) {
+        showToast(
+            "danger",
+            "Erro ao cadastrar administrador",
+            "O CPF deve conter apenas números."
+        );
+        return;
+    }
+
+    // CPF com exatamente 11 dígitos
+    if (cpf.length !== 11) {
+        showToast(
+            "danger",
+            "Erro ao cadastrar administrador",
+            "O CPF deve possuir exatamente 11 números."
+        );
+        return;
+    }
+
+    // Email obrigatório
+    if (!email) {
+        showToast(
+            "danger",
+            "Erro ao cadastrar administrador",
+            "O e-mail é obrigatório."
+        );
+        return;
+    }
+
+    // Email precisa conter @
+    if (!email.includes("@")) {
+        showToast(
+            "danger",
+            "Erro ao cadastrar administrador",
+            "Digite um e-mail válido."
+        );
+        return;
+    }
+
+    // Senha obrigatória
+    if (!senha) {
+        showToast(
+            "danger",
+            "Erro ao cadastrar administrador",
+            "A senha é obrigatória."
+        );
         return;
     }
 
@@ -164,20 +229,34 @@ function cadastrarAdministrador() {
             cpf
         })
     })
-        .then(res => res.json())
-        .then(data => {
-            if (data.sucesso) {
-                showToast("success", "Administrador Cadastrado", "Administrador cadastrado com sucesso!");
-                fecharModal();
-                buscarInstituicao();
-            } else {
-                showToast("danger", "Erro ao cadastrar administrador", data.mensagem || "Erro desconhecido");
-            }
-        })
-        .catch(error => {
-            console.error("Erro ao cadastrar administrador:", error);
-            showToast("danger", "Erro ao cadastrar administrador", "Tente novamente");
-        });
+    .then(res => res.json())
+    .then(data => {
+        if (data.sucesso) {
+            showToast(
+                "success",
+                "Administrador Cadastrado",
+                "Administrador cadastrado com sucesso!"
+            );
+
+            fecharModal();
+            buscarInstituicao();
+        } else {
+            showToast(
+                "danger",
+                "Erro ao cadastrar administrador",
+                data.mensagem || "Erro desconhecido"
+            );
+        }
+    })
+    .catch(error => {
+        console.error("Erro ao cadastrar administrador:", error);
+
+        showToast(
+            "danger",
+            "Erro ao cadastrar administrador",
+            "Tente novamente"
+        );
+    });
 }
 
 window.onload = buscarInstituicao;
