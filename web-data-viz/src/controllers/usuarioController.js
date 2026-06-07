@@ -105,11 +105,11 @@ const emailService = require("../services/emailService");
 
 async function cadastrarUsuarioAdministradorInstituicao(req, res) {
     try {
-        const { idInstituicao, cpf, nome, email, senha } = req.body;
+        const { idInstituicao, cpf, nome, email, senha, receberNoticias } = req.body;
 
         console.log(req.body);
 
-        await usuarioModel.cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email, senha);
+        await usuarioModel.cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email, senha, receberNoticias);
         await regraService.inicializarRegrasKpisInstituicao(idInstituicao);
 
         try {
@@ -135,9 +135,9 @@ async function cadastrarUsuarioAdministradorInstituicao(req, res) {
 
 async function cadastrarUsuarioDiretor(req, res) {
     try {
-        const { id_instituicao, cpf, nome, email, senha } = req.body;
+        const { id_instituicao, cpf, nome, email, senha, receberNoticias } = req.body;
 
-        await usuarioModel.cadastrarUsuarioDiretor(id_instituicao, cpf, nome, email, senha);
+        await usuarioModel.cadastrarUsuarioDiretor(id_instituicao, cpf, nome, email, senha, receberNoticias);
 	
 	try {
 	    await emailService.enviaremailCadastroConcluido(email, nome);

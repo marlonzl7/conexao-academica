@@ -64,7 +64,7 @@ function validarEmail(input) {
 function validarSenha(input) {
     const valor = input.value;
 
-    if (valor.length < 8) return false;
+    if (valor.length < 8) return "Senha deve ter no mínimo 8 caracteres";
 
     let temMinuscula = false;
     let temMaiuscula = false;
@@ -80,7 +80,12 @@ function validarSenha(input) {
         if (validarCaractereEspecial(codigoAscii)) temCaractereEspecial = true;
     }
 
-    return temMinuscula && temMaiuscula && temNumero && temCaractereEspecial;
+    if(!temMaiuscula) return "Senha deve conter pelo menos uma letra maiúscula"
+    if(!temMinuscula) return "Senha deve conter pelo menos uma letra minúscula"
+    if(!temNumero) return "Senha deve conter pelo menos um número"
+    if(!temCaractereEspecial) return "Senha deve conter pelo menos um caractere especial"
+
+    return null;
 }
 
 function validarLetraMinuscula(codigoAscii) {

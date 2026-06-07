@@ -2,6 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
     iniciar();
 });
 
+function mostrarSenha(idInput, icone) {
+    const input = document.getElementById(idInput);
+
+    if (input.type === "password") {
+        input.type = "text";
+        icone.src = "/assets/icons/show-icon-azul.png";
+        icone.alt = "Ocultar senha";
+    } else {
+        input.type = "password";
+        icone.src = "/assets/icons/hide-icon-azul.png";
+        icone.alt = "Mostrar senha";
+    }
+}
+
 function iniciar() {
     const instituicaoInput = document.getElementById("instituicao");
     const cpfInput = document.getElementById("cpf");
@@ -51,12 +65,17 @@ function iniciar() {
     });
 
     senhaInput.addEventListener("input", () => {
-        validarCampo(
-            "senhaInvalida",
-            "Senha inválida: Deve ter no mínimo 8 caracteres, maiúsculas, minúsculas, números e caracteres especiais",
-            validarSenha,
-            senhaInput
-        );
+        const mensagemErro = validarSenha(senhaInput);
+        const erroSpan = document.getElementById("senhaInvalida");
+        const divErro = erroSpan.parentElement;
+
+        if (mensagemErro) {
+            erroSpan.textContent = mensagemErro;
+            divErro.classList.add("ativo");
+        } else {
+            erroSpan.textContent = "";
+            divErro.classList.remove("ativo");
+        }
 
         confirmarSenhaInput.dispatchEvent(new Event("input"));
     });
@@ -141,7 +160,8 @@ function iniciar() {
                 nome: nomeInput.value,
                 email: emailInput.value,
                 senha: senhaInput.value,
-                confirmacaoSenha: confirmarSenhaInput.value
+                confirmacaoSenha: confirmarSenhaInput.value,
+                receberNoticias: receberNoticiasInput.checked ? 1 : 0
             }
 
             try {

@@ -36,7 +36,7 @@ CREATE TABLE usuario (
     senha VARCHAR(255) NOT NULL,
     ativo TINYINT NOT NULL DEFAULT 0,
     recebe_email TINYINT NOT NULL DEFAULT 0,
-CONSTRAINT chk_usuario_autorizado CHECK ((id_instituicao IS NULL AND id_curso IS NULL) OR (id_instituicao IS NOT NULL AND id_curso IS NULL) OR (id_curso IS NOT NULL AND id_instituicao IS NULL)),
+    CONSTRAINT chk_usuario_autorizado CHECK ((id_instituicao IS NULL AND id_curso IS NULL) OR (id_instituicao IS NOT NULL AND id_curso IS NULL) OR (id_curso IS NOT NULL AND id_instituicao IS NULL)),
     CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo),
     CONSTRAINT fK_usuario_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_usuario_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso),
