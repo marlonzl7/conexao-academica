@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style/cadastro.css">
     <title>Cadastro</title>
+    <link rel="icon" type="image/png" href="/assets/imgs/logoTopo.png">
 </head>
 
 <body>
@@ -21,8 +22,10 @@
         <div class="card-body">
             <div class="card-info">
                 <header>
-                    <img src="/assets/icons/logo_azul.svg" alt="Logo" class="logo">
-                    <label for="text" class="title-logo">Conexão Acadêmica</label>
+                    <a href="/pages/index.html" class="logo-link">
+                        <img src="/assets/icons/logo_azul.svg" alt="Logo" class="logo">
+                        <label for="text" class="title-logo">Conexão Acadêmica</label>
+                    </a>
                 </header>
 
                 <div class="card-info-content">
@@ -123,18 +126,20 @@
                     </div>
 
                     <div class="check-box">
-                        <label for="" class="check-label">
+                        <label class="check-label">
                             <input type="checkbox" id="receberNoticias">
                             <span class="check-custom"></span>
                             Desejo receber notícias e atualizações de dados por e-mail
                         </label>
                     </div>
+
+                    <button class="btn-cadastro" id="btn-cadastro">Cadastrar</button>
                 </div>
 
                 <div class="footer">
-                    <button class="btn-cadastro" id="btn-cadastro">Cadastrar</button>
+                    
                     <p class="sub">
-                        Já possuí uma conta? <span id="link-login">Entrar</span>
+                        Já possuí uma conta? <a id="link-login" href="/pages/login.html">Entrar</a>
                     </p>
                 </div>
             </div>
