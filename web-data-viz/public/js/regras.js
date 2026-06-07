@@ -27,7 +27,8 @@ function abrirDelecao(id) {
 
 async function carregarTabela() {
     try {
-        const id_instituicao = sessionStorage.getItem("ID_INSTITUICAO");
+        const id_instituicao =  sessionStorage.getItem("ID_INSTITUICAO");
+    
 
         const res = await fetch(`/regras?id_instituicao=${id_instituicao}`);
         const resposta = await res.json();
@@ -72,8 +73,8 @@ function renderizarTabela(dados) {
                     border-radius:4px;
                 "></div>
             </td>
-            <td>${regra.limite_inferior}</td>
-            <td>${regra.limite_superior}</td>
+            <td>${regra.limite_inferior}%</td>
+            <td>${regra.limite_superior}%</td>
             <td class="acoes-tabela">
                 <button type="button" 
                         class="table-action-button btn-editar-regra" 
@@ -140,45 +141,96 @@ async function cadastrarRegra() {
     const limiteInferiorInput = document.getElementById("cadastro-limite_inferior");
     const limiteSuperiorInput = document.getElementById("cadastro-limite_superior");
 
-    if (
-        validarClassificacao(classificacaoInput) &&
-        validarDescricao(descricaoInput) &&
-        validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
-        validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput)
-    ) {
-        const dados = {
-            idInstituicao: id_instituicao,
-            idKpi: kpiInput.value,
-            classificacao: classificacaoInput.value.toUpperCase(),
-            descricao: descricaoInput.value,
-            cor: corInput.value.replace("#", ""),
-            limiteInferior: limiteInferiorInput.value,
-            limiteSuperior: limiteSuperiorInput.value
-        };
+    // Descrição obrigatória
+    if (!descricaoInput.value.trim()) {
+        showToast(
+            "danger",
+            "Campo obrigatório",
+            "A descrição deve ser preenchida."
+        );
+        return;
+    }
 
-        try {
-            const res = await fetch("/regras/cadastrar", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dados)
-            });
+    const inferior = Number(limiteInferiorInput.value);
+    const superior = Number(limiteSuperiorInput.value);
 
-            const resposta = await res.json();
+    // Limite inferior obrigatório
+    if (limiteInferiorInput.value.trim() === "") {
+        showToast(
+            "danger",
+            "Campo obrigatório",
+            "Informe o limite inferior."
+        );
+        return;
+    }
 
-            if (!res.ok) {
-                showToast("danger", "Erro ao cadastrar regra", "Houve um erro ao cadastrar a regra.");
-                return;
-            }
+    // Limite superior obrigatório
+    if (limiteSuperiorInput.value.trim() === "") {
+        showToast(
+            "danger",
+            "Campo obrigatório",
+            "Informe o limite superior."
+        );
+        return;
+    }
 
-            showToast("success", "Regra cadastrada", "Regra cadastrada com sucesso.");
-            fecharModal();
-            await carregarTabela();
-        } catch (erro) {
-            console.error(erro);
-            showToast("danger", "Erro ao se conectar com o servidor", "Houve um erro ao conectar com o servidor.");
+    // Validação do intervalo
+    if (inferior > superior) {
+        showToast(
+            "danger",
+            "Intervalo inválido",
+            "O limite inferior não pode ser maior que o limite superior."
+        );
+        return;
+    }
+
+    const dados = {
+        idInstituicao: id_instituicao,
+        idKpi: kpiInput.value,
+        classificacao: classificacaoInput.value.toUpperCase(),
+        descricao: descricaoInput.value,
+        cor: corInput.value.replace("#", ""),
+        limiteInferior: limiteInferiorInput.value,
+        limiteSuperior: limiteSuperiorInput.value
+    };
+
+    try {
+        const res = await fetch("/regras/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        });
+
+        const resposta = await res.json();
+
+        if (!res.ok) {
+            showToast(
+                "danger",
+                "Erro ao cadastrar regra",
+                "Houve um erro ao cadastrar a regra."
+            );
+            return;
         }
-    } else {
-        showToast("danger", "Verifique os campos", "Campos obrigatórios não preenchidos.");
+
+        showToast(
+            "success",
+            "Regra cadastrada",
+            "Regra cadastrada com sucesso."
+        );
+
+        fecharModal();
+        await carregarTabela();
+
+    } catch (erro) {
+        console.error(erro);
+
+        showToast(
+            "danger",
+            "Erro ao se conectar com o servidor",
+            "Houve um erro ao conectar com o servidor."
+        );
     }
 }
 
@@ -192,42 +244,91 @@ async function atualizarRegra() {
     const limiteInferiorInput = document.getElementById("edicao-limite_inferior");
     const limiteSuperiorInput = document.getElementById("edicao-limite_superior");
 
-    if (
-        validarClassificacao(classificacaoInput) &&
-        validarDescricao(descricaoInput) &&
-        validarLimiteInferior(limiteInferiorInput, limiteSuperiorInput) &&
-        validarLimiteSuperior(limiteSuperiorInput, limiteInferiorInput) 
-    ) {
-        const dados = {
-            idKpi: kpiInput.value,
-            classificacao: classificacaoInput.value.toUpperCase(),
-            descricao: descricaoInput.value,
-            cor: corInput.value.replace("#", ""),
-            limiteInferior: limiteInferiorInput.value,
-            limiteSuperior: limiteSuperiorInput.value
-        };
+    if (!descricaoInput.value.trim()) {
+        showToast(
+            "danger",
+            "Campo obrigatório",
+            "A descrição deve ser preenchida."
+        );
+        return;
+    }
 
-        try {
-            const res = await fetch(`/regras/editar/${idRegra}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dados)
-            });
+    const inferior = Number(limiteInferiorInput.value);
+    const superior = Number(limiteSuperiorInput.value);
 
-            const resposta = await res.json();
+    if (limiteInferiorInput.value.trim() === "") {
+        showToast(
+            "danger",
+            "Campo obrigatório",
+            "Informe o limite inferior."
+        );
+        return;
+    }
 
-            if (!res.ok) {
-                showToast("danger", "Erro ao editar regra", "Houve um erro ao editar a regra.");
-                return;
-            }
+    if (limiteSuperiorInput.value.trim() === "") {
+        showToast(
+            "danger",
+            "Campo obrigatório",
+            "Informe o limite superior."
+        );
+        return;
+    }
 
-            showToast("success", "Regra editada com sucesso", "A regra foi editada com sucesso.");
-            fecharModal();
-            await carregarTabela();
-        } catch (erro) {
-            console.error(erro);
-            showToast("danger", "Erro ao se conectar com o servidor", "Houve um erro ao conectar com o servidor.");
+    if (inferior > superior) {
+        showToast(
+            "danger",
+            "Intervalo inválido",
+            "O limite inferior não pode ser maior que o limite superior."
+        );
+        return;
+    }
+
+    const dados = {
+        idKpi: kpiInput.value,
+        classificacao: classificacaoInput.value.toUpperCase(),
+        descricao: descricaoInput.value,
+        cor: corInput.value.replace("#", ""),
+        limiteInferior: limiteInferiorInput.value,
+        limiteSuperior: limiteSuperiorInput.value
+    };
+
+    try {
+        const res = await fetch(`/regras/editar/${idRegra}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        });
+
+        const resposta = await res.json();
+
+        if (!res.ok) {
+            showToast(
+                "danger",
+                "Erro ao editar regra",
+                "Houve um erro ao editar a regra."
+            );
+            return;
         }
+
+        showToast(
+            "success",
+            "Regra editada com sucesso",
+            "A regra foi editada com sucesso."
+        );
+
+        fecharModal();
+        await carregarTabela();
+
+    } catch (erro) {
+        console.error(erro);
+
+        showToast(
+            "danger",
+            "Erro ao se conectar com o servidor",
+            "Houve um erro ao conectar com o servidor."
+        );
     }
 }
 
