@@ -1,57 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/cadastro.css">
     <link rel="stylesheet" href="/style/login.css">
-    <link rel="icon" type="image/png" href="/assets/imgs/logoTopo.png">
     <title>Login</title>
+    <link rel="icon" type="image/png" href="/assets/imgs/logoTopo.png">
 </head>
 
 <body>
-    <header>
-        <img src="/assets/icons/logo.png" alt="Logo Conexão Acadêmica">
-        <h3>Conexão Acadêmica</h3>
-        <nav>
-            <button onclick="menu()">
-                <img id="imagem-menu" src="/assets/icons/menu.png" alt="Menu Hamburguer">
-            </button>
-            <ul id="menu">
-                <li><img id="home-imagem" alt="Imagem Home"><a href="index.html">Home</a></li>
-                <li><img id="sobre-imagem" alt="Imagem Sobre Nós"><a href="index.html#section-sobrenos">Sobre Nós</a></li>
-                <li><img id="contato-imagem" alt="Imagem Contate-nos"><a href="index.html#section-contactus">Contate-nos</a></li>
-                <li><img id="login-imagem" alt="Imagem Login"><a href="login.html">Login</a></li>
-            </ul>
-        </nav>
-    </header>
-
     <main>
-        <div class="caixa">
-            <div class="login">
-                <p class="tex"> Email: </p>
-                <input type="text" id="ipt_email" onkeyup="onkey_email()">
-                <div id="div_msg_email" class="tex b"></div>
+        <div class="card-body">
 
-                <p class="tex"> Senha: </p>
-                <div class="senha-box">
-                    <input type="password" id="ipt_senha" onkeyup="onkey_senha()">
+            <div class="card-info">
+                <header>
+                    <a href="/pages/index.html" class="logo-link">
+                        <img src="/assets/icons/logo_azul.svg" alt="Logo" class="logo">
+                        <label for="text" class="title-logo">Conexão Acadêmica</label>
+                    </a>
+                </header>
 
-                    <img src="/assets/imgs/olho_fechado.png" alt="Mostrar senha" class="olho-senha"
-                        onclick="mostrarSenha()">
+                <div class="card-info-content">
+                    <h1 class="headline">
+                        Transformando dados
+                        <p>acadêmicos em</p>
+                        <p class="headline-destaque">análises inteligentes</p>
+                    </h1>
+
+                    <p class="headline-sub">
+                        Nossa plataforma ajuda instituições a tomar decisões
+                        a partir de dados com maior eficiência.
+                    </p>
+
+                    <ul class="features">
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <img src="/assets/icons/icon_blue_graph.png" alt="">
+                            </div>
+                            <div>
+                                <strong>Análises eficientes</strong>
+                                <p>Visualize dados acadêmicos de forma eficaz</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <img src="/assets/icons/icon_relogio.png" alt="">
+                            </div>
+                            <div>
+                                <strong>Economize tempo</strong>
+                                <p>Desfrute de informações relevantes da sua instituição</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <img src="/assets/icons/icon_exclamacao.png" alt="">
+                            </div>
+                            <div>
+                                <strong>Tomada de ação</strong>
+                                <p>Com base nas informações providas, diminua a evasão</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="img-grafico">
+                <img src="/assets/imgs/grafico-info.svg" alt="Gráfico de exemplo">
+            </div>
+
+            <div class="card-login">
+                <div class="login-header">
+                    <h3 class="title login-title">Bem-vindo de volta!</h3>
+                    <p class="login-sub">Entre na sua conta para continuar</p>
                 </div>
 
-                <div id="div_msg_senha" class="tex b"></div>
+                <div class="input-group">
+                    <div class="login-meio">
+                        <div class="input-box">
+                            <input type="email" name="email" id="email" placeholder=" " required>
+                            <label for="email">E-mail</label>
+                            <div class="erro"><span id="emailInvalido"></span></div>
+                        </div>
 
-                <!-- aqui você pode decidir -->
-                <button class="btn_entrar" onclick="login()"> Entrar</button>
+                        <div class="input-box">
+                            <input type="password" name="senha" id="senha" placeholder=" " required>
+                            <label for="senha">Senha</label>
+                            <img src="/assets/icons/hide-icon-azul.png" alt="Mostrar senha" class="olho-senha"
+                                onclick="mostrarSenha()">
+                            <div class="erro"><span id="senhaInvalida"></span></div>
+                        </div>
 
-                <div class="tex b s" id="div_msg_login"></div>
+                        <div class="esqueceu-senha">
+                            <a href="#" id="link-esqueceu">Esqueceu sua senha?</a>
+                        </div>
+                        <button class="btn-cadastro" id="btn-entrar">
+                            Entrar
+                        </button>
+                    </div>
 
-                <p class="sub">
-                    Ainda não é parceiro?
-                    <a href="./cadastro.html">Cadastre-se</a>
-                </p>
+
+                </div>
+
+                <div class="footer">
+                    <p class="sub">
+                        Não tem uma conta? <a id="link-cadastro" href="/pages/cadastro.html">Cadastre-se</a>
+                    </p>
+                </div>
             </div>
+
         </div>
     </main>
+
+    <script src="/js/login.js"></script>
+    <script src="/js/validacoes.js"></script>
 </body>
-<script src="/js/login.js"></script>
+
 </html>
