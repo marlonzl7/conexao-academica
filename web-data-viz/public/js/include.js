@@ -2,6 +2,10 @@ async function loadComponent(id, file) {
     const response = await fetch(file);
     const html = await response.text();
     document.getElementById(id).innerHTML = html;
+
+    const usernameEl = document.getElementById("header-username");
+    const nome = sessionStorage.getItem("NOME_USUARIO");
+    if (usernameEl) usernameEl.textContent = nome || "Usuário"
 }
 
 
