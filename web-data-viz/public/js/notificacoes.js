@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "notif_lidas";
+  const STORAGE_KEY = "notificacoes_lidas";
 
   function getLidas() {
     try {

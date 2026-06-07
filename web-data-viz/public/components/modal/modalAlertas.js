@@ -1,7 +1,10 @@
 const KPI_LABELS = {
-    'taxa-evasao': 'Taxa de Evasão',
-    matriculas: 'Total de Matrículas',
-    trancamentos: 'Trancamentos',
+    tendencia_evasao_curso: 'Tendência de Evasão do Curso',
+    taxa_evasao_curso: 'Taxa de Evasão do Curso',
+    risco_evasao_curso: 'Risco de Evasão do Curso',
+    taxa_evasao_instituicao: 'Taxa de Evasão da Instituição',
+    total_alunos_matriculados: 'Total de Alunos Matriculados',
+    tendencia_evasao_instituicao: 'Tendência de Evasão da Instituição',
 };
 
 const CLASSIFICACAO_LABELS = {
