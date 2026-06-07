@@ -40,11 +40,7 @@ window.formEdicaoRegra = function () {
 
         <div class="form-group">
             <label>Classificação</label>
-            <select id="edicao-classificacao">
-                <option value="ALTO">Alto</option>
-                <option value="MEDIO">Médio</option>
-                <option value="BAIXO">Baixo</option>
-            </select>
+            <input id="edicao-classificacao">
         </div>
 
         <div class="form-group">
