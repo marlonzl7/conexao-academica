@@ -72,8 +72,8 @@ function renderizarTabela(dados) {
                     border-radius:4px;
                 "></div>
             </td>
-            <td>${regra.limite_inferior}%</td>
-            <td>${regra.limite_superior}%</td>
+            <td>${regra.limite_inferior}</td>
+            <td>${regra.limite_superior}</td>
             <td class="acoes-tabela">
                 <button type="button" 
                         class="table-action-button btn-editar-regra" 
