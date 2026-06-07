@@ -65,12 +65,23 @@ CREATE TABLE alerta (
 	id_alerta INT PRIMARY KEY AUTO_INCREMENT,
     id_regra INT NOT NULL,
     classificacao VARCHAR(45) NOT NULL,
-    observacao VARCHAR(45) NOT NULL,
+    observacao VARCHAR(255) NOT NULL,
     data_hora DATETIME NOT NULL,
     condicao VARCHAR(10) NOT NULL,
-    CONSTRAINT fk_regra FOREIGN KEY (id_regra) REFERENCES regra(id_regra),
+    CONSTRAINT fk_regra FOREIGN KEY (id_regra) REFERENCES regra(id_regra) ON DELETE CASCADE,
     CONSTRAINT chk_classificacao CHECK (classificacao IN('Normal', 'Atenção', 'Crítico')),
     CONSTRAINT chk_condicao CHECK (condicao IN ('Inferior', 'Superior'))
+);
+
+CREATE TABLE alerta_disparo (
+    id_disparo INT PRIMARY KEY AUTO_INCREMENT,
+    id_alerta INT NOT NULL,                   
+    valor_atual DECIMAL(10,2) NOT NULL,          
+    condicao VARCHAR(10) NOT NULL,          
+    contexto VARCHAR(200) NOT NULL,          
+    data_hora DATETIME NOT NULL,
+    CONSTRAINT fk_disparo_alerta FOREIGN KEY (id_alerta) REFERENCES alerta(id_alerta)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE indicadores_curso (
