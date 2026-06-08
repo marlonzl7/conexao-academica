@@ -28,7 +28,13 @@ public class UsuarioNotificacaoDAO {
             return emails;
         }
 
-        String sql = "SELECT u.email FROM usuario u JOIN cargo c ON u.id_cargo = c.id_cargo WHERE c.nome = ?";
+        String sql = """
+            SELECT u.email 
+            FROM usuario u 
+            JOIN cargo c ON u.id_cargo = c.id_cargo 
+            WHERE c.nome = ? 
+                AND u.recebe_email = 1
+            """;
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, cargo);

@@ -111,8 +111,11 @@ async function carregarCargos() {
 }
 
 async function criarCargo() {
-    const nome = getInput("inputNovo");
-    if (!nome) return;
+    const input = document.getElementById("inputNovo");
+
+    if (!validarCargo(input)) return;
+
+    const nome = input.value.trim();
 
     try {
         const response = await fetch(API, {
@@ -134,8 +137,11 @@ async function criarCargo() {
 }
 
 async function atualizarCargo(id) {
-    const nome = getInput("inputEditar");
-    if (!nome) return;
+    const input = document.getElementById("inputEditar");
+
+    if (!validarCargo(input)) return;
+
+    const nome = input.value.trim();
 
     try {
         const response = await fetch(`${API}/${id}`, {

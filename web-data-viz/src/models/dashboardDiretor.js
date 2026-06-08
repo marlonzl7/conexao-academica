@@ -2,13 +2,13 @@ var database = require("../database/config");
 
 async function getKPIs(anoInicio, anoFim, idInstituicao) {
     var instrucao = `
-    SELECT 
-        SUM(total_matriculas) AS totalMatriculas, 
-        SUM(total_desvinculados) AS alunosEvadidos, 
-        ROUND(AVG(taxa_evasao), 2) AS taxaEvasao, -- Corrigido para calcular a média real do período
-        ROUND(AVG(evadidos_presencial), 2) AS evadidosPresencial, 
-        ROUND(AVG(evadidos_ead), 2) AS evadidosEAD
-    FROM vw_indic_geral 
+        SELECT 
+            SUM(total_matriculas) AS totalMatriculas,
+            SUM(total_desvinculados) AS alunosEvadidos,
+            ROUND(SUM(total_desvinculados) * 100.0 / NULLIF(SUM(total_matriculas), 0), 2) AS taxaEvasao,
+            ROUND(SUM(total_presencial) * 100.0 / NULLIF(SUM(total_desvinculados), 0), 2) AS evadidosPresencial,
+            ROUND(SUM(total_ead) * 100.0 / NULLIF(SUM(total_desvinculados), 0), 2) AS evadidosEAD
+        FROM vw_indic_geral 
         WHERE ano_emissao BETWEEN ? AND ? AND id_instituicao = ?;
     `;
 
@@ -31,6 +31,7 @@ async function getGraficoEvasao(anoInicio, anoFim, idInstituicao) {
         SELECT 
             id_instituicao AS idInstituicao,
             nome_curso AS nomeCurso,
+            nome_instituicao AS nomeInstituicao,
             ano_emissao AS anoEmissao,
             quantidades_desvinculados AS qtdDesvinculados
         FROM vw_indic_curso

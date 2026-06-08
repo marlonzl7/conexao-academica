@@ -4,11 +4,7 @@ window.formCadastroRegra = function () {
 
         <div class="form-group">
             <label>Classificação</label>
-            <select id="cadastro-classificacao">
-                <option value="ALTO">Alto</option>
-                <option value="MEDIO">Médio</option>
-                <option value="BAIXO">Baixo</option>
-            </select>
+            <input id="cadastro-classificacao"></input>
         </div>
 
         <div class="form-group">
@@ -28,12 +24,12 @@ window.formCadastroRegra = function () {
 
         <div class="form-group">
             <label>Limite inferior</label>
-            <input type="text" id="cadastro-limite_inferior">
+            <input type="number" id="cadastro-limite_inferior" min="0">
         </div>
 
         <div class="form-group">
             <label>Limite superior</label>
-            <input type="text" id="cadastro-limite_superior">
+           <input type="number" id="cadastro-limite_superior" min="0">
         </div>
     `;
 };
@@ -44,11 +40,7 @@ window.formEdicaoRegra = function () {
 
         <div class="form-group">
             <label>Classificação</label>
-            <select id="edicao-classificacao">
-                <option value="ALTO">Alto</option>
-                <option value="MEDIO">Médio</option>
-                <option value="BAIXO">Baixo</option>
-            </select>
+            <input id="edicao-classificacao">
         </div>
 
         <div class="form-group">
@@ -68,12 +60,12 @@ window.formEdicaoRegra = function () {
 
         <div class="form-group">
             <label>Limite inferior</label>
-            <input type="text" id="edicao-limite_inferior">
+           <input type="number" id="edicao-limite_inferior" min="0">
         </div>
 
         <div class="form-group">
             <label>Limite superior</label>
-            <input type="text" id="edicao-limite_superior">
+           <input type="number" id="edicao-limite_superior" min="0">
         </div>
     `;
 };

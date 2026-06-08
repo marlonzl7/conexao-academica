@@ -20,7 +20,7 @@ async function carregarAnos() {
 
     const response = await resposta.json();
 
-    const anos = response.dados;
+    const anos = response.dados.anos;
 
     anos.forEach((item) => {
       const optionHTML = `<option value="${item.ano}">${item.ano}</option>`;
@@ -56,36 +56,51 @@ async function buscarDados() {
 }
 
 async function getKPIs() {
-  const totalMatriculas = document.getElementById("total-matriculas");
-  const alunosEvadidos = document.getElementById("alunos-evadidos");
-  const taxaEvasao = document.getElementById("taxa-evasao");
-  const evasaoPresencialEAD = document.getElementById("evasao-presencial-ead");
+    const anoInicio = document.getElementById("ano-inicio").value;
+    const anoFim = document.getElementById("ano-fim").value;
+    console.log(idInstituicao);
 
-  const anoInicio = document.getElementById("ano-inicio").value;
-  const anoFim = document.getElementById("ano-fim").value;
+    try {
+        const response = await fetch(
+            `/dashboards/diretor/kpis?anoInicio=${anoInicio}&anoFim=${anoFim}&idInstituicao=${idInstituicao}`
+        );
 
-  try {
-    const response = await fetch(
-      `/dashboards/diretor/kpis?anoInicio=${anoInicio}&anoFim=${anoFim}&idInstituicao=${idInstituicao}`,
-    );
+        const responseData = await response.json();
+        const dados = responseData.dados;
 
-    const responseData = await response.json();
-    const data = responseData.dados;
+        if (!dados) return;
 
-    if (data && data.length > 0) {
-      const dados = data[0];
-      totalMatriculas.textContent = dados.totalMatriculas ?? 0;
-      alunosEvadidos.textContent = dados.alunosEvadidos ?? 0;
-      taxaEvasao.textContent = `${Number(dados.taxaEvasao || 0).toFixed(2)}%`;
-      evasaoPresencialEAD.textContent = `${Number(dados.evadidosPresencial || 0).toFixed(2)}% / ${Number(dados.evadidosEAD || 0).toFixed(2)}%`;
+        const { kpis } = dados;
+
+        document.getElementById("total-matriculas").textContent = kpis.matriculas.valor;
+        document.getElementById("alunos-evadidos").textContent = kpis.evadidos.valor;
+        document.getElementById("taxa-evasao").textContent = `${Number(kpis.taxaEvasao.valor).toFixed(2)}%`;
+        document.getElementById("evasao-presencial-ead").textContent =
+            `${kpis.evasaoPresencialEAD.presencial.toFixed(2)}% / ${kpis.evasaoPresencialEAD.ead.toFixed(2)}%`;
+
+        preencherClassificacao("classificacao-total-matriculas", kpis.matriculas.classificacao);
+        preencherClassificacao("classificacao-alunos-evadidos", kpis.evadidos.classificacao);
+        preencherClassificacao("classificacao-taxa-evasao", kpis.taxaEvasao.classificacao);
+        preencherClassificacao("classificacao-evasao-presencial-ead", kpis.evasaoPresencialEAD.classificacao);
+
+    } catch (error) {
+        console.error("Erro ao buscar KPIs:", error);
+        ["total-matriculas", "alunos-evadidos", "taxa-evasao", "evasao-presencial-ead"]
+            .forEach(id => document.getElementById(id).textContent = "N/A");
     }
-  } catch (error) {
-    console.error("Erro ao buscar KPIs:", error);
-    totalMatriculas.textContent = "N/A";
-    alunosEvadidos.textContent = "N/A";
-    taxaEvasao.textContent = "N/A";
-    evasaoPresencialEAD.textContent = "N/A";
-  }
+}
+
+function preencherClassificacao(elementoId, classificacao) {
+    const el = document.getElementById(elementoId);
+    if (!el) return;
+
+    if (classificacao) {
+        el.textContent = `${classificacao.nome} — ${classificacao.descricao}`;
+        el.style.color = classificacao.cor;
+    } else {
+        el.textContent = "Sem classificação";
+        el.style.color = "";
+    }
 }
 
 function carregarGraficoRanking() {
@@ -100,6 +115,12 @@ function carregarGraficoRanking() {
       console.log("Dados do gráfico de ranking:", responseData);
 
       const listaDados = responseData.dados || [];
+
+      if (listaDados.length > 0) {
+          document.getElementById("nome-instituicao").textContent =
+              listaDados[0].nomeInstituicao;
+      }
+
       const anosUnicos = [
         ...new Set(listaDados.map((item) => item.anoEmissao)),
       ].sort();
@@ -206,9 +227,10 @@ function carregarGraficoEvasao() {
     .then((responseData) => {
       console.log("Dados do gráfico tendência de evasão:", responseData);
 
-      const listaDados = responseData.dados || [];
+      const listaDados = responseData.dados?.serie || [];
+
       const anosUnicos = [
-        ...new Set(listaDados.map((item) => item.anoEmissao)),
+        ...new Set(listaDados.map((item) => item.ano)),
       ].sort();
 
       const chartExistente = Chart.getChart("chartTrend");
@@ -217,22 +239,21 @@ function carregarGraficoEvasao() {
       }
 
       const matriculasAlinhadas = anosUnicos.map((ano) => {
-        const registro = listaDados.find((item) => item.anoEmissao === ano);
-        return registro ? Number(registro.totalMatriculas) : 0;
+        const registro = listaDados.find((item) => item.ano === ano);
+        return registro ? Number(registro.matriculas) : 0;
       });
 
       const evadidosAlinhados = anosUnicos.map((ano) => {
-        const registro = listaDados.find((item) => item.anoEmissao === ano);
-        return registro ? Number(registro.qtdDesvinculados) : 0;
+        const registro = listaDados.find((item) => item.ano === ano);
+        return registro ? Number(registro.evadidos) : 0;
       });
 
       const trancadosAlinhados = anosUnicos.map((ano) => {
-        const registro = listaDados.find((item) => item.anoEmissao === ano);
-        return registro ? Number(registro.qtdTrancados) : 0;
+        const registro = listaDados.find((item) => item.ano === ano);
+        return registro ? Number(registro.trancados) : 0;
       });
 
       const tipoGrafico = anosUnicos.length === 1 ? "bar" : "line";
-
       const ehBarra = tipoGrafico === "bar";
 
       const datasetsFormatados = [

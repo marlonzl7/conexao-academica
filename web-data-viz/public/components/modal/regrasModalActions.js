@@ -34,6 +34,8 @@ window.abrirModalEdicaoRegra = async function (id, classificacao, kpi, descricao
     document.getElementById("edicao-kpi").value = kpi;
     document.getElementById("edicao-limite_inferior").value = inferior;
     document.getElementById("edicao-limite_superior").value = superior;
+    document.getElementById("edicao-descricao").value = descricao;
+    document.getElementById("edicao-cor").value = `#${cor}`;
 };
 
 window.abrirModalDelecaoRegra = function (id) {

@@ -35,6 +35,7 @@ CREATE TABLE usuario (
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     ativo TINYINT NOT NULL DEFAULT 0,
+    recebe_email TINYINT NOT NULL DEFAULT 0,
     CONSTRAINT chk_usuario_autorizado CHECK ((id_instituicao IS NULL AND id_curso IS NULL) OR (id_instituicao IS NOT NULL AND id_curso IS NULL) OR (id_curso IS NOT NULL AND id_instituicao IS NULL)),
     CONSTRAINT fk_usuario_cargo FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo),
     CONSTRAINT fK_usuario_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
@@ -54,8 +55,8 @@ CREATE TABLE regra (
     classificacao VARCHAR(20) NOT NULL,
     descricao VARCHAR(120) NOT NULL,
     cor_hexadecimal CHAR(6),
-    limite_inferior DECIMAL(5,2) NOT NULL,
-    limite_superior DECIMAL(5,2) NOT NULL,
+    limite_inferior DECIMAL(8,2) NOT NULL,
+    limite_superior DECIMAL(8,2) NOT NULL,
     CONSTRAINT fk_regra_instituicao FOREIGN KEY (id_instituicao) REFERENCES instituicao(id_instituicao),
     CONSTRAINT fk_regra_kpi FOREIGN KEY (id_kpi) REFERENCES kpi(id_kpi),
     CONSTRAINT chk_limite CHECK (limite_inferior < limite_superior)

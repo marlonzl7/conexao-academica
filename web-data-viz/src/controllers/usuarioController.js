@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+var regraService = require("../services/regraService");
 var { respostaSucesso, respostaErro } = require("../dtos/resposta");
 
 async function login(req, res) {
@@ -104,11 +105,12 @@ const emailService = require("../services/emailService");
 
 async function cadastrarUsuarioAdministradorInstituicao(req, res) {
     try {
-        const { idInstituicao, cpf, nome, email, senha } = req.body;
+        const { idInstituicao, cpf, nome, email, senha, receberNoticias } = req.body;
 
         console.log(req.body);
 
-        await usuarioModel.cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email, senha);
+        await usuarioModel.cadastrarAdministradorInstituicao(idInstituicao, cpf, nome, email, senha, receberNoticias);
+        await regraService.inicializarRegrasKpisInstituicao(idInstituicao);
 
         try {
             await emailService.enviarEmailCadastroConcluido(email, nome);
@@ -133,9 +135,9 @@ async function cadastrarUsuarioAdministradorInstituicao(req, res) {
 
 async function cadastrarUsuarioDiretor(req, res) {
     try {
-        const { id_instituicao, cpf, nome, email, senha } = req.body;
+        const { id_instituicao, cpf, nome, email, senha, receberNoticias } = req.body;
 
-        await usuarioModel.cadastrarUsuarioDiretor(id_instituicao, cpf, nome, email, senha);
+        await usuarioModel.cadastrarUsuarioDiretor(id_instituicao, cpf, nome, email, senha, receberNoticias);
 	
 	try {
 	    await emailService.enviaremailCadastroConcluido(email, nome);
