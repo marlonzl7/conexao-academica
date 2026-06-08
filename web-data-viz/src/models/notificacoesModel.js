@@ -133,7 +133,6 @@ async function listarDisparosDiretor(idInstituicao) {
         JOIN regra r ON r.id_regra  = a.id_regra
         JOIN kpi k ON k.id_kpi    = r.id_kpi
         WHERE r.id_instituicao = ?
-          AND d.contexto NOT LIKE 'Curso:%'
         ORDER BY d.data_hora DESC
         LIMIT 100
     `;

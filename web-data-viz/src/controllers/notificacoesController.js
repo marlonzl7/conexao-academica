@@ -17,19 +17,15 @@ async function processarAlertas(alertasConfigurados, valoresKpi) {
     for (const { valor, contexto } of leituras) {
       let condicaoDisparada = null;
 
-      if (
-        alerta.condicao_configurada === "Superior" &&
-        valor > Number(alerta.limite_superior)
-      ) {
+      if (valor > Number(alerta.limite_superior)) {
         condicaoDisparada = "Superior";
-      } else if (
-        alerta.condicao_configurada === "Inferior" &&
-        valor < Number(alerta.limite_inferior)
-      ) {
+      }
+
+      else if (valor < Number(alerta.limite_inferior)) {
         condicaoDisparada = "Inferior";
       }
 
-      if (!condicaoDisparada) continue;
+      if (!condicaoDisparada || condicaoDisparada !== alerta.condicao_configurada) continue;
 
       const jaDisparou = await model.disparoRecenteExiste(
         alerta.id_alerta,
@@ -80,21 +76,30 @@ async function verificarDiretor(req, res) {
     const alertas = await model.listarAlertasConfigurados(idInstituicao);
     if (!alertas.length) return res.json([]);
 
-    const kpis = await model.buscarKpisInstituicao(idInstituicao);
+    const kpisInst = await model.buscarKpisInstituicao(idInstituicao);
+    const kpisCurso = await model.buscarKpisCursos(idInstituicao);
 
     const valoresKpi = montarValoresKpi((add) => {
-      if (kpis) {
+      if (kpisInst) {
         add(
           "taxa_evasao_instituicao",
-          kpis.taxa_evasao_instituicao,
+          kpisInst.taxa_evasao_instituicao,
           "Instituição",
         );
         add(
           "evadidos_presencial",
-          kpis.evadidos_presencial,
+          kpisInst.evadidos_presencial,
           "Modalidade Presencial",
         );
-        add("evadidos_ead", kpis.evadidos_ead, "Modalidade EaD");
+        add("evadidos_ead", kpisInst.evadidos_ead, "Modalidade EaD");
+      }
+
+      for (const curso of kpisCurso) {
+        const ctx = `Curso: ${curso.nome_curso}`;
+        add("taxa_evasao_curso", curso.taxa_evasao_curso, ctx);
+        add("risco_evasao_curso", curso.risco_evasao_curso, ctx);
+        add("matriculas_curso", curso.matriculas_curso, ctx);
+        add("evadidos_curso", curso.evadidos_curso, ctx);
       }
     });
 
