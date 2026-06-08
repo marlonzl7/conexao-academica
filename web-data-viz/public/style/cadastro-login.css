@@ -194,7 +194,7 @@ main {
 .input-group {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.6rem;
     width: 100%;
 }
 
@@ -202,7 +202,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1.6rem;
     width: 100%;
 }
 
@@ -377,6 +377,7 @@ main {
     left: 0;
     display: none;
     z-index: 5;
+    margin-top: 4px; 
 }
 
 .erro.ativo {
@@ -387,10 +388,10 @@ main {
     font-size: 0.75rem;
     color: var(--error-color);
     display: block;
-    padding-top: 2px;
+    padding-left: 4px; 
+    line-height: 1.2;
 }
 
-/* --- Popups --- */
 .popup-overlay {
     display: none;
     position: fixed;
