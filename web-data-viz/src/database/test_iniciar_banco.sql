@@ -55,21 +55,6 @@ VALUES
 (2006, 2022, 550, 140, 90),
 (2006, 2023, 580, 160, 100),
 (2006, 2024, 600, 180, 120);
-
-INSERT INTO regra 
-(id_instituicao, id_kpi, classificacao, descricao, cor_hexadecimal, limite_inferior, limite_superior)
-VALUES
--- Regras para a USP (id_instituicao: 1001) - KPI: taxa_evasao_curso (id_kpi: 3)
-(1001, 3, 'ALTO', 'Taxa de evasão crítica para o curso', 'FF0000', 30.00, 100.00),
-(1001, 3, 'MEDIO', 'Taxa de evasão em estado de alerta', 'FFA500', 15.00, 29.99),
-
--- Regras para a UFMG (id_instituicao: 1002) - KPI: risco_evasao_curso (id_kpi: 4)
-(1002, 4, 'ALTO', 'Risco de evasão calculado muito alto', 'FF0000', 25.00, 100.00),
-(1002, 4, 'MEDIO', 'Risco de evasão calculado moderado', 'FFA500', 10.00, 24.99),
-
--- Regras para a Faculdade EAD Brasil (id_instituicao: 1004) - KPI: taxa_evasao_curso (id_kpi: 3)
-(1004, 3, 'ALTO', 'Evasão severa no ambiente virtual', 'FF0000', 20.00, 100.00),
-(1004, 3, 'MEDIO', 'Evasão moderada no ambiente virtual', 'FFA500', 10.00, 19.99);
     
 -- INSERT CARGOS DO SISTEMA    
 INSERT INTO cargo (nome) VALUES
@@ -86,6 +71,19 @@ INSERT INTO kpi (nome) VALUES
     ('risco_evasao_curso'),
     ('tendencia_evasao_curso'),
     ('total_alunos_matriculados');
+
+INSERT INTO regra (id_instituicao, id_kpi, classificacao, descricao, cor_hexadecimal, limite_inferior, limite_superior) VALUES
+-- Regras para a USP (id_instituicao: 1001) - KPI: taxa_evasao_curso (id_kpi: 3)
+    (1001, 3, 'ALTO', 'Taxa de evasão crítica para o curso', 'FF0000', 30.00, 100.00),
+    (1001, 3, 'MEDIO', 'Taxa de evasão em estado de alerta', 'FFA500', 15.00, 29.99),
+
+-- Regras para a UFMG (id_instituicao: 1002) - KPI: risco_evasao_curso (id_kpi: 4)
+    (1002, 4, 'ALTO', 'Risco de evasão calculado muito alto', 'FF0000', 25.00, 100.00),
+    (1002, 4, 'MEDIO', 'Risco de evasão calculado moderado', 'FFA500', 10.00, 24.99),
+
+-- Regras para a Faculdade EAD Brasil (id_instituicao: 1004) - KPI: taxa_evasao_curso (id_kpi: 3)
+    (1004, 3, 'ALTO', 'Evasão severa no ambiente virtual', 'FF0000', 20.00, 100.00),
+    (1004, 3, 'MEDIO', 'Evasão moderada no ambiente virtual', 'FFA500', 10.00, 19.99);
     
 -- QUERIES DASH COORDENADOR
 SELECT * FROM indicadores_curso;

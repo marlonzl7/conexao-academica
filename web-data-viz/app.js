@@ -23,6 +23,8 @@ var administradorRouter = require("./src/routes/administrador");
 var cargosRouter = require("./src/routes/cargos.js");
 var dashboardDiretorRouter = require("./src/routes/dashboardDiretor.js");
 var dashboardCoordenadorRouter = require("./src/routes/dashboardCoordenador.js");
+var alertasRouter       = require("./src/routes/alertas.js");
+var notificacoesRouter  = require("./src/routes/notificacoes.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,6 +41,8 @@ app.use("/administrador", administradorRouter);
 app.use("/cargos", cargosRouter);
 app.use("/dashboards/diretor", dashboardDiretorRouter);
 app.use("/dashboards/coordenador", dashboardCoordenadorRouter);
+app.use("/alertas",       alertasRouter);
+app.use("/notificacoes",  notificacoesRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
